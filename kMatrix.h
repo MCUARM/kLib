@@ -20,6 +20,18 @@
 
             float & operator ()(unsigned char row, unsigned char column);
 
+            void operator = (const kMatrix & other);
+
+            void operator += (const kMatrix & other);
+            void operator -= (const kMatrix & other);
+            void operator *= (const kMatrix & other);
+
+            friend kMatrix operator + (const kMatrix & m1, const kMatrix & m2);
+            friend kMatrix operator - (const kMatrix & m1, const kMatrix & m2);
+
+
+
+
     };
 
 #endif
