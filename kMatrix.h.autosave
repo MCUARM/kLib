@@ -17,6 +17,10 @@
             kMatrix(unsigned char rows, unsigned char cols);
 
             ~kMatrix(void);
+            
+            unsigned char rows(void);
+            unsigned char cols(void);
+            unsigned char size(void);
 
             float & operator ()(unsigned char row, unsigned char column);
 

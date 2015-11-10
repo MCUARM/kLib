@@ -21,6 +21,21 @@ kMatrix::~kMatrix()
     delete [] this->buff;
 }
 
+unsigned char kMatrix::rows()
+{
+    return this->m_rows;
+}
+
+unsigned char kMatrix::cols()
+{
+    return this->m_cols;
+}
+
+unsigned char kMatrix::size()
+{
+    return this->buff_len;
+}
+
 float &kMatrix::operator ()(unsigned char row, unsigned char column)
 {
     return this->buff[row*this->m_cols + column];
@@ -60,9 +75,29 @@ void kMatrix::operator -=(const kMatrix &other)
     }
 }
 
-void kMatrix::operator *=(const kMatrix &other)
-{
 
+
+kMatrix operator *(kMatrix &m1,kMatrix &m2)
+{
+    unsigned char i,j,k;
+
+    kMatrix res(m1.m_rows,m2.m_cols);
+
+    for(i=0;i<m1.m_rows;i++)
+    {
+        for(j=0;j<m2.m_cols;j++)
+        {
+            res(i,j)=0;
+            for(k=0;k<m1.m_cols;k++) res(i,j) += m1(i,k)*m2(k,j);
+        }
+    }
+
+    return res;
+}
+
+void kMatrix::operator *=(kMatrix &other)
+{
+    (*this) = (*this)*other;
 }
 
 kMatrix operator -(const kMatrix &m1, const kMatrix &m2)
