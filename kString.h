@@ -2,7 +2,7 @@
 #ifndef __kString_H
 #define __kString_H
 
-    	#include <kNew.h>
+        //#include <kNew.h>
 
 	class kString
 	{
