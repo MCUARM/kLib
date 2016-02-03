@@ -15,7 +15,7 @@ kPID::kPID(void)
 
 void kPID::setSamplingTime(float time)
 {
-	if(time != 0) this->T = time;
+	if(time > 0) this->T = time;
 }
 
 float kPID::feed(float x)
