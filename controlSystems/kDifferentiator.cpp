@@ -3,6 +3,7 @@
 kDifferentiator::kDifferentiator(void)
 {
 	this->first_launch = true;
+	this->T = 1;
 }
 void kDifferentiator::setSamplingTime(float time)
 {
