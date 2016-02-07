@@ -1,13 +1,13 @@
 /**
   ******************************************************************************
   * @file    kPort.h
-  * @author  Ko³o Naukowe Kosmonautyki Politechnika Rzeszowska
+  * @author  Koï¿½o Naukowe Kosmonautyki Politechnika Rzeszowska
   * @version V1.0.0
   * @date    29-October-2015
   * @brief   This file contains all the classes and functions prototypes for using
   *          General Purpose Input Output.
   ******************************************************************************
-  * <h2><center>&copy; COPYRIGHT 2015 Ko³o Naukowe Kosmonautyki
+  * <h2><center>&copy; COPYRIGHT 2015 Koï¿½o Naukowe Kosmonautyki
   * Politechnika Rzeszowska</center></h2>
   ******************************************************************************
   */
@@ -115,6 +115,7 @@
 			void operator = (kPin & pin);
 
 		//friends functions - descriptions as above
+
 			friend const kPin& operator , (const kPin& pin, kPinMode mode);
 			friend const kPin& operator , (const kPin& pin, kPinOutType outType);
 			friend const kPin& operator , (const kPin& pin, kPullResistor pullResistor);
