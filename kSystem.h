@@ -22,6 +22,10 @@
 
 			k_System(void);
 			void init(void);
+
+			void setIRQHandler(unsigned char channel,void (*IRQHandler_function_pointer)(void));
+
+
 			unsigned int coreCLK(void);
 			unsigned int systemTimerCLK(void);
 
@@ -31,6 +35,8 @@
 			void wait(unsigned short seconds);
 
 	};
+
+	static void kSystem_Default_IRQ_Handler(void);
 
 	extern k_System kSystem;
 
