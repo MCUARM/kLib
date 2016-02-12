@@ -6,6 +6,8 @@
 	 * Includes
 	 */
 	#include "stm32f4xx.h"
+	#include "kSystem.h"
+	#include "stm32f4xx_tim.h"
 
 	typedef struct
 	{
@@ -48,37 +50,93 @@
 
 
 
+	typedef struct
+	{
+		unsigned char kPWM_Pin;
+	}kPWM_Timer2Pin;
+
+	typedef struct
+	{
+		kPWM_Timer2Pin PORTA0;
+		kPWM_Timer2Pin PORTA5;
+		kPWM_Timer2Pin PORTA15;
+	}kPWM_OC1_Timer2;
+
+	typedef struct
+	{
+		kPWM_Timer2Pin PORTA1;
+		kPWM_Timer2Pin PORTB3;
+	}kPWM_OC2_Timer2;
+
+	typedef struct
+	{
+		kPWM_Timer2Pin PORTA2;
+		kPWM_Timer2Pin PORTB10;
+	}kPWM_OC3_Timer2;
+
+	typedef struct
+	{
+		kPWM_Timer2Pin PORTA3;
+		kPWM_Timer2Pin PORTB11;
+	}kPWM_OC4_Timer2;
+
+	typedef struct
+	{
+		kPWM_OC1_Timer2 OC1;
+		kPWM_OC2_Timer2 OC2;
+		kPWM_OC3_Timer2 OC3;
+		kPWM_OC4_Timer2 OC4;
+
+	}kPWM_Timer2;
+
+
+
 	class kPWM
 	{
 		public:
 
-			typedef enum
-			{
-				activeHigh,
-				activeLow
-			}kPWM_ActiveState;
+		typedef enum
+		{
+			activeHigh,
+			activeLow
+		}kPWM_ActiveState;
 
 		class kPWMHardware
 		{
+			uint32_t default_CCR;
+
 			public:
 
-				GPIO_TypeDef * gpio;
-				unsigned char pin;
 
-				kPWMHardware& operator = (const kPWM_Timer1Pin & pwmHard);
-				kPWMHardware& operator , (const kPWM_Timer1Pin & pwmHard);
+				TIM_TypeDef * tim;
+				uint32_t * output;
 
-				kPWMHardware& operator = (const kPWM_ActiveState state);
-				kPWMHardware& operator , (const kPWM_ActiveState state);
+				kPWMHardware(void);
+
+				kPWMHardware& operator = (const kPWM_Timer2Pin & pwmHard);
+				kPWMHardware& operator , (const kPWM_Timer2Pin & pwmHard);
+
+				kPWMHardware& operator = (const kPWM::kPWM_ActiveState state);
+				kPWMHardware& operator , (const kPWM::kPWM_ActiveState state);
+
+
+
 
 		};
 
 
+			kPWM(void);
+
+
+			void start(unsigned short int resolution, unsigned int tick_freq);
+
 			kPWMHardware hardware;
 
 			static const kPWM_Timer1 * Timer1;
+			static const kPWM_Timer2 * Timer2;
 
 
 	};
+
 
 #endif
