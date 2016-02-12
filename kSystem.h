@@ -27,6 +27,12 @@
 
 
 			unsigned int coreCLK(void);
+			unsigned int APB1_CLK(void);
+			unsigned int APB2_CLK(void);
+
+			unsigned int APB1_Timer_CLK(void);
+			unsigned int APB2_Timer_CLK(void);
+
 			unsigned int systemTimerCLK(void);
 
 			void waitTicks(unsigned short ticks);
@@ -36,7 +42,7 @@
 
 	};
 
-	static void kSystem_Default_IRQ_Handler(void);
+
 
 	extern k_System kSystem;
 

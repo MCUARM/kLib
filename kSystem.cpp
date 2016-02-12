@@ -1,5 +1,6 @@
 #include "kSystem.h"
 
+static void kSystem_Default_IRQ_Handler(void);
 
 extern void (* const g_pfnVectors[])(void);
 
@@ -160,7 +161,7 @@ unsigned int k_System::coreCLK(void)
 			if(RCC->PLLCFGR & (1<<22)) clock = HSE_VALUE; // HSE
 			else clock = HSI_VALUE; // HSI
 
-			//N mulit
+			//N multi
 			temp = RCC->PLLCFGR & 0x00007FC0;
 			temp = temp >> 6;
 
@@ -200,6 +201,68 @@ unsigned int k_System::coreCLK(void)
 
 	return clock;
 }
+unsigned int k_System::APB1_CLK(void)
+{
+	unsigned int HCLK = this->coreCLK();
+
+	// get APB1 prescaler
+	unsigned int pres = RCC->CFGR & (7<<10);
+	pres = pres >> 10;
+
+	if(pres < 4) return HCLK;
+
+	pres -= 3;
+	HCLK = HCLK >> pres;
+
+	return HCLK;
+}
+unsigned int k_System::APB2_CLK(void)
+{
+	unsigned int HCLK = this->coreCLK();
+
+	// get APB1 prescaler
+	unsigned int pres = RCC->CFGR & (7<<13);
+	pres = pres >> 13;
+
+	if(pres < 4) return HCLK;
+
+	pres -= 3;
+	HCLK = HCLK >> pres;
+
+	return HCLK;
+}
+unsigned int k_System::APB1_Timer_CLK(void)
+{
+	unsigned int HCLK = this->coreCLK();
+
+	// get APB1 prescaler
+	unsigned int pres = RCC->CFGR & (7<<10);
+	pres = pres >> 10;
+
+	if(pres < 4) return HCLK;
+
+	pres -= 2;
+	HCLK = HCLK >> pres;
+
+	return HCLK;
+}
+unsigned int k_System::APB2_Timer_CLK(void)
+{
+	unsigned int HCLK = this->coreCLK();
+
+	// get APB1 prescaler
+	unsigned int pres = RCC->CFGR & (7<<13);
+	pres = pres >> 13;
+
+	// if statement true HCLK is not divided
+	if(pres < 4) return HCLK;
+
+	pres -= 2;
+	HCLK = HCLK >> pres;
+
+	return HCLK;
+}
+
 unsigned int k_System::systemTimerCLK()
 {
 	return (this->coreCLK() >> 3);
