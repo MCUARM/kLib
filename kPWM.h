@@ -6,18 +6,21 @@
 	/*Issues
 	 *
 	 * At this time library support following hardware
-	 * TIM1, TIM2, TIM3
+	 * TIM1, TIM2, TIM3, TIM4
 	 *
 	 *
 	 * TIM1
-	 * -all channels work fine
+	 * -all channels work properly
 	 *
 	 * TIM2
 	 * -OC2 doesn't work at PORTA1
 	 * -OC3 doesn't work at PORTA2
 	 *
 	 * TIM3
-	 * -all channels work fine
+	 * -all channels work properly
+	 *
+	 * TIM4
+	 * -all channels work properly
 	 *
 	 * tested under stm32f429xx/
 	*/
@@ -310,6 +313,7 @@
 				kPWMHardware& operator = (const kPWM_Timer2Pin & pwmHard);
 				kPWMHardware& operator = (const kPWM_Timer1Pin & pwmHard);
 				kPWMHardware& operator = (const kPWM_Timer3Pin & pwmHard);
+				kPWMHardware& operator = (const kPWM_Timer4Pin & pwmHard);
 
 				kPWMHardware& operator = (const kPWM::kPWM_ActiveState state);
 
