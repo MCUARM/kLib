@@ -644,6 +644,91 @@ kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_Timer4Pin & pwmHa
 	}
 	return *this;
 }
+kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_Timer5Pin & pwmHard)
+{
+	uint32_t reg_add = (uint32_t)&pwmHard;
+	reg_add -= (uint32_t)kPWM::Timer5;
+
+	//register hardware
+	this->tim = TIM5;
+
+	//enable TIM5 clock
+	RCC->APB1ENR |= 8;
+	//stop TIM5
+	TIM5->CR1 &= ~(1);
+
+
+	switch(reg_add)
+	{
+
+		// OC1
+
+			case 0: // PORTA0
+
+				//enable GPIOA clock
+				RCC->AHB1ENR |= 1;
+				//PAx alternate function AF02 (TIM5)
+				GPIOA->AFR[0] &= ~(15<<0);
+				GPIOA->AFR[0] |= (2<<0);
+
+				this->setupPWMpin(GPIOA,0);
+				this->setupTimxOCx(TIM5,0);
+
+			break;
+
+		//OC2
+
+			case 1: // PORTA1
+
+				//enable GPIOA clock
+				RCC->AHB1ENR |= 1;
+				//PAx alternate function AF02 (TIM5)
+				GPIOA->AFR[0] &= ~(15<<4);
+				GPIOA->AFR[0] |= (2<<4);
+
+				this->setupPWMpin(GPIOA,1);
+				this->setupTimxOCx(TIM5,1);
+
+			break;
+
+		//OC3
+
+			case 2: // PORTA2
+
+				//enable GPIOA clock
+				RCC->AHB1ENR |= 1;
+				//PAx alternate function AF02 (TIM5)
+				GPIOA->AFR[0] &= ~(15<<8);
+				GPIOA->AFR[0] |= (2<<8);
+
+				this->setupPWMpin(GPIOA,2);
+				this->setupTimxOCx(TIM5,2);
+
+			break;
+
+		//OC4
+
+			case 3: // PORTA3
+
+				//enable GPIOA clock
+				RCC->AHB1ENR |= 1;
+				//PAx alternate function AF02 (TIM5)
+				GPIOA->AFR[0] &= ~(15<<12);
+				GPIOA->AFR[0] |= (2<<12);
+
+				this->setupPWMpin(GPIOA,3);
+				this->setupTimxOCx(TIM5,3);
+
+			break;
+
+		default:
+			// unexpected configuration
+		break;
+	}
+	return *this;
+}
+
+
 void kPWM::run(unsigned short int resolution, unsigned int tick_freq)
 {
 
@@ -653,7 +738,11 @@ void kPWM::run(unsigned short int resolution, unsigned int tick_freq)
 	if(this->hardware.tim == TIM1)
 	{
 		timer_clock = kSystem.APB2_Timer_CLK();
-	}else if(this->hardware.tim == TIM2 || this->hardware.tim == TIM3 || this->hardware.tim == TIM4)
+
+	}else if(this->hardware.tim == TIM2 ||
+			 this->hardware.tim == TIM3 ||
+			 this->hardware.tim == TIM4 ||
+			 this->hardware.tim == TIM5)
 	{
 		timer_clock = kSystem.APB1_Timer_CLK();
 	}
