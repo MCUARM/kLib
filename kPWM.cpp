@@ -727,15 +727,172 @@ kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_Timer5Pin & pwmHa
 	}
 	return *this;
 }
+kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_Timer9Pin & pwmHard)
+{
+	uint32_t reg_add = (uint32_t)&pwmHard;
+	reg_add -= (uint32_t)kPWM::Timer9;
+
+	//register hardware
+	this->tim = TIM9;
+
+	//enable TIM9 clock
+	RCC->APB2ENR |= (1<<16);
+	//stop TIM9
+	TIM9->CR1 &= ~(1);
 
 
+	switch(reg_add)
+	{
+
+		// OC1
+
+			case 0: // PORTA2
+
+				//enable GPIOA clock
+				RCC->AHB1ENR |= 1;
+				//PAx alternate function AF03 (TIM9)
+				GPIOA->AFR[0] &= ~(15<<8);
+				GPIOA->AFR[0] |= (3<<8);
+
+				this->setupPWMpin(GPIOA,2);
+				this->setupTimxOCx(TIM9,0);
+
+			break;
+
+			case 1: // PORTE5
+
+				//enable GPIOE clock
+				RCC->AHB1ENR |= (1<<4);
+				//PEx alternate function AF03 (TIM9)
+				GPIOE->AFR[0] &= ~(15<<20);
+				GPIOE->AFR[0] |= (3<<20);
+
+				this->setupPWMpin(GPIOE,5);
+				this->setupTimxOCx(TIM9,0);
+
+			break;
+
+		// OC2
+
+			case 2: // PORTA3
+
+				//enable GPIOA clock
+				RCC->AHB1ENR |= 1;
+				//PAx alternate function AF03 (TIM9)
+				GPIOA->AFR[0] &= ~(15<<12);
+				GPIOA->AFR[0] |= (3<<12);
+
+				this->setupPWMpin(GPIOA,3);
+				this->setupTimxOCx(TIM9,1);
+
+			break;
+
+			case 3: // PORTE6
+
+				//enable GPIOE clock
+				RCC->AHB1ENR |= (1<<4);
+				//PEx alternate function AF03 (TIM9)
+				GPIOE->AFR[0] &= ~(15<<24);
+				GPIOE->AFR[0] |= (3<<24);
+
+				this->setupPWMpin(GPIOE,6);
+				this->setupTimxOCx(TIM9,1);
+
+			break;
+
+
+			default:
+				// unexpected configuration
+			break;
+	}
+	return *this;
+}
+kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_Timer10Pin & pwmHard)
+{
+	uint32_t reg_add = (uint32_t)&pwmHard;
+	reg_add -= (uint32_t)kPWM::Timer10;
+
+	//register hardware
+	this->tim = TIM10;
+
+	//enable TIM10 clock
+	RCC->APB2ENR |= (1<<17);
+	//stop TIM10
+	TIM10->CR1 &= ~(1);
+
+
+	switch(reg_add)
+	{
+
+		// OC1
+
+			case 0: // PORTB8
+
+				//enable GPIOB clock
+				RCC->AHB1ENR |= 2;
+				//PBx alternate function AF03 (TIM10)
+				GPIOB->AFR[1] &= ~(15<<0);
+				GPIOB->AFR[1] |= (3<<0);
+
+				this->setupPWMpin(GPIOB,8);
+				this->setupTimxOCx(TIM10,0);
+
+			break;
+
+			default:
+				// unexpected configuration
+			break;
+	}
+	return *this;
+}
+kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_Timer11Pin & pwmHard)
+{
+	uint32_t reg_add = (uint32_t)&pwmHard;
+	reg_add -= (uint32_t)kPWM::Timer11;
+
+	//register hardware
+	this->tim = TIM11;
+
+	//enable TIM11 clock
+	RCC->APB2ENR |= (1<<18);
+	//stop TIM10
+	TIM11->CR1 &= ~(1);
+
+
+	switch(reg_add)
+	{
+
+		// OC1
+
+			case 0: // PORTB9
+
+				//enable GPIOB clock
+				RCC->AHB1ENR |= 2;
+				//PBx alternate function AF03 (TIM11)
+				GPIOB->AFR[1] &= ~(15<<4);
+				GPIOB->AFR[1] |= (3<<4);
+
+				this->setupPWMpin(GPIOB,9);
+				this->setupTimxOCx(TIM11,0);
+
+			break;
+
+			default:
+				// unexpected configuration
+			break;
+	}
+	return *this;
+}
 void kPWM::run(unsigned short int resolution, unsigned int tick_freq)
 {
 
 	unsigned int timer_clock;
 	unsigned int prescaler;
 
-	if(this->hardware.tim == TIM1)
+	if(this->hardware.tim == TIM1 ||
+	   this->hardware.tim == TIM9 ||
+	   this->hardware.tim == TIM10 ||
+	   this->hardware.tim == TIM11)
 	{
 		timer_clock = kSystem.APB2_Timer_CLK();
 

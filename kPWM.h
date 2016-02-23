@@ -6,7 +6,7 @@
 	/*Issues
 	 *
 	 * At this time library support following hardware
-	 * TIM1, TIM2, TIM3, TIM4, TIM5
+	 * TIM1, TIM2, TIM3, TIM4, TIM5, TIM9, TIM10
 	 *
 	 *
 	 * TIM1
@@ -25,6 +25,15 @@
 	 * TIM5
 	 * -OC2 doesn't work at PORTA1
 	 * -OC3 doesn't work at PORTA2
+	 *
+	 * TIM9
+	 * -OC1 doesn't work at PORTA2
+	 *
+	 * TIM10
+	 * -OC1 available, work properly
+	 *
+	 * TIM11
+	 * -OC1 available, work properly
 	 *
 	 * tested under stm32f429xx/
 	*/
@@ -319,6 +328,9 @@
 				kPWMHardware& operator = (const kPWM_Timer3Pin & pwmHard);
 				kPWMHardware& operator = (const kPWM_Timer4Pin & pwmHard);
 				kPWMHardware& operator = (const kPWM_Timer5Pin & pwmHard);
+				kPWMHardware& operator = (const kPWM_Timer9Pin & pwmHard);
+				kPWMHardware& operator = (const kPWM_Timer10Pin & pwmHard);
+				kPWMHardware& operator = (const kPWM_Timer11Pin & pwmHard);
 
 				kPWMHardware& operator = (const kPWM::kPWM_ActiveState state);
 
