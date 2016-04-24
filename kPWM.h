@@ -42,7 +42,9 @@
 	 * Includes
 	 */
 	#include "stm32f4xx.h"
+	#include "misc.h"
 	#include "kSystem.h"
+
 
 	typedef struct
 	{
@@ -291,11 +293,31 @@
 			kPWM_OC1_Timer11 OC1;
 		}kPWM_Timer11;
 
+		typedef struct
+		{
+			unsigned char kPWM_Pin;
+		}kPWM_EXTI0_Pin;
+
+		typedef struct
+		{
+			kPWM_EXTI0_Pin PORTA0;
+			kPWM_EXTI0_Pin PORTB0;
+			kPWM_EXTI0_Pin PORTC0;
+			kPWM_EXTI0_Pin PORTD0;
+			kPWM_EXTI0_Pin PORTE0;
+			kPWM_EXTI0_Pin PORTF0;
+			kPWM_EXTI0_Pin PORTG0;
+		}kPWM_EXTI0;
+
+
 	class kPWM
 	{
 
 
 		public:
+
+
+
 
 		typedef enum
 		{
@@ -307,6 +329,7 @@
 		{
 			private:
 
+				uint32_t last_timer_val;
 
 				void setupPWMpin(GPIO_TypeDef * GPIOx, unsigned char pin);
 				void setupTimxOCx(TIM_TypeDef * TIMx, unsigned char channel_from_zero);
@@ -318,6 +341,7 @@
 
 				TIM_TypeDef * tim;
 				uint32_t * output;
+				uint32_t input;
 
 				kPWMHardware(void);
 
@@ -334,6 +358,7 @@
 
 				kPWMHardware& operator = (const kPWM::kPWM_ActiveState state);
 
+				kPWMHardware& operator = (const kPWM_EXTI0_Pin & pwmHard);
 
 
 
@@ -347,6 +372,9 @@
 
 			void operator = (unsigned short int value);
 
+			//extract input pwm duty
+			operator unsigned int();
+
 
 			kPWMHardware hardware;
 
@@ -359,6 +387,7 @@
 			static const kPWM_Timer10 * Timer10;
 			static const kPWM_Timer11 * Timer11;
 
+			static const kPWM_EXTI0 * EXTI0;
 
 	};
 

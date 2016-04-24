@@ -318,16 +318,16 @@ void kSerial::baud(unsigned int BaudRate)
 }
 const kSerial& operator <<(const kSerial &serial,const char * String)
 {
-	//Dopóki nie zero (koniec ³añcucha znaków) wykonuj pêtlê
+	//Dopï¿½ki nie zero (koniec ï¿½aï¿½cucha znakï¿½w) wykonuj pï¿½tlï¿½
 	while(*String)
 	{
-		//czekaj dopóki bufor nadawczy nie jest pusty (nadajnik wysy³a dane)
+		//czekaj dopï¿½ki bufor nadawczy nie jest pusty (nadajnik wysyï¿½a dane)
 		while(USART_GetFlagStatus(serial.hardware.usart,USART_FLAG_TXE) == RESET);
 
 		//wpisz kolejny znak do bufora nadawczego
 		serial.hardware.usart->DR = (*String & (uint16_t)0x01FF);
 
-		//przesuñ wskaŸnik na nastêpny znak w ³añcuchu znaków
+		//przesuï¿½ wskaï¿½nik na nastï¿½pny znak w ï¿½aï¿½cuchu znakï¿½w
 		String++;
 	}
 
@@ -425,7 +425,7 @@ const kSerial& operator <<(const kSerial &serial,int number)
 
 	if(number < 0)
 	{
-		//czekaj dopóki bufor nadawczy nie jest pusty (nadajnik wysy³a dane)
+		//czekaj dopï¿½ki bufor nadawczy nie jest pusty (nadajnik wysyï¿½a dane)
 		while(USART_GetFlagStatus(serial.hardware.usart,USART_FLAG_TXE) == RESET);
 
 		//wpisz kolejny znak do bufora nadawczego
@@ -447,7 +447,35 @@ const kSerial& operator <<(const kSerial &serial,int number)
 		number = number % div;
 		div /=10;
 
-		//czekaj dopóki bufor nadawczy nie jest pusty (nadajnik wysy³a dane)
+		//czekaj dopï¿½ki bufor nadawczy nie jest pusty (nadajnik wysyï¿½a dane)
+		while(USART_GetFlagStatus(serial.hardware.usart,USART_FLAG_TXE) == RESET);
+
+		//wpisz kolejny znak do bufora nadawczego
+		serial.hardware.usart->DR = ((char)(digit + 48) & (uint16_t)0x01FF);
+
+	}
+
+	return serial;
+}
+const kSerial& operator <<(const kSerial &serial,unsigned int number)
+{
+	long long div=1;
+	unsigned int digit;
+
+	while(div <= number)
+	{
+		div*=10;
+	}
+	if(number == 0) div*=10;
+	div /= 10;
+
+	while(div)
+	{
+		digit = number/div;
+		number = number % div;
+		div /=10;
+
+		//czekaj dopï¿½ki bufor nadawczy nie jest pusty (nadajnik wysyï¿½a dane)
 		while(USART_GetFlagStatus(serial.hardware.usart,USART_FLAG_TXE) == RESET);
 
 		//wpisz kolejny znak do bufora nadawczego
@@ -469,7 +497,7 @@ void kSerial::precision(unsigned char precision_points)
 }
 const kSerial& operator <<(const kSerial &serial,char chr)
 {
-	//czekaj dopóki bufor nadawczy nie jest pusty (nadajnik wysy³a dane)
+	//czekaj dopï¿½ki bufor nadawczy nie jest pusty (nadajnik wysyï¿½a dane)
 	while(USART_GetFlagStatus(serial.hardware.usart,USART_FLAG_TXE) == RESET);
 
 	//wpisz kolejny znak do bufora nadawczego
@@ -519,7 +547,7 @@ const kSerial& operator <<(const kSerial &serial,const kString & str)
 	unsigned short length = str.length();
 	for(i=0;i<length;i++)
 	{
-		//czekaj dopóki bufor nadawczy nie jest pusty (nadajnik wysy³a dane)
+		//czekaj dopï¿½ki bufor nadawczy nie jest pusty (nadajnik wysyï¿½a dane)
 		while(USART_GetFlagStatus(serial.hardware.usart,USART_FLAG_TXE) == RESET);
 
 		//wpisz kolejny znak do bufora nadawczego

@@ -1,0 +1,148 @@
+\hypertarget{_2home_2pxt_2git_2knkresources_2kLib_2kPort_8h-example}{}\section{/home/pxt/git/knkresources/k\+Lib/k\+Port.\+h}
+Contains available pin modes.
+
+k\+Pin\+\_\+example\+\_\+1.\+txt$>$ 
+
+
+\begin{DoxyCodeInclude}
+
+\textcolor{comment}{/* Define to prevent recursive inclusion -------------------------------------*/}
+\textcolor{preprocessor}{#ifndef \_\_kPort\_H}
+\textcolor{preprocessor}{#define \_\_kPort\_H}
+
+\textcolor{comment}{/* Includes ------------------------------------------------------------------*/}
+\textcolor{preprocessor}{    #include "stm32f4xx.h"}
+\textcolor{preprocessor}{    #include "stm32f4xx\_gpio.h"}
+
+    \textcolor{keyword}{class }\hyperlink{classkPin}{kPin}
+    \{
+        \textcolor{comment}{// public access}
+        \textcolor{keyword}{public}:
+
+            \textcolor{keyword}{typedef} \textcolor{keyword}{enum}
+            \{
+                \hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949a554230cb796f1567722de2f735e49aeb}{in},           
+                \hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949acafa1712464c40b469cd18209d298967}{out},     
+                \hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949a90e36f24bfc26ff0c10878e9339c0eef}{alternate}, 
+                \hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949a38b78e28a019a75bc66237f45d5752a0}{analog}        
+            \}\hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949}{kPinMode};
+
+            \textcolor{keyword}{typedef} \textcolor{keyword}{enum}
+            \{
+                \hyperlink{classkPin_a5aa9350fb0a7617a568344d8a074837fa91ae703d8d54aa82385684e9fcd89190}{PushPull},   
+                \hyperlink{classkPin_a5aa9350fb0a7617a568344d8a074837fa0f1c262ab8465ee84ca83377044c6c07}{OpenDrain}  
+            \}\hyperlink{classkPin_a5aa9350fb0a7617a568344d8a074837f}{kPinOutType};
+
+            \textcolor{keyword}{typedef} \textcolor{keyword}{enum}
+            \{
+                \hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18afed0e5fed525988ffab024b212f778de}{NoPull},       
+                \hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18a149a20dc06140c63aa9939f0f974823d}{PullUp},       
+                \hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18a494be2d7584a71eb80aad5008bb52e9a}{PullDown}    
+            \}\hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18}{kPullResistor};
+
+            \textcolor{keyword}{typedef} \textcolor{keyword}{enum}
+            \{
+                \hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8babf1cc1c1725ace9389d0ec589abfbc95}{LowSpeed},       
+                \hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8bab65b9156fa586ff9e9cdca7d8cdcf3d0}{MediumSpeed}, 
+                \hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8ba42a2d420a8ca9da17870c1a0ebc89d89}{HighSpeed},     
+                \hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8ba637da5063c11dbfb83b98ea6a2d84588}{VeryHighSpeed}  
+            \}\hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8b}{kPinSpeed};
+
+        \textcolor{comment}{//public properties}
+
+            GPIO\_TypeDef * gpio;
+            \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} pin;
+
+        \textcolor{comment}{//constructors}
+
+            \textcolor{comment}{//default constructor}
+            \hyperlink{classkPin}{kPin}(\textcolor{keywordtype}{void});
+            \textcolor{comment}{//constructor with hardware attachment}
+            \hyperlink{classkPin}{kPin}(GPIO\_TypeDef * GPIO,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} PIN);
+            \textcolor{comment}{//copy constructor}
+            \hyperlink{classkPin}{kPin}(\textcolor{keyword}{const} \hyperlink{classkPin}{kPin} & pin);
+
+        \textcolor{comment}{//destructor}
+
+
+        \textcolor{comment}{//public methods}
+
+            \textcolor{comment}{// get actual state on pin}
+            \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \textcolor{keyword}{get}(void);
+            \textcolor{comment}{// set pin (writes 1), this function has an effect only in output mode}
+            \textcolor{keywordtype}{void} \textcolor{keyword}{set}(void);
+            \textcolor{comment}{// reset pin (writes 0), this function has an effect only in output mode}
+            \textcolor{keywordtype}{void} reset(\textcolor{keywordtype}{void});
+            \textcolor{comment}{// toggle state on pin (when 1 set to 0; when 0 set to 1), this function has an effect only in
+       output mode}
+            \textcolor{keywordtype}{void} toggle(\textcolor{keywordtype}{void});
+
+        \textcolor{comment}{//operators overloading}
+
+            \textcolor{comment}{// writes new state on pin}
+            \textcolor{keywordtype}{void} operator = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} state);
+            \textcolor{comment}{// setup pin mode}
+            \textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& operator = (kPinMode mode);
+            \textcolor{comment}{// setup pin output mode}
+            \textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& operator = (kPinOutType outType);
+            \textcolor{comment}{// setup pin Pull-Up,Pull-Down resistors}
+            \textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& operator = (kPullResistor pullResistor);
+            \textcolor{comment}{// setup maximum pin toggling frequency}
+            \textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& operator = (kPinSpeed speed);
+
+            \textcolor{comment}{// writes the same state on pin as in given pin in argument}
+            \textcolor{keywordtype}{void} operator = (\hyperlink{classkPin}{kPin} & pin);
+
+        \textcolor{comment}{//friends functions - descriptions as above}
+
+            \textcolor{keyword}{friend} \textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& operator , (\textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& pin, kPinMode mode);
+            \textcolor{keyword}{friend} \textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& operator , (\textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& pin, kPinOutType outType);
+            \textcolor{keyword}{friend} \textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& operator , (\textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& pin, kPullResistor pullResistor);
+            \textcolor{keyword}{friend} \textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& operator , (\textcolor{keyword}{const} \hyperlink{classkPin}{kPin}& pin, kPinSpeed speed);
+
+        \textcolor{comment}{//type conversion functions}
+
+            \textcolor{comment}{//specifies conversion from kPin to unsigned char. This function is equal to get() function}
+            \textcolor{keyword}{operator} \textcolor{keywordtype}{unsigned} char();
+
+
+
+    \};
+
+    \textcolor{keyword}{class }\hyperlink{classkPort}{kPort} \{
+
+        \textcolor{keyword}{private}:
+
+            GPIO\_TypeDef * gpio;
+
+        \textcolor{keyword}{public}:
+
+            \textcolor{keyword}{typedef} \textcolor{keyword}{enum}
+            \{
+                off,
+                on
+            \}kPortPower;
+
+            \hyperlink{classkPort}{kPort}(GPIO\_TypeDef * GPIO);
+            \hyperlink{classkPin}{kPin} operator [](\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} pin);
+            \textcolor{keywordtype}{void} operator = (\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} state);
+
+            \textcolor{keywordtype}{void} operator = (kPortPower power);
+            \textcolor{keyword}{operator} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} int();
+
+    \};
+
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTA;
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTB;
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTC;
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTD;
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTE;
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTF;
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTG;
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTH;
+    \textcolor{keyword}{extern} \hyperlink{classkPort}{kPort} PORTI;
+
+
+\textcolor{preprocessor}{#endif}
+\end{DoxyCodeInclude}
+ 

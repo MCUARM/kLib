@@ -1,0 +1,26 @@
+\hypertarget{kPort_example_LED_8cpp-example}{}\section{k\+Port\+\_\+example\+\_\+\+L\+E\+D.\+cpp}
+This example shows how to use \hyperlink{classkPin}{k\+Pin} class to control L\+ED diode
+
+
+\begin{DoxyCodeInclude}
+\textcolor{preprocessor}{#include "kSystem.h"}
+\textcolor{preprocessor}{#include "\hyperlink{kPort_8h}{kPort.h}"}
+
+\textcolor{keywordtype}{void} main(\textcolor{keywordtype}{void})
+\{
+    PORTA = kPort::on;      \textcolor{comment}{//Power on PORTA (by default is off)}
+    \hyperlink{classkPin}{kPin} LED = PORTA[2];    \textcolor{comment}{//kPin declaration named LED attached to PORTA2}
+    LED = \hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949acafa1712464c40b469cd18209d298967}{kPin::out};       \textcolor{comment}{//set LED pin as output (by default input mode selected)}
+
+    \textcolor{keywordflow}{while}(1)
+    \{
+        \textcolor{comment}{// program main loop}
+        
+        kSystem.waitms(500);    \textcolor{comment}{// wait half a second}
+        LED.\hyperlink{classkPin_af4c6220ae2ed038236d729f867940938}{toggle}();         \textcolor{comment}{// toggle LED state (blink LED)}
+    \}
+
+
+\}
+\end{DoxyCodeInclude}
+ 

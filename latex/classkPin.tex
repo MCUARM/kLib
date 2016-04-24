@@ -1,0 +1,256 @@
+\hypertarget{classkPin}{}\section{k\+Pin Class Reference}
+\label{classkPin}\index{k\+Pin@{k\+Pin}}
+
+
+\hyperlink{classkPin}{k\+Pin} class is used as abstract layer to handle input/output pin functionality  
+
+
+
+
+{\ttfamily \#include $<$k\+Port.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949}{k\+Pin\+Mode} \{ \hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949a554230cb796f1567722de2f735e49aeb}{in}, 
+\hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949acafa1712464c40b469cd18209d298967}{out}, 
+\hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949a90e36f24bfc26ff0c10878e9339c0eef}{alternate}, 
+\hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949a38b78e28a019a75bc66237f45d5752a0}{analog}
+ \}\begin{DoxyCompactList}\small\item\em Contains available pin modes. \end{DoxyCompactList}
+\item 
+enum \hyperlink{classkPin_a5aa9350fb0a7617a568344d8a074837f}{k\+Pin\+Out\+Type} \{ \hyperlink{classkPin_a5aa9350fb0a7617a568344d8a074837fa91ae703d8d54aa82385684e9fcd89190}{Push\+Pull}, 
+\hyperlink{classkPin_a5aa9350fb0a7617a568344d8a074837fa0f1c262ab8465ee84ca83377044c6c07}{Open\+Drain}
+ \}\begin{DoxyCompactList}\small\item\em Definition of type containing output mode types. \end{DoxyCompactList}
+\item 
+enum \hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18}{k\+Pull\+Resistor} \{ \hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18afed0e5fed525988ffab024b212f778de}{No\+Pull}, 
+\hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18a149a20dc06140c63aa9939f0f974823d}{Pull\+Up}, 
+\hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18a494be2d7584a71eb80aad5008bb52e9a}{Pull\+Down}
+ \}\begin{DoxyCompactList}\small\item\em Definition of type containing pull resistors settings. \end{DoxyCompactList}
+\item 
+enum \hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8b}{k\+Pin\+Speed} \{ \hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8babf1cc1c1725ace9389d0ec589abfbc95}{Low\+Speed}, 
+\hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8bab65b9156fa586ff9e9cdca7d8cdcf3d0}{Medium\+Speed}, 
+\hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8ba42a2d420a8ca9da17870c1a0ebc89d89}{High\+Speed}, 
+\hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8ba637da5063c11dbfb83b98ea6a2d84588}{Very\+High\+Speed}
+ \}\begin{DoxyCompactList}\small\item\em Definition of type containing maximum state toggling frequencies of pin. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classkPin_a6298d5af7b3abb27ba12e91a926b124b}{k\+Pin} (void)\hypertarget{classkPin_a6298d5af7b3abb27ba12e91a926b124b}{}\label{classkPin_a6298d5af7b3abb27ba12e91a926b124b}
+
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classkPin_ab566517aa9b1985a0c1093e193730c9d}{k\+Pin} (G\+P\+I\+O\+\_\+\+Type\+Def $\ast$G\+P\+IO, unsigned char P\+IN)
+\begin{DoxyCompactList}\small\item\em Constructor with hardware attachment. \end{DoxyCompactList}\item 
+\hyperlink{classkPin_a6c7f13462a99ba72e558cfcb389476f6}{k\+Pin} (const \hyperlink{classkPin}{k\+Pin} \&\hyperlink{classkPin_a0da283781fc832c77419bc71ff356cc1}{pin})
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+unsigned char \hyperlink{classkPin_a2ef21ca53fb82456997485b14bac45b0}{get} (void)
+\begin{DoxyCompactList}\small\item\em Get actual state on pin. \end{DoxyCompactList}\item 
+void \hyperlink{classkPin_a5f02fd984651e5a9e92bd3218d8e4bd0}{set} (void)\hypertarget{classkPin_a5f02fd984651e5a9e92bd3218d8e4bd0}{}\label{classkPin_a5f02fd984651e5a9e92bd3218d8e4bd0}
+
+\begin{DoxyCompactList}\small\item\em set pin (writes 1), this function has an effect only in output mode \end{DoxyCompactList}\item 
+void \hyperlink{classkPin_af6c53f90a2f1984bbfb045e75c14f933}{reset} (void)\hypertarget{classkPin_af6c53f90a2f1984bbfb045e75c14f933}{}\label{classkPin_af6c53f90a2f1984bbfb045e75c14f933}
+
+\begin{DoxyCompactList}\small\item\em reset pin (writes 0), this function has an effect only in output mode \end{DoxyCompactList}\item 
+void \hyperlink{classkPin_af4c6220ae2ed038236d729f867940938}{toggle} (void)\hypertarget{classkPin_af4c6220ae2ed038236d729f867940938}{}\label{classkPin_af4c6220ae2ed038236d729f867940938}
+
+\begin{DoxyCompactList}\small\item\em toggle state on pin (when 1 set to 0; when 0 set to 1), this function has an effect only in output mode \end{DoxyCompactList}\item 
+void {\bfseries operator=} (unsigned char state)\hypertarget{classkPin_a3c4330824805701cbcb52431b187f643}{}\label{classkPin_a3c4330824805701cbcb52431b187f643}
+
+\item 
+const \hyperlink{classkPin}{k\+Pin} \& {\bfseries operator=} (\hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949}{k\+Pin\+Mode} mode)\hypertarget{classkPin_aaaad528a43da36662f4361d13419b0c0}{}\label{classkPin_aaaad528a43da36662f4361d13419b0c0}
+
+\item 
+const \hyperlink{classkPin}{k\+Pin} \& {\bfseries operator=} (\hyperlink{classkPin_a5aa9350fb0a7617a568344d8a074837f}{k\+Pin\+Out\+Type} out\+Type)\hypertarget{classkPin_a32d7ae0a031264b9f47a8c691ae16a1e}{}\label{classkPin_a32d7ae0a031264b9f47a8c691ae16a1e}
+
+\item 
+const \hyperlink{classkPin}{k\+Pin} \& {\bfseries operator=} (\hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18}{k\+Pull\+Resistor} pull\+Resistor)\hypertarget{classkPin_af5fd9228e54385316b644f190c6f5dfc}{}\label{classkPin_af5fd9228e54385316b644f190c6f5dfc}
+
+\item 
+const \hyperlink{classkPin}{k\+Pin} \& {\bfseries operator=} (\hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8b}{k\+Pin\+Speed} speed)\hypertarget{classkPin_a91238da7b4019164f8205f8a3219628d}{}\label{classkPin_a91238da7b4019164f8205f8a3219628d}
+
+\item 
+void {\bfseries operator=} (\hyperlink{classkPin}{k\+Pin} \&\hyperlink{classkPin_a0da283781fc832c77419bc71ff356cc1}{pin})\hypertarget{classkPin_aef0f51fbe34f5a0c05cb98669e80dc4f}{}\label{classkPin_aef0f51fbe34f5a0c05cb98669e80dc4f}
+
+\item 
+\hyperlink{classkPin_ad68a3e0f49384a776ddd955a7258e95f}{operator unsigned char} ()\hypertarget{classkPin_ad68a3e0f49384a776ddd955a7258e95f}{}\label{classkPin_ad68a3e0f49384a776ddd955a7258e95f}
+
+\begin{DoxyCompactList}\small\item\em specifies conversion from \hyperlink{classkPin}{k\+Pin} to unsigned char. This function is equal to \hyperlink{classkPin_a2ef21ca53fb82456997485b14bac45b0}{get()} function \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+G\+P\+I\+O\+\_\+\+Type\+Def $\ast$ \hyperlink{classkPin_a3aee22ce5c4e5bc8703f881efa5f3375}{gpio}
+\item 
+unsigned char \hyperlink{classkPin_a0da283781fc832c77419bc71ff356cc1}{pin}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{classkPin}{k\+Pin} \& {\bfseries operator,} (const \hyperlink{classkPin}{k\+Pin} \&\hyperlink{classkPin_a0da283781fc832c77419bc71ff356cc1}{pin}, \hyperlink{classkPin_a311ea70432d9c48754eacc8d8ce8a949}{k\+Pin\+Mode} mode)\hypertarget{classkPin_ab0ba0ce3d6f1a0f08480748e102cd0ba}{}\label{classkPin_ab0ba0ce3d6f1a0f08480748e102cd0ba}
+
+\item 
+const \hyperlink{classkPin}{k\+Pin} \& {\bfseries operator,} (const \hyperlink{classkPin}{k\+Pin} \&\hyperlink{classkPin_a0da283781fc832c77419bc71ff356cc1}{pin}, \hyperlink{classkPin_a5aa9350fb0a7617a568344d8a074837f}{k\+Pin\+Out\+Type} out\+Type)\hypertarget{classkPin_a19d953ec4a8e71818ba72d18d769cda2}{}\label{classkPin_a19d953ec4a8e71818ba72d18d769cda2}
+
+\item 
+const \hyperlink{classkPin}{k\+Pin} \& {\bfseries operator,} (const \hyperlink{classkPin}{k\+Pin} \&\hyperlink{classkPin_a0da283781fc832c77419bc71ff356cc1}{pin}, \hyperlink{classkPin_a4d00e25b986e7851957a68deb1c91b18}{k\+Pull\+Resistor} pull\+Resistor)\hypertarget{classkPin_a53b5fbd0822536e24e4d01af9871b216}{}\label{classkPin_a53b5fbd0822536e24e4d01af9871b216}
+
+\item 
+const \hyperlink{classkPin}{k\+Pin} \& {\bfseries operator,} (const \hyperlink{classkPin}{k\+Pin} \&\hyperlink{classkPin_a0da283781fc832c77419bc71ff356cc1}{pin}, \hyperlink{classkPin_a93c5cec6b9b90fda782cfa847eacdb8b}{k\+Pin\+Speed} speed)\hypertarget{classkPin_a68646ef55ab985565d1119ebf4a4cf2f}{}\label{classkPin_a68646ef55ab985565d1119ebf4a4cf2f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classkPin}{k\+Pin} class is used as abstract layer to handle input/output pin functionality \begin{Desc}
+\item[Examples\+: ]\par
+\hyperlink{kPort_example_LED_8cpp-example}{k\+Port\+\_\+example\+\_\+\+L\+E\+D.\+cpp}.\end{Desc}
+
+
+\subsection{Member Enumeration Documentation}
+\index{k\+Pin@{k\+Pin}!k\+Pin\+Mode@{k\+Pin\+Mode}}
+\index{k\+Pin\+Mode@{k\+Pin\+Mode}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{k\+Pin\+Mode}{kPinMode}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf k\+Pin\+::k\+Pin\+Mode}}\hypertarget{classkPin_a311ea70432d9c48754eacc8d8ce8a949}{}\label{classkPin_a311ea70432d9c48754eacc8d8ce8a949}
+
+
+Contains available pin modes. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{in@{in}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!in@{in}}\item[{\em 
+in\hypertarget{classkPin_a311ea70432d9c48754eacc8d8ce8a949a554230cb796f1567722de2f735e49aeb}{}\label{classkPin_a311ea70432d9c48754eacc8d8ce8a949a554230cb796f1567722de2f735e49aeb}
+}]Input mode \index{out@{out}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!out@{out}}\item[{\em 
+out\hypertarget{classkPin_a311ea70432d9c48754eacc8d8ce8a949acafa1712464c40b469cd18209d298967}{}\label{classkPin_a311ea70432d9c48754eacc8d8ce8a949acafa1712464c40b469cd18209d298967}
+}]Output mode \index{alternate@{alternate}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!alternate@{alternate}}\item[{\em 
+alternate\hypertarget{classkPin_a311ea70432d9c48754eacc8d8ce8a949a90e36f24bfc26ff0c10878e9339c0eef}{}\label{classkPin_a311ea70432d9c48754eacc8d8ce8a949a90e36f24bfc26ff0c10878e9339c0eef}
+}]Alternate function mode -\/ pin is controlled by other hardware, i.\+e. U\+S\+A\+RT \index{analog@{analog}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!analog@{analog}}\item[{\em 
+analog\hypertarget{classkPin_a311ea70432d9c48754eacc8d8ce8a949a38b78e28a019a75bc66237f45d5752a0}{}\label{classkPin_a311ea70432d9c48754eacc8d8ce8a949a38b78e28a019a75bc66237f45d5752a0}
+}]Analog mode -\/ mode used with A\+DC \end{description}
+\end{Desc}
+\index{k\+Pin@{k\+Pin}!k\+Pin\+Out\+Type@{k\+Pin\+Out\+Type}}
+\index{k\+Pin\+Out\+Type@{k\+Pin\+Out\+Type}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{k\+Pin\+Out\+Type}{kPinOutType}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf k\+Pin\+::k\+Pin\+Out\+Type}}\hypertarget{classkPin_a5aa9350fb0a7617a568344d8a074837f}{}\label{classkPin_a5aa9350fb0a7617a568344d8a074837f}
+
+
+Definition of type containing output mode types. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Push\+Pull@{Push\+Pull}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!Push\+Pull@{Push\+Pull}}\item[{\em 
+Push\+Pull\hypertarget{classkPin_a5aa9350fb0a7617a568344d8a074837fa91ae703d8d54aa82385684e9fcd89190}{}\label{classkPin_a5aa9350fb0a7617a568344d8a074837fa91ae703d8d54aa82385684e9fcd89190}
+}]Push-\/\+Pull output \index{Open\+Drain@{Open\+Drain}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!Open\+Drain@{Open\+Drain}}\item[{\em 
+Open\+Drain\hypertarget{classkPin_a5aa9350fb0a7617a568344d8a074837fa0f1c262ab8465ee84ca83377044c6c07}{}\label{classkPin_a5aa9350fb0a7617a568344d8a074837fa0f1c262ab8465ee84ca83377044c6c07}
+}]Open-\/\+Drain output \end{description}
+\end{Desc}
+\index{k\+Pin@{k\+Pin}!k\+Pin\+Speed@{k\+Pin\+Speed}}
+\index{k\+Pin\+Speed@{k\+Pin\+Speed}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{k\+Pin\+Speed}{kPinSpeed}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf k\+Pin\+::k\+Pin\+Speed}}\hypertarget{classkPin_a93c5cec6b9b90fda782cfa847eacdb8b}{}\label{classkPin_a93c5cec6b9b90fda782cfa847eacdb8b}
+
+
+Definition of type containing maximum state toggling frequencies of pin. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Low\+Speed@{Low\+Speed}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!Low\+Speed@{Low\+Speed}}\item[{\em 
+Low\+Speed\hypertarget{classkPin_a93c5cec6b9b90fda782cfa847eacdb8babf1cc1c1725ace9389d0ec589abfbc95}{}\label{classkPin_a93c5cec6b9b90fda782cfa847eacdb8babf1cc1c1725ace9389d0ec589abfbc95}
+}]low speed -\/ up to 2\+Mhz \index{Medium\+Speed@{Medium\+Speed}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!Medium\+Speed@{Medium\+Speed}}\item[{\em 
+Medium\+Speed\hypertarget{classkPin_a93c5cec6b9b90fda782cfa847eacdb8bab65b9156fa586ff9e9cdca7d8cdcf3d0}{}\label{classkPin_a93c5cec6b9b90fda782cfa847eacdb8bab65b9156fa586ff9e9cdca7d8cdcf3d0}
+}]medium speed -\/ up to 25\+Mhz \index{High\+Speed@{High\+Speed}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!High\+Speed@{High\+Speed}}\item[{\em 
+High\+Speed\hypertarget{classkPin_a93c5cec6b9b90fda782cfa847eacdb8ba42a2d420a8ca9da17870c1a0ebc89d89}{}\label{classkPin_a93c5cec6b9b90fda782cfa847eacdb8ba42a2d420a8ca9da17870c1a0ebc89d89}
+}]high speed -\/ up to 50\+Mhz \index{Very\+High\+Speed@{Very\+High\+Speed}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!Very\+High\+Speed@{Very\+High\+Speed}}\item[{\em 
+Very\+High\+Speed\hypertarget{classkPin_a93c5cec6b9b90fda782cfa847eacdb8ba637da5063c11dbfb83b98ea6a2d84588}{}\label{classkPin_a93c5cec6b9b90fda782cfa847eacdb8ba637da5063c11dbfb83b98ea6a2d84588}
+}]very high speed -\/ up to 100\+Mhz \end{description}
+\end{Desc}
+\index{k\+Pin@{k\+Pin}!k\+Pull\+Resistor@{k\+Pull\+Resistor}}
+\index{k\+Pull\+Resistor@{k\+Pull\+Resistor}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{k\+Pull\+Resistor}{kPullResistor}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf k\+Pin\+::k\+Pull\+Resistor}}\hypertarget{classkPin_a4d00e25b986e7851957a68deb1c91b18}{}\label{classkPin_a4d00e25b986e7851957a68deb1c91b18}
+
+
+Definition of type containing pull resistors settings. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{No\+Pull@{No\+Pull}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!No\+Pull@{No\+Pull}}\item[{\em 
+No\+Pull\hypertarget{classkPin_a4d00e25b986e7851957a68deb1c91b18afed0e5fed525988ffab024b212f778de}{}\label{classkPin_a4d00e25b986e7851957a68deb1c91b18afed0e5fed525988ffab024b212f778de}
+}]No pull resistors \index{Pull\+Up@{Pull\+Up}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!Pull\+Up@{Pull\+Up}}\item[{\em 
+Pull\+Up\hypertarget{classkPin_a4d00e25b986e7851957a68deb1c91b18a149a20dc06140c63aa9939f0f974823d}{}\label{classkPin_a4d00e25b986e7851957a68deb1c91b18a149a20dc06140c63aa9939f0f974823d}
+}]Use pull-\/up resistor \index{Pull\+Down@{Pull\+Down}!k\+Pin@{k\+Pin}}\index{k\+Pin@{k\+Pin}!Pull\+Down@{Pull\+Down}}\item[{\em 
+Pull\+Down\hypertarget{classkPin_a4d00e25b986e7851957a68deb1c91b18a494be2d7584a71eb80aad5008bb52e9a}{}\label{classkPin_a4d00e25b986e7851957a68deb1c91b18a494be2d7584a71eb80aad5008bb52e9a}
+}]Use pull-\/down resistor \end{description}
+\end{Desc}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{k\+Pin@{k\+Pin}!k\+Pin@{k\+Pin}}
+\index{k\+Pin@{k\+Pin}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{k\+Pin(\+G\+P\+I\+O\+\_\+\+Type\+Def $\ast$\+G\+P\+I\+O, unsigned char P\+I\+N)}{kPin(GPIO_TypeDef *GPIO, unsigned char PIN)}}]{\setlength{\rightskip}{0pt plus 5cm}k\+Pin\+::k\+Pin (
+\begin{DoxyParamCaption}
+\item[{G\+P\+I\+O\+\_\+\+Type\+Def $\ast$}]{G\+P\+IO, }
+\item[{unsigned char}]{P\+IN}
+\end{DoxyParamCaption}
+)}\hypertarget{classkPin_ab566517aa9b1985a0c1093e193730c9d}{}\label{classkPin_ab566517aa9b1985a0c1093e193730c9d}
+
+
+Constructor with hardware attachment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G\+P\+IO} & pointer to G\+P\+IO hardware which will be controlled \\
+\hline
+{\em P\+IN} & specifies pin number (0 to 15) \\
+\hline
+\end{DoxyParams}
+\index{k\+Pin@{k\+Pin}!k\+Pin@{k\+Pin}}
+\index{k\+Pin@{k\+Pin}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{k\+Pin(const k\+Pin \&pin)}{kPin(const kPin &pin)}}]{\setlength{\rightskip}{0pt plus 5cm}k\+Pin\+::k\+Pin (
+\begin{DoxyParamCaption}
+\item[{const {\bf k\+Pin} \&}]{pin}
+\end{DoxyParamCaption}
+)}\hypertarget{classkPin_a6c7f13462a99ba72e558cfcb389476f6}{}\label{classkPin_a6c7f13462a99ba72e558cfcb389476f6}
+
+
+Copy constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & reference to copied \hyperlink{classkPin}{k\+Pin} object \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{k\+Pin@{k\+Pin}!get@{get}}
+\index{get@{get}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{get(void)}{get(void)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char k\+Pin\+::get (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{classkPin_a2ef21ca53fb82456997485b14bac45b0}{}\label{classkPin_a2ef21ca53fb82456997485b14bac45b0}
+
+
+Get actual state on pin. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em 1} & if high level occurred \\
+\hline
+{\em 0} & when low level \\
+\hline
+\end{DoxyRetVals}
+
+
+\subsection{Member Data Documentation}
+\index{k\+Pin@{k\+Pin}!gpio@{gpio}}
+\index{gpio@{gpio}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{gpio}{gpio}}]{\setlength{\rightskip}{0pt plus 5cm}G\+P\+I\+O\+\_\+\+Type\+Def$\ast$ k\+Pin\+::gpio}\hypertarget{classkPin_a3aee22ce5c4e5bc8703f881efa5f3375}{}\label{classkPin_a3aee22ce5c4e5bc8703f881efa5f3375}
+specify hardware gpio to control \index{k\+Pin@{k\+Pin}!pin@{pin}}
+\index{pin@{pin}!k\+Pin@{k\+Pin}}
+\subsubsection[{\texorpdfstring{pin}{pin}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char k\+Pin\+::pin}\hypertarget{classkPin_a0da283781fc832c77419bc71ff356cc1}{}\label{classkPin_a0da283781fc832c77419bc71ff356cc1}
+specify hardware pin number to control 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kPort_8h}{k\+Port.\+h}\item 
+k\+Port.\+cpp\end{DoxyCompactItemize}

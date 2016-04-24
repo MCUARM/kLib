@@ -1,15 +1,11 @@
 /**
   ******************************************************************************
   * @file    kPort.h
-  * @author  Ko�o Naukowe Kosmonautyki Politechnika Rzeszowska
+  * @author  Paweł Zalewski
   * @version V1.0.0
   * @date    29-October-2015
   * @brief   This file contains all the classes and functions prototypes for using
   *          General Purpose Input Output.
-  ******************************************************************************
-  * <h2><center>&copy; COPYRIGHT 2015 Ko�o Naukowe Kosmonautyki
-  * Politechnika Rzeszowska</center></h2>
-  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -21,7 +17,7 @@
 	#include "stm32f4xx_gpio.h"
 
 	/**
-	  * @brief  kPin class definition which is used to handle input/output pin
+	  * @brief  kPin class is used as abstract layer to handle input/output pin
 	  * functionality
 	  */
 	class kPin
@@ -30,8 +26,9 @@
 		public:
 
 			/**
-			  * @brief  Definition of type containing pin modes
+			  * @brief  Contains available pin modes.
 			  */
+
 			typedef enum
 			{
 				in,			/*!< Input mode */
@@ -72,16 +69,26 @@
 
 		//public properties
 
-			GPIO_TypeDef * gpio;
-			unsigned char pin;
+			GPIO_TypeDef * gpio;	/*!< specify hardware gpio to control*/
+			unsigned char pin;		/*!< specify hardware pin number to control*/
 
 		//constructors
 
-			//default constructor
+			/**
+			  * @brief  Default constructor
+			  */
 			kPin(void);
-			//constructor with hardware attachment
+
+			/**
+			  * @brief  Constructor with hardware attachment
+			  * @param GPIO: pointer to GPIO hardware which will be controlled
+			  * @param PIN: specifies pin number (0 to 15)
+			  */
 			kPin(GPIO_TypeDef * GPIO,unsigned char PIN);
-			//copy constructor
+			/**
+			  * @brief  Copy constructor
+			  * @param pin: reference to copied kPin object
+			  */
 			kPin(const kPin & pin);
 
 		//destructor
@@ -89,13 +96,24 @@
 
 		//public methods
 
-			// get actual state on pin
+			/**
+			  * @brief  Get actual state on pin
+			  * @retval 1 if high level occurred
+ 	 	 	  * @retval 0 when low level
+			  */
 			unsigned char get(void);
-			// set pin (writes 1), this function has an effect only in output mode
+
+			/**
+			  * @brief  set pin (writes 1), this function has an effect only in output mode
+			  */
 			void set(void);
-			// reset pin (writes 0), this function has an effect only in output mode
+			/**
+			  * @brief  reset pin (writes 0), this function has an effect only in output mode
+			  */
 			void reset(void);
-			// toggle state on pin (when 1 set to 0; when 0 set to 1), this function has an effect only in output mode
+			/**
+			  * @brief  toggle state on pin (when 1 set to 0; when 0 set to 1), this function has an effect only in output mode
+			  */
 			void toggle(void);
 
 		//operators overloading
@@ -123,13 +141,19 @@
 
 		//type conversion functions
 
-			//specifies conversion from kPin to unsigned char. This function is equal to get() function
+
+			/**
+			 * @brief specifies conversion from kPin to unsigned char. This function is equal to get() function
+			 */
 			operator unsigned char();
 
 
 
 	};
 
+	/**
+	 *  @brief GPIO abstract layer
+	 */
  	class kPort {
 
  		private:
@@ -144,11 +168,33 @@
 				on
 			}kPortPower;
 
+			/**
+			 *  @brief Constructor with hardware attachment
+			 *  @param GPIO specifies controlled GPIOx where x can be A to I
+			 */
 			kPort(GPIO_TypeDef * GPIO);
+
+			/**
+			 *  @brief Returns specified pin from port as kPin object
+			 *  @param pin: pin number
+			 */
 			kPin operator [](const unsigned char pin);
+
+			/**
+			 *  @brief Writes binary value to output register
+			 *  @param state: new output state on port
+			 */
 			void operator = (const unsigned int state);
 
+			/**
+			 *  @brief Power up/down port
+			 *  @param power: new power state of port
+			 */
 			void operator = (kPortPower power);
+
+			/**
+			 *  @brief Get current state of port input register
+			 */
 			operator unsigned short int();
 
 	};

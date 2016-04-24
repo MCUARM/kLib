@@ -9,6 +9,101 @@ const kPWM_Timer9 * kPWM::Timer9 = (kPWM_Timer9 *)SRAM1_BASE;
 const kPWM_Timer10 * kPWM::Timer10 = (kPWM_Timer10 *)SRAM1_BASE;
 const kPWM_Timer11 * kPWM::Timer11 = (kPWM_Timer11 *)SRAM1_BASE;
 
+const kPWM_EXTI0 * kPWM::EXTI0 = (kPWM_EXTI0 *)SRAM1_BASE;
+
+uint32_t default_input_storage;
+uint32_t default_last_timer_value;
+
+uint32_t * input_storage[16] =
+{
+		&default_input_storage, // channel 0
+		&default_input_storage, // channel 1
+		&default_input_storage, // channel 2
+		&default_input_storage, // channel 3
+		&default_input_storage, // channel 4
+		&default_input_storage, // channel 5
+		&default_input_storage, // channel 6
+		&default_input_storage, // channel 7
+		&default_input_storage, // channel 8
+		&default_input_storage, // channel 9
+		&default_input_storage, // channel 10
+		&default_input_storage, // channel 11
+		&default_input_storage, // channel 12
+		&default_input_storage, // channel 13
+		&default_input_storage, // channel 14
+		&default_input_storage  // channel 15
+};
+uint32_t * last_timer_value[16] =
+{
+		&default_last_timer_value, // channel 0
+		&default_last_timer_value, // channel 1
+		&default_last_timer_value, // channel 2
+		&default_last_timer_value, // channel 3
+		&default_last_timer_value, // channel 4
+		&default_last_timer_value, // channel 5
+		&default_last_timer_value, // channel 6
+		&default_last_timer_value, // channel 7
+		&default_last_timer_value, // channel 8
+		&default_last_timer_value, // channel 9
+		&default_last_timer_value, // channel 10
+		&default_last_timer_value, // channel 11
+		&default_last_timer_value, // channel 12
+		&default_last_timer_value, // channel 13
+		&default_last_timer_value, // channel 14
+		&default_last_timer_value  // channel 15
+};
+
+void kPWM_EXTI0_IRQ_Handler(void)
+{
+	// get timer value
+	uint32_t timer_value = SysTick->VAL;
+
+	// check if rising or falling edge occurred
+	if( (EXTI->RTSR & 1) == 1 ) // rising edge
+	{
+
+		// save timer value
+		*(last_timer_value[0]) = timer_value;
+
+		// change external interrupt trigger to falling edge
+		// disable rising edge trigger
+		EXTI->RTSR &= ~1;
+		// enable falling edge trigger
+		EXTI->FTSR |= 1;
+
+
+	}else 	// falling edge occurred
+	{
+
+		// calculate duty value
+		// please note that the SysTick is counting down
+		if( *(last_timer_value[0]) > timer_value) // standard situation
+		{
+			// save new value of pwm duty
+			*(input_storage[0]) = *(last_timer_value[0]) - timer_value;
+
+
+		}else  // timer overflow occurred
+		{
+			// save new value of pwm duty
+			*(input_storage[0]) = *(last_timer_value[0]) + (0x00FFFFFF - timer_value);
+
+		}
+
+		// change external interrupt trigger to rising edge
+		// enable rising edge trigger
+		EXTI->RTSR |= 1;
+		// disable falling edge trigger
+		EXTI->FTSR &= ~1;
+
+
+	}
+
+	// clear pending flag (in fact write one)
+	EXTI->PR |= 1;
+}
+
+
 kPWM::kPWM(void)
 {
 
@@ -883,6 +978,50 @@ kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_Timer11Pin & pwmH
 	}
 	return *this;
 }
+kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI0_Pin & pwmHard)
+{
+	uint32_t reg_add = (uint32_t)&pwmHard;
+	reg_add -= (uint32_t)kPWM::EXTI0;
+
+
+	//enable clock for system configuration controller
+	RCC->APB2ENR |= (1<<14);
+
+	switch(reg_add)
+	{
+		case 0:	// PORTA0
+
+			//enable GPIOA clock
+			RCC->AHB1ENR |= 1;
+
+			//set PORTA0 as input
+			GPIOA->MODER &= ~3;
+
+			// enable interrupt request on line 0
+			EXTI->IMR |= 1;
+
+			// enable interrupt signal from rising edge
+			EXTI->RTSR |= 1;
+
+			// attach input value storages with IRQ handler function
+			input_storage[0] = &this->input;
+			last_timer_value[0] = &this->last_timer_val;
+
+			// change EXTI0 function handler to handle kPWM library
+			kSystem.setIRQHandler(6,kPWM_EXTI0_IRQ_Handler);
+			kSystem.enableInterrupt(EXTI0_IRQn,0,1);
+
+		break;
+
+		default:
+			// unexpected pwmHard value
+
+		break;
+	}
+
+	return *this;
+}
+
 void kPWM::run(unsigned short int resolution, unsigned int tick_freq)
 {
 
@@ -927,4 +1066,8 @@ void kPWM::run(unsigned short int resolution, unsigned int tick_freq)
 void kPWM::operator = (unsigned short int value)
 {
 	*(this->hardware.output) = (uint32_t)value;
+}
+kPWM::operator unsigned int()
+{
+	return (unsigned int)this->hardware.input;
 }

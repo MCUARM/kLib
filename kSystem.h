@@ -24,7 +24,7 @@
 			void init(void);
 
 			void setIRQHandler(unsigned char channel,void (*IRQHandler_function_pointer)(void));
-
+			void enableInterrupt(unsigned char channel,unsigned char preemptionPriority, unsigned char subPriority);
 
 			unsigned int coreCLK(void);
 			unsigned int APB1_CLK(void);

@@ -1,0 +1,13 @@
+#include "kPort.h"
+
+void main(void)
+{
+	PORTA = kPort::on;
+	kPin LED = PORTA[2];
+	LED = kPin::out;
+
+
+	while(1);
+
+
+}

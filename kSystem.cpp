@@ -114,6 +114,7 @@ k_System kSystem;
 k_System::k_System(void)
 {
 	this->timerReady = 0;
+	// full counting range
 	SysTick->LOAD = 0xFFFFFF;
 	// enable SystemTick
 	SysTick->CTRL |= 1;
@@ -130,9 +131,9 @@ k_System::k_System(void)
 }
 void k_System::setIRQHandler(unsigned char channel,void (*IRQHandler_function_pointer)(void))
 {
-	if(channel > 14 && channel < 98)
+	if(channel < 83)
 	{
-		kSystem_isr_vector[channel] = IRQHandler_function_pointer;
+		kSystem_isr_vector[channel+16] = IRQHandler_function_pointer;
 	}
 }
 
@@ -340,4 +341,28 @@ void k_System::wait(unsigned short int seconds)
 			ticks = 0;
 		}
 	}
+}
+void k_System::enableInterrupt(unsigned char channel,unsigned char preemptionPriority, unsigned char subPriority)
+{
+  uint8_t tmppriority = 0x00, tmppre = 0x00, tmpsub = 0x0F;
+
+  /* Check the parameters */
+  assert_param(IS_NVIC_PREEMPTION_PRIORITY(preemptionPriority));
+  assert_param(IS_NVIC_SUB_PRIORITY(subPriority));
+
+
+	/* Compute the Corresponding IRQ Priority --------------------------------*/
+	tmppriority = (0x700 - ((SCB->AIRCR) & (uint32_t)0x700))>> 0x08;
+	tmppre = (0x4 - tmppriority);
+	tmpsub = tmpsub >> tmppriority;
+
+	tmppriority = preemptionPriority << tmppre;
+	tmppriority |=  (uint8_t)(subPriority & tmpsub);
+
+	tmppriority = tmppriority << 0x04;
+
+	NVIC->IP[channel] = tmppriority;
+
+	/* Enable the Selected IRQ Channels --------------------------------------*/
+	NVIC->ISER[channel >> 0x05] = (uint32_t)0x01 << (channel & (uint8_t)0x1F);
 }

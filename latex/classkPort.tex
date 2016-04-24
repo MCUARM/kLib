@@ -1,0 +1,112 @@
+\hypertarget{classkPort}{}\section{k\+Port Class Reference}
+\label{classkPort}\index{k\+Port@{k\+Port}}
+
+
+G\+P\+IO abstract layer.  
+
+
+
+
+{\ttfamily \#include $<$k\+Port.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries k\+Port\+Power} \{ {\bfseries off}, 
+{\bfseries on}
+ \}\hypertarget{classkPort_a57c1bed95e8e3e7887c1f0db558fed7c}{}\label{classkPort_a57c1bed95e8e3e7887c1f0db558fed7c}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classkPort_a6db4d381fe6fc493c8fc50f5d380f573}{k\+Port} (G\+P\+I\+O\+\_\+\+Type\+Def $\ast$G\+P\+IO)
+\begin{DoxyCompactList}\small\item\em Constructor with hardware attachment. \end{DoxyCompactList}\item 
+\hyperlink{classkPin}{k\+Pin} \hyperlink{classkPort_a9f3131f77223e20c20522735772feb9a}{operator\mbox{[}$\,$\mbox{]}} (const unsigned char pin)
+\begin{DoxyCompactList}\small\item\em Returns specified pin from port as \hyperlink{classkPin}{k\+Pin} object. \end{DoxyCompactList}\item 
+void \hyperlink{classkPort_a91af78d57b086ffa8d983613439c560d}{operator=} (const unsigned int state)
+\begin{DoxyCompactList}\small\item\em Writes binary value to output register. \end{DoxyCompactList}\item 
+void \hyperlink{classkPort_afd6cd584e0e2ca0b33081f8ad51d54b9}{operator=} (k\+Port\+Power power)
+\begin{DoxyCompactList}\small\item\em Power up/down port. \end{DoxyCompactList}\item 
+\hyperlink{classkPort_a1ef90399e4f9698f129bae524f3d0880}{operator unsigned short int} ()\hypertarget{classkPort_a1ef90399e4f9698f129bae524f3d0880}{}\label{classkPort_a1ef90399e4f9698f129bae524f3d0880}
+
+\begin{DoxyCompactList}\small\item\em Get current state of port input register. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+G\+P\+IO abstract layer. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{k\+Port@{k\+Port}!k\+Port@{k\+Port}}
+\index{k\+Port@{k\+Port}!k\+Port@{k\+Port}}
+\subsubsection[{\texorpdfstring{k\+Port(\+G\+P\+I\+O\+\_\+\+Type\+Def $\ast$\+G\+P\+I\+O)}{kPort(GPIO_TypeDef *GPIO)}}]{\setlength{\rightskip}{0pt plus 5cm}k\+Port\+::k\+Port (
+\begin{DoxyParamCaption}
+\item[{G\+P\+I\+O\+\_\+\+Type\+Def $\ast$}]{G\+P\+IO}
+\end{DoxyParamCaption}
+)}\hypertarget{classkPort_a6db4d381fe6fc493c8fc50f5d380f573}{}\label{classkPort_a6db4d381fe6fc493c8fc50f5d380f573}
+
+
+Constructor with hardware attachment. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em G\+P\+IO} & specifies controlled G\+P\+I\+Ox where x can be A to I \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{k\+Port@{k\+Port}!operator=@{operator=}}
+\index{operator=@{operator=}!k\+Port@{k\+Port}}
+\subsubsection[{\texorpdfstring{operator=(const unsigned int state)}{operator=(const unsigned int state)}}]{\setlength{\rightskip}{0pt plus 5cm}void k\+Port\+::operator= (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{state}
+\end{DoxyParamCaption}
+)}\hypertarget{classkPort_a91af78d57b086ffa8d983613439c560d}{}\label{classkPort_a91af78d57b086ffa8d983613439c560d}
+
+
+Writes binary value to output register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & new output state on port \\
+\hline
+\end{DoxyParams}
+\index{k\+Port@{k\+Port}!operator=@{operator=}}
+\index{operator=@{operator=}!k\+Port@{k\+Port}}
+\subsubsection[{\texorpdfstring{operator=(k\+Port\+Power power)}{operator=(kPortPower power)}}]{\setlength{\rightskip}{0pt plus 5cm}void k\+Port\+::operator= (
+\begin{DoxyParamCaption}
+\item[{k\+Port\+Power}]{power}
+\end{DoxyParamCaption}
+)}\hypertarget{classkPort_afd6cd584e0e2ca0b33081f8ad51d54b9}{}\label{classkPort_afd6cd584e0e2ca0b33081f8ad51d54b9}
+
+
+Power up/down port. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em power} & new power state of port \\
+\hline
+\end{DoxyParams}
+\index{k\+Port@{k\+Port}!operator\mbox{[}$\,$\mbox{]}@{operator[]}}
+\index{operator\mbox{[}$\,$\mbox{]}@{operator[]}!k\+Port@{k\+Port}}
+\subsubsection[{\texorpdfstring{operator[](const unsigned char pin)}{operator[](const unsigned char pin)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf k\+Pin} k\+Port\+::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{const unsigned char}]{pin}
+\end{DoxyParamCaption}
+)}\hypertarget{classkPort_a9f3131f77223e20c20522735772feb9a}{}\label{classkPort_a9f3131f77223e20c20522735772feb9a}
+
+
+Returns specified pin from port as \hyperlink{classkPin}{k\+Pin} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & pin number \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{kPort_8h}{k\+Port.\+h}\item 
+k\+Port.\+cpp\end{DoxyCompactItemize}

@@ -154,6 +154,7 @@
 			friend const kSerial& operator <<(const kSerial &serial,const char * String);
 			friend const kSerial& operator <<(const kSerial &serial,char chr);
 			friend const kSerial& operator <<(const kSerial &serial,int number);
+			friend const kSerial& operator <<(const kSerial &serial,unsigned int number);
 			friend const kSerial& operator <<(const kSerial &serial,float number);
 			friend const kSerial& operator <<(const kSerial &serial,const kString & str);
 

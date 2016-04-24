@@ -24,6 +24,9 @@ kPin kPort::operator [](const unsigned char pin)
 
 	return res;
 }
+
+
+
 kPin::operator unsigned char()
 {
 	unsigned int val = this->gpio->IDR;
@@ -32,6 +35,7 @@ kPin::operator unsigned char()
 
 	return (unsigned char)val;
 }
+
 kPort::operator unsigned short int()
 {
 	return (unsigned short int)this->gpio->IDR;
@@ -199,3 +203,10 @@ unsigned char kPin::get(void)
 
 	return (unsigned char)val;
 }
+
+// examples
+/**
+  * @example kPort_example_LED.cpp
+  * @brief This example shows how to use kPin class to control LED diode
+  */
+
