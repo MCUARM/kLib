@@ -1,9 +1,12 @@
 #ifndef __kFrameHeader_H
 #define __kFrameHeader_H
 
+	extern float default_data_storage;
+
 	class kFrameHeader
 	{
-		protected:
+
+		public:
 
 			const char * pFrameHeaderString;
 			unsigned char frameHeaderStringLength;
@@ -12,6 +15,7 @@
 			unsigned char dataLength;
 			char * pDataTypeDescriptor;
 			const char ** ppDataHeaderString;
+			void ** ppData;
 
 			unsigned short int headerCode;
 

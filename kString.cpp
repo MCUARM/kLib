@@ -163,6 +163,46 @@ const kString operator +(const char * str1,const kString &str2)
 
 	return res;
 }
+char * kString::number(int number,char * buffer)
+{
+	long long div=1;
+	unsigned int digit;
+
+	char buff[2];
+
+
+	if(number < 0)
+	{
+		(*buffer) = '-';
+		buffer++;
+		number *= (-1);
+	}
+
+	while(div <= number)
+	{
+		div*=10;
+	}
+	if(number == 0) div*=10;
+	div /= 10;
+
+    buff[1] = 0;
+	while(div)
+	{
+		digit = number/div;
+		number = number % div;
+		div /=10;
+
+
+		buff[0] = ((char)(digit + 48));
+
+
+		(*buffer) = buff[0];
+		buffer++;
+
+	}
+
+	return buffer;
+}
 kString kString::number(int number)
 {
 	long long div=1;
@@ -377,4 +417,89 @@ float kString::toFloat()
     if(div) fres /= div;
 
     return fres;
+}
+
+char * kString::copy(const char * source,char * destination)
+{
+	while(*source)
+	{
+		(*destination) = (*source);
+		destination++;
+		source++;
+	}
+	return destination;
+}
+char * kString::skipOneWord(const char * string)
+{
+	//skip white space
+	while((*string) && ((*string) == ' ')) string++;
+
+	//append current word
+	while((*string) && ((*string) != ' ')) string++;
+
+	//skip white space
+	while((*string) && ((*string) == ' ')) string++;
+
+	return (char*)string;
+}
+char * kString::find(const char * string,char chr)
+{
+	while(((*string) != 0) && (*string) != chr)string++;
+	if(!(*string)) return 0;
+	return (char*)string;
+}
+char * kString::skipWhiteSpace(const char * string)
+{
+	//skip white space
+	while((*string) && ((*string) == ' ')) string++;
+	return (char*)string;
+}
+char * kString::copyOneWord(const char * source,char * destination)
+{
+	source = kString::skipWhiteSpace(source);
+	if(!(*source)) return destination;
+
+
+	while((*source) > 32)
+	{
+		(*destination) = (*source);
+		source++;
+		destination++;
+	}
+	return destination;
+}
+char kString::compare(const char * string_1,const char * string_2)
+{
+	char res=-1;
+	while((*string_1) == (*string_2))
+	{
+		string_1++;
+		string_2++;
+
+		if((*string_1) == 0 && (*string_2) != 0)
+		{
+			res = -1;
+			break;
+		}
+		if((*string_1) != 0 && (*string_2) == 0)
+		{
+			res = 1;
+			break;
+		}
+		if((*string_1) == 0 && (*string_2) == 0)
+		{
+			res = 0;
+			break;
+		}
+	}
+
+	return res;
+}
+bool kString::firstWordCompare(const char * string,const char * word)
+{
+	string = kString::skipWhiteSpace(string);
+	if(!(*string)) return false;
+	if(kString::compare(string,word) >= 0) return true;
+
+	return false;
 }

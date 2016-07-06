@@ -18,6 +18,7 @@
 			kFOSystem(float sampling_time, float time_constant, float initial_output=0);
 
 			void init(float sampling_time, float time_constant, float initial_output=0);
+			void setTimeConstant(float time_constant);
 			float feed(float x);
 
 

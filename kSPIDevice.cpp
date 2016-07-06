@@ -2,11 +2,19 @@
 
 const kSPI1 * kSPI::SPI_1 = (kSPI1 *)SRAM1_BASE;
 
-static volatile unsigned short int k_SPIDevice_unused_var;
+
+kSPIDeviceHardware::kSPIDeviceHardware(void)
+{
+	this->nss_hard = false;
+}
+
+void kSPIDeviceHardware::powerOn(void)
+{
+
+}
 
 void kSPIDeviceHardware::setupMISOPin(void)
 {
-
 	//enable clock
 	kPort misoPort(this->misoGPIO);
 	misoPort = kPort::on;
@@ -505,16 +513,15 @@ void kSPIDevice::write(unsigned short int BytesToWrite,unsigned char * DataBuffe
 	for(i=0;i<BytesToWrite;i++)
 	{
 	  while (SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_TXE) == RESET);
-	  SPI_I2S_SendData(this->hardware.spi, *DataBuffer);
+	  this->hardware.spi->DR = *DataBuffer;
 	  DataBuffer++;
 	}
 	while(SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_BSY) != RESET);
 }
 void kSPIDevice::write(unsigned char Byte)
 {
-	  k_SPIDevice_unused_var = this->hardware.spi->DR;
 	  while (SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_TXE) == RESET);
-	  SPI_I2S_SendData(this->hardware.spi, Byte);
+	  this->hardware.spi->DR = Byte;
 	  while(SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_BSY) != RESET);
 }
 void kSPIDevice::read(unsigned short int BytesToRead,unsigned char * ReadDataBuffer)
@@ -525,7 +532,7 @@ void kSPIDevice::read(unsigned short int BytesToRead,unsigned char * ReadDataBuf
 	{
 		// Wyslanie 0xFF
 		while (SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_TXE) == RESET);
-		SPI_I2S_SendData(this->hardware.spi, 0xFF);
+		this->hardware.spi->DR = 0xFF;
 
 		// Odebranie bajtu
 		while (SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_RXNE) == RESET);
@@ -539,7 +546,7 @@ unsigned char kSPIDevice::read(void)
 {
 	// Wyslanie 0xFF
 	while (SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_TXE) == RESET);
-	SPI_I2S_SendData(this->hardware.spi, 0xFF);
+	this->hardware.spi->DR = 0xFF;
 
 	// Odebranie bajtu
 	while (SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_RXNE) == RESET);
@@ -549,7 +556,10 @@ unsigned char kSPIDevice::read(void)
 void kSPIDevice::select(void)
 {
 	// check if soft mode enabled
-	if (this->hardware.spi->CR1 & (1<<9))
+	if(this->hardware.nss_hard)
+	{
+
+	}else
 	{
 		this->hardware.nssGPIO->ODR &= ~(unsigned int)(1 << this->hardware.nssPin);
 	}
@@ -557,7 +567,10 @@ void kSPIDevice::select(void)
 void kSPIDevice::deselect(void)
 {
 	// check if soft mode enabled
-	if (this->hardware.spi->CR1 & (1<<9))
+	if (this->hardware.nss_hard)
+	{
+
+	}else
 	{
 		this->hardware.nssGPIO->ODR |= (unsigned int)(1 << this->hardware.nssPin);
 	}

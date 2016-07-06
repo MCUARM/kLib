@@ -3,6 +3,8 @@
 const char * default_pFrameString = "null";
 const char * default_pDataHeaderString[1] = {default_pFrameString};
 
+float default_data_storage=0;
+
 kFrameHeader::kFrameHeader(void)
 {
 	this->pFrameHeaderString = default_pFrameString;
@@ -11,6 +13,7 @@ kFrameHeader::kFrameHeader(void)
 	this->dataLength = 0;
 	this->pDataTypeDescriptor = (char *)default_pFrameString;
 	this->ppDataHeaderString = default_pDataHeaderString;
+	this->ppData = (void**)&default_pFrameString;
 }
 unsigned char kFrameHeader::getDataLength(void)
 {

@@ -30,7 +30,7 @@
 			bool isEmpty(void);
 			unsigned char * c_str(void) const;
 
-			static kString number(int number);
+
 			static const kString number(float number, unsigned char precision=2);
 
 			kString getSubstring(char delimiter,unsigned char returned_part);
@@ -50,6 +50,15 @@
 
 			friend const kString operator +(const char * str1,kString &str2);
 
+			static kString number(int number);
+			static char * number(int number,char * buffer);
+			static char * copy(const char * source,char * destination);
+			static char * skipOneWord(const char * string);
+			static char * skipWhiteSpace(const char * string);
+			static char * find(const char * string,char chr);
+			static char compare(const char * string_1,const char * string_2);
+			static bool firstWordCompare(const char * string,const char * word);
+			static char * copyOneWord(const char * source,char * destination);
 
 	};
 

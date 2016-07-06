@@ -33,7 +33,6 @@
 		private:
 
 			unsigned char sd_card_mounted;
-
 			void waitReady(void);
 
 		public:

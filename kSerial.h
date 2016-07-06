@@ -9,7 +9,12 @@
 	#include "stm32f4xx_usart.h"
 	#include "kPort.h"
 	#include "stm32f4xx_rcc.h"
-	#include <kString.h>
+	#include "kString.h"
+	#include "kSystem.h"
+
+
+	#define kSerial_rxBuffer_size 512
+
 
 	typedef struct
 	{
@@ -90,6 +95,8 @@
 			void setupRxPin(void);
 			void setupTxPin(void);
 
+
+
 		public:
 
 			USART_TypeDef * usart;
@@ -114,15 +121,26 @@
 
  	class kSerial {
 
- 		private:
+ 		protected:
+
+			unsigned int k_timeout;
+			char k_terminator;
+			unsigned char dataCounter;
+			bool useTerminator;
 
 
+			unsigned long long k_precision;
+
+			char rxBuffer[kSerial_rxBuffer_size];
+			unsigned short int rx_buffer_size;
+			unsigned short int rx_buffer_read_pointer;
+			unsigned short int rx_buffer_write_pointer;
+
+
+			void attachUSART(void);
 
 		public:
 
-			unsigned int k_timeout;
-			unsigned char k_terminator;
-			unsigned long long k_precision;
 
 			//constants
  			static const char * endl;
@@ -131,6 +149,9 @@
  			static const kSerialUSART3 * usart3;
 
  			kSerialHardware hardware;
+
+
+
 
  			//constructors
  			kSerial(void);
@@ -142,14 +163,21 @@
  			kSerial(const kSerialUSART3Pin & Rx,const kSerialUSART3Pin & Tx,unsigned int BaudRate);
  			kSerial(const kSerialUSART3Pin & Pin,unsigned int BaudRate);
 
-			void baud(unsigned int BaudRate);
+
+
+			void run(unsigned int BaudRate);
 			void timeout(unsigned int ticks);
 			void precision(unsigned char precision_points);
 			void terminator(unsigned char character);
 
+ 			unsigned short int newBytesAvailable(void);
 			char getChar(void);
+			char readByte(void);
+			unsigned short int readAll(char * buffer);
 
-
+			unsigned char newDataAvailable(void);
+			unsigned short int readData(char * buffer);
+			unsigned short int readAllData(char * buffer);
 
 			friend const kSerial& operator <<(const kSerial &serial,const char * String);
 			friend const kSerial& operator <<(const kSerial &serial,char chr);
@@ -157,9 +185,6 @@
 			friend const kSerial& operator <<(const kSerial &serial,unsigned int number);
 			friend const kSerial& operator <<(const kSerial &serial,float number);
 			friend const kSerial& operator <<(const kSerial &serial,const kString & str);
-
-			friend const kSerial& operator >>(const kSerial &serial,unsigned char * RecieveBuffer);
-
 
 	};
 

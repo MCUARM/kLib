@@ -1,10 +1,43 @@
 #include "kSerial.h"
 
-
 const char* kSerial::endl = "\r\n";
 const kSerialUSART1 * kSerial::usart1 = (kSerialUSART1 *)SRAM1_BASE;
 const kSerialUSART2 * kSerial::usart2 = (kSerialUSART2 *)SRAM1_BASE;
 const kSerialUSART3 * kSerial::usart3 = (kSerialUSART3 *)SRAM1_BASE;
+
+char default_rx_buffer[2];
+unsigned short int default_rx_buffer_length = 2;
+unsigned short int default_rx_buffer_pointer = 0;
+bool default_use_terminator = false;
+char default_terminator = 0;
+
+char * usart1_rx_buffer = default_rx_buffer;
+unsigned short int * p_usart1_rx_buffer_length = &default_rx_buffer_length;
+unsigned short int * p_usart1_rx_buffer_pointer = &default_rx_buffer_pointer;
+bool * p_usart1_use_terminator = &default_use_terminator;
+char * p_usart1_terminator = &default_terminator;
+unsigned char * p_usart1_terminator_counter = (unsigned char*) &default_rx_buffer[0];
+
+static void kSerial_USART1_IRQ_Handler(void)
+{
+	// check if the USART1 receive interrupt flag was set
+	if( USART_GetITStatus(USART1, USART_IT_RXNE) )
+	{
+		usart1_rx_buffer[*p_usart1_rx_buffer_pointer] = (char)USART1->DR;
+
+		if(*p_usart1_use_terminator)
+		{
+			if(usart1_rx_buffer[*p_usart1_rx_buffer_pointer] == (*p_usart1_terminator))
+			{
+				(*p_usart1_terminator_counter)++;
+			}
+		}
+
+		(*p_usart1_rx_buffer_pointer)++;
+		if((*p_usart1_rx_buffer_pointer) == (*p_usart1_rx_buffer_length)) (*p_usart1_rx_buffer_pointer)=0;
+
+	}
+}
 
 
 void kSerialHardware::setupRxPin(void)
@@ -89,10 +122,15 @@ kSerialHardware& kSerialHardware::operator = (const kSerialUSART1Pin & usartHard
 
 			// enable receiver
 			USART1->CR1 |= 0x04;
+			// enable RXNE interrupt
+			USART1->CR1 |= (1<<5);
+
 
 			this->rxGPIO = GPIOB;
 			this->rxPin = 7 | (7 << 4);
 			this->setupRxPin();
+
+
 		break;
 		case 2:	// TX PORTA9
 
@@ -259,7 +297,7 @@ kSerialHardware& kSerialHardware::operator , (const kSerialUSART3Pin & usartHard
 	return (*this = usartHard);
 }
 
-void kSerial::baud(unsigned int BaudRate)
+void kSerial::run(unsigned int BaudRate)
 {
 	  uint32_t tmpreg = 0x00, apbclock = 0x00;
 	  uint32_t integerdivider = 0x00;
@@ -313,6 +351,9 @@ void kSerial::baud(unsigned int BaudRate)
 	  this->hardware.usart->BRR = (uint16_t)tmpreg;
 
 
+	  //setup interrupt
+	  this->attachUSART();
+
 	  // usart on
 	  this->hardware.usart->CR1 |= 0x2000;
 }
@@ -333,74 +374,45 @@ const kSerial& operator <<(const kSerial &serial,const char * String)
 
 	return serial;
 }
-const kSerial& operator >>(const kSerial &serial,unsigned char * RecieveBuffer)
-{
-	unsigned int count;
 
-	while(1)
-	{
-		count = serial.k_timeout;
-		while(!USART_GetFlagStatus(serial.hardware.usart,USART_FLAG_RXNE) && count)
-		{
-			count--;
-		}
-		if(!count)
-		{
-			// timeout
-			*RecieveBuffer = 0;
-			break;
-		}
-
-		*RecieveBuffer = USART_ReceiveData(serial.hardware.usart);
-		if(*RecieveBuffer == serial.k_terminator)
-		{
-			RecieveBuffer++;
-			*RecieveBuffer = 0;
-			break;
-		}
-		RecieveBuffer++;
-	}
-
-	return serial;
-}
 
 kSerial::kSerial(void)
 {
-
+	this->useTerminator = false;
 }
 
 kSerial::kSerial(const kSerialUSART1Pin & Rx,const kSerialUSART1Pin & Tx,unsigned int BaudRate)
 {
 	this->hardware = Rx;
 	this->hardware = Tx;
-	this->baud(BaudRate);
+	this->run(BaudRate);
 }
 kSerial::kSerial(const kSerialUSART1Pin & Pin,unsigned int BaudRate)
 {
 	this->hardware = Pin;
-	this->baud(BaudRate);
+	this->run(BaudRate);
 }
 kSerial::kSerial(const kSerialUSART2Pin & Rx,const kSerialUSART2Pin & Tx,unsigned int BaudRate)
 {
 	this->hardware = Rx;
 	this->hardware = Tx;
-	this->baud(BaudRate);
+	this->run(BaudRate);
 }
 kSerial::kSerial(const kSerialUSART2Pin & Pin,unsigned int BaudRate)
 {
 	this->hardware = Pin;
-	this->baud(BaudRate);
+	this->run(BaudRate);
 }
 kSerial::kSerial(const kSerialUSART3Pin & Rx,const kSerialUSART3Pin & Tx,unsigned int BaudRate)
 {
 	this->hardware = Rx;
 	this->hardware = Tx;
-	this->baud(BaudRate);
+	this->run(BaudRate);
 }
 kSerial::kSerial(const kSerialUSART3Pin & Pin,unsigned int BaudRate)
 {
 	this->hardware = Pin;
-	this->baud(BaudRate);
+	this->run(BaudRate);
 }
 kSerial::kSerial(const kSerial & other)
 {
@@ -417,6 +429,7 @@ void kSerial::timeout(unsigned int ticks)
 void kSerial::terminator(unsigned char character)
 {
 	this->k_terminator = character;
+	this->useTerminator = true;
 }
 const kSerial& operator <<(const kSerial &serial,int number)
 {
@@ -535,11 +548,95 @@ const kSerial& operator <<(const kSerial &serial,float number)
 
 	return serial;
 }
+unsigned short int kSerial::newBytesAvailable(void)
+{
+	if(this->rx_buffer_read_pointer < this->rx_buffer_write_pointer)
+	{
+		return (rx_buffer_write_pointer-rx_buffer_read_pointer);
+	}
+	if(this->rx_buffer_read_pointer > this->rx_buffer_write_pointer)
+	{
+		return (rx_buffer_write_pointer-rx_buffer_read_pointer+kSerial_rxBuffer_size);
+	}
+	return 0;
+}
 char kSerial::getChar(void)
 {
-	while(USART_GetFlagStatus(this->hardware.usart,USART_FLAG_RXNE) == RESET);
-	return (char)this->hardware.usart->DR;
+	char res;
+	unsigned int ticks= this->k_timeout;
+
+	while(this->newBytesAvailable() == 0 && (ticks--));
+	if(ticks)
+	{
+		res = this->rxBuffer[this->rx_buffer_read_pointer++];
+		if(this->rx_buffer_read_pointer == kSerial_rxBuffer_size) this->rx_buffer_read_pointer=0;
+	}else res = 0;
+
+	return res;
 }
+char kSerial::readByte(void)
+{
+	char res;
+	if(this->newBytesAvailable())
+	{
+		res = this->rxBuffer[this->rx_buffer_read_pointer++];
+		if(this->rx_buffer_read_pointer == kSerial_rxBuffer_size) this->rx_buffer_read_pointer=0;
+		return res;
+	}
+	return 0;
+}
+unsigned short int kSerial::readAll(char * buffer)
+{
+	unsigned short int bytes=0;
+	while(rx_buffer_read_pointer != this->rx_buffer_write_pointer)
+	{
+		*buffer = this->rxBuffer[this->rx_buffer_read_pointer++];
+		buffer++;
+		if(this->rx_buffer_read_pointer == kSerial_rxBuffer_size) this->rx_buffer_read_pointer=0;
+	}
+
+	return bytes;
+}
+unsigned char kSerial::newDataAvailable(void)
+{
+	return this->dataCounter;
+}
+unsigned short int kSerial::readData(char * buffer)
+{
+	unsigned short int res = 0;
+	if(this->newDataAvailable())
+	{
+		while(1)
+		{
+			*buffer = this->readByte();
+			res++;
+			if(*buffer == this->k_terminator)
+			{
+				this->dataCounter--;
+				return res;
+			}
+			buffer++;
+		}
+	}
+	return 0;
+}
+unsigned short int kSerial::readAllData(char * buffer)
+{
+	unsigned short int res=0;
+	unsigned short int tmp_cnt;
+
+	while(this->dataCounter--)
+	{
+		tmp_cnt = this->readData(buffer);
+		buffer += tmp_cnt;
+		res += tmp_cnt;
+	}
+
+	return res;
+}
+
+
+
 const kSerial& operator <<(const kSerial &serial,const kString & str)
 {
 	unsigned short i;
@@ -558,4 +655,24 @@ const kSerial& operator <<(const kSerial &serial,const kString & str)
 
 
 	return serial;
+}
+
+void kSerial::attachUSART(void)
+{
+	this->rx_buffer_read_pointer = 0;
+	this->rx_buffer_write_pointer = 0;
+	this->dataCounter = 0;
+
+	usart1_rx_buffer = this->rxBuffer;
+	p_usart1_rx_buffer_length = &this->rx_buffer_size;
+	p_usart1_rx_buffer_pointer = &this->rx_buffer_write_pointer;
+	p_usart1_use_terminator = &this->useTerminator;
+	p_usart1_terminator = &this->k_terminator;
+	p_usart1_terminator_counter = &this->dataCounter;
+
+	kSystem.setIRQHandler(37,kSerial_USART1_IRQ_Handler);
+	kSystem.enableInterrupt(37,1,1);
+
+
+
 }

@@ -106,9 +106,16 @@
 
 	class kSPIDeviceHardware
 	{
+		private:
+
+			void powerOn(void);
+
 		public:
 
+
 			unsigned char NSS_idleState;
+			bool nss_hard;
+
 
 			SPI_TypeDef * spi;
 			GPIO_TypeDef * misoGPIO;
@@ -120,6 +127,8 @@
 			unsigned char mosiPin;
 			unsigned char nssPin;
 			unsigned char sckPin;
+
+			kSPIDeviceHardware(void);
 
 			kSPIDeviceHardware& operator = (const kSPI1pin & spiHard);
 			kSPIDeviceHardware& operator = (const kSPI::kSPIMode mode);
@@ -138,6 +147,7 @@
 			friend kSPIDeviceHardware& operator , (kSPIDeviceHardware& spiDev,const kSPI::kSPI_NSS_Control nss_control);
 			friend kSPIDeviceHardware& operator , (kSPIDeviceHardware& spiDev,const kSPI::kSPI_TransferBitFirst endian);
 			friend kSPIDeviceHardware& operator , (kSPIDeviceHardware& spiDev,const kSPI::kSPI_power pow);
+
 			void setupMISOPin(void);
 			void setupMOSIPin(void);
 			void setupNSSPin(void);

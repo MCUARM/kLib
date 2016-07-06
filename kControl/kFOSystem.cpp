@@ -24,6 +24,19 @@ void kFOSystem::init(float sampling_time, float time_constant, float initial_out
 	this->b_coeff = this->T*sampling_time;
 
 }
+void kFOSystem::setTimeConstant(float time_constant)
+{
+	if(time_constant < 0) return;
+
+	this->T = time_constant;
+
+	float sampling_time;
+	// use sampling_time as temporary storage
+	sampling_time = 1/(this->T+this->Ti);
+
+	this->a_coeff = this->Ti*sampling_time;
+	this->b_coeff = this->T*sampling_time;
+}
 float kFOSystem::feed(float x)
 {
 	float res;

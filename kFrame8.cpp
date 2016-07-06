@@ -1,6 +1,5 @@
 #include "kFrame8.h"
 
-float default_data_storage=0;
 
 kFrame8::kFrame8(void)
 {
@@ -15,6 +14,7 @@ kFrame8::kFrame8(void)
 
 	this->ppDataHeaderString = pDataHeaderString;
 	this->pDataHeaderStringLength = dataHeaderStringLength;
+	this->ppData = this->pData;
 }
 void kFrame8::setDataTypes(const char * formatted_string)
 {

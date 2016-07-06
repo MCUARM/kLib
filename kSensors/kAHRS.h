@@ -3,7 +3,7 @@
 #define __kAHRS_H
 
 	#include "math.h"
-	#include "kVector.h"
+	#include "kMath.h"
 
 	class kAHRS
 	{
