@@ -4,8 +4,14 @@
 
 	#include "math.h"
 	#include "kMath.h"
+	#include "kDiscrete.h"
+	#include "kQuaternion.h"
+	#include "kAxisAngle.h"
 
-	class kAHRS
+	#include "kGyroscope.h"
+	#include "kAccelerometer.h"
+
+	class kAHRS : public kDiscrete
 	{
 		private:
 
@@ -28,28 +34,38 @@
 			float sin_psi_c;
 			float cos_psi_c;
 
-			float phi_c;
-			float theta_c;
-			float psi_c;
+			kVector3 EulerC;
+			kVector3 EulerG;
+
+			kQuaternion q;
+			kQuaternion qc;
+			kQuaternion qg;
+
+			kAxisAngle temp_AxisAngle;
+		public:
 
 			kVector3 angularRates2EulerDot(void);
 			kVector3 getCorrection(void);
-
-		public:
 
 			// attitude angles
 			float phi;
 			float theta;
 			float psi;
 
-			float dt;
-
 			//default constructor
 			kAHRS(void);
 
 			void attachGyroData(float * p, float * q, float * r);
+			void attachGyroData(kVector3 * angular_rates);
+			void attachGyroData(kGyroscope * gyro);
+
 			void attachAccData(float * x, float * y, float * z);
+			void attachAccData(kVector3 * acceleration);
+			void attachAccData(kAccelerometer * acc);
+
 			void attachMagData(float * x, float * y, float * z);
+			void attachMagData(kVector3 * magnetic_induction);
+
 			void calculateAngles(void);
 			void init(void);
 

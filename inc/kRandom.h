@@ -3,16 +3,13 @@
 
 	#include "stm32f4xx.h"
 
-	class k_Random
+	class kRandom
 	{
-		private:
-
-
 		public:
 
-			k_Random(void);
-			void init(void);
-			unsigned int get(void);
+
+			static void init(void);
+			static unsigned int get(void);
 
 	};
 

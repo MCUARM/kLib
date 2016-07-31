@@ -7,6 +7,8 @@
 	 */
 	#include "stm32f4xx.h"
 	#include "kI2CDevice.h"
+	#include "kGyroscope.h"
+	#include "kAccelerometer.h"
 
 	typedef enum
 	{
@@ -250,7 +252,7 @@
 	      float GYRO_Z;
 	}MPU6050_MeasurementsPhysicalUnitsStorage_TypeDef;
 
-	// DEFINICJE REJESTRÓW
+	// DEFINICJE REJESTRï¿½W
 
 
    #define MPU6050_REGISTER_SELF_TEST_X			 (uint8_t)0x0D     // R/W access
@@ -1318,35 +1320,40 @@
 	#define MPU6050_BufferData_Slave3 (uint16_t)0x2000
 
 
-	class kMPU6050 : public kI2CDevice
+	class kMPU6050 : public kI2CDevice, public kAccelerometer, public kGyroscope
 	{
-		private:
+		protected:
 
 			uint8_t MPU6050_currentAccFullScaleRangeOption;
 			uint8_t MPU6050_currentGyroFullScaleRangeOption;
 
+			// funkcja konwertuje pomiary do jednostek ukï¿½adu SI (oprï¿½cz temperatury ktï¿½ra podawana jest w stopniach Celsjusza)
+			void MeasurementsToPhysicalUnits(void);
+
 		public:
 
-		void sensorsInit(MPU6050_SensorsInitStruct_TypeDef * MPU6050_SensorsInitStruct);
-		void powerOnSensor(uint8_t MPU6050_PowerOnSensor_xx,FunctionalState NewState);
-		void dataRead(MPU6050_MeasurementsStorage_TypeDef * MPU6050_MeasurementsStorage);
-		void setPowerMode(uint8_t MPU6050_PowerMode_xx);
-		void reset(uint8_t MPU6050_RESET_xx);
-		void setClockSource(MPU6050_ClockSource_TypeDef MPU6050_ClockSource_xx);
-		// funkcja ustawia opóŸnienie w³¹czenia uk³adu akcelerometru po wybudzeniu
-		void AccPowerOnDelay(uint8_t MPU6050_AccPowerOnDelay_xx);
-		// funkcja inicjalizuje rejestry odpowiedzialne za sterowanie przerwaniami MPU6050
-		void InterruptsInit(MPU6050_InterruptsInitStruct_TypeDef * MPU6050_InterruptsInitStruct);
-		// funkcja inicjalizuje rejestry odpowiedzialne za pracê Auxiliary I2C
-		void AuxiliaryI2CInit(MPU6050_AuxiliaryI2C_InitStruct_TypeDef * MPU6050_AuxiliaryI2C_InitStruct);
-		// funkcja inicjalizuje pracê MPU6050 do obs³ugi dadatkowego uk³adu pod³¹czonego do Auxiliary I2C
-		void SlaveInit(MPU6050_SlaveInitStruct_TypeDef * MPU6050_SlaveInitStruct);
-		// funkcja w³¹cza/wy³¹cza buforowanie FIFO dla okreslonych danych z czujników
-		void FIFOsetBufferedData(uint16_t MPU6050_FIFOBufferData,FunctionalState NewState);
-		// funkcja w³¹cza/wy³¹cza kontrolê nad Auxiliary I2C przez host (aplikacjê u¿ytkownika)
-		void I2CBypass(FunctionalState NewState);
-		// funkcja konwertuje pomiary do jednostek uk³adu SI (oprócz temperatury która podawana jest w stopniach Celsjusza)
-		void MeasurementsToPhysicalUnits(MPU6050_MeasurementsStorage_TypeDef * Measurements, MPU6050_MeasurementsPhysicalUnitsStorage_TypeDef * PhysicalUnitsDataStorage);
+			MPU6050_MeasurementsStorage_TypeDef rawData;
+
+
+			void sensorsInit(MPU6050_SensorsInitStruct_TypeDef * MPU6050_SensorsInitStruct);
+			void powerOnSensor(uint8_t MPU6050_PowerOnSensor_xx,FunctionalState NewState);
+			void dataRead(void);
+			void setPowerMode(uint8_t MPU6050_PowerMode_xx);
+			void reset(uint8_t MPU6050_RESET_xx);
+			void setClockSource(MPU6050_ClockSource_TypeDef MPU6050_ClockSource_xx);
+			// funkcja ustawia opï¿½nienie wï¿½ï¿½czenia ukï¿½adu akcelerometru po wybudzeniu
+			void AccPowerOnDelay(uint8_t MPU6050_AccPowerOnDelay_xx);
+			// funkcja inicjalizuje rejestry odpowiedzialne za sterowanie przerwaniami MPU6050
+			void InterruptsInit(MPU6050_InterruptsInitStruct_TypeDef * MPU6050_InterruptsInitStruct);
+			// funkcja inicjalizuje rejestry odpowiedzialne za pracï¿½ Auxiliary I2C
+			void AuxiliaryI2CInit(MPU6050_AuxiliaryI2C_InitStruct_TypeDef * MPU6050_AuxiliaryI2C_InitStruct);
+			// funkcja inicjalizuje pracï¿½ MPU6050 do obsï¿½ugi dadatkowego ukï¿½adu podï¿½ï¿½czonego do Auxiliary I2C
+			void SlaveInit(MPU6050_SlaveInitStruct_TypeDef * MPU6050_SlaveInitStruct);
+			// funkcja wï¿½ï¿½cza/wyï¿½ï¿½cza buforowanie FIFO dla okreslonych danych z czujnikï¿½w
+			void FIFOsetBufferedData(uint16_t MPU6050_FIFOBufferData,FunctionalState NewState);
+			// funkcja wï¿½ï¿½cza/wyï¿½ï¿½cza kontrolï¿½ nad Auxiliary I2C przez host (aplikacjï¿½ uï¿½ytkownika)
+			void I2CBypass(FunctionalState NewState);
+
 	};
 
 

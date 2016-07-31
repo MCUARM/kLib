@@ -6,21 +6,25 @@
 
 	#include "kSystem.h"
 
-	class kClient : public kSerial
-	{
-		private:
+	#if (kLib_config_USE_MODULE == 1)
 
-			char cli_rxBuffer[kClient_RX_BUFFER_SIZE];
-			char cli_txBuffer[kClinet_TX_BUFFER_SIZE];
+		class kClient : public kSerial
+		{
+			private:
 
-			void sendResponse(char * buffer);
+				char cli_rxBuffer[kClient_RX_BUFFER_SIZE];
+				char cli_txBuffer[kClinet_TX_BUFFER_SIZE];
 
-		public:
+				void sendResponse(char * buffer);
 
-			kClient(void);
-			void check(void);
-			void run(unsigned int BaudRate);
+			public:
 
-	};
+				kClient(void);
+				void check(void);
+				void run(unsigned int BaudRate);
+
+		};
+
+	#endif
 
 #endif

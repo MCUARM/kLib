@@ -2,31 +2,9 @@
 
 kMatrix::kMatrix()
 {
-    this->buff = new float[9];
-    this->buff_len = 9;
-    this->m_cols=3;
-    this->m_rows=3;
-}
-
-kMatrix::kMatrix(unsigned char square_dimension)
-{
-    this->buff_len = square_dimension*square_dimension;
-    this->buff = new float[this->buff_len];
-    this->m_cols=square_dimension;
-    this->m_rows=square_dimension;
-}
-
-kMatrix::kMatrix(unsigned char rows, unsigned char cols)
-{
-    this->buff_len = rows*cols;
-    this->buff = new float[this->buff_len];
-    this->m_cols=cols;
-    this->m_rows=rows;
-}
-
-kMatrix::~kMatrix()
-{
-    delete [] this->buff;
+    this->buff_len = 0;
+    this->m_cols=0;
+    this->m_rows=0;
 }
 
 unsigned char kMatrix::rows()
@@ -38,152 +16,169 @@ unsigned char kMatrix::cols()
 {
     return this->m_cols;
 }
-
 unsigned char kMatrix::size()
 {
     return this->buff_len;
 }
-
-
-
 float &kMatrix::operator ()(unsigned char row, unsigned char column)
 {
     return this->buff[row*this->m_cols + column];
 }
-
-void kMatrix::operator =(const kMatrix &other)
+void kMatrix::operator = (kMatrix & other)
 {
-    delete [] this->buff;
-    this->buff_len = other.buff_len;
-    this->m_cols = other.m_cols;
-    this->m_rows = other.m_rows;
-
-    this->buff = new float[this->buff_len];
-
-    unsigned char i;
-    for(i=0;i<this->buff_len;i++)
-    {
-        this->buff[i] = other.buff[i];
-    }
+	unsigned char i;
+	for(i=0;i<this->buff_len;i++) this->buff[i] = other.buff[i];
 }
-
-kMatrix &kMatrix::operator =(float num)
+kMatrix& kMatrix::operator = (float val)
 {
-    this->buff[0] = num;
-    this->curr_element = &(this->buff[1]);
-    return *this;
+	*(this->buff) = val;
+	this->curr_element = &this->buff[1];
+	return (*this);
 }
-
-void kMatrix::operator +=(const kMatrix &other)
+kMatrix& kMatrix::operator , (float val)
 {
-    unsigned char i;
-    for(i=0;i<this->buff_len;i++)
-    {
-        this->buff[i] += other.buff[i];
-    }
+	*(this->curr_element) = val;
+	this->curr_element++;
+	return (*this);
 }
-
-void kMatrix::operator -=(const kMatrix &other)
+void kMatrix::add(kMatrix & result,kMatrix & matrix_1, kMatrix & matrix_2)
 {
-    unsigned char i;
-    for(i=0;i<this->buff_len;i++)
-    {
-        this->buff[i] -= other.buff[i];
-    }
-}
-
-
-
-kMatrix operator *(kMatrix &m1,kMatrix &m2)
-{
-    unsigned char i,j,k;
-
-    kMatrix res(m1.m_rows,m2.m_cols);
-
-    for(i=0;i<m1.m_rows;i++)
-    {
-        for(j=0;j<m2.m_cols;j++)
-        {
-            res(i,j)=0;
-            for(k=0;k<m1.m_cols;k++) res(i,j) += m1(i,k)*m2(k,j);
-        }
-    }
-
-    return res;
-}
-
-void kMatrix::operator *=(kMatrix &other)
-{
-    (*this) = (*this)*other;
-}
-
-kMatrix &kMatrix::operator,(float num)
-{
-    *(this->curr_element) = num;
-    this->curr_element++;
-    return *this;
-}
-
-kMatrix operator -(const kMatrix &m1, const kMatrix &m2)
-{
-    kMatrix res(m1.m_rows,m1.m_cols);
-    unsigned char i;
-
-    for(i=0;i<res.buff_len;i++)
-    {
-        res.buff[i] = m1.buff[i] - m2.buff[i];
-    }
-
-    return res;
-}
-
-kMatrix operator +(const kMatrix &m1, const kMatrix &m2)
-{
-    kMatrix res(m1.m_rows,m1.m_cols);
-    unsigned char i;
-
-    for(i=0;i<res.buff_len;i++)
-    {
-        res.buff[i] = m1.buff[i] + m2.buff[i];
-    }
-
-    return res;
-}
-// this function now provides only determinant for 1x1 2x2 3x3 matrix
-float kMatrix::det(void)
-{
-    float res;
-	switch(this->m_cols)
+	unsigned char i;
+	for(i=0;i<result.buff_len;i++)
 	{
-		case 1:
-			return *(this->buff);
-		break;
-		case 2:
-		
+		result.buff[i] = matrix_1.buff[i] + matrix_2.buff[i];
+	}
+}
+void kMatrix::subtract(kMatrix & result,kMatrix & matrix_1, kMatrix & matrix_2)
+{
+	unsigned char i;
+	for(i=0;i<result.buff_len;i++)
+	{
+		result.buff[i] = matrix_1.buff[i] - matrix_2.buff[i];
+	}
+}
+void kMatrix::multiply(kMatrix & result,kMatrix & matrix_1, kMatrix & matrix_2)
+{
+	unsigned char i,j,k;
+	float * item;
 
-			
-			res = ((*this)(0,0))*((*this)(1,1));
-			res -= ((*this)(0,1))*((*this)(1,0));
-			
-			return res;
-			
-		break;
-		case 3:
-		
-			
-            res = ((*this)(0,0))*((*this)(1,1))*((*this)(2,2));
-            res +=((*this)(0,1))*((*this)(1,2))*((*this)(2,0));
-            res +=((*this)(0,2))*((*this)(1,0))*((*this)(2,1));
+	for(i=0;i<matrix_1.m_rows;i++)
+	{
+		for(j=0;j<matrix_2.m_cols;j++)
+		{
+			item = &result(i,j);
+			*item = 0;
+			for(k=0;k<matrix_1.m_cols;k++)
+			{
+				(*item) += matrix_1(i,k)*matrix_2(j,k);
+			}
+		}
+	}
+}
+void kMatrix::multiply(kVector & result,kMatrix & matrix, kVector & vector)
+{
+	unsigned char i,j;
 
-            res -= ((*this)(0,2))*((*this)(1,1))*((*this)(2,0));
-            res -= ((*this)(0,1))*((*this)(1,0))*((*this)(2,2));
-            res -= ((*this)(0,0))*((*this)(1,2))*((*this)(2,1));
+	for(i=0;i<matrix.m_rows;i++)
+	{
+		result.buff[i]=0;
+		for(j=0;j<matrix.m_cols;i++)
+		{
+			result.buff[i] += (matrix.operator ()(i,j))*vector.buff[j];
+		}
+	}
+}
 
-            return res;
-		
-		break;
-		
+
+void kMatrix::transpose(kMatrix & result,kMatrix & matrix)
+{
+	float *item=result.buff;
+	unsigned char i,j;
+
+	for(i=0;i<matrix.m_cols;i++)
+	{
+		for(j=0;j<matrix.m_rows;j++)
+		{
+			*item = matrix(j,i);
+			item++;
+		}
 	}
 
-    return 0;
+
+}
+void kMatrix::makeEye(kMatrix & result)
+{
+	unsigned char i,j;
+	float * item = result.buff;
+	for(i=0;i<result.m_rows;i++)
+	{
+		for(j=0;j<result.m_cols;j++)
+		{
+			if(i==j) *item = 1;
+			else *item = 0;
+
+			item++;
+		}
+	}
+}
+
+
+
+
+void kMatrix::add(kMatrix_2x2 & result,kMatrix_2x2 & matrix_1, kMatrix_2x2 & matrix_2)
+{
+	kMatrix::add((kMatrix&)result,(kMatrix&)matrix_1,(kMatrix&)matrix_2);
+}
+void kMatrix::subtract(kMatrix_2x2 & result,kMatrix_2x2 & matrix_1, kMatrix_2x2 & matrix_2)
+{
+	kMatrix::subtract((kMatrix&)result,(kMatrix&)matrix_1,(kMatrix&)matrix_2);
+}
+void kMatrix::multiply(kMatrix_2x2 & result,kMatrix_2x2 & matrix_1, kMatrix_2x2 & matrix_2)
+{
+	kMatrix::multiply((kMatrix&)result,(kMatrix&)matrix_1,(kMatrix&)matrix_2);
+}
+void kMatrix::multiply(kVector2 & result,kMatrix_2x2 & matrix, kVector2 & vector)
+{
+	kMatrix::multiply((kVector&)result,(kMatrix&)matrix,(kVector&)vector);
+}
+
+void kMatrix::transpose(kMatrix_2x2 & result,kMatrix_2x2 & matrix)
+{
+	kMatrix::transpose((kMatrix&)result,(kMatrix&)matrix);
+}
+void kMatrix::invert(kMatrix_2x2 & result,kMatrix_2x2 & matrix)
+{
+	float scale = 1/matrix.det();
+
+	result.buff[0] =  matrix.buff[3]*scale;
+	result.buff[1] = -matrix.buff[1]*scale;
+	result.buff[2] = -matrix.buff[2]*scale;
+	result.buff[3] =  matrix.buff[0]*scale;
+}
+void kMatrix::makeEye(kMatrix_2x2 & result)
+{
+	kMatrix::makeEye((kMatrix&)result);
+}
+
+
+kMatrix_2x2::kMatrix_2x2(void)
+{
+	this->buff_len = 4;
+	this->m_cols = 2;
+	this->m_rows = 2;
+	this->buff = this->m_buffer;
+}
+kMatrix_2x2& kMatrix_2x2::operator = (float val)
+{
+	return (kMatrix_2x2&)kMatrix::operator=(val);
+}
+kMatrix_2x2& kMatrix_2x2::operator , (float val)
+{
+	return (kMatrix_2x2&)kMatrix::operator,(val);
+}
+float kMatrix_2x2::det(void)
+{
+	float res = this->buff[0]*this->buff[3];
+	res -= this->buff[1]*this->buff[2];
+	return res;
 }

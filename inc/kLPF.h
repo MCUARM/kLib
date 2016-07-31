@@ -2,6 +2,8 @@
 #define __kLPF_H
 
 	#include "kFOSystem.h"
+	#include "kAngle.h"
+	#include "kMath.h"
 
 	class kLPF : public kFOSystem
 	{
@@ -9,8 +11,8 @@
 		public:
 
 			kLPF(void);
-			kLPF(float sampling_time, float time_constant, float initial_output=0);
-
+			float feedAngle(kAngle_0_to_2pi & x);
+			float feedAngle(kAngle_minus_pi_to_pi & x);
 	};
 
 

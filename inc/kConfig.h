@@ -12,6 +12,6 @@
 
 	// GENERAL SETTINGS
 	#define kLib_config_USE_RTOS 1
-	#define kLib_config_USE_MODULE 1
+	#define kLib_config_USE_MODULE 0
 
 #endif

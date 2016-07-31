@@ -36,14 +36,23 @@
 
 	#endif
 
-
+#if (kLib_config_USE_MODULE == 1)
 	class k_System : public kModule
+#else
+	class k_System
+#endif
 	{
+
 		private:
 
 			unsigned int SecondInTimerTicks;
 			unsigned int usInTimerTicks;
-			kRegister * pSystemRegister;
+
+
+			#if (kLib_config_USE_MODULE == 1)
+				kRegister * pSystemRegister;
+			#endif
+
 
 		public:
 
@@ -59,20 +68,26 @@
 			unsigned int APB1_Timer_CLK(void);
 			unsigned int APB2_Timer_CLK(void);
 
-			unsigned int systemTimerCLK(void);
+			__inline__ unsigned int systemTimerCLK(void) __attribute__((always_inline));
 
 			void waitus(unsigned short int microseconds);
 			void waitms(unsigned short int miliseconds);
 			void wait(unsigned short int seconds);
 
 
-
-			kRegister * getSystemRegister(void);
-			void setSystemRegister(kRegister * reg);
-
-			char * processCommand(const char * cmd, char * response);
+			#if (kLib_config_USE_MODULE == 1)
+				kRegister * getSystemRegister(void);
+				void setSystemRegister(kRegister * reg);
+				char * processCommand(const char * cmd, char * response);
+			#endif
 
 	};
+
+	__attribute__((always_inline)) unsigned int k_System::systemTimerCLK()
+	{
+		return (this->coreCLK() >> 3);
+	}
+
 
 	#ifdef __cplusplus
 		extern "C" { extern void (* kSystem_isr_vector[98])(void); }

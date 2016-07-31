@@ -1,6 +1,8 @@
 #ifndef __kAngleError_H
 #define __kAngleError_H
 
+	#include "kAngle.h"
+
 	class kAngleError
 	{
 		private:
@@ -22,6 +24,7 @@
 			void attachData(float * reference_signal,float * signal);
 			void setHisteresis(float range);
 			float get(void);
+
 
 	};
 

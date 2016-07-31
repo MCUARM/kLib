@@ -1,3 +1,5 @@
+#include "kConfig.h"
+#if (kLib_config_USE_RTOS == 1)
 /*
     FreeRTOS V9.0.0 - Copyright (C) 2016 Real Time Engineers Ltd.
     All rights reserved
@@ -4805,3 +4807,4 @@ const TickType_t xConstTickCount = xTickCount;
 	#include "tasks_test_access_functions.h"
 #endif
 
+#endif

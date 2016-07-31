@@ -1,73 +1,132 @@
 #include "kVector.h"
+#include "kQuaternion.h"
+
+void kVector::add(kVector & result,kVector & vector_1, kVector & vector_2)
+{
+	unsigned char i;
+	for(i=0;i<result.elements;i++) result.buff[i] = vector_1.buff[i] + vector_2.buff[i];
+}
+void kVector::subtract(kVector & result,kVector & vector_1, kVector & vector_2)
+{
+	unsigned char i;
+	for(i=0;i<result.elements;i++) result.buff[i] = vector_1.buff[i] - vector_2.buff[i];
+}
+void kVector::multiply(kVector & result,kVector & vector,float value)
+{
+	unsigned char i;
+	for(i=0;i<result.elements;i++) result.buff[i] = vector.buff[i]*value;
+}
+
+
+void kVector::operator = (kVector & v)
+{
+	unsigned char i;
+	for(i=0;i<this->elements;i++) this->buff[i] = v.buff[i];
+}
+void kVector::operator += (kVector & v)
+{
+	unsigned char i;
+	for(i=0;i<this->elements;i++) this->buff[i] += v.buff[i];
+}
+void kVector::operator -= (kVector & v)
+{
+	unsigned char i;
+	for(i=0;i<this->elements;i++) this->buff[i] -= v.buff[i];
+}
+bool kVector::operator == (kVector & v)
+{
+	unsigned char i;
+	for(i=0;i<this->elements;i++)
+	{
+		if(this->buff[i] != v.buff[i]) return false;
+	}
+
+	return true;
+}
+
+
+
+
+void kVector::operator *= (float scalar)
+{
+	unsigned char i;
+	for(i=0;i<this->elements;i++) this->buff[i] *= scalar;
+}
+float kVector::length(void)
+{
+	float res=0;
+	unsigned char i;
+	for(i=0;i<this->elements;i++)
+	{
+		res+= this->buff[i]*this->buff[i];
+	}
+	return sqrtf(res);
+}
+void kVector::makeUnit(void)
+{
+	float scale = this->length();
+	(*this) *= 1/scale;
+}
+
+void kVector::add(kVector2 & result,kVector2 & vector_1, kVector2 & vector_2)
+{
+	kVector::add((kVector&)result,(kVector&)vector_1,(kVector&)vector_2);
+}
+void kVector::subtract(kVector2 & result,kVector2 & vector_1, kVector2 & vector_2)
+{
+	kVector::subtract((kVector&)result,(kVector&)vector_1,(kVector&)vector_2);
+}
+void kVector::multiply(kVector2 & result,kVector2 & vector,float value)
+{
+	kVector::multiply((kVector&)result,(kVector&)vector,value);
+}
+
+
+
+
+
+
+
+
+
 
 kVector2::kVector2(void)
 {
-	this->x = 0;
-	this->y = 0;
+	this->buff = &this->x;
+	this->elements = 2;
 }
 kVector2::kVector2(kVector2 & other)
 {
+	this->buff = &this->x;
+	this->elements = 2;
+
 	this->x = other.x;
 	this->y = other.y;
 }
 kVector2::kVector2(float X, float Y)
 {
+	this->buff = &this->x;
+	this->elements = 2;
+
 	this->x = X;
 	this->y = Y;
 }
 
 void kVector2::operator += (kVector2 & v)
 {
-	this->x += v.x;
-	this->y += v.y;
+	kVector::operator +=((kVector&)v);
 }
 void kVector2::operator -= (kVector2 & v)
 {
-	this->x -= v.x;
-	this->y -= v.y;
-}
-void kVector2::operator *= (float scalar)
-{
-	this->x *= scalar;
-	this->y *= scalar;
-}
-
-kVector2 kVector2::operator +(kVector2 & v)
-{
-	kVector2 res(this->x+v.x,this->y+v.y);
-	return res;
-}
-kVector2 kVector2::operator -(kVector2 & v)
-{
-	kVector2 res(this->x-v.x,this->y-v.y);
-	return res;
-}
-kVector2 kVector2::operator *(float scalar)
-{
-	kVector2 res(this->x*scalar,this->y*scalar);
-	return res;
+	kVector::operator -=((kVector&)v);
 }
 void kVector2::operator = (kVector2 & v)
 {
-	this->x = v.x;
-	this->y = v.y;
+	kVector::operator =((kVector&)v);
 }
 bool kVector2::operator == (kVector2 & v)
 {
-	if(this->x != v.x) return false;
-	if(this->y != v.y) return false;
-	return true;
-}
-
-float kVector2::length(void)
-{
-	float res = sqrtf(this->x*this->x + this->y*this->y);
-	return res;
-}
-void kVector2::makeUnit(void)
-{
-	float scale = this->length();
-	(*this) *= 1/scale;
+	return kVector::operator ==((kVector&)v);
 }
 
 void kVector2::rotate(float angle)
@@ -143,6 +202,13 @@ void kVector3::operator = (const kVector3 & v)
 	this->y = v.y;
 	this->z = v.z;
 }
+void kVector3::operator = (const kQuaternion & q)
+{
+	this->x = q.i;
+	this->y = q.j;
+	this->z = q.k;
+}
+
 bool kVector3::operator == (kVector3 & v)
 {
 	if(this->x != v.x) return false;

@@ -2,9 +2,49 @@
 #ifndef __kVector_H
 #define __kVector_H
 
-    #include "math.h"
 
-	class kVector2
+
+	#include "math.h"
+
+	class kVector2;
+	class kVector3;
+
+	class kQuaternion;
+
+	class kVector
+	{
+		friend class kMatrix;
+		friend class kLKF;
+
+		protected:
+
+			float * buff;
+			unsigned char elements;
+
+			static void add(kVector & result,kVector & vector_1, kVector & vector_2);
+			static void subtract(kVector & result,kVector & vector_1, kVector & vector_2);
+			static void multiply(kVector & result,kVector & vector,float value);
+
+			void operator =  (kVector & v);
+			void operator += (kVector & v);
+			void operator -= (kVector & v);
+	        bool operator == (kVector & v);
+
+		public:
+
+			void operator *= (float scalar);
+			float length(void);
+			void makeUnit(void);
+
+
+			static void add(kVector2 & result,kVector2 & vector_1, kVector2 & vector_2);
+			static void subtract(kVector2 & result,kVector2 & vector_1, kVector2 & vector_2);
+			static void multiply(kVector2 & result,kVector2 & vector,float value);
+
+
+	};
+
+	class kVector2 : public kVector
 	{
 		public:
 
@@ -17,22 +57,13 @@
 
 			void operator += (kVector2 & v);
 			void operator -= (kVector2 & v);
-			void operator *= (float scalar);
-
-			kVector2 operator +(kVector2 & v);
-			kVector2 operator -(kVector2 & v);
-			kVector2 operator *(float scalar);
-
             void operator = (kVector2 & v);
             bool operator == (kVector2 & v);
-
-			float length(void);
-			void makeUnit(void);
 
 			void rotate(float angle);
 	};
 
-	class kVector3
+	class kVector3 : public kVector
 	{
 		public:
 		
@@ -53,6 +84,8 @@
 			kVector3 operator *(float scalar);
 
             void operator = (const kVector3 & v);
+            void operator = (const kQuaternion & q);
+
             bool operator == (kVector3 & v);
 			
 			float length(void);

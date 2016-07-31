@@ -1,10 +1,10 @@
 #include "kMPU6050.h"
 
-// Tablice wspó³czynników przeliczaj¹cych pomiary
-// jednostki wyjsciowe to standardowe jednostki uk³adu SI!!!
+// Tablice wspï¿½czynnikï¿½w przeliczajï¿½cych pomiary
+// jednostki wyjsciowe to standardowe jednostki ukï¿½adu SI!!!
 // komentarze po prawej stronie dodane tylko w celach informacyjnych!
-// wyniki pomiaru nale¿y podzieliæ przez nastêpuj¹ce odpowiednie wspó³czynniki
-// aby uzyskaæ pomiary w jednostkach uk³adu SI
+// wyniki pomiaru naleï¿½y podzieliï¿½ przez nastï¿½pujï¿½ce odpowiednie wspï¿½czynniki
+// aby uzyskaï¿½ pomiary w jednostkach ukï¿½adu SI
 
 // LSB  / (m/s^2)
 const float MPU6050_Acc_LSB_Sensitivity[] = {			1669.163,	// 2g
@@ -66,12 +66,12 @@ void kMPU6050::sensorsInit(MPU6050_SensorsInitStruct_TypeDef * MPU6050_SensorsIn
 		this->write(MPU6050_REGISTER_PWR_MGMT_1,MPU6050_temp_buff,2);
 	}
 
-	// uaktualnij zmienne pomocnicze pamiêtaj¹ce ostatnie ustawienia FullScaleRange
+	// uaktualnij zmienne pomocnicze pamiï¿½tajï¿½ce ostatnie ustawienia FullScaleRange
 	this->MPU6050_currentAccFullScaleRangeOption = (uint8_t)MPU6050_SensorsInitStruct->MPU6050_AccFullScaleRange;
 	this->MPU6050_currentGyroFullScaleRangeOption = (uint8_t)MPU6050_SensorsInitStruct->MPU6050_GyroFullScaleRange;
 
 }
-void kMPU6050::dataRead(MPU6050_MeasurementsStorage_TypeDef * MPU6050_MeasurementsStorage)
+void kMPU6050::dataRead(void)
 {
 	uint8_t i;
 	int16_t * p;
@@ -79,19 +79,23 @@ void kMPU6050::dataRead(MPU6050_MeasurementsStorage_TypeDef * MPU6050_Measuremen
 
 	this->read(MPU6050_REGISTER_ACCEL_XOUT_H,MPU6050_temp_buff,14);
 
-	p = (int16_t*) MPU6050_MeasurementsStorage;
-	// konwersja danych (sk³adanie dwóch bajtów w s³owo 16-bitowe
+	p = (int16_t*)&this->rawData;
+	// konwersja danych (skï¿½adanie dwï¿½ch bajtï¿½w w sï¿½owo 16-bitowe
 	for(i=0;i<13;i+=2)
 	{
 		*p = (int16_t)((MPU6050_temp_buff[i] << 8) | MPU6050_temp_buff[i+1]);
 		p++;
 	}
+
+	// konwersja na jednostki fizyczne
+	this->MeasurementsToPhysicalUnits();
+
 }
 void kMPU6050::powerOnSensor(uint8_t MPU6050_PowerOnSensor_xx,FunctionalState NewState)
 {
 	uint8_t MPU6050_temp_buff[4];
 
-	//chroñ przed b³ednymi parametrami
+	//chroï¿½ przed bï¿½ednymi parametrami
 	MPU6050_PowerOnSensor_xx &= MPU6050_PowerOnSensor_Assert_Mask;
 
 	//odczytaj rejestry PWR_MGMT_1 oraz PWR_MGMT_2
@@ -123,7 +127,7 @@ void kMPU6050::setPowerMode(uint8_t MPU6050_PowerMode_xx)
 {
 	uint8_t MPU6050_temp_buff[1];
 
-	//chroñ przed b³ednymi parametrami
+	//chroï¿½ przed bï¿½ednymi parametrami
 	MPU6050_PowerMode_xx &= MPU6050_PowerMode_Assert_Mask;
 
 	if(MPU6050_PowerMode_xx)
@@ -131,10 +135,10 @@ void kMPU6050::setPowerMode(uint8_t MPU6050_PowerMode_xx)
 		// odczytaj rejestr PWR_MGMT_1
 		this->read(MPU6050_REGISTER_PWR_MGMT_1,MPU6050_temp_buff,1);
 
-		// nanies bity resetuj¹ce
+		// nanies bity resetujï¿½ce
 		MPU6050_temp_buff[0] |= MPU6050_PowerMode_xx;
 
-		// zapisz now¹ wartosc rejestru PWR_MGMT_1
+		// zapisz nowï¿½ wartosc rejestru PWR_MGMT_1
 		this->write(MPU6050_REGISTER_PWR_MGMT_1,MPU6050_temp_buff,1);
 
 	}
@@ -143,13 +147,13 @@ void kMPU6050::reset(uint8_t MPU6050_RESET_xx)
 {
 	uint8_t MPU6050_temp_buff[1];
 
-	//chroñ przed b³ednymi parametrami
+	//chroï¿½ przed bï¿½ednymi parametrami
 	MPU6050_RESET_xx &= MPU6050_Reset_Assert_Mask;
 
-	// czy resetowaæ ca³y uk³ad?
+	// czy resetowaï¿½ caï¿½y ukï¿½ad?
 	if(MPU6050_RESET_xx & MPU6050_RESET_All_Device)
 	{
-		// ca³y uk³ad zostanie zresetowany, rejestry powróc¹ do wartosci domyslnych
+		// caï¿½y ukï¿½ad zostanie zresetowany, rejestry powrï¿½cï¿½ do wartosci domyslnych
 		MPU6050_temp_buff[0] = MPU6050_DEVICE_RESET_Mask | MPU6050_SLEEP_Mask;
 		this->write(MPU6050_REGISTER_PWR_MGMT_1,MPU6050_temp_buff,1);
 
@@ -158,10 +162,10 @@ void kMPU6050::reset(uint8_t MPU6050_RESET_xx)
 		// odczytaj rejestr USER_CTRL
 		this->read(MPU6050_REGISTER_USER_CTRL,MPU6050_temp_buff,1);
 
-		// nanies bity resetuj¹ce
+		// nanies bity resetujï¿½ce
 		MPU6050_temp_buff[0] |= MPU6050_RESET_xx;
 
-		// zapisz now¹ wartosc rejestru USER_CTRL
+		// zapisz nowï¿½ wartosc rejestru USER_CTRL
 		this->write(MPU6050_REGISTER_USER_CTRL,MPU6050_temp_buff,1);
 
 	}
@@ -169,7 +173,7 @@ void kMPU6050::reset(uint8_t MPU6050_RESET_xx)
 void kMPU6050::setClockSource(MPU6050_ClockSource_TypeDef MPU6050_ClockSource_xx)
 {
 	uint8_t MPU6050_temp_buff[2];
-	//chroñ przed b³ednymi parametrami
+	//chroï¿½ przed bï¿½ednymi parametrami
 	MPU6050_temp_buff[1] = MPU6050_ClockSource_xx;
 	MPU6050_temp_buff[1] &= MPU6050_ClockSource_Assert_Mask;
 
@@ -182,21 +186,21 @@ void kMPU6050::setClockSource(MPU6050_ClockSource_TypeDef MPU6050_ClockSource_xx
 	// dodaj nowe ustawienia
 	MPU6050_temp_buff[0] |= MPU6050_temp_buff[1];
 
-	// zapisz now¹ wartosc rejestru PWR_MGMT_1
+	// zapisz nowï¿½ wartosc rejestru PWR_MGMT_1
 	this->write(MPU6050_REGISTER_PWR_MGMT_1,MPU6050_temp_buff,1);
 }
-// funkcja ustawia opóŸnienie w³¹czenia uk³adu akcelerometru po wybudzeniu
+// funkcja ustawia opï¿½nienie wï¿½ï¿½czenia ukï¿½adu akcelerometru po wybudzeniu
 void kMPU6050::AccPowerOnDelay(uint8_t MPU6050_AccPowerOnDelay_xx)
 {
 	uint8_t MPU6050_temp_buff[1];
 
-	// chroñ przed b³ednymi parametrami
+	// chroï¿½ przed bï¿½ednymi parametrami
 	MPU6050_AccPowerOnDelay_xx &= MPU6050_AccPowerOnDelay_Assert_Mask;
 
-	// zapisz now¹ wartosæ rejestru do bufora
+	// zapisz nowï¿½ wartosï¿½ rejestru do bufora
 	MPU6050_temp_buff[0] = MPU6050_AccPowerOnDelay_xx;
 
-	// wyslij now¹ wartosæ rejestru MOT_DETECT_CTRL
+	// wyslij nowï¿½ wartosï¿½ rejestru MOT_DETECT_CTRL
 	this->write(MPU6050_REGISTER_MOT_DETECT_CTRL,MPU6050_temp_buff,1);
 }
 // funkcja inicjalizuje rejestry odpowiedzialne za sterowanie przerwaniami MPU6050
@@ -210,26 +214,26 @@ void kMPU6050::InterruptsInit(MPU6050_InterruptsInitStruct_TypeDef * MPU6050_Int
 	//wyzeruj bity odpowiedzialne EXT_SYNC_SET
 	MPU6050_temp_buff[0] &= (~MPU6050_EXT_SYNC_SET_Mask);
 
-	// u¿yj jako zmiennej pomocniczej
+	// uï¿½yj jako zmiennej pomocniczej
 	MPU6050_temp_buff[1] = (uint8_t)(MPU6050_InterruptsInitStruct->MPU6050_ExternalFrameSynchro << MPU6050_EXT_SYNC_SET_Bit0Position);
 
-	//wpisz now¹ wartosc EXT_SYNC_SET do bufora
+	//wpisz nowï¿½ wartosc EXT_SYNC_SET do bufora
 	MPU6050_temp_buff[0] |= MPU6050_temp_buff[1];
 
-	// wyslij now¹ wartosæ rejestru CONFIG
+	// wyslij nowï¿½ wartosï¿½ rejestru CONFIG
 	this->write(MPU6050_REGISTER_CONFIG,MPU6050_temp_buff,1);
 
-	//wpisz now¹ wartosc MOT_THR do bufora
+	//wpisz nowï¿½ wartosc MOT_THR do bufora
 	MPU6050_temp_buff[0] = MPU6050_InterruptsInitStruct->MPU6050_MotionDetectionThreshold;
 
-	// wyslij now¹ wartosæ rejestru MOT_THR
+	// wyslij nowï¿½ wartosï¿½ rejestru MOT_THR
 	this->write(MPU6050_REGISTER_MOT_THR,MPU6050_temp_buff,1);
 
 	//REJESTR INT_PIN_CFG
 
 	MPU6050_temp_buff[0]= 0x00;
 
-	// u¿yj jako zmiennej pomocniczej
+	// uï¿½yj jako zmiennej pomocniczej
 	//INT_LEVEL
 	MPU6050_temp_buff[2] = (uint8_t)(MPU6050_InterruptsInitStruct->MPU6050_InterruptLogicLevel << MPU6050_INT_LEVEL_Bit0Position);
 	MPU6050_temp_buff[0] |= MPU6050_temp_buff[2];
@@ -263,10 +267,10 @@ void kMPU6050::InterruptsInit(MPU6050_InterruptsInitStruct_TypeDef * MPU6050_Int
 
 	//REJESTR INT_ENABLE
 
-	// chroñ przed b³ednymi parametrami
+	// chroï¿½ przed bï¿½ednymi parametrami
 	MPU6050_temp_buff[1] &= (MPU6050_InterruptsInitStruct->MPU6050_EnableInterrupt & MPU6050_EnableInterrupt_Assert_Mask);
 
-	// wpisz nowe wartosci do rejestrów INT_PIN_CFG oraz INT_ENABLE
+	// wpisz nowe wartosci do rejestrï¿½w INT_PIN_CFG oraz INT_ENABLE
 	this->write(MPU6050_REGISTER_INT_PIN_CFG,MPU6050_temp_buff,2);
 
 	//REJESTR I2C_MST_CTRL
@@ -277,13 +281,13 @@ void kMPU6050::InterruptsInit(MPU6050_InterruptsInitStruct_TypeDef * MPU6050_Int
 	// I2C_MST_CTRL -> WAIT_FOR_ES
 	// wyzeruj bit WAIT_FOR_ES
 	MPU6050_temp_buff[0] &= (~MPU6050_WAIT_FOR_ES_Mask);
-	// nowa wartosæ bitu WAIT_FOR_ES
+	// nowa wartosï¿½ bitu WAIT_FOR_ES
 	MPU6050_temp_buff[0] |= (uint8_t)(MPU6050_InterruptsInitStruct->MPU6050_DataReadyWaitForExternalSesnor << MPU6050_WAIT_FOR_ES_Bit0Position);
 
-	// wpisz now¹ wartosæ rejestru I2C_MST_CTRL
+	// wpisz nowï¿½ wartosï¿½ rejestru I2C_MST_CTRL
 	this->write(MPU6050_REGISTER_I2C_MST_CTRL,MPU6050_temp_buff,1);
 }
-// funkcja inicjalizuje rejestry odpowiedzialne za pracê Auxiliary I2C
+// funkcja inicjalizuje rejestry odpowiedzialne za pracï¿½ Auxiliary I2C
 void kMPU6050::AuxiliaryI2CInit(MPU6050_AuxiliaryI2C_InitStruct_TypeDef * MPU6050_AuxiliaryI2C_InitStruct)
 {
 	uint8_t MPU6050_temp_buff[2];
@@ -293,10 +297,10 @@ void kMPU6050::AuxiliaryI2CInit(MPU6050_AuxiliaryI2C_InitStruct_TypeDef * MPU605
 	// Odczytaj rejestr I2C_MST_CTRL
 	this->read(MPU6050_REGISTER_I2C_MST_CTRL,MPU6050_temp_buff,1);
 
-	// wyczysæ ustawiane bity
+	// wyczysï¿½ ustawiane bity
 	MPU6050_temp_buff[0] &= (~MPU6050_AuxiliaryI2CInit_Assert_Mask);
 
-	// u¿yj jako zmiennej pomocniczej
+	// uï¿½yj jako zmiennej pomocniczej
 	// MULT_MST_EN
 	MPU6050_temp_buff[1] = (uint8_t)(MPU6050_AuxiliaryI2C_InitStruct->MPU6050_AuxiliaryI2C_MultiMaster << MPU6050_MULT_MST_EN_Bit0Position);
 
@@ -309,7 +313,7 @@ void kMPU6050::AuxiliaryI2CInit(MPU6050_AuxiliaryI2C_InitStruct_TypeDef * MPU605
 	// wpisz ustawiane bity
 	MPU6050_temp_buff[0] |= MPU6050_temp_buff[1];
 
-	// zapisz now¹ wartosæ rejestru I2C_MST_CTRL
+	// zapisz nowï¿½ wartosï¿½ rejestru I2C_MST_CTRL
 	this->write(MPU6050_REGISTER_I2C_MST_CTRL,MPU6050_temp_buff,1);
 
 	// REJESTR I2C_MST_DELAY_CTRL
@@ -319,13 +323,13 @@ void kMPU6050::AuxiliaryI2CInit(MPU6050_AuxiliaryI2C_InitStruct_TypeDef * MPU605
 	// DELAY_ES_SHADOW
 	// wyzeruj bit DELAY_ES_SHADOW
 	MPU6050_temp_buff[0] &= (~MPU6050_DELAYES_SHADOW_Mask);
-	// wstaw now¹ wartosæ bitu DELAY_ES_SHADOW
+	// wstaw nowï¿½ wartosï¿½ bitu DELAY_ES_SHADOW
 	MPU6050_temp_buff[0] |= (uint8_t)(MPU6050_AuxiliaryI2C_InitStruct->MPU6050_ExternalSensorDataShadowingDelay << MPU6050_DELAYES_SHADOW_Bit0Position);
 
-	// zapisz now¹ wartosæ rejestru I2C_MST_DELAY_CTRL
+	// zapisz nowï¿½ wartosï¿½ rejestru I2C_MST_DELAY_CTRL
 	this->write(MPU6050_REGISTER_I2CMSTDELAYCTRL,MPU6050_temp_buff,1);
 }
-// funkcja inicjalizuje pracê MPU6050 do obs³ugi dadatkowego uk³adu pod³¹czonego do Auxiliary I2C
+// funkcja inicjalizuje pracï¿½ MPU6050 do obsï¿½ugi dadatkowego ukï¿½adu podï¿½ï¿½czonego do Auxiliary I2C
 void kMPU6050::SlaveInit(MPU6050_SlaveInitStruct_TypeDef * MPU6050_SlaveInitStruct)
 {
 	uint8_t MPU6050_temp_buff[4];
@@ -336,17 +340,17 @@ void kMPU6050::SlaveInit(MPU6050_SlaveInitStruct_TypeDef * MPU6050_SlaveInitStru
 	this->read(MPU6050_REGISTER_I2CMSTDELAYCTRL,MPU6050_temp_buff,1);
 
 
-	// u¿yj jako zmiennej pomocniczej
-	// utwórz maskê
+	// uï¿½yj jako zmiennej pomocniczej
+	// utwï¿½rz maskï¿½
 	MPU6050_temp_buff[1] = (uint8_t)(1 << MPU6050_SlaveInitStruct->MPU6050_Slave);
 	//wyzeruj bit I2C_SLVx_DLY_EN
 	MPU6050_temp_buff[0] &= (~MPU6050_temp_buff[1]);
-	// u¿yj jako zmiennej pomocniczej
+	// uï¿½yj jako zmiennej pomocniczej
 	MPU6050_temp_buff[1] = (uint8_t)(MPU6050_SlaveInitStruct->MPU6050_SlaveDecreasedAccessingRate << MPU6050_SlaveInitStruct->MPU6050_Slave);
-	// wpisz now¹ wartosæ bitu I2C_SLVx_DLY_EN
+	// wpisz nowï¿½ wartosï¿½ bitu I2C_SLVx_DLY_EN
 	MPU6050_temp_buff[0] |= MPU6050_temp_buff[1];
 
-	// zapisz now¹ wartosæ rejestru I2C_MST_DELAY_CTRL
+	// zapisz nowï¿½ wartosï¿½ rejestru I2C_MST_DELAY_CTRL
 	this->write(MPU6050_REGISTER_I2CMSTDELAYCTRL,MPU6050_temp_buff,1);
 
 
@@ -371,46 +375,46 @@ void kMPU6050::SlaveInit(MPU6050_SlaveInitStruct_TypeDef * MPU6050_SlaveInitStru
 		MPU6050_temp_buff[2] |= (uint8_t)(MPU6050_SlaveInitStruct->MPU6050_SlaveRecievedBytesGroupingOrder << MPU6050_I2CSLV0_GRP_Bit0Position);
 
 		// I2C_SLV0_LEN
-		// u¿yj jako zmiennej pomocniczej
-		// chroñ przed b³ednymi parametrami
+		// uï¿½yj jako zmiennej pomocniczej
+		// chroï¿½ przed bï¿½ednymi parametrami
 		MPU6050_temp_buff[3] = (uint8_t)(MPU6050_SlaveInitStruct->MPU6050_SlaveBytesToTransfer & MPU6050_I2C_SLV0_LEN_Mask);
 
 		MPU6050_temp_buff[2] |= MPU6050_temp_buff[3];
 
-		// oblicz adres pocz¹tkowego rejestru do wpisania (który Slave?)
-		// u¿yj jako zmiennej pomocniczej
+		// oblicz adres poczï¿½tkowego rejestru do wpisania (ktï¿½ry Slave?)
+		// uï¿½yj jako zmiennej pomocniczej
 		MPU6050_temp_buff[3] = MPU6050_REGISTER_I2C_SLV0_ADDR + MPU6050_SlaveInitStruct->MPU6050_Slave*0x03;
 
-		// zapisz nowe wartosci rejestrów I2C_SLVx_ADDR, I2C_SLVx_REG, I2C_SLVx_CTRL
+		// zapisz nowe wartosci rejestrï¿½w I2C_SLVx_ADDR, I2C_SLVx_REG, I2C_SLVx_CTRL
 		this->write(MPU6050_temp_buff[3],MPU6050_temp_buff,3);
 
 	}else if(MPU6050_SlaveInitStruct->MPU6050_Slave == MPU6050_Slave_4)
 	{
-		// uk³ad obs³ugi slave 4 ma pewne ograniczenia, pozosta³e parametry nie bêd¹ brane pod uwagê
+		// ukï¿½ad obsï¿½ugi slave 4 ma pewne ograniczenia, pozostaï¿½e parametry nie bï¿½dï¿½ brane pod uwagï¿½
 
 		// I2C_SLV4_ADDR
 		MPU6050_temp_buff[0] = MPU6050_SlaveInitStruct->MPU6050_Slave7bitAddress | (uint8_t)(MPU6050_SlaveInitStruct->MPU6050_SlaveTransferDirection << MPU6050_I2CSLV4_RW_Bit0Position);
 		// I2C_SLV4_REG
 		MPU6050_temp_buff[1] = MPU6050_SlaveInitStruct->MPU6050_SlaveStartingRegisterAddress;
 
-		// zapisz nowe wartosci rejestrów I2C_SLV4_ADDR, I2C_SLV4_REG
+		// zapisz nowe wartosci rejestrï¿½w I2C_SLV4_ADDR, I2C_SLV4_REG
 		this->write(MPU6050_REGISTER_I2C_SLV4_ADDR,MPU6050_temp_buff,2);
 
-		// odczytaj zawartosæ rejestru I2C_SLV4_CTRL
+		// odczytaj zawartosï¿½ rejestru I2C_SLV4_CTRL
 		this->read(MPU6050_REGISTER_I2C_SLV4_CTRL,MPU6050_temp_buff,1);
 
 		// I2C_SLV4_REG_DIS
 		// wykasuj bit I2C_SLV4_REG_DIS
 		MPU6050_temp_buff[0] &= (~MPU6050_I2CSLV4_REG_DIS_Mask);
-		// nanies now¹ wartosæ
+		// nanies nowï¿½ wartosï¿½
 		MPU6050_temp_buff[0] |= (uint8_t)(MPU6050_SlaveInitStruct->MPU6050_SlaveSendRegisterAddress << MPU6050_I2CSLV4_REG_DIS_Bit0Position);
 
-		// zapisz now¹ wartosæ rejestru I2C_SLV4_CTRL
+		// zapisz nowï¿½ wartosï¿½ rejestru I2C_SLV4_CTRL
 		this->write(MPU6050_REGISTER_I2C_SLV4_CTRL,MPU6050_temp_buff,1);
 
 	}
 }
-// funkcja w³¹cza/wy³¹cza buforowanie FIFO dla okreslonych danych z czujników
+// funkcja wï¿½ï¿½cza/wyï¿½ï¿½cza buforowanie FIFO dla okreslonych danych z czujnikï¿½w
 void kMPU6050::FIFOsetBufferedData(uint16_t MPU6050_FIFOBufferData,FunctionalState NewState)
 {
 	uint8_t MPU6050_temp_buff[2];
@@ -424,7 +428,7 @@ void kMPU6050::FIFOsetBufferedData(uint16_t MPU6050_FIFOBufferData,FunctionalSta
 	// Odczytaj rejestry FIFO_EN, I2C_MST_CTRL
 	this->read(MPU6050_REGISTER_FIFO_EN,MPU6050_temp_buff,2);
 
-	// w³¹czyæ czy wy³¹czyæ?
+	// wï¿½ï¿½czyï¿½ czy wyï¿½ï¿½czyï¿½?
 	if(NewState == ENABLE)
 	{
 		//ustaw okreslone bity
@@ -442,10 +446,10 @@ void kMPU6050::FIFOsetBufferedData(uint16_t MPU6050_FIFOBufferData,FunctionalSta
 		MPU6050_temp_buff[0] &= (~reg2);
 	}
 
-	// zapisz nowe wartosci rejestrów FIFO_EN, I2C_MST_CTRL
+	// zapisz nowe wartosci rejestrï¿½w FIFO_EN, I2C_MST_CTRL
 	this->write(MPU6050_REGISTER_FIFO_EN,MPU6050_temp_buff,2);
 }
-// funkcja w³¹cza/wy³¹cza kontrolê nad Auxiliary I2C przez host (aplikacjê u¿ytkownika)
+// funkcja wï¿½ï¿½cza/wyï¿½ï¿½cza kontrolï¿½ nad Auxiliary I2C przez host (aplikacjï¿½ uï¿½ytkownika)
 void kMPU6050::I2CBypass(FunctionalState NewState)
 {
 	uint8_t MPU6050_temp_buff[1];
@@ -453,7 +457,7 @@ void kMPU6050::I2CBypass(FunctionalState NewState)
 	// Odczytaj rejestr INT_PIN_CFG
 	this->read(MPU6050_REGISTER_INT_PIN_CFG,MPU6050_temp_buff,1);
 
-	// w³¹czyæ czy wy³¹czyæ?
+	// wï¿½ï¿½czyï¿½ czy wyï¿½ï¿½czyï¿½?
 	if(NewState == ENABLE)
 	{
 		// ustaw bit I2C_BYPASS_EN
@@ -464,37 +468,38 @@ void kMPU6050::I2CBypass(FunctionalState NewState)
 		MPU6050_temp_buff[0] &= (~MPU6050_I2CBYPASS_EN_Mask);
 	}
 
-	// zapisz now¹ wartosæ rejestru INT_PIN_CFG
+	// zapisz nowï¿½ wartosï¿½ rejestru INT_PIN_CFG
 	this->write(MPU6050_REGISTER_INT_PIN_CFG,MPU6050_temp_buff,1);
 
 }
-// funkcja konwertuje pomiary do jednostek uk³adu SI (oprócz temperatury która podawana jest w stopniach Celsjusza)
-void kMPU6050::MeasurementsToPhysicalUnits(MPU6050_MeasurementsStorage_TypeDef * Measurements, MPU6050_MeasurementsPhysicalUnitsStorage_TypeDef * PhysicalUnitsDataStorage)
+// funkcja konwertuje pomiary do jednostek ukï¿½adu SI (oprï¿½cz temperatury ktï¿½ra podawana jest w stopniach Celsjusza)
+void kMPU6050::MeasurementsToPhysicalUnits(void)
 {
 	// ACC
 	// x
-	PhysicalUnitsDataStorage->ACC_X = (float)(Measurements->ACC_X);
-	PhysicalUnitsDataStorage->ACC_X /= MPU6050_Acc_LSB_Sensitivity[this->MPU6050_currentAccFullScaleRangeOption];
+	this->acc.x = (float)this->rawData.ACC_X;
+	this->acc.x /= MPU6050_Acc_LSB_Sensitivity[this->MPU6050_currentAccFullScaleRangeOption];
+
 	// y
-	PhysicalUnitsDataStorage->ACC_Y = (float)(Measurements->ACC_Y);
-	PhysicalUnitsDataStorage->ACC_Y /= MPU6050_Acc_LSB_Sensitivity[this->MPU6050_currentAccFullScaleRangeOption];
+	this->acc.y = (float)this->rawData.ACC_Y;
+	this->acc.y /= MPU6050_Acc_LSB_Sensitivity[this->MPU6050_currentAccFullScaleRangeOption];
 	// z
-	PhysicalUnitsDataStorage->ACC_Z = (float)(Measurements->ACC_Z);
-	PhysicalUnitsDataStorage->ACC_Z /= MPU6050_Acc_LSB_Sensitivity[this->MPU6050_currentAccFullScaleRangeOption];
+	this->acc.z = (float)this->rawData.ACC_Z;
+	this->acc.z /= MPU6050_Acc_LSB_Sensitivity[this->MPU6050_currentAccFullScaleRangeOption];
 
 	// GYRO
 	// x
-	PhysicalUnitsDataStorage->GYRO_X = (float)(Measurements->GYRO_X);
-	PhysicalUnitsDataStorage->GYRO_X /= MPU6050_Gyro_LSB_Sensitivity[this->MPU6050_currentGyroFullScaleRangeOption];
+	this->gyro.x = (float)this->rawData.GYRO_X;
+	this->gyro.x /= MPU6050_Gyro_LSB_Sensitivity[this->MPU6050_currentGyroFullScaleRangeOption];
 	// y
-	PhysicalUnitsDataStorage->GYRO_Y = (float)(Measurements->GYRO_Y);
-	PhysicalUnitsDataStorage->GYRO_Y /= MPU6050_Gyro_LSB_Sensitivity[this->MPU6050_currentGyroFullScaleRangeOption];
+	this->gyro.y = (float)this->rawData.GYRO_Y;
+	this->gyro.y /= MPU6050_Gyro_LSB_Sensitivity[this->MPU6050_currentGyroFullScaleRangeOption];
 	// z
-	PhysicalUnitsDataStorage->GYRO_Z = (float)(Measurements->GYRO_Z);
-	PhysicalUnitsDataStorage->GYRO_Z /= MPU6050_Gyro_LSB_Sensitivity[this->MPU6050_currentGyroFullScaleRangeOption];
+	this->gyro.z = (float)this->rawData.GYRO_Z;
+	this->gyro.z /= MPU6050_Gyro_LSB_Sensitivity[this->MPU6050_currentGyroFullScaleRangeOption];
 
 	// TEMP
-	PhysicalUnitsDataStorage->TEMP = (float)(Measurements->TEMP);
-	PhysicalUnitsDataStorage->TEMP /= 340;
-	PhysicalUnitsDataStorage->TEMP += 36.53;
+	this->temperature = (float)(this->rawData.TEMP);
+	this->temperature /= 340;
+	this->temperature += 36.53;
 }

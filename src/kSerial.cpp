@@ -548,6 +548,29 @@ const kSerial& operator <<(const kSerial &serial,float number)
 
 	return serial;
 }
+const kSerial& operator <<(const kSerial &serial,const kVector3 & v)
+{
+	serial 	<< v.x << "i  "
+			<< v.y << "j  "
+			<< v.z << "k";
+
+	return serial;
+}
+const kSerial& operator <<(const kSerial &serial,const kQuaternion & q)
+{
+	serial 	<< q.r << "  "
+			<< q.i << "i  "
+			<< q.j << "j  "
+			<< q.k << "k";
+
+	return serial;
+}
+const kSerial& operator <<(const kSerial &serial,const kAxisAngle & axis_angle)
+{
+	serial << axis_angle.angle << "rad  " << axis_angle.axis;
+	return serial;
+}
+
 unsigned short int kSerial::newBytesAvailable(void)
 {
 	if(this->rx_buffer_read_pointer < this->rx_buffer_write_pointer)

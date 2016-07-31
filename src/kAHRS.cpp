@@ -32,6 +32,29 @@ void kAHRS::attachMagData(float * x, float * y, float * z)
 	this->sens_y_mag = y;
 	this->sens_z_mag = z;
 }
+void kAHRS::attachGyroData(kVector3 * angular_rates)
+{
+	this->attachGyroData(&angular_rates->x,&angular_rates->y,&angular_rates->z);
+}
+
+void kAHRS::attachAccData(kVector3 * acceleration)
+{
+	this->attachAccData(&acceleration->x,&acceleration->y,&acceleration->z);
+}
+
+void kAHRS::attachMagData(kVector3 * magnetic_induction)
+{
+	this->attachMagData(&magnetic_induction->x,&magnetic_induction->y,&magnetic_induction->z);
+}
+void kAHRS::attachGyroData(kGyroscope * gyro)
+{
+	this->attachGyroData(&gyro->gyro.x,&gyro->gyro.y,&gyro->gyro.z);
+}
+void kAHRS::attachAccData(kAccelerometer * acc)
+{
+	this->attachAccData(&acc->acc.x,&acc->acc.y,&acc->acc.z);
+}
+
 kVector3 kAHRS::angularRates2EulerDot(void)
 {
 	float sin_phi,cos_phi,sin_theta,cos_theta,tan_theta;
@@ -46,14 +69,14 @@ kVector3 kAHRS::angularRates2EulerDot(void)
 
 	kVector3 res;
 
-	res.x =   (*this->sens_p)
+	res.x = + (*this->sens_p)
 			+ sin_phi*tan_theta*(*this->sens_q)
 			+ cos_phi*tan_theta*(*this->sens_r);
 
-	res.y =   cos_phi*(*this->sens_q)
+	res.y = + cos_phi*(*this->sens_q)
 			- sin_phi*(*this->sens_r);
 
-	res.z =   sin_phi/cos_theta*(*this->sens_q)
+	res.z = + sin_phi/cos_theta*(*this->sens_q)
 			+ cos_phi/cos_theta*(*this->sens_r);
 
 	return res;
@@ -70,7 +93,7 @@ void kAHRS::init(void)
 	// initial phi angle (using accelerometer)
 	this->phi = atan2f((*this->sens_y_acc),(*this->sens_z_acc));
 
-	// psi angle from magnetometer
+	// initial psi angle from magnetometer
 	kVector3 mag(*this->sens_x_mag,*this->sens_y_mag,*this->sens_z_mag);
 	mag.rotateX(this->phi);
 	mag.rotateY(this->theta);
@@ -101,47 +124,26 @@ kVector3 kAHRS::getCorrection(void)
 }
 void kAHRS::calculateAngles(void)
 {
-	kVector3 EulerC;
-	kVector3 EulerDot;
+	kVector3 gyro(*this->sens_p,*this->sens_q,*this->sens_r);
 
-	EulerC = this->getCorrection();
-	EulerDot = this->angularRates2EulerDot();
+	this->temp_AxisAngle = kAxisAngle::create(gyro,gyro.length()*this->dt);
+	this->qg = kQuaternion::fromAxisAngle(this->temp_AxisAngle);
 
-	this->phi += EulerDot.x*this->dt;
-	this->theta += EulerDot.y*this->dt;
-	this->psi += EulerDot.z*this->dt;
-
-	//correction
-	if(this->phi > 1.5708 && EulerC.x < -1.5708)
-	{
-		this-> phi += (2*3.141593 + EulerC.x - this->phi)*0.005;
-
-	}else if(this->phi < -1.5708 && EulerC.x > 1.5708)
-	{
-		this-> phi -= (2*3.141593 - EulerC.x + this->phi)*0.005;
-	}else
-	{
-		this-> phi += (EulerC.x - this->phi)*0.01;
-	}
-	if(this->phi >  3.41593) this->phi -= 2*3.141593;
-	if(this->phi < -3.41593) this->phi += 2*3.141593;
+	this->q *= this->qg;
 
 
-	if(this->psi > 1.5708 && EulerC.z < -1.5708)
-	{
-		this-> psi += (2*3.141593 + EulerC.z - this->psi)*0.005;
-	}else if(this->psi < -1.5708 && EulerC.z > 1.5708)
-	{
-		this-> psi -= (2*3.141593 - EulerC.z + this->psi)*0.005;
-	}else
-	{
-		this-> psi += (EulerC.z - this->psi)*0.005;
-	}
-	if(this->psi >  3.41593) this->psi -= 2*3.141593;
-	if(this->psi < -3.41593) this->psi += 2*3.141593;
+	this->EulerC = this->getCorrection();
+	qc = kQuaternion::fromEulerAngles(this->EulerC);
 
+	this->q = kQuaternion::SLERP(this->q,this->qc,0.01);
 
-	this-> theta += (EulerC.y - this->theta)*0.005;
+	//quaternion *= quaternion_error;
+	this->q = this->q.versor();
 
+	this->EulerG = this->q.toEulerAngles();
+
+	this->phi   = this->EulerG.x;
+	this->theta = this->EulerG.y;
+	this->psi   = this->EulerG.z;
 
 }

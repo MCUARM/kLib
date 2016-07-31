@@ -1,6 +1,6 @@
 #include "kSystem.h"
 
-	// Private define
+	// Private preprocessor definition
 	#ifndef AIRCR_VECTKEY_MASK
 		#define AIRCR_VECTKEY_MASK    ((uint32_t)0x05FA0000)
 	#endif
@@ -343,10 +343,6 @@ unsigned int k_System::APB2_Timer_CLK(void)
 	return HCLK;
 }
 
-unsigned int k_System::systemTimerCLK()
-{
-	return (this->coreCLK() >> 3);
-}
 
 void k_System::waitus(unsigned short int microseconds)
 {
@@ -414,60 +410,62 @@ void k_System::enableInterrupt(unsigned char channel,unsigned char preemptionPri
 	NVIC->ISER[channel >> 0x05] = (uint32_t)0x01 << (channel & (uint8_t)0x1F);
 }
 
+#if (kLib_config_USE_MODULE == 1)
 
-
-kRegister * k_System::getSystemRegister(void)
-{
-	return this->pSystemRegister;
-}
-void k_System::setSystemRegister(kRegister * reg)
-{
-	this->pSystemRegister = reg;
-}
-char * k_System::processCommand(const char * cmd, char * response)
-{
-	char cmd_nr = this->commands()->decode(cmd);
-	char cmd_nr2;
-	switch(cmd_nr)
+	kRegister * k_System::getSystemRegister(void)
 	{
-		case kSystem_cmd_get:
+		return this->pSystemRegister;
+	}
+	void k_System::setSystemRegister(kRegister * reg)
+	{
+		this->pSystemRegister = reg;
+	}
+	char * k_System::processCommand(const char * cmd, char * response)
+	{
+		char cmd_nr = this->commands()->decode(cmd);
+		char cmd_nr2;
+		switch(cmd_nr)
+		{
+			case kSystem_cmd_get:
 
-			cmd = kString::skipOneWord(cmd);
-			if(!(*cmd)) return kString::copy("Wrong parameter",response);
-			cmd_nr2 = this->commands()->decode(cmd);
+				cmd = kString::skipOneWord(cmd);
+				if(!(*cmd)) return kString::copy("Wrong parameter",response);
+				cmd_nr2 = this->commands()->decode(cmd);
 
-			switch(cmd_nr2)
-			{
-				case kSystem_cmd_info:
+				switch(cmd_nr2)
+				{
+					case kSystem_cmd_info:
 
-					response = kString::copy(" kSystem\t ", response);
-					response = kString::copy(this->getName(),response);
-					response = kString::copy(" core clock @ ",response);
-					response = kString::number((int)this->coreCLK(),response);
-					response = kString::copy(" Hz",response);
+						response = kString::copy(" kSystem\t ", response);
+						response = kString::copy(this->getName(),response);
+						response = kString::copy(" core clock @ ",response);
+						response = kString::number((int)this->coreCLK(),response);
+						response = kString::copy(" Hz",response);
 
-				break;
-				default:
-					//unexpected parameter
-					return kString::copy("Wrong parameter",response);
+					break;
+					default:
+						//unexpected parameter
+						return kString::copy("Wrong parameter",response);
 
-				break;
-			}
-
-
-		break;
-		case kSystem_cmd_info:
+					break;
+				}
 
 
-		break;
-		default:
-			//unexpected command
+			break;
+			case kSystem_cmd_info:
 
-			response = kString::copyOneWord(cmd,response);
-			return kString::copy(": command not found",response);
 
-		break;
+			break;
+			default:
+				//unexpected command
+
+				response = kString::copyOneWord(cmd,response);
+				return kString::copy(": command not found",response);
+
+			break;
+		}
+
+		return response;
 	}
 
-	return response;
-}
+#endif

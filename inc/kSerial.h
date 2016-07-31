@@ -11,6 +11,7 @@
 	#include "stm32f4xx_rcc.h"
 	#include "kString.h"
 	#include "kSystem.h"
+	#include "kMath.h"
 
 
 	#define kSerial_rxBuffer_size 512
@@ -185,6 +186,9 @@
 			friend const kSerial& operator <<(const kSerial &serial,unsigned int number);
 			friend const kSerial& operator <<(const kSerial &serial,float number);
 			friend const kSerial& operator <<(const kSerial &serial,const kString & str);
+			friend const kSerial& operator <<(const kSerial &serial,const kVector3 & v);
+			friend const kSerial& operator <<(const kSerial &serial,const kQuaternion & q);
+			friend const kSerial& operator <<(const kSerial &serial,const kAxisAngle & axis_angle);
 
 	};
 
