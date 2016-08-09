@@ -4,7 +4,7 @@
   * @author  Paweł Zalewski
   * @version V1.0.0
   * @date    29-October-2015
-  * @brief   This file contains all the classes and functions prototypes for using
+  * @brief   This file contains all the classes and functions prototypes for
   *          General Purpose Input Output.
   */
 
@@ -13,8 +13,7 @@
 #define __kPort_H
 
 /* Includes ------------------------------------------------------------------*/
-	#include "stm32f4xx.h"
-	#include "stm32f4xx_gpio.h"
+	#include "kConfig.h"
 
 	/**
 	  * @brief  kPin class is used as abstract layer to handle input/output pin
@@ -24,6 +23,7 @@
 	{
 		// public access
 		public:
+
 
 			/**
 			  * @brief  Contains available pin modes.
@@ -182,6 +182,7 @@
 			 */
 			kPin operator [](const unsigned char pin);
 
+
 			/**
 			 *  @brief Writes binary value to output register
 			 *  @param state: new output state on port
@@ -201,15 +202,42 @@
 
 	};
 
+#ifdef kPort_config_USE_PORTA_OBJECT
  	extern kPort PORTA;
+#endif
+#ifdef kPort_config_USE_PORTB_OBJECT
  	extern kPort PORTB;
+#endif
+#ifdef kPort_config_USE_PORTB_OBJECT
+ 	extern kPort PORTB;
+#endif
+#ifdef kPort_config_USE_PORTC_OBJECT
  	extern kPort PORTC;
+#endif
+#ifdef kPort_config_USE_PORTD_OBJECT
  	extern kPort PORTD;
+#endif
+#ifdef kPort_config_USE_PORTE_OBJECT
  	extern kPort PORTE;
+#endif
+#ifdef kPort_config_USE_PORTF_OBJECT
  	extern kPort PORTF;
+#endif
+#ifdef kPort_config_USE_PORTG_OBJECT
  	extern kPort PORTG;
+#endif
+#ifdef kPort_config_USE_PORTH_OBJECT
  	extern kPort PORTH;
+#endif
+#ifdef kPort_config_USE_PORTI_OBJECT
  	extern kPort PORTI;
+#endif
+#ifdef kPort_config_USE_PORTJ_OBJECT
+ 	extern kPort PORTJ;
+#endif
+#ifdef kPort_config_USE_PORTK_OBJECT
+ 	extern kPort PORTK;
+#endif
 
 
 #endif

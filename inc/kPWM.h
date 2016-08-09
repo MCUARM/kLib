@@ -3,62 +3,19 @@
 #define __kPWM_H
 
 
-	/*Issues
-	 *
-	 * At this time library support following hardware
-	 * TIM1
-	 * -all channels work properly
-	 *
-	 * TIM2
-	 * -OC2 doesn't work at PORTA1
-	 * -OC3 doesn't work at PORTA2
-	 *
-	 * TIM3
-	 * -all channels work properly
-	 *
-	 * TIM4
-	 * -all channels work properly
-	 *
-	 * TIM5
-	 * -OC2 doesn't work at PORTA1
-	 * -OC3 doesn't work at PORTA2
-	 *
-	 * TIM8
-	 * -all channels work properly
-	 *
-	 * TIM9
-	 * -OC1 doesn't work at PORTA2
-	 *
-	 * TIM10
-	 * -all channels work properly
-	 *
-	 * TIM11
-	 * -all channels work properly
-	 *
-	 * TIM12
-	 * - NOT WORKING!!!
-	 *
-	 * TIM13
-	 * -all channels work properly
-	 * TIM14
-	 * -all channels work properly
-	 *
-	 * tested under stm32f429xx/
-	*/
-
 
 	/*
 	 * Includes
 	 */
-	#include "stm32f4xx.h"
+
+	#include "kConfig.h"
 	#include "misc.h"
 	#include "kSystem.h"
 
 	extern unsigned int kSystem_ms_downcounter;
 
-	#ifndef kRCChannel
-		class kRCChannel;
-	#endif
+	class kRCChannel;
+
 
 	typedef struct
 	{
@@ -71,6 +28,9 @@
 		uint32_t pwm_input_register;
 		uint32_t last_update_kSystem_timer_value;
 	}kPWM_EXTI_data_storage;
+
+
+#if (kLib_config_PLATFORM == kLib_STM32F429xx)
 
 	typedef struct
 	{
@@ -446,7 +406,7 @@
 			typedef enum
 			{
 				PORTH6 = 0x01834796,
-				PORTB4 = 0x01834194
+				PORTB14 = 0x0183419E
 			}kPWM_Timer12_OC1_Pin;
 
 		}kPWM_OC1_Timer12;
@@ -514,6 +474,780 @@
 			kPWM_Timer13 Timer13;
 			kPWM_Timer14 Timer14;
 		}kPWM_out;
+
+#elif (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x10034018,
+			PORTE9 = 0x10034419
+		}kPWM_Timer1_OC1_Pin;
+
+	}kPWM_OC1_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9  = 0x10038019,
+			PORTE11 = 0x1003841B
+		}kPWM_Timer1_OC2_Pin;
+
+	}kPWM_OC2_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1003C01A,
+			PORTE13 = 0x1003C41D
+		}kPWM_Timer1_OC3_Pin;
+
+	}kPWM_OC3_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1004001B,
+			PORTE14 = 0x1004041E
+		}kPWM_Timer1_OC4_Pin;
+
+
+	}kPWM_OC4_Timer1;
+
+	typedef struct
+	{
+		kPWM_OC1_Timer1 OC1;
+		kPWM_OC2_Timer1 OC2;
+		kPWM_OC3_Timer1 OC3;
+		kPWM_OC4_Timer1 OC4;
+
+	}kPWM_Timer1;
+
+
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 =  0x00034010,
+			PORTA5 =  0x00034015,
+			PORTA15 = 0x0003401F
+		}kPWM_Timer2_OC1_Pin;
+
+	}kPWM_OC1_Timer2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 =  0x00038011,
+			PORTB3 =  0x00038113
+		}kPWM_Timer2_OC2_Pin;
+
+	}kPWM_OC2_Timer2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 =  0x0003C012,
+			PORTB10 = 0x0003C11A
+		}kPWM_Timer2_OC3_Pin;
+
+	}kPWM_OC3_Timer2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3  = 0x00040013,
+			PORTB11 = 0x0004011B
+		}kPWM_Timer2_OC4_Pin;
+
+	}kPWM_OC4_Timer2;
+
+	typedef struct
+	{
+		kPWM_OC1_Timer2 OC1;
+		kPWM_OC2_Timer2 OC2;
+		kPWM_OC3_Timer2 OC3;
+		kPWM_OC4_Timer2 OC4;
+
+	}kPWM_Timer2;
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA6 = 0x00434026,
+				PORTB4 = 0x00434124,
+				PORTC6 = 0x00434226
+			}kPWM_Timer3_OC1_Pin;
+
+		}kPWM_OC1_Timer3;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA7 = 0x00438027,
+				PORTB5 = 0x00438125,
+				PORTC7 = 0x00438227
+			}kPWM_Timer3_OC2_Pin;
+
+		}kPWM_OC2_Timer3;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB0 = 0x0043C120,
+				PORTC8 = 0x0043C228
+			}kPWM_Timer3_OC3_Pin;
+
+		}kPWM_OC3_Timer3;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB1 = 0x00440121,
+				PORTC9 = 0x00440229
+			}kPWM_Timer3_OC4_Pin;
+
+		}kPWM_OC4_Timer3;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer3 OC1;
+			kPWM_OC2_Timer3 OC2;
+			kPWM_OC3_Timer3 OC3;
+			kPWM_OC4_Timer3 OC4;
+
+		}kPWM_Timer3;
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB6 =  0x00834126,
+				PORTD12 = 0x0083432C
+			}kPWM_Timer4_OC1_Pin;
+
+		}kPWM_OC1_Timer4;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB7 =  0x00838127,
+				PORTD13 = 0x0083832D
+			}kPWM_Timer4_OC2_Pin;
+
+		}kPWM_OC2_Timer4;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB8 =  0x0083C128,
+				PORTD14 = 0x0083C32E
+			}kPWM_Timer4_OC3_Pin;
+
+		}kPWM_OC3_Timer4;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB9  = 0x00840129,
+				PORTD15 = 0x0084032F
+			}kPWM_Timer4_OC4_Pin;
+
+		}kPWM_OC4_Timer4;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer4 OC1;
+			kPWM_OC2_Timer4 OC2;
+			kPWM_OC3_Timer4 OC3;
+			kPWM_OC4_Timer4 OC4;
+
+		}kPWM_Timer4;
+
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA0  = 0x00C34020
+			}kPWM_Timer5_OC1_Pin;
+
+		}kPWM_OC1_Timer5;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA1  = 0x00C38021
+			}kPWM_Timer5_OC2_Pin;
+
+		}kPWM_OC2_Timer5;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA2  = 0x00C3C022
+			}kPWM_Timer5_OC3_Pin;
+
+		}kPWM_OC3_Timer5;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA3 = 0x00C40023
+			}kPWM_Timer5_OC4_Pin;
+
+		}kPWM_OC4_Timer5;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer5 OC1;
+			kPWM_OC2_Timer5 OC2;
+			kPWM_OC3_Timer5 OC3;
+			kPWM_OC4_Timer5 OC4;
+
+		}kPWM_Timer5;
+
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA2 = 0x14034032,
+				PORTE5 = 0x14034435
+			}kPWM_Timer9_OC1_Pin;
+
+		}kPWM_OC1_Timer9;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA3 = 0x14038033,
+				PORTE6 = 0x14038436
+			}kPWM_Timer9_OC2_Pin;
+
+		}kPWM_OC2_Timer9;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer9 OC1;
+			kPWM_OC2_Timer9 OC2;
+
+		}kPWM_Timer9;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB8 = 0x14434138
+			}kPWM_Timer10_OC1_Pin;
+
+		}kPWM_OC1_Timer10;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer10 OC1;
+		}kPWM_Timer10;
+
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB9 = 0x14834139
+			}kPWM_Timer11_OC1_Pin;
+
+		}kPWM_OC1_Timer11;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer11 OC1;
+		}kPWM_Timer11;
+
+
+
+		typedef struct
+		{
+			kPWM_Timer1  Timer1;
+			kPWM_Timer2  Timer2;
+			kPWM_Timer3  Timer3;
+			kPWM_Timer4  Timer4;
+			kPWM_Timer5  Timer5;
+			kPWM_Timer9  Timer9;
+			kPWM_Timer10 Timer10;
+			kPWM_Timer11 Timer11;
+		}kPWM_out;
+
+
+#elif (kLib_config_PLATFORM == kLib_STM32F407xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x10034018,
+			PORTE9 = 0x10034419
+		}kPWM_Timer1_OC1_Pin;
+
+	}kPWM_OC1_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9  = 0x10038019,
+			PORTE11 = 0x1003841B
+		}kPWM_Timer1_OC2_Pin;
+
+	}kPWM_OC2_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1003C01A,
+			PORTE13 = 0x1003C41D
+		}kPWM_Timer1_OC3_Pin;
+
+	}kPWM_OC3_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1004001B,
+			PORTE14 = 0x1004041E
+		}kPWM_Timer1_OC4_Pin;
+
+
+	}kPWM_OC4_Timer1;
+
+	typedef struct
+	{
+		kPWM_OC1_Timer1 OC1;
+		kPWM_OC2_Timer1 OC2;
+		kPWM_OC3_Timer1 OC3;
+		kPWM_OC4_Timer1 OC4;
+
+	}kPWM_Timer1;
+
+
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x0003401F
+		}kPWM_Timer2_OC1_Pin;
+
+	}kPWM_OC1_Timer2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 =  0x00038011,
+			PORTB3 =  0x00038113
+		}kPWM_Timer2_OC2_Pin;
+
+	}kPWM_OC2_Timer2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 =  0x0003C012,
+			PORTB10 = 0x0003C11A
+		}kPWM_Timer2_OC3_Pin;
+
+	}kPWM_OC3_Timer2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3  = 0x00040013,
+			PORTB11 = 0x0004011B
+		}kPWM_Timer2_OC4_Pin;
+
+	}kPWM_OC4_Timer2;
+
+	typedef struct
+	{
+		kPWM_OC1_Timer2 OC1;
+		kPWM_OC2_Timer2 OC2;
+		kPWM_OC3_Timer2 OC3;
+		kPWM_OC4_Timer2 OC4;
+
+	}kPWM_Timer2;
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA6 = 0x00434026,
+				PORTB4 = 0x00434124,
+				PORTC6 = 0x00434226
+			}kPWM_Timer3_OC1_Pin;
+
+		}kPWM_OC1_Timer3;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA7 = 0x00438027,
+				PORTB5 = 0x00438125,
+				PORTC7 = 0x00438227
+			}kPWM_Timer3_OC2_Pin;
+
+		}kPWM_OC2_Timer3;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB0 = 0x0043C120,
+				PORTC8 = 0x0043C228
+			}kPWM_Timer3_OC3_Pin;
+
+		}kPWM_OC3_Timer3;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB1 = 0x00440121,
+				PORTC9 = 0x00440229
+			}kPWM_Timer3_OC4_Pin;
+
+		}kPWM_OC4_Timer3;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer3 OC1;
+			kPWM_OC2_Timer3 OC2;
+			kPWM_OC3_Timer3 OC3;
+			kPWM_OC4_Timer3 OC4;
+
+		}kPWM_Timer3;
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB6 =  0x00834126,
+				PORTD12 = 0x0083432C
+			}kPWM_Timer4_OC1_Pin;
+
+		}kPWM_OC1_Timer4;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB7 =  0x00838127,
+				PORTD13 = 0x0083832D
+			}kPWM_Timer4_OC2_Pin;
+
+		}kPWM_OC2_Timer4;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB8 =  0x0083C128,
+				PORTD14 = 0x0083C32E
+			}kPWM_Timer4_OC3_Pin;
+
+		}kPWM_OC3_Timer4;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTB9  = 0x00840129,
+				PORTD15 = 0x0084032F
+			}kPWM_Timer4_OC4_Pin;
+
+		}kPWM_OC4_Timer4;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer4 OC1;
+			kPWM_OC2_Timer4 OC2;
+			kPWM_OC3_Timer4 OC3;
+			kPWM_OC4_Timer4 OC4;
+
+		}kPWM_Timer4;
+
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA0  = 0x00C34020,
+				PORTH10 = 0x00C3472A
+			}kPWM_Timer5_OC1_Pin;
+
+		}kPWM_OC1_Timer5;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA1  = 0x00C38021,
+				PORTH11 = 0x00C3872B
+			}kPWM_Timer5_OC2_Pin;
+
+		}kPWM_OC2_Timer5;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA2  = 0x00C3C022,
+				PORTH12 = 0x00C3C72C
+			}kPWM_Timer5_OC3_Pin;
+
+		}kPWM_OC3_Timer5;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA3 = 0x00C40023,
+				PORTI0 = 0x00C40820
+			}kPWM_Timer5_OC4_Pin;
+
+		}kPWM_OC4_Timer5;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer5 OC1;
+			kPWM_OC2_Timer5 OC2;
+			kPWM_OC3_Timer5 OC3;
+			kPWM_OC4_Timer5 OC4;
+
+		}kPWM_Timer5;
+
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTC6 = 0x10434236,
+				PORTI5 = 0x10434835
+			}kPWM_Timer8_OC1_Pin;
+
+		}kPWM_OC1_Timer8;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTC7 = 0x10438237,
+				PORTI6 = 0x10438836
+			}kPWM_Timer8_OC2_Pin;
+
+		}kPWM_OC2_Timer8;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTC8 = 0x1043C238,
+				PORTI7 = 0x1043C837
+			}kPWM_Timer8_OC3_Pin;
+
+		}kPWM_OC3_Timer8;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTC9 = 0x10440239,
+				PORTI2 = 0x10440832
+			}kPWM_Timer8_OC4_Pin;
+
+		}kPWM_OC4_Timer8;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer8 OC1;
+			kPWM_OC2_Timer8 OC2;
+			kPWM_OC3_Timer8 OC3;
+			kPWM_OC4_Timer8 OC4;
+
+		}kPWM_Timer8;
+
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA2 = 0x14034032,
+				PORTE5 = 0x14034435
+			}kPWM_Timer9_OC1_Pin;
+
+		}kPWM_OC1_Timer9;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTA3 = 0x14038033,
+				PORTE6 = 0x14038436
+			}kPWM_Timer9_OC2_Pin;
+
+		}kPWM_OC2_Timer9;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer9 OC1;
+			kPWM_OC2_Timer9 OC2;
+
+		}kPWM_Timer9;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTF6 = 0x14434536,
+				PORTB8 = 0x14434138
+			}kPWM_Timer10_OC1_Pin;
+
+		}kPWM_OC1_Timer10;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer10 OC1;
+		}kPWM_Timer10;
+
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTF7 = 0x14834537,
+				PORTB9 = 0x14834139
+			}kPWM_Timer11_OC1_Pin;
+
+		}kPWM_OC1_Timer11;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer11 OC1;
+		}kPWM_Timer11;
+
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTH6 = 0x01834796,
+				PORTB14 = 0x0183419E
+			}kPWM_Timer12_OC1_Pin;
+
+		}kPWM_OC1_Timer12;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTH9 =  0x01838799,
+				PORTB15 = 0x0183819F
+			}kPWM_Timer12_OC2_Pin;
+
+		}kPWM_OC2_Timer12;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer12 OC1;
+			kPWM_OC2_Timer12 OC2;
+
+		}kPWM_Timer12;
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTF8 = 0x01C34598,
+				PORTA6 = 0x01C34096
+			}kPWM_Timer13_OC1_Pin;
+
+		}kPWM_OC1_Timer13;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer13 OC1;
+		}kPWM_Timer13;
+
+
+		typedef struct
+		{
+			typedef enum
+			{
+				PORTF9 = 0x02034599,
+				PORTA7 = 0x02034097
+			}kPWM_Timer14_OC1_Pin;
+
+		}kPWM_OC1_Timer14;
+
+		typedef struct
+		{
+			kPWM_OC1_Timer14 OC1;
+		}kPWM_Timer14;
+
+		typedef struct
+		{
+			kPWM_Timer1  Timer1;
+			kPWM_Timer2  Timer2;
+			kPWM_Timer3  Timer3;
+			kPWM_Timer4  Timer4;
+			kPWM_Timer5  Timer5;
+			kPWM_Timer8  Timer8;
+			kPWM_Timer9  Timer9;
+			kPWM_Timer10 Timer10;
+			kPWM_Timer11 Timer11;
+			kPWM_Timer12 Timer12;
+			kPWM_Timer13 Timer13;
+			kPWM_Timer14 Timer14;
+		}kPWM_out;
+
+#else
+	#error "kPWM library do not support current chosen platform"
+#endif
 
 		typedef struct
 		{

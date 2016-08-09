@@ -1,8 +1,10 @@
 #ifndef __kRecorder_H
 #define __kRecorder_H
 
-	#include "kSPIDevice.h"
 
+	#include "kConfig.h"
+	#include "kSPIDevice.h"
+	#include "stm32f4xx_gpio.h"
 
 
 

@@ -6,6 +6,7 @@
 	 * Includes
 	 */
 
+	#include "kConfig.h"
 	#include "stm32f4xx_usart.h"
 	#include "kPort.h"
 	#include "stm32f4xx_rcc.h"

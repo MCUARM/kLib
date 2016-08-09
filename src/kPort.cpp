@@ -1,19 +1,46 @@
 #include "kPort.h"
 
+#ifdef kPort_config_USE_PORTA_OBJECT
+ 	kPort PORTA(GPIOA);
+#endif
+#ifdef kPort_config_USE_PORTB_OBJECT
+ 	kPort PORTB(GPIOB);
+#endif
+#ifdef kPort_config_USE_PORTC_OBJECT
+ 	kPort PORTC(GPIOC);
+#endif
+#ifdef kPort_config_USE_PORTD_OBJECT
+ 	kPort PORTD(GPIOD);
+#endif
+#ifdef kPort_config_USE_PORTE_OBJECT
+ 	kPort PORTE(GPIOE);
+#endif
+#ifdef kPort_config_USE_PORTF_OBJECT
+ 	kPort PORTF(GPIOF);
+#endif
+#ifdef kPort_config_USE_PORTG_OBJECT
+ 	kPort PORTG(GPIOG);
+#endif
+#ifdef kPort_config_USE_PORTH_OBJECT
+ 	kPort PORTH(GPIOH);
+#endif
+#ifdef kPort_config_USE_PORTI_OBJECT
+ 	kPort PORTI(GPIOI);
+#endif
+#ifdef kPort_config_USE_PORTJ_OBJECT
+ 	kPort PORTJ(GPIOJ);
+#endif
+#ifdef kPort_config_USE_PORTK_OBJECT
+ 	kPort PORTK(GPIOK);
+#endif
+
 kPort::kPort(GPIO_TypeDef * GPIO)
 {
 	this->gpio = GPIO;
+
 }
 
-kPort PORTA(GPIOA);
-kPort PORTB(GPIOB);
-kPort PORTC(GPIOC);
-kPort PORTD(GPIOD);
-kPort PORTE(GPIOE);
-kPort PORTF(GPIOF);
-kPort PORTG(GPIOG);
-kPort PORTH(GPIOH);
-kPort PORTI(GPIOI);
+
 
 kPin kPort::operator [](const unsigned char pin)
 {
