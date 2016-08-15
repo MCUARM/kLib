@@ -503,3 +503,37 @@ bool kString::firstWordCompare(const char * string,const char * word)
 
 	return false;
 }
+int kString::toInt(const char * string)
+{
+	//go to back
+	unsigned char i=0;
+	unsigned char isNegative=0;
+
+	if(string[i] == '-')
+	{
+		isNegative = 1;
+		i++;
+	}
+
+
+
+	while(string[i] > 47 && string[i] < 58)
+	{
+		i++;
+	}
+
+	unsigned int multi=1;
+	int res=0;
+	i--;
+	while(string[i] > 47 && string[i] < 58)
+	{
+		res += (string[i] - 48)*multi;
+		if(i==0) break;
+		multi*=10;
+		i--;
+	}
+
+	if(isNegative) res *= (-1);
+
+    return res;
+}

@@ -59,7 +59,7 @@
 			static char compare(const char * string_1,const char * string_2);
 			static bool firstWordCompare(const char * string,const char * word);
 			static char * copyOneWord(const char * source,char * destination);
-
+			static int toInt(const char * string);
 	};
 
 #endif

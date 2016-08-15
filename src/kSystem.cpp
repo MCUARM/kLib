@@ -410,6 +410,18 @@ void k_System::enableInterrupt(unsigned char channel,unsigned char preemptionPri
 	NVIC->ISER[channel >> 0x05] = (uint32_t)0x01 << (channel & (uint8_t)0x1F);
 }
 
+unsigned int k_System::millis(void)
+{
+	return (((unsigned int)0xFFFFFFFF) - kSystem_ms_downcounter);
+}
+unsigned int k_System::micros(void)
+{
+	unsigned int res = (((unsigned int)0xFFFFFFFF) - kSystem_ms_downcounter)*1000;
+	res += ((unsigned int)(SysTick->LOAD-SysTick->VAL))*1000;
+	res /= SysTick->LOAD;
+	return res;
+}
+
 #if (kLib_config_USE_MODULE == 1)
 
 	kRegister * k_System::getSystemRegister(void)

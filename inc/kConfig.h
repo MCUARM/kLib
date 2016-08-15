@@ -10,9 +10,9 @@
 	// PLATFORM SELECTION
 	// Uncomment one line below
 
-		//#define kLib_config_PLATFORM kLib_STM32F411xx
+		#define kLib_config_PLATFORM kLib_STM32F411xx
 		//#define kLib_config_PLATFORM kLib_STM32F407xx
-		#define kLib_config_PLATFORM kLib_STM32F429xx
+		//#define kLib_config_PLATFORM kLib_STM32F429xx
 
 
 	#ifndef kLib_config_PLATFORM

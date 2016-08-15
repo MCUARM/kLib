@@ -73,6 +73,8 @@
 			void waitus(unsigned short int microseconds);
 			void waitms(unsigned short int miliseconds);
 			void wait(unsigned short int seconds);
+			unsigned int millis(void);
+			unsigned int micros(void);
 
 
 			#if (kLib_config_USE_MODULE == 1)
