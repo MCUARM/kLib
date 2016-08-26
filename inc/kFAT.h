@@ -3,8 +3,11 @@
 
 	class kFATVolume;
 
+
 	#include "kSystem.h"
+	#include "kMacro.h"
 	#include "ff.h"
+
 
 	/* Generic command (Used by FatFs) */
 	#define CTRL_SYNC			0	/* Complete pending write process (needed at _FS_READONLY == 0) */
@@ -61,17 +64,21 @@
 			typedef BYTE	DSTATUS;
 
 			/* Results of Disk Functions */
-			typedef enum {
-				RES_OK = 0,		/* 0: Successful */
-				RES_ERROR,		/* 1: R/W Error */
-				RES_WRPRT,		/* 2: Write Protected */
-				RES_NOTRDY,		/* 3: Not Ready */
-				RES_PARERR		/* 4: Invalid Parameter */
-			} DRESULT;
-
+			typedef enum
+			{
+				RES_OK	   = 0x00,
+				RES_ERROR  = 0x01,
+				RES_WRPRT  = 0x02,
+				RES_NOTRDY = 0x03,
+				RES_PARERR = 0x04
+			}DRESULT;
 
 
 	};
+
+
+
+
 
 	class kFATVolume
 	{
@@ -183,9 +190,9 @@
 				);
 
 			virtual kFAT::DSTATUS init(void);
-			virtual kFAT::DSTATUS status(void);
-			virtual kFAT::DRESULT read(unsigned char * buff, unsigned long sector, unsigned int count);
-			virtual kFAT::DRESULT write(const unsigned char* buff, unsigned long sector, unsigned int count);
+			virtual kFAT::DSTATUS getStatus(void);
+			virtual kFAT::DRESULT readSector(unsigned char * buff, unsigned long sector, unsigned int count);
+			virtual kFAT::DRESULT writeSector(const unsigned char* buff, unsigned long sector, unsigned int count);
 			virtual kFAT::DRESULT ioctl(unsigned char cmd, void* buff);
 
 	};

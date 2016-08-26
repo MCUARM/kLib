@@ -9,13 +9,12 @@
 	 */
 
 	#include "kConfig.h"
-	#include "misc.h"
 	#include "kSystem.h"
+	#include "misc.h"
 
 	extern unsigned int kSystem_ms_downcounter;
 
 	class kRCChannel;
-
 
 	typedef struct
 	{
@@ -36,8 +35,8 @@
 	{
 		typedef enum
 		{
-			PORTA8 = 0x10034018,
-			PORTE9 = 0x10034419
+			PORTA8 = 0x18202108,
+			PORTE9 = 0x18202149
 		}kPWM_Timer1_OC1_Pin;
 
 	}kPWM_OC1_Timer1;
@@ -46,8 +45,8 @@
 	{
 		typedef enum
 		{
-			PORTA9  = 0x10038019,
-			PORTE11 = 0x1003841B
+			PORTA9  = 0x50202109,
+			PORTE11 = 0x5020214B
 		}kPWM_Timer1_OC2_Pin;
 
 	}kPWM_OC2_Timer1;
@@ -56,8 +55,8 @@
 	{
 		typedef enum
 		{
-			PORTA10 = 0x1003C01A,
-			PORTE13 = 0x1003C41D
+			PORTA10 = 0x2820210A,
+			PORTE13 = 0x2820214D
 		}kPWM_Timer1_OC3_Pin;
 
 	}kPWM_OC3_Timer1;
@@ -66,8 +65,8 @@
 	{
 		typedef enum
 		{
-			PORTA11 = 0x1004001B,
-			PORTE14 = 0x1004041E
+			PORTA11 = 0x6020210B,
+			PORTE14 = 0x6020214E
 		}kPWM_Timer1_OC4_Pin;
 
 
@@ -88,9 +87,9 @@
 	{
 		typedef enum
 		{
-			PORTA0 =  0x00034010,
-			PORTA5 =  0x00034015,
-			PORTA15 = 0x0003401F
+			PORTA0 =  0x18002100,
+			PORTA5 =  0x18002105,
+			PORTA15 = 0x1800210F
 		}kPWM_Timer2_OC1_Pin;
 
 	}kPWM_OC1_Timer2;
@@ -99,8 +98,8 @@
 	{
 		typedef enum
 		{
-			PORTA1 =  0x00038011,
-			PORTB3 =  0x00038113
+			PORTA1 =  0x50002101,
+			PORTB3 =  0x50002113
 		}kPWM_Timer2_OC2_Pin;
 
 	}kPWM_OC2_Timer2;
@@ -109,8 +108,8 @@
 	{
 		typedef enum
 		{
-			PORTA2 =  0x0003C012,
-			PORTB10 = 0x0003C11A
+			PORTA2 =  0x28002102,
+			PORTB10 = 0x2800211A
 		}kPWM_Timer2_OC3_Pin;
 
 	}kPWM_OC3_Timer2;
@@ -119,8 +118,8 @@
 	{
 		typedef enum
 		{
-			PORTA3  = 0x00040013,
-			PORTB11 = 0x0004011B
+			PORTA3  = 0x60002103,
+			PORTB11 = 0x6000211B
 		}kPWM_Timer2_OC4_Pin;
 
 	}kPWM_OC4_Timer2;
@@ -139,9 +138,9 @@
 		{
 			typedef enum
 			{
-				PORTA6 = 0x00434026,
-				PORTB4 = 0x00434124,
-				PORTC6 = 0x00434226
+				PORTA6 = 0x1900A206,
+				PORTB4 = 0x1900A214,
+				PORTC6 = 0x1900A226
 			}kPWM_Timer3_OC1_Pin;
 
 		}kPWM_OC1_Timer3;
@@ -150,9 +149,9 @@
 		{
 			typedef enum
 			{
-				PORTA7 = 0x00438027,
-				PORTB5 = 0x00438125,
-				PORTC7 = 0x00438227
+				PORTA7 = 0x5100A207,
+				PORTB5 = 0x5100A215,
+				PORTC7 = 0x5100A227
 			}kPWM_Timer3_OC2_Pin;
 
 		}kPWM_OC2_Timer3;
@@ -161,8 +160,8 @@
 		{
 			typedef enum
 			{
-				PORTB0 = 0x0043C120,
-				PORTC8 = 0x0043C228
+				PORTB0 = 0x2900A210,
+				PORTC8 = 0x2900A228
 			}kPWM_Timer3_OC3_Pin;
 
 		}kPWM_OC3_Timer3;
@@ -171,8 +170,8 @@
 		{
 			typedef enum
 			{
-				PORTB1 = 0x00440121,
-				PORTC9 = 0x00440229
+				PORTB1 = 0x6100A211,
+				PORTC9 = 0x6100A229
 			}kPWM_Timer3_OC4_Pin;
 
 		}kPWM_OC4_Timer3;
@@ -191,8 +190,8 @@
 		{
 			typedef enum
 			{
-				PORTB6 =  0x00834126,
-				PORTD12 = 0x0083432C
+				PORTB6 =  0x1A012216,
+				PORTD12 = 0x1A01223C
 			}kPWM_Timer4_OC1_Pin;
 
 		}kPWM_OC1_Timer4;
@@ -201,8 +200,8 @@
 		{
 			typedef enum
 			{
-				PORTB7 =  0x00838127,
-				PORTD13 = 0x0083832D
+				PORTB7 =  0x52012217,
+				PORTD13 = 0x5201223D
 			}kPWM_Timer4_OC2_Pin;
 
 		}kPWM_OC2_Timer4;
@@ -211,8 +210,8 @@
 		{
 			typedef enum
 			{
-				PORTB8 =  0x0083C128,
-				PORTD14 = 0x0083C32E
+				PORTB8 =  0x2A012218,
+				PORTD14 = 0x2A01223E
 			}kPWM_Timer4_OC3_Pin;
 
 		}kPWM_OC3_Timer4;
@@ -221,8 +220,8 @@
 		{
 			typedef enum
 			{
-				PORTB9  = 0x00840129,
-				PORTD15 = 0x0084032F
+				PORTB9  = 0x62012219,
+				PORTD15 = 0x6201223F
 			}kPWM_Timer4_OC4_Pin;
 
 		}kPWM_OC4_Timer4;
@@ -242,8 +241,8 @@
 		{
 			typedef enum
 			{
-				PORTA0  = 0x00C34020,
-				PORTH10 = 0x00C3472A
+				PORTA0  = 0x1B01A200,
+				PORTH10 = 0x1B01A27A
 			}kPWM_Timer5_OC1_Pin;
 
 		}kPWM_OC1_Timer5;
@@ -252,8 +251,8 @@
 		{
 			typedef enum
 			{
-				PORTA1  = 0x00C38021,
-				PORTH11 = 0x00C3872B
+				PORTA1  = 0x5301A201,
+				PORTH11 = 0x5301A27B
 			}kPWM_Timer5_OC2_Pin;
 
 		}kPWM_OC2_Timer5;
@@ -262,8 +261,8 @@
 		{
 			typedef enum
 			{
-				PORTA2  = 0x00C3C022,
-				PORTH12 = 0x00C3C72C
+				PORTA2  = 0x2B01A202,
+				PORTH12 = 0x2B01A27C
 			}kPWM_Timer5_OC3_Pin;
 
 		}kPWM_OC3_Timer5;
@@ -272,8 +271,8 @@
 		{
 			typedef enum
 			{
-				PORTA3 = 0x00C40023,
-				PORTI0 = 0x00C40820
+				PORTA3 = 0x6301A203,
+				PORTI0 = 0x6301A280
 			}kPWM_Timer5_OC4_Pin;
 
 		}kPWM_OC4_Timer5;
@@ -293,8 +292,8 @@
 		{
 			typedef enum
 			{
-				PORTC6 = 0x10434236,
-				PORTI5 = 0x10434835
+				PORTC6 = 0x1920A326,
+				PORTI5 = 0x1920A385
 			}kPWM_Timer8_OC1_Pin;
 
 		}kPWM_OC1_Timer8;
@@ -303,8 +302,8 @@
 		{
 			typedef enum
 			{
-				PORTC7 = 0x10438237,
-				PORTI6 = 0x10438836
+				PORTC7 = 0x5120A327,
+				PORTI6 = 0x5120A386
 			}kPWM_Timer8_OC2_Pin;
 
 		}kPWM_OC2_Timer8;
@@ -313,8 +312,8 @@
 		{
 			typedef enum
 			{
-				PORTC8 = 0x1043C238,
-				PORTI7 = 0x1043C837
+				PORTC8 = 0x2920A328,
+				PORTI7 = 0x2920A387
 			}kPWM_Timer8_OC3_Pin;
 
 		}kPWM_OC3_Timer8;
@@ -323,8 +322,8 @@
 		{
 			typedef enum
 			{
-				PORTC9 = 0x10440239,
-				PORTI2 = 0x10440832
+				PORTC9 = 0x6120A329,
+				PORTI2 = 0x6120A382
 			}kPWM_Timer8_OC4_Pin;
 
 		}kPWM_OC4_Timer8;
@@ -344,8 +343,8 @@
 		{
 			typedef enum
 			{
-				PORTA2 = 0x14034032,
-				PORTE5 = 0x14034435
+				PORTA2 = 0x18A82302,
+				PORTE5 = 0x18A82345
 			}kPWM_Timer9_OC1_Pin;
 
 		}kPWM_OC1_Timer9;
@@ -354,8 +353,8 @@
 		{
 			typedef enum
 			{
-				PORTA3 = 0x14038033,
-				PORTE6 = 0x14038436
+				PORTA3 = 0x50A82303,
+				PORTE6 = 0x50A82346
 			}kPWM_Timer9_OC2_Pin;
 
 		}kPWM_OC2_Timer9;
@@ -371,8 +370,8 @@
 		{
 			typedef enum
 			{
-				PORTF6 = 0x14434536,
-				PORTB8 = 0x14434138
+				PORTF6 = 0x19A8A356,
+				PORTB8 = 0x19A8A318
 			}kPWM_Timer10_OC1_Pin;
 
 		}kPWM_OC1_Timer10;
@@ -388,8 +387,8 @@
 		{
 			typedef enum
 			{
-				PORTF7 = 0x14834537,
-				PORTB9 = 0x14834139
+				PORTF7 = 0x1AA92357,
+				PORTB9 = 0x1AA92319
 			}kPWM_Timer11_OC1_Pin;
 
 		}kPWM_OC1_Timer11;
@@ -405,8 +404,8 @@
 		{
 			typedef enum
 			{
-				PORTH6 = 0x01834796,
-				PORTB14 = 0x0183419E
+				PORTH6  = 0x1E032976,
+				PORTB14 = 0x1E03291E
 			}kPWM_Timer12_OC1_Pin;
 
 		}kPWM_OC1_Timer12;
@@ -415,8 +414,8 @@
 		{
 			typedef enum
 			{
-				PORTH9 =  0x01838799,
-				PORTB15 = 0x0183819F
+				PORTH9  = 0x56032979,
+				PORTB15 = 0x5603291F
 			}kPWM_Timer12_OC2_Pin;
 
 		}kPWM_OC2_Timer12;
@@ -432,8 +431,8 @@
 		{
 			typedef enum
 			{
-				PORTF8 = 0x01C34598,
-				PORTA6 = 0x01C34096
+				PORTF8 = 0x1F03A958,
+				PORTA6 = 0x1F03A906
 			}kPWM_Timer13_OC1_Pin;
 
 		}kPWM_OC1_Timer13;
@@ -448,8 +447,8 @@
 		{
 			typedef enum
 			{
-				PORTF9 = 0x02034599,
-				PORTA7 = 0x02034097
+				PORTF9 = 0x18442959,
+				PORTA7 = 0x18442907
 			}kPWM_Timer14_OC1_Pin;
 
 		}kPWM_OC1_Timer14;

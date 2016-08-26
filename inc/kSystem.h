@@ -3,10 +3,10 @@
 #define __kSystem_H
 
 	#include "kConfig.h"
+	#include "kMacro.h"
 
 
 
-	#define K_UNUSED(param) (void)param
 
 	#define kSystem_cmd_get_string "get"
 	#define kSystem_cmd_info_string "info"
@@ -36,6 +36,60 @@
 
 	#endif
 
+	class kPWM;
+	class kPWM;
+
+	class kPrivate
+	{
+		private:
+
+			friend class kPWM;
+			friend class kSerial;
+			friend class kI2CDevice;
+			friend class kSPIDeviceHardware;
+
+			union uintSplitter
+			{
+				unsigned int ui32;
+				unsigned short int ui16[2];
+				unsigned char ui8[4];
+			};
+			typedef struct
+			{
+				unsigned int bit[32];
+			}intBitBand;
+
+
+
+			/*
+			 * this function prepare GPIO to be controlled by chosen peripheral,
+			 * enable chosen peripheral clock and returns decoded peripheral
+			 * base address. All settings are provided by passing hardware_code variable
+			 * which codes all necessary options as described:
+			 *
+			 *   - bits [0:3]  -> GPIO pin number
+			 *   - bits [4:7]  -> chosen GPIOx; 0=GPIA, 1=GPIOB, ...
+			 *   - bits [8:11] -> alternate function number saved in AFR
+			 *   - bits [12:13]-> GPIO mode saved in MODER
+			 *   - bit  [14]   -> GPIO output type saved in OTYPER
+			 *   - bits [15:21]-> Peripheral address,
+			 *                    only bits specified by this mask: 0x0001FC00
+			 *   - bits [22:23]-> RCC_APBx_ENR byte address where exist bit responsible
+			 *                    for chosen peripheral clock enable,
+			 *                    only bits specified by this mask: 0x00000003
+			 *   - bits [24:26]-> peripheral clock enable bit position in byte accessed
+			 *                    RCC_APBx_ENR from 0 to 7
+			 *   - bits [27:31]-> not used. Can be used for user purposes.
+			 */
+			static unsigned int* setupPeripheralOutput(unsigned int hardware_code);
+			static unsigned int* getPeriheralAndEnableClock(unsigned int hardware_code);
+
+			static unsigned int* getSRAMbitBand(unsigned int * reg, unsigned char bit);
+			static unsigned int* getPeriphBitBand(unsigned int * reg, unsigned char bit);
+			static intBitBand* getSRAMbitBand(unsigned int * reg);
+			static intBitBand* getPeriphBitBand(unsigned int * reg);
+	};
+
 #if (kLib_config_USE_MODULE == 1)
 	class k_System : public kModule
 #else
@@ -64,6 +118,8 @@
 			unsigned int coreCLK(void);
 			unsigned int APB1_CLK(void);
 			unsigned int APB2_CLK(void);
+			unsigned int getPeripheralClock(unsigned int * peripheral_address);
+
 
 			unsigned int APB1_Timer_CLK(void);
 			unsigned int APB2_Timer_CLK(void);
@@ -75,6 +131,7 @@
 			void wait(unsigned short int seconds);
 			unsigned int millis(void);
 			unsigned int micros(void);
+			bool isTimePassed(unsigned int * system_milliseconds_time);
 
 
 			#if (kLib_config_USE_MODULE == 1)

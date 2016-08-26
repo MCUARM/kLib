@@ -173,103 +173,40 @@ kPWM::kPWMHardware::kPWMHardware(void)
 
 kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (unsigned int pwmHard)
 {
-	unsigned char pin;
-	GPIO_TypeDef * gpio;
-	unsigned char gpio_alternate_function;
 	unsigned int temp;
+	unsigned int * pReg;
+	unsigned char * pData;
 
-	// decode pin number
-	pin = ((unsigned char)pwmHard) & 0x0F;
-
-	// decode alternate function
-	gpio_alternate_function = ((unsigned char)pwmHard);
-	gpio_alternate_function = gpio_alternate_function >> 4;
-
-	// decode gpio
-	temp = pwmHard & 0x00000F00;
-	temp = temp << 2;
-	gpio = (GPIO_TypeDef*)(AHB1PERIPH_BASE | temp);
-
-	// make sure gpio clock is enabled
-	temp = temp >> 10;
-	RCC->AHB1ENR |= (1 << temp);
-
-	//set proper gpio alternate function
-	//calculate either AFH or AFL register pointer
-	temp = (uint32_t)gpio->AFR + ((pin >> 3)*4);
-	// clear bits
-	*((uint32_t*)temp) &= ~(0x0000000F << ((pin & 0x07) << 2));
-	// set new alternate function
-	*((uint32_t*)temp) |= ((uint32_t)gpio_alternate_function << ((pin & 0x07) << 2));
-
-	//set gpio output type to push-pull
-	gpio->OTYPER &= ~(1<<pin);
-
-	//set gpio mode to alternate function mode
-	pin *=2;
-	gpio->MODER &= ~(3<<pin);
-	gpio->MODER |=  (2<<pin);
-
-	//set gpio output speed to medium
-	gpio->OSPEEDR &= ~(3<<pin);
-	gpio->OSPEEDR |= (1<<pin);
-
-	//set no pull resistors
-	gpio->PUPDR &= ~(3<<pin);
-
+	this->tim = (TIM_TypeDef*)kPrivate::setupPeripheralOutput(pwmHard);
 
 	// decode output register
-	pwmHard = pwmHard >> 12;
-	this->output = (uint32_t*)(PERIPH_BASE | pwmHard);
-
-	// decode timer base address
-	this->tim = (TIM_TypeDef*)(((uint32_t)this->output) & 0xFFFFFF00);
-
-
-	//make sure timer clock is enabled
-	// get proper RCC register
-	pwmHard = pwmHard >> 8;
-	temp = ((pwmHard & 0x00000100) >> 6) + ((unsigned int)&RCC->APB1ENR);
-	// get proper register bit
-	pwmHard = (pwmHard & 0x000000FF) >> 2;
-	// enable clock
-	*((uint32_t*)temp) |= (1<<pwmHard);
+	temp = (pwmHard & 0x18000000) >> 27;
+	this->output = (uint32_t*)&this->tim->CCR4 - (uint32_t)temp;
 
 	// make sure timer is stopped
 	this->tim->CR1 &= ~(1);
 
 	// if it is TIM1 or TIM8 set global output enable
-	if(this->tim == TIM1 || this->tim == TIM8) this->tim->BDTR |= (1<<15);
+	if((unsigned int)this->tim & 0x00010000) this->tim->BDTR |= (1<<15);
 
-	// setup output compare
-	// calculate OC number
-	temp = ((unsigned int)this->output) & 0x000000FF;
-	temp -= 0x34;
-	temp = temp >> 2;
 
 	// setup OCx
-	switch(temp)
-	{
-		case 0:
-			tim->CCMR1 &= ~(7<<4);
-			tim->CCMR1 |= ((6<<4) | (1<<3));
-		break;
-		case 1:
-			tim->CCMR1 &= ~(7<<12);
-			tim->CCMR1 |= ((6<<12) | (1<<11));
-		break;
-		case 2:
-			tim->CCMR2 &= ~(7<<4);
-			tim->CCMR2 |= ((6<<4) | (1<<3));
-		break;
-		case 3:
-			tim->CCMR2 &= ~(7<<12);
-			tim->CCMR2 |= ((6<<12) | (1<<11));
-		break;
-	}
+	// get CCMRx register
+	pReg = (unsigned int*)( ((unsigned int)&this->tim->CCMR1) |	((unsigned int)((pwmHard & 0x20000000) >> 27))  );
+	temp = *pReg;
+	pData = (unsigned char*)&temp;
+	pwmHard &= 0x40000000;
+	pwmHard = pwmHard >> 30;
+	pData+=pwmHard;
+	// clear bits
+	*pData &= ~(7<<4);
+	// set bits
+	*pData |= ((6<<4) | (1<<3));
+	// save settings
+	*pReg = temp;
 
 	//enable channel
-	this->tim->CCER |= (1<<(temp*4));
+	this->tim->CCER |= (1<<( ((unsigned int)this->output) - ((unsigned int)&this->tim->CCR1)));
 
 	return (*this);
 }

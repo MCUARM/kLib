@@ -17,9 +17,9 @@
 			void setRAMbuffer(char * ram_buffer,unsigned long sectors);
 
 			kFAT::DSTATUS init(void);
-			kFAT::DSTATUS status(void);
-			kFAT::DRESULT read(unsigned char * buff, unsigned long sector, unsigned int count);
-			kFAT::DRESULT write(const unsigned char* buff, unsigned long sector, unsigned int count);
+			kFAT::DSTATUS getStatus(void);
+			kFAT::DRESULT readSector(unsigned char * buff, unsigned long sector, unsigned int count);
+			kFAT::DRESULT writeSector(const unsigned char* buff, unsigned long sector, unsigned int count);
 			kFAT::DRESULT ioctl(unsigned char cmd, void* buff);
 
 

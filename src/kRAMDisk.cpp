@@ -18,11 +18,11 @@ kFAT::DSTATUS kRAMDisk::init(void)
 	if(this->prvBuff) return kFAT::RES_OK;
 	return kFAT::RES_ERROR;
 }
-kFAT::DSTATUS kRAMDisk::status(void)
+kFAT::DSTATUS kRAMDisk::getStatus(void)
 {
 	return kFAT::RES_OK;
 }
-kFAT::DRESULT kRAMDisk::read(unsigned char * buff, unsigned long sector, unsigned int count)
+kFAT::DRESULT kRAMDisk::readSector(unsigned char * buff, unsigned long sector, unsigned int count)
 {
 	unsigned int i;
 	unsigned char * pBuff = (unsigned char *)&this->prvBuff[512*sector];
@@ -36,7 +36,7 @@ kFAT::DRESULT kRAMDisk::read(unsigned char * buff, unsigned long sector, unsigne
 	}
 	return kFAT::RES_OK;
 }
-kFAT::DRESULT kRAMDisk::write(const unsigned char* buff, unsigned long sector, unsigned int count)
+kFAT::DRESULT kRAMDisk::writeSector(const unsigned char* buff, unsigned long sector, unsigned int count)
 {
 	unsigned int i;
 	unsigned char * pBuff = (unsigned char *)&this->prvBuff[512*sector];

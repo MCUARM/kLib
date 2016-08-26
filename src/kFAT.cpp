@@ -878,14 +878,14 @@ FRESULT sync_window (	/* Returns FR_OK or FR_DISK_ERROR */
 
 	if (k_vol->prvFAT.wflag) {	/* Write back the sector if it is dirty */
 		wsect = k_vol->prvFAT.winsect;	/* Current sector number */
-		if (k_vol->write(k_vol->prvFAT.win, wsect, 1) != kFAT::RES_OK) {
+		if (k_vol->writeSector(k_vol->prvFAT.win, wsect, 1) != kFAT::RES_OK) {
 			res = FR_DISK_ERR;
 		} else {
 			k_vol->prvFAT.wflag = 0;
 			if (wsect - k_vol->prvFAT.fatbase < k_vol->prvFAT.fsize) {		/* Is it in the FAT area? */
 				for (nf = k_vol->prvFAT.n_fats; nf >= 2; nf--) {	/* Reflect the change to all FAT copies */
 					wsect += k_vol->prvFAT.fsize;
-					k_vol->write(k_vol->prvFAT.win, wsect, 1);
+					k_vol->writeSector(k_vol->prvFAT.win, wsect, 1);
 				}
 			}
 		}
@@ -908,7 +908,7 @@ FRESULT move_window (	/* Returns FR_OK or FR_DISK_ERROR */
 		res = sync_window(k_vol);		/* Write-back changes */
 #endif
 		if (res == FR_OK) {			/* Fill sector window with new data */
-			if (k_vol->read(k_vol->prvFAT.win, sector, 1) != kFAT::RES_OK) {
+			if (k_vol->readSector(k_vol->prvFAT.win, sector, 1) != kFAT::RES_OK) {
 				sector = 0xFFFFFFFF;	/* Invalidate window if data is not reliable */
 				res = FR_DISK_ERR;
 			}
@@ -946,7 +946,7 @@ FRESULT sync_fs (	/* FR_OK:succeeded, !=0:error */
 			st_dword(k_vol->prvFAT.win + FSI_Nxt_Free, k_vol->prvFAT.last_clst);
 			/* Write it into the FSInfo sector */
 			k_vol->prvFAT.winsect = k_vol->prvFAT.volbase + 1;
-			k_vol->write(k_vol->prvFAT.win, k_vol->prvFAT.winsect, 1);
+			k_vol->writeSector(k_vol->prvFAT.win, k_vol->prvFAT.winsect, 1);
 			k_vol->prvFAT.fsi_flag = 0;
 		}
 		/* Make sure that no pending write process in the physical drive */
@@ -2936,7 +2936,7 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
 
 	mode &= ~FA_READ;					/* Desired access mode, write access or not */
 	if (k_vol->prvFAT.fs_type) {					/* If the volume has been mounted */
-		stat = k_vol->status();
+		stat = k_vol->getStatus();
 		if (!(stat & STA_NOINIT)) {		/* and the physical drive is kept initialized */
 			if (!_FS_READONLY && mode && (stat & STA_PROTECT)) {	/* Check write protection if needed */
 				return FR_WRITE_PROTECTED;
@@ -3136,7 +3136,7 @@ FRESULT validate (	/* Returns FR_OK or FR_INVALID_OBJECT */
 	FRESULT res;
 
 
-	if (!dfp || !obj->k_vol || !obj->k_vol->prvFAT.fs_type || obj->k_vol->prvFAT.id != obj->id || (obj->k_vol->status() & STA_NOINIT)) {
+	if (!dfp || !obj->k_vol || !obj->k_vol->prvFAT.fs_type || obj->k_vol->prvFAT.id != obj->id || (obj->k_vol->getStatus() & STA_NOINIT)) {
 		*rk_vol = 0;				/* The object is invalid */
 		res = FR_INVALID_OBJECT;
 	} else {
@@ -3562,7 +3562,7 @@ kFAT::FRESULT kFile::read(void* buff,UINT btr, UINT * br)
 				if (csect + cc > k_vol->prvFAT.csize) {	/* Clip at cluster boundary */
 					cc = k_vol->prvFAT.csize - csect;
 				}
-				if (k_vol->read(rbuff, sect, cc) != kFAT::RES_OK) {
+				if (k_vol->readSector(rbuff, sect, cc) != kFAT::RES_OK) {
 					kABORT(fs, FR_DISK_ERR);
 				}
 #if !_FS_READONLY && _FS_MINIMIZE <= 2			/* Replace one of the read sectors with cached data if it contains a dirty sector */
@@ -3583,13 +3583,13 @@ kFAT::FRESULT kFile::read(void* buff,UINT btr, UINT * br)
 			if (this->prvFile.sect != sect) {			/* Load data sector if not in cache */
 #if !_FS_READONLY
 				if (this->prvFile.flag & _FA_DIRTY) {		/* Write-back dirty sector cache */
-					if (k_vol->read(this->prvFile.buf, this->prvFile.sect, 1) != kFAT::RES_OK) {
+					if (k_vol->readSector(this->prvFile.buf, this->prvFile.sect, 1) != kFAT::RES_OK) {
 						kABORT(fs, FR_DISK_ERR);
 					}
 					this->prvFile.flag &= ~_FA_DIRTY;
 				}
 #endif
-				if (k_vol->read(this->prvFile.buf, sect, 1) != kFAT::RES_OK)	{	/* Fill sector cache */
+				if (k_vol->readSector(this->prvFile.buf, sect, 1) != kFAT::RES_OK)	{	/* Fill sector cache */
 					kABORT(fs, FR_DISK_ERR);
 				}
 			}
@@ -3664,7 +3664,7 @@ kFAT::FRESULT kFile::write(const void* buff, UINT btw, UINT * bw)
 			}
 #else
 			if (this->prvFile.flag & _FA_DIRTY) {		/* Write-back sector cache */
-				if (k_vol->write(this->prvFile.buf, this->prvFile.sect, 1) != kFAT::RES_OK) {
+				if (k_vol->writeSector(this->prvFile.buf, this->prvFile.sect, 1) != kFAT::RES_OK) {
 					kABORT(fs, FR_DISK_ERR);
 				}
 				this->prvFile.flag &= ~_FA_DIRTY;
@@ -3678,7 +3678,7 @@ kFAT::FRESULT kFile::write(const void* buff, UINT btw, UINT * bw)
 				if (csect + cc > k_vol->prvFAT.csize) {	/* Clip at cluster boundary */
 					cc = k_vol->prvFAT.csize - csect;
 				}
-				if (k_vol->write(wbuff, sect, cc) != kFAT::RES_OK) {
+				if (k_vol->writeSector(wbuff, sect, cc) != kFAT::RES_OK) {
 					kABORT(fs, FR_DISK_ERR);
 				}
 #if _FS_MINIMIZE <= 2
@@ -3705,7 +3705,7 @@ kFAT::FRESULT kFile::write(const void* buff, UINT btw, UINT * bw)
 #else
 			if (this->prvFile.sect != sect) {		/* Fill sector cache with file data */
 				if (this->prvFile.fptr < this->prvFile.obj.objsize &&
-					k_vol->read(this->prvFile.buf, sect, 1) != kFAT::RES_OK) {
+					k_vol->readSector(this->prvFile.buf, sect, 1) != kFAT::RES_OK) {
 						kABORT(fs, FR_DISK_ERR);
 				}
 			}
@@ -3887,11 +3887,11 @@ kFAT::DSTATUS kFATVolume::init(void)
 {
 	return kFAT::RES_ERROR;
 }
-kFAT::DSTATUS kFATVolume::status(void)
+kFAT::DSTATUS kFATVolume::getStatus(void)
 {
 	return kFAT::RES_ERROR;
 }
-kFAT::DRESULT kFATVolume::read(unsigned char * buff, unsigned long sector, unsigned int count)
+kFAT::DRESULT kFATVolume::readSector(unsigned char * buff, unsigned long sector, unsigned int count)
 {
 	K_UNUSED(buff);
 	K_UNUSED(sector);
@@ -3899,7 +3899,7 @@ kFAT::DRESULT kFATVolume::read(unsigned char * buff, unsigned long sector, unsig
 
 	return kFAT::RES_ERROR;
 }
-kFAT::DRESULT kFATVolume::write(const unsigned char* buff, unsigned long sector, unsigned int count)
+kFAT::DRESULT kFATVolume::writeSector(const unsigned char* buff, unsigned long sector, unsigned int count)
 {
 	K_UNUSED(buff);
 	K_UNUSED(sector);
@@ -3934,7 +3934,7 @@ kFAT::FRESULT kFile::sync(void)
 		if (this->prvFile.flag & _FA_MODIFIED) {	/* Is there any change to the file? */
 #if !_FS_TINY
 			if (this->prvFile.flag & _FA_DIRTY) {	/* Write-back cached data if needed */
-				if (k_vol->write(this->prvFile.buf, this->prvFile.sect, 1) != kFAT::RES_OK) {
+				if (k_vol->writeSector(this->prvFile.buf, this->prvFile.sect, 1) != kFAT::RES_OK) {
 					kLEAVE_FF(k_vol, FR_DISK_ERR);
 				}
 				this->prvFile.flag &= ~_FA_DIRTY;
@@ -4036,7 +4036,7 @@ kFAT::FRESULT kFATVolume::format(
 #endif
 	if (_MULTI_PARTITION && part) {
 		/* Get partition information from partition table in the MBR */
-		if (this->read(this->prvFAT.win, 0, 1) != kFAT::RES_OK) return kFAT::FR_DISK_ERR;
+		if (this->readSector(this->prvFAT.win, 0, 1) != kFAT::RES_OK) return kFAT::FR_DISK_ERR;
 		if (ld_word(this->prvFAT.win + BS_55AA) != 0xAA55) return kFAT::FR_MKFS_ABORTED;
 		tbl = &this->prvFAT.win[MBR_Table + (part - 1) * SZ_PTE];
 		if (!tbl[4]) return kFAT::FR_MKFS_ABORTED;	/* No partition? */
@@ -4116,7 +4116,7 @@ kFAT::FRESULT kFATVolume::format(
 		/* Update system ID in the partition table */
 		tbl = &k_vol->prvFAT.win[MBR_Table + (part - 1) * SZ_PTE];
 		tbl[4] = sys;
-		if (this->write(k_vol->prvFAT.win, 0, 1) != kFAT::RES_OK) {	/* Write it to teh MBR */
+		if (this->writeSector(k_vol->prvFAT.win, 0, 1) != kFAT::RES_OK) {	/* Write it to teh MBR */
 			return kFAT::FR_DISK_ERR;
 		}
 		md = 0xF8;
@@ -4137,7 +4137,7 @@ kFAT::FRESULT kFATVolume::format(
 			st_dword(tbl + 8, 63);			/* Partition start in LBA */
 			st_dword(tbl + 12, n_vol);		/* Partition size in LBA */
 			st_word(k_vol->prvFAT.win + BS_55AA, 0xAA55);	/* MBR signature */
-			if (this->write(k_vol->prvFAT.win, 0, 1) != kFAT::RES_OK) {	/* Write it to the MBR */
+			if (this->writeSector(k_vol->prvFAT.win, 0, 1) != kFAT::RES_OK) {	/* Write it to the MBR */
 				return kFAT::FR_DISK_ERR;
 			}
 			md = 0xF8;
@@ -4182,11 +4182,11 @@ kFAT::FRESULT kFATVolume::format(
 		mem_cpy(tbl + BS_VolLab, "NO NAME    " "FAT     ", 19);	/* Volume label, FAT signature */
 	}
 	st_word(tbl + BS_55AA, 0xAA55);			/* Signature (Offset is fixed here regardless of sector size) */
-	if (this->write(tbl, b_vol, 1) != kFAT::RES_OK) {	/* Write it to the VBR sector */
+	if (this->writeSector(tbl, b_vol, 1) != kFAT::RES_OK) {	/* Write it to the VBR sector */
 		return kFAT::FR_DISK_ERR;
 	}
 	if (fmt == FS_FAT32) {					/* Write it to the backup VBR if needed (VBR + 6) */
-		this->write(tbl, b_vol + 6, 1);
+		this->writeSector(tbl, b_vol + 6, 1);
 	}
 
 	/* Initialize FAT area */
@@ -4203,12 +4203,12 @@ kFAT::FRESULT kFATVolume::format(
 			st_dword(tbl + 4, 0xFFFFFFFF);
 			st_dword(tbl + 8, 0x0FFFFFFF);	/* Reserve cluster #2 for root directory */
 		}
-		if (this->write(tbl, wsect++, 1) != kFAT::RES_OK) {
+		if (this->writeSector(tbl, wsect++, 1) != kFAT::RES_OK) {
 			return kFAT::FR_DISK_ERR;
 		}
 		mem_set(tbl, 0, SS(fs));			/* Fill following FAT entries with zero */
 		for (n = 1; n < n_fat; n++) {		/* This loop may take a time on FAT32 volume due to many single sector writes */
-			if (this->write(tbl, wsect++, 1) != kFAT::RES_OK) {
+			if (this->writeSector(tbl, wsect++, 1) != kFAT::RES_OK) {
 				return kFAT::FR_DISK_ERR;
 			}
 		}
@@ -4217,7 +4217,7 @@ kFAT::FRESULT kFATVolume::format(
 	/* Initialize root directory */
 	i = (fmt == FS_FAT32) ? au : (UINT)n_dir;
 	do {
-		if (this->write(tbl, wsect++, 1) != kFAT::RES_OK) {
+		if (this->writeSector(tbl, wsect++, 1) != kFAT::RES_OK) {
 			return kFAT::FR_DISK_ERR;
 		}
 	} while (--i);
@@ -4236,8 +4236,8 @@ kFAT::FRESULT kFATVolume::format(
 		st_dword(tbl + FSI_Free_Count, n_clst - 1);	/* Number of free clusters */
 		st_dword(tbl + FSI_Nxt_Free, 2);			/* Last allocated cluster# */
 		st_word(tbl + BS_55AA, 0xAA55);
-		this->write(tbl, b_vol + 1, 1);	/* Write original (VBR + 1) */
-		this->write(tbl, b_vol + 7, 1);	/* Write backup (VBR + 7) */
+		this->writeSector(tbl, b_vol + 1, 1);	/* Write original (VBR + 1) */
+		this->writeSector(tbl, b_vol + 7, 1);	/* Write backup (VBR + 7) */
 	}
 
 	return (this->ioctl(CTRL_SYNC, 0) == kFAT::RES_OK) ? kFAT::FR_OK : kFAT::FR_DISK_ERR;

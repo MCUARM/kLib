@@ -13,7 +13,9 @@
 #define __kPort_H
 
 /* Includes ------------------------------------------------------------------*/
-	#include "kConfig.h"
+	#include "kSystem.h"
+
+
 
 	/**
 	  * @brief  kPin class is used as abstract layer to handle input/output pin
@@ -23,6 +25,11 @@
 	{
 		// public access
 		public:
+
+			typedef enum
+			{
+				kMACRO_GET_ALL_PORTS_PINS_ENUM
+			}kPIN_PIN;
 
 
 			/**
@@ -129,6 +136,8 @@
 
 			// writes the same state on pin as in given pin in argument
 			void operator = (kPin & pin);
+			// change current GPIO pin pointing
+			void operator = (kPIN_PIN new_pin);
 
 		//friends functions - descriptions as above
 
@@ -199,6 +208,7 @@
 			 *  @brief Get current state of port input register
 			 */
 			operator unsigned short int();
+
 
 	};
 

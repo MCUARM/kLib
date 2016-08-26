@@ -196,6 +196,12 @@ void kPin::operator = (kPin & pin)
 	unsigned char val = pin;
 	*this = val;
 }
+void kPin::operator = (kPin::kPIN_PIN new_pin)
+{
+	this->pin = (((unsigned char)new_pin)&0x0F);
+
+	this->gpio = (GPIO_TypeDef*)(((unsigned int)AHB1PERIPH_BASE)+((((unsigned int)new_pin)& 0x000000F0) << 6));
+}
 kPin::kPin(GPIO_TypeDef * GPIO,unsigned char PIN)
 {
 	this->gpio = GPIO;

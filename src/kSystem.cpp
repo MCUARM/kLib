@@ -311,6 +311,23 @@ unsigned int k_System::APB2_CLK(void)
 
 	return HCLK;
 }
+unsigned int k_System::getPeripheralClock(unsigned int * peripheral_address)
+{
+	unsigned int HCLK = this->coreCLK();
+	unsigned char shift = 10;
+	// if this is APB2 Peripheral add 3 bits to shift
+	if(((unsigned int)peripheral_address) & 0x00010000)shift=13;
+	// get APBx prescaler
+	unsigned int pres = RCC->CFGR & (7<<shift);
+	pres = pres >> 10;
+
+	if(pres < 4) return HCLK;
+
+	pres -= 3;
+	HCLK = HCLK >> pres;
+
+	return HCLK;
+}
 unsigned int k_System::APB1_Timer_CLK(void)
 {
 	unsigned int HCLK = this->coreCLK();
@@ -412,14 +429,18 @@ void k_System::enableInterrupt(unsigned char channel,unsigned char preemptionPri
 
 unsigned int k_System::millis(void)
 {
-	return (((unsigned int)0xFFFFFFFF) - kSystem_ms_downcounter);
+	return kSystem_ms_downcounter;
 }
 unsigned int k_System::micros(void)
 {
-	unsigned int res = (((unsigned int)0xFFFFFFFF) - kSystem_ms_downcounter)*1000;
-	res += ((unsigned int)(SysTick->LOAD-SysTick->VAL))*1000;
-	res /= SysTick->LOAD;
-	return res;
+	unsigned int res = kSystem_ms_downcounter*1000;
+	unsigned int us = ((unsigned int)(SysTick->VAL))*1000;
+	us /= SysTick->LOAD;
+	return (res+us);
+}
+bool k_System::isTimePassed(unsigned int * system_milliseconds_time)
+{
+	return (bool)(*system_milliseconds_time >= kSystem_ms_downcounter);
 }
 
 #if (kLib_config_USE_MODULE == 1)
@@ -481,3 +502,97 @@ unsigned int k_System::micros(void)
 	}
 
 #endif
+
+unsigned int* kPrivate::setupPeripheralOutput(unsigned int hardware_code)
+{
+	kPrivate::uintSplitter * pData = (kPrivate::uintSplitter *)&hardware_code;
+	GPIO_TypeDef * gpio;
+	unsigned int temp;
+	unsigned char pin;
+	unsigned char gpio_alternate_function;
+
+	// get pin number
+	pin = pData->ui8[0] & 0x0F;
+
+	// decode alternate function
+	gpio_alternate_function = (pData->ui8[1] & 0x0F);
+
+	// decode gpio
+	temp = hardware_code & 0x000000F0;
+	gpio = (GPIO_TypeDef*)(AHB1PERIPH_BASE | (temp << 6));
+
+	// make sure gpio clock is enabled
+	temp = temp >> 8;
+	RCC->AHB1ENR |= (1 << temp);
+
+	//set proper gpio alternate function
+	//calculate either AFH or AFL register pointer
+	temp = (uint32_t)gpio->AFR + ((pin >> 3)*4);
+	// clear bits (temporary setup to input mode
+	*((uint32_t*)temp) &= ~(0x0000000F << ((pin & 0x07) << 2));
+	// set new alternate function
+	*((uint32_t*)temp) |= ((uint32_t)gpio_alternate_function << ((pin & 0x07) << 2));
+
+
+	// set output type
+	// use gpio_alternate_function as temporary storage
+	gpio_alternate_function = pData->ui8[1] & 0x40;
+	gpio_alternate_function = gpio_alternate_function >> 6;
+	temp = gpio->OTYPER;
+	// clear appropriate bit
+	temp &= ~(1<<pin);
+	// set new output type
+	temp |= (((unsigned int)gpio_alternate_function)<<pin);
+	gpio->OTYPER = temp;
+
+	//set gpio mode
+	temp = hardware_code & 0x00003000;
+	temp = temp >> 12;
+	pin *=2;
+	// clear bits (temporary set to input mode)
+	gpio->MODER &= ~(3<<pin);
+	// set appropriate bits
+	gpio->MODER |=  (temp<<pin);
+
+
+	return kPrivate::getPeriheralAndEnableClock(hardware_code);
+}
+unsigned int* kPrivate::getPeriheralAndEnableClock(unsigned int hardware_code)
+{
+	kPrivate::uintSplitter * pData = (kPrivate::uintSplitter *)&hardware_code;
+	unsigned char shift;
+	unsigned char *pByte;
+	unsigned int temp;
+	// enable peripheral clock
+	// get RCC_APBx_ENR address
+	temp = (hardware_code & 0x00C00000) >> 22;
+	// APB1 or APB2?
+	temp |= (hardware_code & 0x00200000) >> 19;
+	pByte = (unsigned char*)(temp | ((unsigned int)&RCC->APB1ENR));
+	// get bit position (use pin as temporary storage)
+	shift = pData->ui8[3] & 0x07;
+	// enable clock
+	*pByte |= (1<<shift);
+
+	// get peripheral base address
+	temp = hardware_code & 0x003F8000;
+	hardware_code =  PERIPH_BASE | (temp >> 5);
+
+	return (unsigned int*)hardware_code;
+}
+unsigned int* kPrivate::getSRAMbitBand(unsigned int * reg, unsigned char bit)
+{
+	return ((unsigned int*)(((unsigned int)0x22000000)+((0x000FFFFF&((unsigned int)reg))*32)+(((unsigned int)bit)*4)));
+}
+kPrivate::intBitBand* kPrivate::getSRAMbitBand(unsigned int * reg)
+{
+	return ((kPrivate::intBitBand*)(((unsigned int)0x22000000)+((0x000FFFFF&((unsigned int)reg))*32)));
+}
+unsigned int* kPrivate::getPeriphBitBand(unsigned int * reg, unsigned char bit)
+{
+	return ((unsigned int*)(((unsigned int)0x42000000)+((0x000FFFFF&((unsigned int)reg))*32)+(((unsigned int)bit)*4)));
+}
+kPrivate::intBitBand* kPrivate::getPeriphBitBand(unsigned int * reg)
+{
+	return ((kPrivate::intBitBand*)(((unsigned int)0x42000000)+((0x000FFFFF&((unsigned int)reg))*32)));
+}
