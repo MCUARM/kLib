@@ -1,3 +1,37 @@
+/***********************************************************************************
+ *                                                                                 *
+ *   kLib - C++ development tools for ARM Cortex-M devices                         *
+ *                                                                                 *
+ *     Copyright (c) 2016, project author Paweł Zalewski                                          *
+ *     All rights reserved.                                                        *
+ *                                                                                 *
+ ***********************************************************************************
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *      this list of conditions and the following disclaimer.
+ *   2. Redistributions  in  binary  form  must  reproduce the above copyright
+ *      notice,  this  list  of conditions and the following disclaimer in the
+ *      documentation  and/or  other materials provided with the distribution.
+ *   3. Neither  the  name  of  the  copyright  holder  nor  the  names of its
+ *      contributors  may  be used to endorse or promote products derived from
+ *      this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  BUT NOT LIMITED  TO, THE
+ *   IMPLIED WARRANTIES OF MERCHANTABILITY  AND FITNESS FOR A PARTICULAR PURPOSE
+ *   ARE DISCLAIMED.  IN NO EVENT SHALL  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ *   LIABLE  FOR  ANY  DIRECT,  INDIRECT,  INCIDENTAL,  SPECIAL,  EXEMPLARY,  OR
+ *   CONSEQUENTIAL  DAMAGES  (INCLUDING,  BUT  NOT  LIMITED  TO,  PROCUREMENT OF
+ *   SUBSTITUTE  GOODS  OR SERVICES;  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ *   INTERRUPTION) HOWEVER  CAUSED  AND  ON  ANY THEORY OF LIABILITY, WHETHER IN
+ *   CONTRACT,  STRICT  LIABILITY,  OR  TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *   ARISING  IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *   POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
 #include "kVector.h"
 #include "kQuaternion.h"
 
@@ -52,6 +86,7 @@ void kVector::operator *= (float scalar)
 	unsigned char i;
 	for(i=0;i<this->elements;i++) this->buff[i] *= scalar;
 }
+
 float kVector::length(void)
 {
 	float res=0;
@@ -150,7 +185,7 @@ kVector3::kVector3(void)
 	this->y = 0;
 	this->z = 0;
 }
-kVector3::kVector3(kVector3 & other)
+kVector3::kVector3(const kVector3 & other)
 {
 	this->x = other.x;
 	this->y = other.y;
@@ -162,8 +197,12 @@ kVector3::kVector3(float X, float Y, float Z)
 	this->y = Y;
 	this->z = Z;
 }
-
-void kVector3::operator += (kVector3 & v)
+kVector3 kVector3::create(float X, float Y, float Z)
+{
+	kVector3 res(X,Y,Z);
+	return res;
+}
+void kVector3::operator += (const kVector3 & v)
 {
 	this->x += v.x;
 	this->y += v.y;
@@ -181,7 +220,12 @@ void kVector3::operator *= (float scalar)
 	this->y *= scalar;
 	this->z *= scalar;
 }
-kVector3 kVector3::operator +(kVector3 & v)
+void kVector3::operator /=(float scalar)
+{
+	scalar = 1/scalar;
+	*this *= scalar;
+}
+kVector3 kVector3::operator +(const kVector3 & v)
 {
 	kVector3 res(this->x+v.x,this->y+v.y,this->z+v.z);
 	return res;
@@ -191,9 +235,14 @@ kVector3 kVector3::operator -(kVector3 & v)
 	kVector3 res(this->x-v.x,this->y-v.y,this->z-v.z);
 	return res;
 }
-kVector3 kVector3::operator *(float scalar)
+kVector3 kVector3::operator *(float scalar) const
 {
 	kVector3 res(this->x*scalar,this->y*scalar,this->z*scalar);
+	return res;
+}
+kVector3 kVector3::operator /(float scalar)
+{
+	kVector3 res(this->x/scalar,this->y/scalar,this->z/scalar);
 	return res;
 }
 void kVector3::operator = (const kVector3 & v)
@@ -419,4 +468,136 @@ void kVector3::rotateZY(kVector2 & angles)
 	this->x = res_x;
 	this->y = res_y;
 
+}
+
+
+kVector4::kVector4(void)
+{
+
+}
+
+kVector4::kVector4(const kVector4 & other)
+{
+	this->x = other.x;
+	this->y = other.y;
+	this->z = other.z;
+	this->w = other.w;
+}
+kVector4::kVector4(float X, float Y, float Z, float W)
+{
+	this->x = X;
+	this->y = Y;
+	this->z = Z;
+	this->w = W;
+}
+
+kVector4 kVector4::create(float X, float Y, float Z, float W)
+{
+	kVector4 res(X,Y,Z,W);
+	return res;
+}
+
+void kVector4::operator += (kVector4 & v)
+{
+	this->x += v.x;
+	this->y += v.y;
+	this->z += v.z;
+	this->w += v.w;
+}
+void kVector4::operator -= (kVector4 & v)
+{
+	this->x -= v.x;
+	this->y -= v.y;
+	this->z -= v.z;
+	this->w -= v.w;
+}
+void kVector4::operator *= (float scalar)
+{
+	this->x *= scalar;
+	this->y *= scalar;
+	this->z *= scalar;
+	this->w *= scalar;
+}
+void kVector4::operator /= (float scalar)
+{
+	scalar = 1/scalar;
+	this->operator *=(scalar);
+}
+kVector4 kVector4::operator +(kVector4 & v)
+{
+	kVector4 res(	this->x + v.x,
+					this->y + v.y,
+					this->z + v.z,
+					this->w + v.w	);
+
+	return res;
+}
+kVector4 kVector4::operator -(kVector4 & v)
+{
+	kVector4 res(	this->x - v.x,
+					this->y - v.y,
+					this->z - v.z,
+					this->w - v.w	);
+
+	return res;
+}
+kVector4 kVector4::operator *(float scalar) const
+{
+	kVector4 res(	this->x*scalar,
+					this->y*scalar,
+					this->z*scalar,
+					this->w*scalar	);
+
+	return res;
+}
+kVector4 kVector4::operator /(float scalar)
+{
+	scalar = 1/scalar;
+	return ((*this)*scalar);
+}
+
+void kVector4::operator = (const kVector4 & v)
+{
+	this->x = v.x;
+	this->y = v.y;
+	this->z = v.z;
+	this->w = v.w;
+}
+void kVector4::operator = (const kQuaternion & q)
+{
+	this->x = q.i;
+	this->y = q.j;
+	this->z = q.k;
+	this->w = q.r;
+}
+
+bool kVector4::operator == (kVector4 & v)
+{
+	if(this->x != v.x) return false;
+	if(this->y != v.y) return false;
+	if(this->z != v.z) return false;
+	if(this->w != v.w) return false;
+	return true;
+}
+float kVector4::length(void)
+{
+	float res = sqrtf(	 this->x*this->x
+						+this->y*this->y
+						+this->z*this->z
+						+this->w*this->w	);
+
+	return res;
+}
+void kVector4::makeUnit(void)
+{
+	(*this)/= this->length();
+}
+float kVector4::dotProduct(kVector4 & vector_1, kVector4 & vector_2)
+{
+	float res =  vector_1.x*vector_2.x
+			    +vector_1.y*vector_2.y
+				+vector_1.z*vector_2.z
+				+vector_1.w*vector_2.w;
+
+	return res;
 }

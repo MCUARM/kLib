@@ -1,3 +1,37 @@
+/***********************************************************************************
+ *                                                                                 *
+ *   kLib - C++ development tools for ARM Cortex-M devices                         *
+ *                                                                                 *
+ *     Copyright (c) 2016, project author PaweÅ‚ Zalewski                                          *
+ *     All rights reserved.                                                        *
+ *                                                                                 *
+ ***********************************************************************************
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *      this list of conditions and the following disclaimer.
+ *   2. Redistributions  in  binary  form  must  reproduce the above copyright
+ *      notice,  this  list  of conditions and the following disclaimer in the
+ *      documentation  and/or  other materials provided with the distribution.
+ *   3. Neither  the  name  of  the  copyright  holder  nor  the  names of its
+ *      contributors  may  be used to endorse or promote products derived from
+ *      this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  BUT NOT LIMITED  TO, THE
+ *   IMPLIED WARRANTIES OF MERCHANTABILITY  AND FITNESS FOR A PARTICULAR PURPOSE
+ *   ARE DISCLAIMED.  IN NO EVENT SHALL  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ *   LIABLE  FOR  ANY  DIRECT,  INDIRECT,  INCIDENTAL,  SPECIAL,  EXEMPLARY,  OR
+ *   CONSEQUENTIAL  DAMAGES  (INCLUDING,  BUT  NOT  LIMITED  TO,  PROCUREMENT OF
+ *   SUBSTITUTE  GOODS  OR SERVICES;  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ *   INTERRUPTION) HOWEVER  CAUSED  AND  ON  ANY THEORY OF LIABILITY, WHETHER IN
+ *   CONTRACT,  STRICT  LIABILITY,  OR  TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *   ARISING  IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *   POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
 #include "kI2CDevice.h"
 
 const kI2C1 * kI2CDevice::I2C_1 = (kI2C1 *)SRAM1_BASE;
@@ -174,25 +208,25 @@ void kI2CDeviceHardware::clockSpeed(unsigned int value)
 {
 	I2C_InitTypeDef I2C_InitStruct;
 
-	//konfiguracja pracy uk³adu I2C1
-	//prêdkosæ sygna³u zegarowego linii SCL - 100kHz (standardowo)
+	//konfiguracja pracy ukï¿½adu I2C1
+	//prï¿½dkosï¿½ sygnaï¿½u zegarowego linii SCL - 100kHz (standardowo)
 	I2C_InitStruct.I2C_ClockSpeed = value;
-	//tryb dzia³ania uk³adu - dostêpne równie¿ rozszerzenie protoko³u: SMBus
+	//tryb dziaï¿½ania ukï¿½adu - dostï¿½pne rï¿½wnieï¿½ rozszerzenie protokoï¿½u: SMBus
 	I2C_InitStruct.I2C_Mode = I2C_Mode_I2C;
-	// ustawienia Timing'ów sygna³u - istotne w fast mode - tutaj standardowo 50%
+	// ustawienia Timing'ï¿½w sygnaï¿½u - istotne w fast mode - tutaj standardowo 50%
 	I2C_InitStruct.I2C_DutyCycle = I2C_DutyCycle_2;
-	//adres uk³adu - w trybie Master nieistotny (nieu¿ywany)
+	//adres ukï¿½adu - w trybie Master nieistotny (nieuï¿½ywany)
 	I2C_InitStruct.I2C_OwnAddress1 = 0x00;
-	//wysy³aj potwierdzenie (ACK) po ka¿dym otrzymanym bajcie
-	//równoznaczne z ¿¹daniem nastêpnego bajtu danych od Slave
+	//wysyï¿½aj potwierdzenie (ACK) po kaï¿½dym otrzymanym bajcie
+	//rï¿½wnoznaczne z ï¿½ï¿½daniem nastï¿½pnego bajtu danych od Slave
 	I2C_InitStruct.I2C_Ack = I2C_Ack_Enable;
-	//korzystamy z adresów 7-bitowych + 1bit kierunku
+	//korzystamy z adresï¿½w 7-bitowych + 1bit kierunku
 	I2C_InitStruct.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
 
-	//Przekazanie wype³nionej struktury do funkcji inicjalizuj¹cej uk³ad I2C1
+	//Przekazanie wypeï¿½nionej struktury do funkcji inicjalizujï¿½cej ukï¿½ad I2C1
 	I2C_Init(this->i2c,&I2C_InitStruct);
 
-	//zezwolenie na pracê uk³adu
+	//zezwolenie na pracï¿½ ukï¿½adu
 	I2C_Cmd(this->i2c,ENABLE);
 
 }
@@ -218,23 +252,23 @@ void kI2CDevice::write(uint8_t StartingRegisterAddress,uint8_t * transmit_buffer
 {
 	uint8_t i;
 
-	//poczekaj dopóki I2C1 jest zajêty
+	//poczekaj dopï¿½ki I2C1 jest zajï¿½ty
 	while(I2C_GetFlagStatus(this->hardware.i2c, I2C_FLAG_BUSY) != RESET);
-	//wygeneruj sygna³ startu
+	//wygeneruj sygnaï¿½ startu
 	I2C_GenerateSTART(this->hardware.i2c,ENABLE);
-	//poczekaj dopóki transciever I2Cx przejdzie do trybu master
+	//poczekaj dopï¿½ki transciever I2Cx przejdzie do trybu master
 	while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_MODE_SELECT));
-	//wyslij adres uk³adu docelowego do zapisu
+	//wyslij adres ukï¿½adu docelowego do zapisu
 	I2C_Send7bitAddress(this->hardware.i2c,this->I2C_Address,I2C_Direction_Transmitter);
 
-	//czekaj na potwierdzenie od ukladu podrzêdnego
+	//czekaj na potwierdzenie od ukladu podrzï¿½dnego
 	//master przejdzie w tryb nadawania
 	while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
 
 
 	//wyslij bajt danych
 	I2C_SendData(this->hardware.i2c,StartingRegisterAddress);
-	//czekaj dopóki nie wys³ano bajtu danych
+	//czekaj dopï¿½ki nie wysï¿½ano bajtu danych
 	while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
 
@@ -242,7 +276,7 @@ void kI2CDevice::write(uint8_t StartingRegisterAddress,uint8_t * transmit_buffer
 	{
 		//wyslij bajt danych
 		I2C_SendData(this->hardware.i2c,*transmit_buffer);
-		//czekaj dopóki nie wys³ano bajtu danych
+		//czekaj dopï¿½ki nie wysï¿½ano bajtu danych
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
 		transmit_buffer++;
@@ -254,28 +288,28 @@ void kI2CDevice::write(uint8_t StartingRegisterAddress,uint8_t * transmit_buffer
 void kI2CDevice::write(uint8_t RegisterAddress,uint8_t value)
 {
 
-	//poczekaj dopóki I2Cx jest zajêty
+	//poczekaj dopï¿½ki I2Cx jest zajï¿½ty
 	while(I2C_GetFlagStatus(this->hardware.i2c, I2C_FLAG_BUSY) != RESET);
-	//wygeneruj sygna³ startu
+	//wygeneruj sygnaï¿½ startu
 	I2C_GenerateSTART(this->hardware.i2c,ENABLE);
-	//poczekaj dopóki transciever I2Cx przejdzie do trybu master
+	//poczekaj dopï¿½ki transciever I2Cx przejdzie do trybu master
 	while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_MODE_SELECT));
-	//wyslij adres uk³adu docelowego do zapisu
+	//wyslij adres ukï¿½adu docelowego do zapisu
 	I2C_Send7bitAddress(this->hardware.i2c,this->I2C_Address,I2C_Direction_Transmitter);
 
-	//czekaj na potwierdzenie od ukladu podrzêdnego
+	//czekaj na potwierdzenie od ukladu podrzï¿½dnego
 	//master przejdzie w tryb nadawania
 	while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
 
 
 	//wyslij adres rejestru
 	I2C_SendData(this->hardware.i2c,RegisterAddress);
-	//czekaj dopóki nie wys³ano bajtu danych
+	//czekaj dopï¿½ki nie wysï¿½ano bajtu danych
 	while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
 	//wyslij wartosc rejestru
 	I2C_SendData(this->hardware.i2c,value);
-	//czekaj dopóki nie wys³ano bajtu danych
+	//czekaj dopï¿½ki nie wysï¿½ano bajtu danych
 	while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
 
@@ -290,62 +324,62 @@ void kI2CDevice::read(uint8_t StartingRegisterAddress, uint8_t * recieve_buffer,
 	if(BytesToRead > 1)
 	{
 
-		//poczekaj dopóki I2Cx jest zajêty
+		//poczekaj dopï¿½ki I2Cx jest zajï¿½ty
 		while(I2C_GetFlagStatus(this->hardware.i2c, I2C_FLAG_BUSY) != RESET);
-		//wygeneruj sygna³ startu
+		//wygeneruj sygnaï¿½ startu
 		I2C_GenerateSTART(this->hardware.i2c,ENABLE);
-		//poczekaj dopóki transciever I2C1 przejdzie do trybu master
+		//poczekaj dopï¿½ki transciever I2C1 przejdzie do trybu master
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_MODE_SELECT));
-		//wyslij adres uk³adu docelowego do zapisu
+		//wyslij adres ukï¿½adu docelowego do zapisu
 		I2C_Send7bitAddress(this->hardware.i2c,this->I2C_Address,I2C_Direction_Transmitter);
 
-		//czekaj na potwierdzenie od ukladu podrzêdnego
+		//czekaj na potwierdzenie od ukladu podrzï¿½dnego
 		//master przejdzie w tryb nadawania
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
 
 		//wyslij bajt danych
 		I2C_SendData(this->hardware.i2c,StartingRegisterAddress);
-		//czekaj dopóki nie wys³ano bajtu danych
+		//czekaj dopï¿½ki nie wysï¿½ano bajtu danych
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
-		//w³¹cz potwierdzenia otrzymywania danych (ACK on)
+		//wï¿½ï¿½cz potwierdzenia otrzymywania danych (ACK on)
 		I2C_AcknowledgeConfig(this->hardware.i2c,ENABLE);
 
-		//wygeneruj sygna³ startu
+		//wygeneruj sygnaï¿½ startu
 		I2C_GenerateSTART(this->hardware.i2c,ENABLE);
-		//poczekaj dopóki transciever I2Cx przejdzie do trybu master
+		//poczekaj dopï¿½ki transciever I2Cx przejdzie do trybu master
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_MODE_SELECT));
-		//wyslij adres uk³adu docelowego do odczytu
+		//wyslij adres ukï¿½adu docelowego do odczytu
 		I2C_Send7bitAddress(this->hardware.i2c,this->I2C_Address,I2C_Direction_Receiver);
 
-		//czekaj na potwierdzenie od ukladu podrzêdnego
+		//czekaj na potwierdzenie od ukladu podrzï¿½dnego
 		//master przejdzie w tryb odbioru
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED));
 
 
 
 		loop_end = BytesToRead - 2;
-		//czekaj a¿ I2Cx odbierze dane z kolejnych rejestrów
+		//czekaj aï¿½ I2Cx odbierze dane z kolejnych rejestrï¿½w
 		for(i=0;i<loop_end;i++)
 		{
-			//czekaj a¿ I2Cx odbierze bajt danych
+			//czekaj aï¿½ I2Cx odbierze bajt danych
 			while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_RECEIVED));
 			//odbierz dane
 			*recieve_buffer = I2C_ReceiveData(this->hardware.i2c);
 
 			recieve_buffer++;
 		}
-		//czekaj a¿ I2Cx odbierze bajt danych
+		//czekaj aï¿½ I2Cx odbierze bajt danych
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_RECEIVED));
 
 		/*
-		 * Wy³¹cz potwierdzenia ACK oraz za¿¹daj wygenerowanie sygna³u STOP
-		 * Uk³ad I2C posiada oprócz rejestru danych, wewnêtrzny rejestr przesuwny
-		 * Na tym etapie oba rejestry s¹ wype³nione danymi
-		 * Aby poprawnie zakoñczyæ transmisjê danych sygna³y NACK i STOP
-		 * musz¹ byæ zaprogramowane w³asnie w tym momencie
-		 * (pozosta³o do odebrania 2 bajty danych)
-		 * Po wiêcej informacji proszê odniesæ siê do stm32f4xx reference manual
+		 * Wyï¿½ï¿½cz potwierdzenia ACK oraz zaï¿½ï¿½daj wygenerowanie sygnaï¿½u STOP
+		 * Ukï¿½ad I2C posiada oprï¿½cz rejestru danych, wewnï¿½trzny rejestr przesuwny
+		 * Na tym etapie oba rejestry sï¿½ wypeï¿½nione danymi
+		 * Aby poprawnie zakoï¿½czyï¿½ transmisjï¿½ danych sygnaï¿½y NACK i STOP
+		 * muszï¿½ byï¿½ zaprogramowane wï¿½asnie w tym momencie
+		 * (pozostaï¿½o do odebrania 2 bajty danych)
+		 * Po wiï¿½cej informacji proszï¿½ odniesï¿½ siï¿½ do stm32f4xx reference manual
 		 */
 
 		I2C_AcknowledgeConfig(this->hardware.i2c,DISABLE);
@@ -355,42 +389,42 @@ void kI2CDevice::read(uint8_t StartingRegisterAddress, uint8_t * recieve_buffer,
 		*recieve_buffer = I2C_ReceiveData(this->hardware.i2c);
 		recieve_buffer++;
 
-		//czekaj a¿ I2Cx odbierze bajt danych
+		//czekaj aï¿½ I2Cx odbierze bajt danych
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_RECEIVED));
 		//odbierz dane
 		*recieve_buffer = I2C_ReceiveData(this->hardware.i2c);
 
 	}else
 	{
-		//poczekaj dopóki I2Cx jest zajêty
+		//poczekaj dopï¿½ki I2Cx jest zajï¿½ty
 		while(I2C_GetFlagStatus(this->hardware.i2c, I2C_FLAG_BUSY) != RESET);
-		//wygeneruj sygna³ startu
+		//wygeneruj sygnaï¿½ startu
 		I2C_GenerateSTART(this->hardware.i2c,ENABLE);
-		//poczekaj dopóki transciever I2C1 przejdzie do trybu master
+		//poczekaj dopï¿½ki transciever I2C1 przejdzie do trybu master
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_MODE_SELECT));
-		//wyslij adres uk³adu docelowego do zapisu
+		//wyslij adres ukï¿½adu docelowego do zapisu
 		I2C_Send7bitAddress(this->hardware.i2c,this->I2C_Address,I2C_Direction_Transmitter);
 
-		//czekaj na potwierdzenie od ukladu podrzêdnego
+		//czekaj na potwierdzenie od ukladu podrzï¿½dnego
 		//master przejdzie w tryb nadawania
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
 		//wyslij bajt danych
 		I2C_SendData(this->hardware.i2c,StartingRegisterAddress);
-		//czekaj dopóki nie wys³ano bajtu danych
+		//czekaj dopï¿½ki nie wysï¿½ano bajtu danych
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
-		//wy³¹cz potwierdzenia otrzymywania danych (ACK off)
+		//wyï¿½ï¿½cz potwierdzenia otrzymywania danych (ACK off)
 		I2C_AcknowledgeConfig(this->hardware.i2c,DISABLE);
 
 
 
-		//wygeneruj sygna³ startu
+		//wygeneruj sygnaï¿½ startu
 		I2C_GenerateSTART(this->hardware.i2c,ENABLE);
-		//poczekaj dopóki transciever I2C1 przejdzie do trybu master
+		//poczekaj dopï¿½ki transciever I2C1 przejdzie do trybu master
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_MODE_SELECT));
-		//wyslij adres uk³adu docelowego do zapisu
+		//wyslij adres ukï¿½adu docelowego do zapisu
 		I2C_Send7bitAddress(this->hardware.i2c,this->I2C_Address,I2C_Direction_Receiver);
 
-		//czekaj na potwierdzenie od ukladu podrzêdnego
+		//czekaj na potwierdzenie od ukladu podrzï¿½dnego
 		//master przejdzie w tryb odbioru
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED));
 

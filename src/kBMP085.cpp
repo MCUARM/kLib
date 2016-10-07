@@ -1,3 +1,37 @@
+/***********************************************************************************
+ *                                                                                 *
+ *   kLib - C++ development tools for ARM Cortex-M devices                         *
+ *                                                                                 *
+ *     Copyright (c) 2016, project author PaweÅ‚ Zalewski                                          *
+ *     All rights reserved.                                                        *
+ *                                                                                 *
+ ***********************************************************************************
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *      this list of conditions and the following disclaimer.
+ *   2. Redistributions  in  binary  form  must  reproduce the above copyright
+ *      notice,  this  list  of conditions and the following disclaimer in the
+ *      documentation  and/or  other materials provided with the distribution.
+ *   3. Neither  the  name  of  the  copyright  holder  nor  the  names of its
+ *      contributors  may  be used to endorse or promote products derived from
+ *      this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  BUT NOT LIMITED  TO, THE
+ *   IMPLIED WARRANTIES OF MERCHANTABILITY  AND FITNESS FOR A PARTICULAR PURPOSE
+ *   ARE DISCLAIMED.  IN NO EVENT SHALL  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ *   LIABLE  FOR  ANY  DIRECT,  INDIRECT,  INCIDENTAL,  SPECIAL,  EXEMPLARY,  OR
+ *   CONSEQUENTIAL  DAMAGES  (INCLUDING,  BUT  NOT  LIMITED  TO,  PROCUREMENT OF
+ *   SUBSTITUTE  GOODS  OR SERVICES;  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ *   INTERRUPTION) HOWEVER  CAUSED  AND  ON  ANY THEORY OF LIABILITY, WHETHER IN
+ *   CONTRACT,  STRICT  LIABILITY,  OR  TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *   ARISING  IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *   POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
 #include "kBMP085.h"
 
 kBMP085::kBMP085(void)
@@ -13,7 +47,7 @@ void kBMP085::init(void)
 	this->read(BMP085_REGISTER_EEPROM_DATA_BASE,BMP085_tp_buff,22);
 
 	// przepisz dane z bufora odbiorczego do struktury BMP085_CALIB_VALUE
-	// z jednoczesnym sk³adaniem dwóch bajtów w s³owo 16-bitowe
+	// z jednoczesnym skï¿½adaniem dwï¿½ch bajtï¿½w w sï¿½owo 16-bitowe
 	BMP085_CALIB_VALUE.AC1 = (BMP085_tp_buff[0] << 8) | BMP085_tp_buff[1];
 	BMP085_CALIB_VALUE.AC2 = (BMP085_tp_buff[2] << 8) | BMP085_tp_buff[3];
 	BMP085_CALIB_VALUE.AC3 = (BMP085_tp_buff[4] << 8) | BMP085_tp_buff[5];
@@ -26,33 +60,33 @@ void kBMP085::init(void)
 	BMP085_CALIB_VALUE.MC = (BMP085_tp_buff[18] << 8) | BMP085_tp_buff[19];
 	BMP085_CALIB_VALUE.MD = (BMP085_tp_buff[20] << 8) | BMP085_tp_buff[21];
 }
-// funkcja wysy³a ¿¹danie pomiaru temperatury
-// odczyt temperatury nale¿y dokonaæ po pewnym czasie
+// funkcja wysyï¿½a ï¿½ï¿½danie pomiaru temperatury
+// odczyt temperatury naleï¿½y dokonaï¿½ po pewnym czasie
 void kBMP085::requestUncompensatedTemperature(void)
 {
 	unsigned char BMP085_tp_buff[1];
 
 	// wykonaj pomiar temperatury nieskompensowanej
-	// wpisz wartosæ 0x2E do 0xF4 (zgodnie z datasheet)
+	// wpisz wartosï¿½ 0x2E do 0xF4 (zgodnie z datasheet)
 	BMP085_tp_buff[0] = 0x2E;
 
 	this->write(BMP085_REGISTER_CR,BMP085_tp_buff,1);
 }
-// funkcja odczytuje temperaturê nieskompensowan¹
+// funkcja odczytuje temperaturï¿½ nieskompensowanï¿½
 long kBMP085::readUncompensatedTemperature(void)
 {
 	long ut;
 	unsigned char BMP085_tp_buff[2];
 
-	// odczytaj temperaturê nieskompensowan¹
+	// odczytaj temperaturï¿½ nieskompensowanï¿½
 	this->read(BMP085_REGISTER_DATA_MSB,BMP085_tp_buff,2);
 	// przepisz bufor odbiorczy do zmiennej ut (uncompensated temperature)
 	ut = (BMP085_tp_buff[0] << 8) | BMP085_tp_buff[1];
 
 	return ut;
 }
-// funkcja wysy³a ¿¹danie pomiaru cisnienia
-// odczyt cisniena nale¿y dokonaæ po pewnym czasie
+// funkcja wysyï¿½a ï¿½ï¿½danie pomiaru cisnienia
+// odczyt cisniena naleï¿½y dokonaï¿½ po pewnym czasie
 void kBMP085::requestUncompensatedPressure(void)
 {
 	unsigned char BMP085_tp_buff[1];
@@ -74,12 +108,12 @@ long kBMP085::readUncompensatedPressure(void)
 
 	return up;
 }
-// funkcja oblicza skalibrowan¹ temperaturê
+// funkcja oblicza skalibrowanï¿½ temperaturï¿½
 void kBMP085::getCalibratedData(long * temperature, long * pressure, long ut, long up)
 {
 	// pomocniczo w obliczeniach
 	long x1,x2,x3;
-	// obliczeniowe wspó³czynniki korekcyjne
+	// obliczeniowe wspï¿½czynniki korekcyjne
 	unsigned long b4;
 	long b3,b5,b6,b7;
 
@@ -133,22 +167,22 @@ void kBMP085::getCalibratedData(long * temperature, long * pressure, long ut, lo
 
 
 	/*
-	* Wiêcej szczegó³ów odnosnie obliczeñ znajdziesz w nocie katalogowej
+	* Wiï¿½cej szczegï¿½ï¿½w odnosnie obliczeï¿½ znajdziesz w nocie katalogowej
 	* BMP085
 	*/
 }
-// funkcja przelicza cisnienie na wysokosæ zgodnie
+// funkcja przelicza cisnienie na wysokosï¿½ zgodnie
 // ze wzorem atmosfery standardowej
 float kBMP085::getAltitude(long pressure)
 {
 	float dp,altitude,wyk;
 
 	// Obliczanie wysokosci QNE (zgodnie ze wzorem atmosfery standardowej)
-	// wzór dostêpny równie¿ w nocie katalogoej
+	// wzï¿½r dostï¿½pny rï¿½wnieï¿½ w nocie katalogoej
 
-	dp=((float)pressure)/((float)this->BMP085_BasePressure);        // podstawa potêgi
-	wyk=1/5.25588;                     // wyk³adnik
-	//przeliczenie na wysokosæ [m]
+	dp=((float)pressure)/((float)this->BMP085_BasePressure);        // podstawa potï¿½gi
+	wyk=1/5.25588;                     // wykï¿½adnik
+	//przeliczenie na wysokosï¿½ [m]
 	altitude=1-(pow(dp,wyk));
 	altitude=altitude*44330;
 

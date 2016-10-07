@@ -1,3 +1,37 @@
+/***********************************************************************************
+ *                                                                                 *
+ *   kLib - C++ development tools for ARM Cortex-M devices                         *
+ *                                                                                 *
+ *     Copyright (c) 2016, project author Paweł Zalewski                                          *
+ *     All rights reserved.                                                        *
+ *                                                                                 *
+ ***********************************************************************************
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *      this list of conditions and the following disclaimer.
+ *   2. Redistributions  in  binary  form  must  reproduce the above copyright
+ *      notice,  this  list  of conditions and the following disclaimer in the
+ *      documentation  and/or  other materials provided with the distribution.
+ *   3. Neither  the  name  of  the  copyright  holder  nor  the  names of its
+ *      contributors  may  be used to endorse or promote products derived from
+ *      this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  BUT NOT LIMITED  TO, THE
+ *   IMPLIED WARRANTIES OF MERCHANTABILITY  AND FITNESS FOR A PARTICULAR PURPOSE
+ *   ARE DISCLAIMED.  IN NO EVENT SHALL  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ *   LIABLE  FOR  ANY  DIRECT,  INDIRECT,  INCIDENTAL,  SPECIAL,  EXEMPLARY,  OR
+ *   CONSEQUENTIAL  DAMAGES  (INCLUDING,  BUT  NOT  LIMITED  TO,  PROCUREMENT OF
+ *   SUBSTITUTE  GOODS  OR SERVICES;  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ *   INTERRUPTION) HOWEVER  CAUSED  AND  ON  ANY THEORY OF LIABILITY, WHETHER IN
+ *   CONTRACT,  STRICT  LIABILITY,  OR  TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *   ARISING  IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *   POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
 #include "kQuaternion.h"
 
 
@@ -21,7 +55,7 @@ kQuaternion::kQuaternion(kVector3 & v)
 }
 
 
-void kQuaternion::operator +=(kQuaternion &q)
+void kQuaternion::operator +=(const kQuaternion &q)
 {
     this->r += q.r;
     this->i += q.i;
@@ -43,7 +77,7 @@ void kQuaternion::operator *=(kQuaternion &q)
 	(*this) = tmp*q;
 }
 
-void kQuaternion::operator *=(float &scalar)
+void kQuaternion::operator *=(const float &scalar)
 {
     this->r *= scalar;
     this->i *= scalar;
@@ -55,7 +89,7 @@ void kQuaternion::operator *= (kVector3 v)
 	kQuaternion tmp = (*this);
 	(*this) = tmp*v;
 }
-kQuaternion kQuaternion::operator *(kQuaternion &q)
+kQuaternion kQuaternion::operator *(const kQuaternion &q)
 {
     kQuaternion result;
 
@@ -72,7 +106,7 @@ kQuaternion kQuaternion::operator *(kVector3 v)
 	return (*this)*qv;
 }
 
-kQuaternion kQuaternion::operator +(kQuaternion &q)
+kQuaternion kQuaternion::operator +(const kQuaternion &q)
 {
     kQuaternion res;
 
@@ -113,6 +147,26 @@ bool kQuaternion::operator ==(kQuaternion &q)
 
     return true;
 }
+kQuaternion kQuaternion::operator *(float & scalar)
+{
+	kQuaternion res(*this);
+	res *= scalar;
+	return res;
+}
+
+void kQuaternion::operator /= (float scalar)
+{
+	scalar = 1/scalar;
+	*this *=scalar;
+}
+kQuaternion kQuaternion::operator /(float scalar)
+{
+	kQuaternion res(*this);
+	scalar = 1/scalar;
+	res *= scalar;
+	return res;
+}
+
 
 float kQuaternion::norm()
 {
@@ -293,13 +347,10 @@ kQuaternion kQuaternion::create(kVector3 & v)
 	return res;
 }
 
-kQuaternion kQuaternion::SLERP(kQuaternion & begin, kQuaternion end, float normalized_time)
+kQuaternion kQuaternion::slerp(kQuaternion & begin, kQuaternion end, float normalized_time)
 {
 	kQuaternion res;
-	float cosHalfTheta =  begin.r*end.r
-						+ begin.i*end.i
-						+ begin.j*end.j
-						+ begin.k*end.k;
+	float cosHalfTheta = kQuaternion::dotProduct(begin,end);
 
 	if (cosHalfTheta < 0) {
 	  end.r = -end.r;
@@ -342,6 +393,15 @@ kQuaternion kQuaternion::SLERP(kQuaternion & begin, kQuaternion end, float norma
 	res.i = (begin.i * ratioA + end.i * ratioB);
 	res.j = (begin.j * ratioA + end.j * ratioB);
 	res.k = (begin.k * ratioA + end.k * ratioB);
+
+	return res;
+}
+float kQuaternion::dotProduct(const kQuaternion & q1,const kQuaternion & q2)
+{
+	float res =   q1.r*q2.r
+				+ q1.i*q2.i
+				+ q1.j*q2.j
+				+ q1.k*q2.k;
 
 	return res;
 }

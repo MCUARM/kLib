@@ -31,8 +31,8 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#ifndef __kVector_H
-#define __kVector_H
+#ifndef __kGPS_H
+#define __kGPS_H
 
 
 
@@ -40,7 +40,6 @@
 
 	class kVector2;
 	class kVector3;
-	class kVector4;
 
 	class kQuaternion;
 
@@ -110,14 +109,14 @@
 
 			static kVector3 create(float X, float Y, float Z);
 
-			void operator += (const kVector3 & v);
+			void operator += (kVector3 & v);
 			void operator -= (kVector3 & v);
 			void operator *= (float scalar);
 			void operator /= (float scalar);
 
 
 
-			kVector3 operator +(const kVector3 & v);
+			kVector3 operator +(kVector3 & v);
 			kVector3 operator -(kVector3 & v);
 			kVector3 operator *(float scalar) const;
 			kVector3 operator /(float scalar);
@@ -145,41 +144,7 @@
 
     };
 	
-	class kVector4 : kVector
-	{
-		public:
 
-			float x;
-			float y;
-			float z;
-			float w;
-
-
-			kVector4(void);
-			kVector4(const kVector4 & other);
-			kVector4(float X, float Y, float Z, float W);
-
-			static kVector4 create(float X, float Y, float Z, float W);
-
-			void operator += (kVector4 & v);
-			void operator -= (kVector4 & v);
-			void operator *= (float scalar);
-			void operator /= (float scalar);
-
-			kVector4 operator +(kVector4 & v);
-			kVector4 operator -(kVector4 & v);
-			kVector4 operator *(float scalar) const;
-			kVector4 operator /(float scalar);
-
-            void operator = (const kVector4 & v);
-            void operator = (const kQuaternion & q);
-
-            bool operator == (kVector4 & v);
-
-			float length(void);
-			void makeUnit(void);
-			float dotProduct(kVector4 & vector_1, kVector4 & vector_2);
-	};
 
 
 #endif

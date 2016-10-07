@@ -32,59 +32,93 @@
  *
  */
 
-#include "kSDCardDrive.h"
+#include "kGPS.h"
 
-kFAT::DRESULT kSDCardDrive::ioctl(unsigned char cmd, void* buff)
+bool default_trigg = false;
+bool * trigg_p = &default_trigg;
+
+void kTimer_TIM1_UP_TIM10_IRQHandler(void)
 {
-    kFAT::DRESULT res;
-    unsigned char n, csd[16];
-    unsigned short csize;
-
-    if (this->prvStatus & kSD::NoInit) return kFAT::RES_NOTRDY;
-
-	res = kFAT::RES_ERROR;
-
-	this->select();        /* CS = L */
-
-	switch (cmd) {
-        case GET_SECTOR_COUNT :    /* Get number of sectors on the disk (DWORD) */
-            if ((this->writeCMD(kSD::CMD9, 0) == 0) && this->rcvr_datablock(csd, 16)) {
-                if ((csd[0] >> 6) == 1) {    /* SDC ver 2.00 */
-                    csize = csd[9] + ((WORD)csd[8] << 8) + 1;
-                    *(DWORD*)buff = (DWORD)csize << 10;
-                } else {                    /* MMC or SDC ver 1.XX */
-                    n = (csd[5] & 15) + ((csd[10] & 128) >> 7) + ((csd[9] & 3) << 1) + 2;
-                    csize = (csd[8] >> 6) + ((WORD)csd[7] << 2) + ((WORD)(csd[6] & 3) << 10) + 1;
-                    *(DWORD*)buff = (DWORD)csize << (n - 9);
-                }
-                res = kFAT::RES_OK;
-            }
-            break;
-
-        case GET_SECTOR_SIZE :    /* Get sectors on the disk (WORD) */
-            *(WORD*)buff = 512;
-            res = kFAT::RES_OK;
-            break;
-
-        case CTRL_SYNC :    /* Make sure that data has been written */
-            if (this->waitReady() == 0xFF)
-                res = kFAT::RES_OK;
-            break;
-        case GET_BLOCK_SIZE:
-        	*(WORD*)buff = 1;
-			return kFAT::RES_OK;
-		case CTRL_TRIM:
-			return kFAT::RES_OK;
-		break;
-        default:
-            res = kFAT::RES_PARERR;
-	}
-
-	this->deselect();            /* CS = H */
-	this->kSPIDevice::read();    /* Idle (Release DO) */
-
-    return res;
+	*trigg_p = true;
+	// clear update flag
+	TIM1->SR &= (~1);
 }
 
 
 
+
+
+bool kTimer::checkTrigger(void)
+{
+	if(*trigg_p)
+	{
+		*trigg_p = false;
+		return true;
+	}
+	return false;
+}
+kTimer::kTimerHardware& kTimer::kTimerHardware::operator = (const kTimer::kTimer_timer & timerHard)
+{
+	switch(timerHard)
+	{
+		case kTimer_timer::Timer1:
+
+			//enable TIM1 clock
+			RCC->APB2ENR |= 1;
+			this->tim = TIM1;
+
+
+		break;
+
+		default:
+			// unexpected timerHard value
+		break;
+	}
+
+	return (*this);
+}
+void kTimer::run(unsigned short int resolution, unsigned int tick_freq)
+{
+
+	unsigned int timer_clock;
+	unsigned int prescaler;
+
+	if(this->hardware.tim == TIM1 ||
+	   this->hardware.tim == TIM9 ||
+	   this->hardware.tim == TIM10 ||
+	   this->hardware.tim == TIM11)
+	{
+		timer_clock = kSystem.APB2_Timer_CLK();
+
+	}else if(this->hardware.tim == TIM2 ||
+			 this->hardware.tim == TIM3 ||
+			 this->hardware.tim == TIM4 ||
+			 this->hardware.tim == TIM5)
+	{
+		timer_clock = kSystem.APB1_Timer_CLK();
+	}
+
+	this->hardware.tim->CR1 &= ~((15<<3)+1);
+	this->hardware.tim->ARR = (uint32_t)resolution-1;
+
+	if(tick_freq)
+	{
+		prescaler = timer_clock/tick_freq;
+
+		if(prescaler)
+		{
+			prescaler -=1;
+			this->hardware.tim->PSC = (uint16_t)prescaler;
+
+			// enable update interrupt
+			this->hardware.tim->DIER |= 1;
+			// setup nvic
+			kSystem.setIRQHandler(TIM1_UP_TIM10_IRQn,kTimer_TIM1_UP_TIM10_IRQHandler);
+			kSystem.enableInterrupt(TIM1_UP_TIM10_IRQn,0,1);
+
+			this->hardware.tim->CR1 |=1;
+		}
+
+	}
+
+}

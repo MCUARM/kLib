@@ -1,3 +1,37 @@
+/***********************************************************************************
+ *                                                                                 *
+ *   kLib - C++ development tools for ARM Cortex-M devices                         *
+ *                                                                                 *
+ *     Copyright (c) 2016, project author PaweÅ‚ Zalewski                                          *
+ *     All rights reserved.                                                        *
+ *                                                                                 *
+ ***********************************************************************************
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *      this list of conditions and the following disclaimer.
+ *   2. Redistributions  in  binary  form  must  reproduce the above copyright
+ *      notice,  this  list  of conditions and the following disclaimer in the
+ *      documentation  and/or  other materials provided with the distribution.
+ *   3. Neither  the  name  of  the  copyright  holder  nor  the  names of its
+ *      contributors  may  be used to endorse or promote products derived from
+ *      this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ *   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  BUT NOT LIMITED  TO, THE
+ *   IMPLIED WARRANTIES OF MERCHANTABILITY  AND FITNESS FOR A PARTICULAR PURPOSE
+ *   ARE DISCLAIMED.  IN NO EVENT SHALL  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ *   LIABLE  FOR  ANY  DIRECT,  INDIRECT,  INCIDENTAL,  SPECIAL,  EXEMPLARY,  OR
+ *   CONSEQUENTIAL  DAMAGES  (INCLUDING,  BUT  NOT  LIMITED  TO,  PROCUREMENT OF
+ *   SUBSTITUTE  GOODS  OR SERVICES;  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ *   INTERRUPTION) HOWEVER  CAUSED  AND  ON  ANY THEORY OF LIABILITY, WHETHER IN
+ *   CONTRACT,  STRICT  LIABILITY,  OR  TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ *   ARISING  IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ *   POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
 
 #ifndef __kBMP085_H
 #define __kBMP085_H
@@ -9,7 +43,7 @@
 	#include "kI2CDevice.h"
 	#include "math.h"
 
-	// definicja struktury przechowuj¹cej indywidualne parametry kalibruj¹ce
+	// definicja struktury przechowujï¿½cej indywidualne parametry kalibrujï¿½ce
 	// BMP085
 	typedef struct
 	{
@@ -50,19 +84,19 @@
 			kBMP085(void);
 
 			void init(void);
-			// funkcja wysy³a ¿¹danie pomiaru temperatury
-			// odczyt temperatury nale¿y dokonaæ po pewnym czasie
+			// funkcja wysyï¿½a ï¿½ï¿½danie pomiaru temperatury
+			// odczyt temperatury naleï¿½y dokonaï¿½ po pewnym czasie
 			void requestUncompensatedTemperature(void);
-			// funkcja odczytuje temperaturê nieskompensowan¹
+			// funkcja odczytuje temperaturï¿½ nieskompensowanï¿½
 			long readUncompensatedTemperature(void);
-			// funkcja wysy³a ¿¹danie pomiaru cisnienia
-			// odczyt cisniena nale¿y dokonaæ po pewnym czasie
+			// funkcja wysyï¿½a ï¿½ï¿½danie pomiaru cisnienia
+			// odczyt cisniena naleï¿½y dokonaï¿½ po pewnym czasie
 			void requestUncompensatedPressure(void);
 			// funkcja odczytuje cisnienie nieskompensowane
 			long readUncompensatedPressure(void);
-			// funkcja oblicza skalibrowan¹ temperaturê
+			// funkcja oblicza skalibrowanï¿½ temperaturï¿½
 			void getCalibratedData(long * temperature, long * pressure, long ut, long up);
-			// funkcja przelicza cisnienie na wysokosæ zgodnie
+			// funkcja przelicza cisnienie na wysokosï¿½ zgodnie
 			// ze wzorem atmosfery standardowej
 			float getAltitude(long pressure);
 
