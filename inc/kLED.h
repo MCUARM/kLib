@@ -46,6 +46,21 @@
 			__inline__ void set(uint16_t bright) __attribute__((always_inline));
 	};
 
+	class kLEDRGB
+	{
+		public:
+
+			kLED R;
+			kLED G;
+			kLED B;
+
+			kLEDRGB(void);
+			void run(void);
+			void set (uint16_t r, uint16_t g, uint16_t b);
+
+
+	};
+
 
 	__attribute__((always_inline)) void kLED::run(void)
 	{
@@ -54,7 +69,17 @@
 
 	__attribute__((always_inline)) void kLED::set(uint16_t bright)
 	{
-		kPWM::operator =(bright);
+		kPWM::operator = (bright);
 	}
+
+	/*class kLEDDriver : public kDiscrete, public kLED
+	{
+		public:
+
+			kLEDDriver(void);
+
+
+	};
+	*/
 
 #endif

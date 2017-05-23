@@ -46,7 +46,7 @@ kQuaternion::kQuaternion(float r,float i, float j, float k)
 	this->j = j;
 	this->k = k;
 }
-kQuaternion::kQuaternion(kVector3 & v)
+kQuaternion::kQuaternion(const kVector3 & v)
 {
 	this->r = 0;
 	this->i = v.x;
@@ -63,7 +63,7 @@ void kQuaternion::operator +=(const kQuaternion &q)
     this->k += q.k;
 }
 
-void kQuaternion::operator -=(kQuaternion &q)
+void kQuaternion::operator -=(const kQuaternion &q)
 {
     this->r -= q.r;
     this->i -= q.i;
@@ -71,7 +71,7 @@ void kQuaternion::operator -=(kQuaternion &q)
     this->k -= q.k;
 }
 
-void kQuaternion::operator *=(kQuaternion &q)
+void kQuaternion::operator *=(const kQuaternion &q)
 {
 	kQuaternion tmp = (*this);
 	(*this) = tmp*q;
@@ -84,7 +84,7 @@ void kQuaternion::operator *=(const float &scalar)
     this->j *= scalar;
     this->k *= scalar;
 }
-void kQuaternion::operator *= (kVector3 v)
+void kQuaternion::operator *= (const kVector3 & v)
 {
 	kQuaternion tmp = (*this);
 	(*this) = tmp*v;
@@ -100,7 +100,7 @@ kQuaternion kQuaternion::operator *(const kQuaternion &q)
 
     return result;
 }
-kQuaternion kQuaternion::operator *(kVector3 v)
+kQuaternion kQuaternion::operator *(const kVector3 & v)
 {
 	kQuaternion qv(v);
 	return (*this)*qv;
@@ -118,7 +118,7 @@ kQuaternion kQuaternion::operator +(const kQuaternion &q)
     return res;
 }
 
-kQuaternion kQuaternion::operator -(kQuaternion &q)
+kQuaternion kQuaternion::operator -(const kQuaternion &q)
 {
     kQuaternion res;
 
@@ -130,7 +130,7 @@ kQuaternion kQuaternion::operator -(kQuaternion &q)
     return res;
 }
 
-void kQuaternion::operator =(kQuaternion q)
+void kQuaternion::operator =(const kQuaternion & q)
 {
     this->r = q.r;
     this->i = q.i;
@@ -138,7 +138,7 @@ void kQuaternion::operator =(kQuaternion q)
     this->k = q.k;
 }
 
-bool kQuaternion::operator ==(kQuaternion &q)
+bool kQuaternion::operator ==(const kQuaternion &q)
 {
     if(this->r != q.r) return false;
     if(this->i != q.i) return false;
@@ -249,21 +249,25 @@ kQuaternion kQuaternion::reciprocal()
 
 kVector3 kQuaternion::toEulerAngles(void)
 {
+	// converts quaternion to Euler angles using the homogeneous expression
+
 	kVector3 res;
 	float nom,denom;
 
 	// get phi
 	nom = 2*(this->r*this->i + this->j*this->k);
-	denom = 1- 2*(this->i*this->i + this->j*this->j);
+	denom = this->r*this->r - this->i*this->i - this->j*this->j + this->k*this->k;
 	res.x = atan2f(nom,denom);
 
 	// get theta
 	nom = 2*(this->r*this->j - this->k*this->i);
-	res.y = asinf(nom);
+	denom = this->norm();
+	denom *= denom;
+	res.y = asinf(nom/denom);
 
 	// get psi
 	nom = 2*(this->r*this->k + this->i*this->j);
-	denom = 1- 2*(this->j*this->j + this->k*this->k);
+	denom = this->r*this->r + this->i*this->i - this->j*this->j - this->k*this->k;
 	res.z = atan2f(nom,denom);
 
 
@@ -293,7 +297,7 @@ kAxisAngle kQuaternion::toAxisAngle(void)
 }
 
 
-kQuaternion  kQuaternion::fromAxisAngle(kAxisAngle & axis_angle)
+kQuaternion  kQuaternion::fromAxisAngle(const kAxisAngle & axis_angle)
 {
 	kQuaternion res;
 	float angle_rad = axis_angle.angle*0.5;
@@ -341,22 +345,23 @@ kQuaternion kQuaternion::create(float r,float i, float j, float k)
 	kQuaternion res(r,i,j,k);
 	return res;
 }
-kQuaternion kQuaternion::create(kVector3 & v)
+kQuaternion kQuaternion::create(const kVector3 & v)
 {
 	kQuaternion res(v);
 	return res;
 }
 
-kQuaternion kQuaternion::slerp(kQuaternion & begin, kQuaternion end, float normalized_time)
+kQuaternion kQuaternion::slerp(const kQuaternion & begin, const kQuaternion & end, float normalized_time)
 {
 	kQuaternion res;
+	kQuaternion end_o(end);
 	float cosHalfTheta = kQuaternion::dotProduct(begin,end);
 
 	if (cosHalfTheta < 0) {
-	  end.r = -end.r;
-	  end.i = -end.i;
-	  end.j = -end.j;
-	  end.k = -end.k;
+	  end_o.r = -end.r;
+	  end_o.i = -end.i;
+	  end_o.j = -end.j;
+	  end_o.k = -end.k;
 	  cosHalfTheta = -cosHalfTheta;
 	}
 
@@ -378,10 +383,10 @@ kQuaternion kQuaternion::slerp(kQuaternion & begin, kQuaternion end, float norma
 	// we could rotate around any axis normal to begin or end
 	if (kMath::abs(sinHalfTheta) < 0.000001)
 	{
-		res.r = (begin.r * 0.5 + end.r * 0.5);
-		res.i = (begin.i * 0.5 + end.i * 0.5);
-		res.j = (begin.j * 0.5 + end.j * 0.5);
-		res.k = (begin.k * 0.5 + end.k * 0.5);
+		res.r = (begin.r * 0.5 + end_o.r * 0.5);
+		res.i = (begin.i * 0.5 + end_o.i * 0.5);
+		res.j = (begin.j * 0.5 + end_o.j * 0.5);
+		res.k = (begin.k * 0.5 + end_o.k * 0.5);
 		return res;
 	}
 

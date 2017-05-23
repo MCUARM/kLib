@@ -54,19 +54,19 @@
 			float * buff;
 			unsigned char elements;
 
-			static void add(kVector & result,kVector & vector_1, kVector & vector_2);
-			static void subtract(kVector & result,kVector & vector_1, kVector & vector_2);
-			static void multiply(kVector & result,kVector & vector,float value);
+			static void add(kVector & result,const kVector & vector_1,const kVector & vector_2);
+			static void subtract(kVector & result,const kVector & vector_1,const kVector & vector_2);
+			static void multiply(kVector & result,const kVector & vector,float value);
 
-			void operator =  (kVector & v);
-			void operator += (kVector & v);
-			void operator -= (kVector & v);
-	        bool operator == (kVector & v);
+			void operator =  (const kVector & v);
+			void operator += (const kVector & v);
+			void operator -= (const kVector & v);
+	        bool operator == (const kVector & v);
 
 		public:
 
 			void operator *= (float scalar);
-			float length(void);
+			float length(void) const;
 			void makeUnit(void);
 
 
@@ -111,23 +111,23 @@
 			static kVector3 create(float X, float Y, float Z);
 
 			void operator += (const kVector3 & v);
-			void operator -= (kVector3 & v);
+			void operator -= (const kVector3 & v);
 			void operator *= (float scalar);
 			void operator /= (float scalar);
 
 
 
 			kVector3 operator +(const kVector3 & v);
-			kVector3 operator -(kVector3 & v);
+			kVector3 operator -(const kVector3 & v);
 			kVector3 operator *(float scalar) const;
-			kVector3 operator /(float scalar);
+			kVector3 operator /(float scalar) const;
 
             void operator = (const kVector3 & v);
             void operator = (const kQuaternion & q);
 
             bool operator == (kVector3 & v);
 			
-			float length(void);
+			float length(void) const;
 			void makeUnit(void);
 			void crossProduct(kVector3 & vector_1, kVector3 & vector_2);
 			void dotProduct(kVector3 & vector_1, kVector3 & vector_2);

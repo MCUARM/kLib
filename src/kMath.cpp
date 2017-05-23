@@ -60,3 +60,13 @@ float kMath::sign(float input)
 	if(input < 0) return -1;
 	return 0;
 }
+float kMath::getMax(float in_1, float in_2)
+{
+	if(in_1 > in_2) return in_1;
+	return in_2;
+}
+float kMath::getMin(float in_1, float in_2)
+{
+	if(in_1 < in_2) return in_1;
+	return in_2;
+}

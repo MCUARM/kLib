@@ -43,7 +43,7 @@
 		public:
 
 			kAxisAngle(void);
-			kAxisAngle(kVector3 & axis, float angle);
+			kAxisAngle(const kVector3 & axis, float angle);
 			kAxisAngle(float x, float y, float z, float angle);
 
 
@@ -52,7 +52,9 @@
 
 			kVector3 toEulerAngles(void);
 
-			static kAxisAngle create(kVector3 & axis, float angle);
+			static kAxisAngle fromAngularRates(const kVector3 & angular_rates, float dt);
+
+			static kAxisAngle create(const kVector3 & axis, float angle);
 			static kAxisAngle create(float x, float y, float z, float angle);
 
 	};

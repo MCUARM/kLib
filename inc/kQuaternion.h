@@ -53,26 +53,26 @@
 
 			kQuaternion(void);
 			kQuaternion(float r,float i, float j, float k);
-			kQuaternion(kVector3 & v);
+			kQuaternion(const kVector3 & v);
 
 			void operator += (const kQuaternion & q);
             kQuaternion operator +(const kQuaternion & q);
 
-			void operator -= (kQuaternion & q);
-            kQuaternion operator -(kQuaternion & q);
+			void operator -= (const kQuaternion & q);
+            kQuaternion operator -(const kQuaternion & q);
 
-			void operator *= (kQuaternion & q);
+			void operator *= (const kQuaternion & q);
 			void operator *= (const float &scalar);
-			void operator *= (kVector3 v);
+			void operator *= (const kVector3 & v);
 			kQuaternion operator *(const kQuaternion & q);
-			kQuaternion operator *(kVector3 v);
+			kQuaternion operator *(const kVector3 & v);
 			kQuaternion operator *(float & scalar);
 
 			void operator /= (float scalar);
             kQuaternion operator /(float scalar);
 
-            void operator = (kQuaternion q);
-            bool operator == (kQuaternion & q);
+            void operator = (const kQuaternion & q);
+            bool operator == (const kQuaternion & q);
 			
 			float norm(void);
 			kQuaternion inv(void);
@@ -85,13 +85,13 @@
 			kVector3 toEulerAngles(void);
 			kAxisAngle toAxisAngle(void);
 
-			static kQuaternion fromAxisAngle(kAxisAngle & axis_angle);
+			static kQuaternion fromAxisAngle(const kAxisAngle & axis_angle);
 			static kQuaternion fromEulerAngles(kVector3 Euler_angles);
 
 			static kQuaternion create(float r,float i, float j, float k);
-			static kQuaternion create(kVector3 & v);
+			static kQuaternion create(const kVector3 & v);
 
-			static kQuaternion slerp(kQuaternion & begin, kQuaternion end, float normalized_time);
+			static kQuaternion slerp(const kQuaternion & begin, const kQuaternion & end, float normalized_time);
 
     };
 	

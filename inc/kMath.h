@@ -61,11 +61,14 @@
 
 			static float abs(float input);
 			static float sign(float input);
+
+			static float getMax(float in_1, float in_2);
+			static float getMin(float in_1, float in_2);
 	};
 
 	__attribute__((always_inline)) kVector3 kMath::rad2deg(const kVector3 & v)
 	{
-		return v*0.45f;
+		return v*RAD_2_DEG_SCALE_FACTOR;
 	}
 
 #endif

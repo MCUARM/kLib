@@ -38,7 +38,7 @@ kAxisAngle::kAxisAngle(void)
 {
 
 }
-kAxisAngle::kAxisAngle(kVector3 & axis, float angle)
+kAxisAngle::kAxisAngle(const kVector3 & axis, float angle)
 {
 	this->axis.x = axis.x;
 	this->axis.y = axis.y;
@@ -53,7 +53,7 @@ kAxisAngle::kAxisAngle(float x, float y, float z, float angle)
 	this->angle = angle;
 }
 
-kAxisAngle kAxisAngle::create(kVector3 & axis, float angle)
+kAxisAngle kAxisAngle::create(const kVector3 & axis, float angle)
 {
 	kAxisAngle res(axis,angle);
 	return res;
@@ -63,6 +63,13 @@ kAxisAngle kAxisAngle::create(float x, float y, float z, float angle)
 	kAxisAngle res(x,y,z,angle);
 	return res;
 }
+kAxisAngle kAxisAngle::fromAngularRates(const kVector3 & angular_rates, float dt)
+{
+	float length = angular_rates.length();
+	return kAxisAngle::create(angular_rates/length,length*dt);
+}
+
+
 kVector3 kAxisAngle::toEulerAngles(void)
 {
 	float sin_angle = sinf(this->angle);

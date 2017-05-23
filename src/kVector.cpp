@@ -35,39 +35,39 @@
 #include "kVector.h"
 #include "kQuaternion.h"
 
-void kVector::add(kVector & result,kVector & vector_1, kVector & vector_2)
+void kVector::add(kVector & result,const kVector & vector_1,const kVector & vector_2)
 {
 	unsigned char i;
 	for(i=0;i<result.elements;i++) result.buff[i] = vector_1.buff[i] + vector_2.buff[i];
 }
-void kVector::subtract(kVector & result,kVector & vector_1, kVector & vector_2)
+void kVector::subtract(kVector & result,const kVector & vector_1,const kVector & vector_2)
 {
 	unsigned char i;
 	for(i=0;i<result.elements;i++) result.buff[i] = vector_1.buff[i] - vector_2.buff[i];
 }
-void kVector::multiply(kVector & result,kVector & vector,float value)
+void kVector::multiply(kVector & result,const kVector & vector,float value)
 {
 	unsigned char i;
 	for(i=0;i<result.elements;i++) result.buff[i] = vector.buff[i]*value;
 }
 
 
-void kVector::operator = (kVector & v)
+void kVector::operator = (const kVector & v)
 {
 	unsigned char i;
 	for(i=0;i<this->elements;i++) this->buff[i] = v.buff[i];
 }
-void kVector::operator += (kVector & v)
+void kVector::operator += (const kVector & v)
 {
 	unsigned char i;
 	for(i=0;i<this->elements;i++) this->buff[i] += v.buff[i];
 }
-void kVector::operator -= (kVector & v)
+void kVector::operator -= (const kVector & v)
 {
 	unsigned char i;
 	for(i=0;i<this->elements;i++) this->buff[i] -= v.buff[i];
 }
-bool kVector::operator == (kVector & v)
+bool kVector::operator == (const kVector & v)
 {
 	unsigned char i;
 	for(i=0;i<this->elements;i++)
@@ -87,7 +87,7 @@ void kVector::operator *= (float scalar)
 	for(i=0;i<this->elements;i++) this->buff[i] *= scalar;
 }
 
-float kVector::length(void)
+float kVector::length(void) const
 {
 	float res=0;
 	unsigned char i;
@@ -208,7 +208,7 @@ void kVector3::operator += (const kVector3 & v)
 	this->y += v.y;
 	this->z += v.z;
 }
-void kVector3::operator -= (kVector3 & v)
+void kVector3::operator -= (const kVector3 & v)
 {
 	this->x -= v.x;
 	this->y -= v.y;
@@ -230,7 +230,7 @@ kVector3 kVector3::operator +(const kVector3 & v)
 	kVector3 res(this->x+v.x,this->y+v.y,this->z+v.z);
 	return res;
 }
-kVector3 kVector3::operator -(kVector3 & v)
+kVector3 kVector3::operator -(const kVector3 & v)
 {
 	kVector3 res(this->x-v.x,this->y-v.y,this->z-v.z);
 	return res;
@@ -240,7 +240,7 @@ kVector3 kVector3::operator *(float scalar) const
 	kVector3 res(this->x*scalar,this->y*scalar,this->z*scalar);
 	return res;
 }
-kVector3 kVector3::operator /(float scalar)
+kVector3 kVector3::operator /(float scalar) const
 {
 	kVector3 res(this->x/scalar,this->y/scalar,this->z/scalar);
 	return res;
@@ -266,7 +266,7 @@ bool kVector3::operator == (kVector3 & v)
 	return true;
 }
 
-float kVector3::length(void)
+float kVector3::length(void) const
 {
 	float res = sqrt(	this->x*this->x+
 						this->y*this->y+
