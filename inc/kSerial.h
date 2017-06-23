@@ -34,6 +34,8 @@
 #ifndef __kSerial_H
 #define __kSerial_H
 
+	class kSerial;
+
 	/*
 	 * Includes
 	 */
@@ -266,6 +268,7 @@
 
  	class kSerial {
 
+
  		protected:
 
 			unsigned int k_timeout;
@@ -316,6 +319,9 @@
 
 
 			void run(unsigned int BaudRate);
+			void write(void * data, unsigned int bytes) const;
+
+
 			void timeout(unsigned int ticks);
 			void precision(unsigned char precision_points);
 			void terminator(unsigned char character);
@@ -338,6 +344,7 @@
 			friend const kSerial& operator <<(const kSerial &serial,const kVector3 & v);
 			friend const kSerial& operator <<(const kSerial &serial,const kQuaternion & q);
 			friend const kSerial& operator <<(const kSerial &serial,const kAxisAngle & axis_angle);
+
 
 	};
 

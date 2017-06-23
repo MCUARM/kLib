@@ -32,27 +32,63 @@
  *
  */
 
-#ifndef __kFrame8_H
-#define __kFrame8_H
+#ifndef __kFrame_H
+#define __kFrame_H
 
-	#include "kFrameHeader.h"
+	#include "kSerial.h"
 
-	class kFrame8 : public kFrameHeader
+	template <class T> class kFrame
 	{
-		private:
+		protected:
 
-			void * pData[8];
-			const char * pDataHeaderString[8];
-			unsigned char dataHeaderStringLength[8];
+			T * mFrame;
+			unsigned int mFrameSizeInBytes;
+
+			void * mStart;
+			unsigned char mStartSizeInBytes;
+
+			void * mEnd;
+			unsigned char mEndSizeInBytes;
+
 
 		public:
 
-			kFrame8(void);
-			void setDataTypes(const char * formatted_string);
-			void setData(unsigned char data_id,const char * headerString, void * data_pointer);
-			void setLength(unsigned char length);
 
+			kFrame(T * data, unsigned int data_size_in_bytes)
+			{
+				this->mFrame = data;
+				this->mFrameSizeInBytes = data_size_in_bytes;
+
+				this->mStartSizeInBytes = 0;
+				this->mEndSizeInBytes = 0;
+
+				this->mStart = 0;
+				this->mEnd = 0;
+
+			}
+			T * data(void){
+				return mFrame;
+			}
+			void setStartSequence(void * start_sequence, unsigned char start_size_in_bytes)
+			{
+				this->mStart = start_sequence;
+				this->mStartSizeInBytes = start_size_in_bytes;
+			}
+			void setEndSequence(void * end_sequence, unsigned char end_size_in_bytes)
+			{
+				this->mEnd = end_sequence;
+				this->mEndSizeInBytes = end_size_in_bytes;
+			}
+
+			template <class T_obj>
+			friend const kSerial& operator <<(const kSerial &serial,kFrame<T_obj> & frame){
+
+				serial.write(frame.mStart,frame.mStartSizeInBytes);
+				serial.write(frame.data(),frame.mFrameSizeInBytes);
+				serial.write(frame.mEnd,frame.mEndSizeInBytes);
+
+				return serial;
+			}
 	};
-
 
 #endif

@@ -34,6 +34,7 @@
 
 #include "kSerial.h"
 
+
 const char* kSerial::endl = "\r\n";
 
 
@@ -404,6 +405,20 @@ unsigned short int kSerial::readAllData(char * buffer)
 	}
 
 	return res;
+}
+void kSerial::write(void * data, unsigned int bytes) const
+{
+	unsigned char * p = (unsigned char*)data;
+
+	for(unsigned int i=0;i<bytes;i++)
+	{
+		//czekaj dop�ki bufor nadawczy nie jest pusty (nadajnik wysy�a dane)
+		while(USART_GetFlagStatus(this->hardware.usart,USART_FLAG_TXE) == RESET);
+
+		//wpisz kolejny znak do bufora nadawczego
+		this->hardware.usart->DR = (*p & (uint16_t)0x01FF);
+		p++;
+	}
 }
 
 

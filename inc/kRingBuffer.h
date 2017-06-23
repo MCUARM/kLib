@@ -32,44 +32,73 @@
  *
  */
 
-#include "kFrame16.h"
+#ifndef __kRingBuffer_H
+#define __kRingBuffer_H
 
 
-kFrame16::kFrame16(void)
-{
-	unsigned char i;
-
-	for(i=0;i<16;i++)
+	template <class obj_t> class kRingBuffer
 	{
-		this->pData[i] = &default_data_storage;
-		this->pDataHeaderString[i] = (const char *)&default_data_storage;
-		this->dataHeaderStringLength[i] = 0;
-	}
+		private:
 
-	this->ppDataHeaderString = pDataHeaderString;
-	this->pDataHeaderStringLength = dataHeaderStringLength;
-	this->ppData = this->pData;
-}
-void kFrame16::setDataTypes(const char * formatted_string)
-{
-	this->dataLength=0;
-	this->pDataTypeDescriptor = (char *)formatted_string;
-	while(formatted_string++) this->dataLength++;
+			obj_t * mBuffer;
+			unsigned int mSize;
+			unsigned int mReadIndex;
+			unsigned int mWriteIndex;
 
-	if(this->dataLength > 16) this->dataLength = 0;
-}
-void kFrame16::setData(unsigned char data_id,const char * headerString, void * data_pointer)
-{
-	if(data_id >= 16) return;
+			void prvIncrementRingIndex(unsigned int * index){
+				*index++;
+				if(*index >= this->mSize) *index = 0;
+			}
 
-	this->dataHeaderStringLength[data_id]=0;
-	this->pDataHeaderString[data_id] = headerString;
-	while(headerString++) this->dataHeaderStringLength[data_id]++;
+		public:
 
-	this->pData[data_id] = data_pointer;
-}
-void kFrame16::setLength(unsigned char length)
-{
-	if(length > 16) return;
-	this->dataLength = length;
-}
+			kRingBuffer(obj_t * buffer, unsigned int buffer_size){
+
+				this->mBuffer = buffer;
+				this->mSize = buffer_size;
+				this->mReadIndex = 0;
+				this->mWriteIndex = 0;
+
+			}
+			void write(obj_t * data, unsigned int size){
+
+				while(size)
+				{
+					this->mBuffer[this->mWriteIndex] = *data;
+					this->prvIncrementRingIndex(&this->mWriteIndex);
+
+					if(this->mReadIndex == this->mWriteIndex)
+					{
+						this->prvIncrementRingIndex(&this->mReadIndex);
+					}
+
+					size--;
+				}
+
+			}
+			unsigned int read(obj_t * destination, unsigned int max_items_to_read)
+			{
+
+				unsigned int obj_read = max_items_to_read;
+				while(max_items_to_read)
+				{
+					if(this->mReadIndex != this->mWriteIndex)
+					{
+						*destination = this->mBuffer[this->mReadIndex];
+						this->prvIncrementRingIndex(&this->mReadIndex);
+						destination++;
+					} else break;
+					max_items_to_read--;
+				}
+				obj_read -= max_items_to_read;
+
+				return obj_read;
+			}
+			unsigned int countAvailableData(void){
+				if(this->mWriteIndex > this->mReadIndex) return (this->mWriteIndex - this->mReadIndex);
+				else return (this->mSize + this->mWriteIndex - this->mReadIndex);
+			}
+
+	};
+
+#endif
