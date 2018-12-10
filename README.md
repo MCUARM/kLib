@@ -2,7 +2,7 @@
 
 What's this?
 
-	Hi! This repository contain set of C++ libraries initially intended to be used with ARM cortex-m4 microcontrollers ( STM32F4xx with arm-gcc compiler ). It's main goal is to give users comprehensive tool for easly and fast programming without rejecting code efficiency.
+	Hello! This repository contain set of C++ libraries initially intended to be used with ARM cortex-m4 microcontrollers ( STM32F4xx with arm-gcc compiler ). It's main goal is to give users comprehensive tool for easly and fast programming without rejecting code efficiency.
 
 To whom addressed?
 
