@@ -43,27 +43,22 @@ kPID::kPID(void)
 	this->use_output_saturation=false;
 
 }
-void kPID::setSamplingTime(float time)
-{
-	this->Integral.setSamplingTime(time);
-	this->Derivative.setSamplingTime(time);
-}
 
 float kPID::feed(float x)
 {
 	float res;
 
-	float deriv = this->Derivative.feed(x);
-	float integral = this->Integral.feed(this->Ki*x);
+	float deriv = Derivative.feed(x);
+	float integral = Integral.feed(Ki*x);
 
 
 	// calculate response
-	res = 	this->Kp*x;
-	res += 	this->Kd*deriv;
+	res = 	Kp*x;
+	res += 	Kd*deriv;
 	res += 	integral;
 
 	// check saturation
-	if(this->use_output_saturation) res = this->OutputSaturation.feed(res);
+	if(use_output_saturation) res = OutputSaturation.feed(res);
 
 
 	return res;

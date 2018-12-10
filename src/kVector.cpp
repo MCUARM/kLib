@@ -35,6 +35,21 @@
 #include "kVector.h"
 #include "kQuaternion.h"
 
+
+unsigned char kVector::size(void)
+{
+	return elements;
+}
+
+float & kVector::at(unsigned char i)
+{
+	return buff[i];
+}
+float & kVector::operator[](unsigned char i)
+{
+	return buff[i];
+}
+
 void kVector::add(kVector & result,const kVector & vector_1,const kVector & vector_2)
 {
 	unsigned char i;

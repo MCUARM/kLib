@@ -202,13 +202,7 @@ k_System::k_System(void)
 
 	kSystem_isr_vector[15] = kSystem_SysTick_Handler;
 
-	#if(kLib_config_USE_RTOS == 1)
 
-		// allow FreeRTOS to control these interrupts
-		kSystem_isr_vector[11] = (void (*)())g_pfnVectors[11]; // SVC_Handler
-		kSystem_isr_vector[14] = (void (*)())g_pfnVectors[14]; // PendSV_Handler
-
-	#endif
 
 
 	// setup NVIC priority group model to recommended by FreeRTOS
@@ -231,7 +225,6 @@ k_System::k_System(void)
 	SysTick->CTRL |= 3;
 
 
-
 	// change ISR vector table from FLASH to kSystem_isr_vector placed in SRAM
 	// get RAM address
 	uint32_t reg = (uint32_t)kSystem_isr_vector - SRAM_BASE;
@@ -239,6 +232,25 @@ k_System::k_System(void)
 	reg |= (1<<29);
 	// set new address
 	SCB->VTOR = reg;
+
+
+
+	#if(kLib_config_USE_RTOS == 1)
+
+		// allow FreeRTOS to control these interrupts
+		kSystem_isr_vector[11] = (void (*)())g_pfnVectors[11]; // SVC_Handler
+		kSystem_isr_vector[14] = (void (*)())g_pfnVectors[14]; // PendSV_Handler
+
+
+		kRTOS::task_t main_task_handler;
+		kRTOS::taskCreate(main,"LED1",1024,NULL,1,&main_task_handler);
+		kRTOS::startScheduler();
+
+
+	#endif
+
+
+
 
 
 }
@@ -556,7 +568,7 @@ unsigned int* kPrivate::setupPeripheralOutput(unsigned int hardware_code)
 	gpio = (GPIO_TypeDef*)(AHB1PERIPH_BASE | (temp << 6));
 
 	// make sure gpio clock is enabled
-	temp = temp >> 8;
+	temp = temp >> 4;
 	RCC->AHB1ENR |= (1 << temp);
 
 	//set proper gpio alternate function

@@ -32,27 +32,28 @@
  *
  */
 
-#ifndef __kCRC_H
-#define __kCRC_H
+#ifndef __kMavlink_H
+#define __kMavlink_H
 
-
-	class kCRC
+	class kMavlinkMessage
 	{
-		public:
+		protected:
 
-			kCRC(void);
-
-			__inline__ static unsigned char getChecksumGPS(const char * buffer, unsigned short int bytes) __attribute__((always_inline));
-			static unsigned char getCRC8(const char * buffer, unsigned short int bytes);
 
 
 	};
 
 
-	__attribute__((always_inline)) unsigned char kCRC::getChecksumGPS(const char * buffer, unsigned short int bytes)
-	{
-		return getCRC8(buffer,bytes);
-	}
+	class kMavlink{
 
+		protected:
+
+
+		public:
+
+
+
+
+	};
 
 #endif

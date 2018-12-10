@@ -35,6 +35,7 @@
 #ifndef __kPID_H
 #define __kPID_H
 
+	#include "kSystem.h"
 	#include "kIntegrator.h"
 	#include "kDifferentiator.h"
 	#include "kSaturate.h"
@@ -58,7 +59,6 @@
 			kPID(void);
 
 			float feed(float x);
-			void setSamplingTime(float time);
 			void useIntegralSaturation(bool state);
 			void useOutputSaturation(bool state);
 

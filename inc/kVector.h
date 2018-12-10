@@ -69,6 +69,10 @@
 			float length(void) const;
 			void makeUnit(void);
 
+			float & at(unsigned char i);
+			float & operator[](unsigned char i);
+			unsigned char size(void);
+
 
 			static void add(kVector2 & result,kVector2 & vector_1, kVector2 & vector_2);
 			static void subtract(kVector2 & result,kVector2 & vector_1, kVector2 & vector_2);

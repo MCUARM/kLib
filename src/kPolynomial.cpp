@@ -32,27 +32,21 @@
  *
  */
 
-#ifndef __kCRC_H
-#define __kCRC_H
+#include "kPolynomial.h"
 
 
-	class kCRC
+float kPolynomial::feed(float x)
+{
+	float res=0;
+	float x_power = 1;
+	unsigned char n=this->size();
+
+	for(unsigned char i=0;i<n;i++)
 	{
-		public:
-
-			kCRC(void);
-
-			__inline__ static unsigned char getChecksumGPS(const char * buffer, unsigned short int bytes) __attribute__((always_inline));
-			static unsigned char getCRC8(const char * buffer, unsigned short int bytes);
-
-
-	};
-
-
-	__attribute__((always_inline)) unsigned char kCRC::getChecksumGPS(const char * buffer, unsigned short int bytes)
-	{
-		return getCRC8(buffer,bytes);
+		res += this->at(i)*x_power;
+		x_power *= x;
 	}
 
+	return res;
+}
 
-#endif

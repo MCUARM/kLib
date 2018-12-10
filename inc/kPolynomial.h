@@ -32,27 +32,17 @@
  *
  */
 
-#ifndef __kCRC_H
-#define __kCRC_H
+#ifndef __kPolynomial_H
+#define __kPolynomial_H
 
+	#include "kVector.h"
 
-	class kCRC
+	class kPolynomial : private kVector
 	{
 		public:
 
-			kCRC(void);
-
-			__inline__ static unsigned char getChecksumGPS(const char * buffer, unsigned short int bytes) __attribute__((always_inline));
-			static unsigned char getCRC8(const char * buffer, unsigned short int bytes);
-
+			float feed(float x);
 
 	};
-
-
-	__attribute__((always_inline)) unsigned char kCRC::getChecksumGPS(const char * buffer, unsigned short int bytes)
-	{
-		return getCRC8(buffer,bytes);
-	}
-
 
 #endif
