@@ -45,11 +45,12 @@
 
 			float last_value;
 			bool first_launch;
-			bool useLPF;
+
 
 		public:
 
 			kLPF	LPF;
+			bool useLPF;
 
 			kDifferentiator(void);
 			void useLowPassFilter(bool enable);

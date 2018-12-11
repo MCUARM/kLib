@@ -38,7 +38,7 @@ kCRC::kCRC(void)
 
 }
 
-unsigned char kCRC::getChecksumGPS(const char * buffer, unsigned short int bytes)
+unsigned char kCRC::getCRC8(const char * buffer, unsigned short int bytes)
 {
 	unsigned char res=0;
 	unsigned short int i;
@@ -51,3 +51,4 @@ unsigned char kCRC::getChecksumGPS(const char * buffer, unsigned short int bytes
 
 	return res;
 }
+

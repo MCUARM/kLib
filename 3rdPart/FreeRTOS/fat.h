@@ -42,6 +42,8 @@
 #define __FAT_H
 
 #include "ver_fat_sl.h"
+#include "fat_sl.h"
+
 #if VER_FAT_SL_MAJOR != 5 || VER_FAT_SL_MINOR != 2
  #error Incompatible FAT_SL version number!
 #endif

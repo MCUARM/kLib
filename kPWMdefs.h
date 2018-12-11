@@ -2,7 +2,7 @@
  *                                                                                 *
  *   kLib - C++ development tools for ARM Cortex-M devices                         *
  *                                                                                 *
- *     Copyright (c) 2016, project author Paweł Zalewski                                          *
+ *     Copyright (c) 2016, project author Pawel Zalewski                           *
  *     All rights reserved.                                                        *
  *                                                                                 *
  ***********************************************************************************
@@ -32,27 +32,48 @@
  *
  */
 
-#ifndef __kCRC_H
-#define __kCRC_H
+#ifndef __kPWM_H
+#define __kPWM_H
 
+#if (kLib_config_PLATFORM == kLib_STM32F429xx)
 
-	class kCRC
+	typedef struct
 	{
-		public:
+		typedef enum
+		{
+			PORTA8 = 0x202108
+			PORTE9 = 0x202149
+		}kPWM_Timer1_OC1_Pin;
+	}kPWM_OC1_Timer1;
 
-			kCRC(void);
-
-			__inline__ static unsigned char getChecksumGPS(const char * buffer, unsigned short int bytes) __attribute__((always_inline));
-			static unsigned char getCRC8(const char * buffer, unsigned short int bytes);
-
-
-	};
-
-
-	__attribute__((always_inline)) unsigned char kCRC::getChecksumGPS(const char * buffer, unsigned short int bytes)
+	typedef struct
 	{
-		return getCRC8(buffer,bytes);
-	}
+		typedef enum
+		{
+			PORTA9 = 0x48202109
+			PORTE11 = 0x4820214b
+		}kPWM_Timer1_OC2_Pin;
+	}kPWM_OC2_Timer1;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x3020210a
+			PORTE13 = 0x3020214d
+		}kPWM_Timer1_OC3_Pin;
+	}kPWM_OC3_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x7820210b
+			PORTE14 = 0x7820214e
+		}kPWM_Timer1_OC4_Pin;
+	}kPWM_OC4_Timer1;
+
+
+#endif
 
 #endif

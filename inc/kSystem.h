@@ -106,7 +106,7 @@
 			 *   - bit  [14]   -> GPIO output type saved in OTYPER
 			 *   - bits [15:21]-> Peripheral address,
 			 *                    only bits specified by this mask: 0x0001FC00
-			 *   - bits [22:23]-> RCC_APBx_ENR byte address where exist bit responsible
+			 *   - bits [22:23]-> RCC_APBx_ENR byte offset where exist bit responsible
 			 *                    for chosen peripheral clock enable,
 			 *                    only bits specified by this mask: 0x00000003
 			 *   - bits [24:26]-> peripheral clock enable bit position in byte accessed
@@ -121,6 +121,9 @@
 			static intBitBand* getSRAMbitBand(unsigned int * reg);
 			static intBitBand* getPeriphBitBand(unsigned int * reg);
 	};
+
+
+	extern void main(void*);
 
 #if (kLib_config_USE_MODULE == 1)
 	class k_System : public kModule
@@ -146,6 +149,15 @@
 
 			void setIRQHandler(unsigned char channel,void (*IRQHandler_function_pointer)(void));
 			void enableInterrupt(unsigned char channel,unsigned char preemptionPriority, unsigned char subPriority);
+
+
+			#if(kLib_config_USE_RTOS == 1)
+
+				__inline__ void addTask(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,kRTOS::task_t * const created_task) __attribute__((always_inline));
+				__inline__ void addTaskFixeRate(unsigned char void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,kRTOS::task_t * const created_task) __attribute__((always_inline));
+
+			#endif
+
 
 			unsigned int coreCLK(void);
 			unsigned int APB1_CLK(void);
@@ -178,6 +190,16 @@
 	{
 		return (this->coreCLK() >> 3);
 	}
+
+	#if(kLib_config_USE_RTOS == 1)
+
+		__attribute__((always_inline)) void k_System::addTask(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,kRTOS::task_t * const created_task)
+		{
+			kRTOS::taskCreate(function_handler,task_name,stack_size,params,priority,created_task);
+		}
+
+	#endif
+
 
 
 	#ifdef __cplusplus

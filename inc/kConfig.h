@@ -49,7 +49,7 @@
 	// PLATFORM SELECTION
 	// Uncomment one line below
 
-		#define kLib_config_PLATFORM kLib_STM32F411xx
+		//#define kLib_config_PLATFORM kLib_STM32F411xx
 		//#define kLib_config_PLATFORM kLib_STM32F407xx
 		//#define kLib_config_PLATFORM kLib_STM32F429xx
 		//#define kLib_config_PLATFORM kLib_STM32L053xx
@@ -61,7 +61,7 @@
 
 
 	// GENERAL SETTINGS
-	#define kLib_config_USE_RTOS 0
+	#define kLib_config_USE_RTOS 1
 	#define kLib_config_USE_MODULE 0
 
 

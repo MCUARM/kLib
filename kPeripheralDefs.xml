@@ -1,0 +1,22 @@
+<peripherals>
+	<device name="STM32F429xx">
+
+		<peripheral name="Timer2"  address="0x40000000" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer3"  address="0x40000400" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer4"  address="0x40000800" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer5"  address="0x40000C00" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer6"  address="0x40001000" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer7"  address="0x40001400" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer12" address="0x40001800" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer13" address="0x40001C00" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer14" address="0x40002000" rccEnableByte="" rccEnableBit=""></peripheral>
+
+		<peripheral name="Timer1"  address="0x40010000" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer8"  address="0x40010400" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer9"  address="0x40014000" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer10" address="0x40014400" rccEnableByte="" rccEnableBit=""></peripheral>
+		<peripheral name="Timer11" address="0x40014800" rccEnableByte="" rccEnableBit=""></peripheral>
+
+
+	</device>
+</peripherals>

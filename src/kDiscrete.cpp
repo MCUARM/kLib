@@ -36,11 +36,25 @@
 
 kDiscrete::kDiscrete(void)
 {
-	this->dt=1;
+
 }
-bool kDiscrete::setSamplingTime(float sampling_time)
+void kDiscrete::run(void)
 {
-	if(sampling_time <= 0) return false;
-	this->dt = sampling_time;
-	return true;
+	last_time = kSystem.millis();
+	freezed = false;
+}
+void kDiscrete::freeze(void)
+{
+	freezed = true;
+}
+bool kDiscrete::isFreezed(void)
+{
+	return freezed;
+}
+float kDiscrete::dt(void)
+{
+	if(freezed) return 0.0;
+
+	float res = last_time - kSystem.millis();
+	return res*0.001;
 }

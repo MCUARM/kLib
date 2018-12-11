@@ -32,27 +32,41 @@
  *
  */
 
-#ifndef __kCRC_H
-#define __kCRC_H
+#ifndef __kQuadcopter_H
+#define __kQuadcopter_H
 
 
-	class kCRC
-	{
+	#include "kSBus.h"
+	#include "kAHRS.h"
+	#include "kPWM.h"
+	#include "kPID.h"
+	#include "kSystem.h"
+
+	class kQuadcopter{
+
 		public:
 
-			kCRC(void);
+			kSBus rc;
+			kAHRS ahrs;
 
-			__inline__ static unsigned char getChecksumGPS(const char * buffer, unsigned short int bytes) __attribute__((always_inline));
-			static unsigned char getCRC8(const char * buffer, unsigned short int bytes);
+			kPWM motor1;
+			kPWM motor2;
+			kPWM motor3;
+			kPWM motor4;
 
+			kPID pid_roll;
+			kPID pid_pitch;
+			kPID pid_yaw;
+
+			kPID pid_phi;
+			kPID pid_theta;
+			kPID pid_psi;
+
+
+
+			void run();
 
 	};
-
-
-	__attribute__((always_inline)) unsigned char kCRC::getChecksumGPS(const char * buffer, unsigned short int bytes)
-	{
-		return getCRC8(buffer,bytes);
-	}
 
 
 #endif

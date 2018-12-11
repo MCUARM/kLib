@@ -35,18 +35,23 @@
 #ifndef __kDiscrete_H
 #define __kDiscrete_H
 
-	#include "kDiscrete.h"
+	#include "kSystem.h"
 
 	class kDiscrete
 	{
 		protected:
 
-			float dt;
+			int last_time=0xFFFFFFFF;
+			bool freezed=true;
 
 		public:
 
 			kDiscrete(void);
-			bool setSamplingTime(float sampling_time);
+			void run(void);
+			void freeze(void);
+			bool isFreezed(void);
+			float dt();
+
 
 	};
 #endif

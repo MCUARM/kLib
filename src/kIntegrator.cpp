@@ -41,7 +41,7 @@ kIntegrator::kIntegrator(void)
 }
 float kIntegrator::feed(float x)
 {
-	this->last_value += this->dt*x;
+	last_value += this->dt*x;
 	if(this->use_saturation) this->last_value = this->Saturation.feed(this->last_value);
 
 	return this->last_value;

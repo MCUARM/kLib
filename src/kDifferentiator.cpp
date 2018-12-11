@@ -41,19 +41,22 @@ kDifferentiator::kDifferentiator(void)
 }
 float kDifferentiator::feed(float x)
 {
-	float res;
+	float res=last_value;
 
-	if(this->first_launch)
+	if(first_launch)
 	{
 		res = 0;
-		this->first_launch = false;
+		first_launch = false;
+		kDiscrete::init();
 	}else
 	{
-		res = (x - this->last_value)/this->dt;
+		float t = dt();
+		if(t != 0) res = (x - last_value)/t;
 	}
-	this->last_value = x;
 
-	if(this->useLPF) res = LPF.feed(res);
+	last_value = x;
+
+	if(useLPF) res = LPF.feed(res);
 
 	return res;
 }
@@ -75,5 +78,5 @@ float kDifferentiator::feedAngle(kAngle_minus_pi_to_pi & x)
 }
 void kDifferentiator::useLowPassFilter(bool enable)
 {
-	this->useLPF = enable;
+	useLPF = enable;
 }
