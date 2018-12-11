@@ -37,9 +37,14 @@
 
 	// kLib configuration file
 
+	// F4 series
 	#define kLib_STM32F407xx 1
 	#define kLib_STM32F411xx 2
 	#define kLib_STM32F429xx 3
+	
+	// L0 series
+	#define kLib_STM32L053xx 4
+	
 
 	// PLATFORM SELECTION
 	// Uncomment one line below
@@ -47,6 +52,7 @@
 		#define kLib_config_PLATFORM kLib_STM32F411xx
 		//#define kLib_config_PLATFORM kLib_STM32F407xx
 		//#define kLib_config_PLATFORM kLib_STM32F429xx
+		//#define kLib_config_PLATFORM kLib_STM32L053xx
 
 
 	#ifndef kLib_config_PLATFORM
@@ -57,21 +63,6 @@
 	// GENERAL SETTINGS
 	#define kLib_config_USE_RTOS 0
 	#define kLib_config_USE_MODULE 0
-
-
-	// kPort settings
-	// Uncomment line(s) below if you want to declare kPort PORTx object
-	#define kPort_config_USE_PORTA_OBJECT
-	#define kPort_config_USE_PORTB_OBJECT
-	#define kPort_config_USE_PORTC_OBJECT
-	#define kPort_config_USE_PORTD_OBJECT
-	//#define kPort_config_USE_PORTE_OBJECT
-	//#define kPort_config_USE_PORTF_OBJECT
-	//#define kPort_config_USE_PORTG_OBJECT
-	//#define kPort_config_USE_PORTH_OBJECT
-	//#define kPort_config_USE_PORTI_OBJECT
-	//#define kPort_config_USE_PORTJ_OBJECT
-	//#define kPort_config_USE_PORTK_OBJECT
 
 
 #endif

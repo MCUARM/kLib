@@ -2,7 +2,7 @@
  *                                                                                 *
  *   kLib - C++ development tools for ARM Cortex-M devices                         *
  *                                                                                 *
- *     Copyright (c) 2016, project author Paweł Zalewski                                          *
+ *     Copyright (c) 2016, project author Paweł Zalewski                           *
  *     All rights reserved.                                                        *
  *                                                                                 *
  ***********************************************************************************
@@ -68,9 +68,8 @@
  	kPort PORTK(GPIOK);
 #endif
 
-kPort::kPort(GPIO_TypeDef * GPIO)
+kPort::kPort(GPIO_TypeDef * GPIO) : gpio(GPIO)
 {
-	this->gpio = GPIO;
 
 }
 

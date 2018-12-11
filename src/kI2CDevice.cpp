@@ -208,25 +208,14 @@ void kI2CDeviceHardware::clockSpeed(unsigned int value)
 {
 	I2C_InitTypeDef I2C_InitStruct;
 
-	//konfiguracja pracy uk�adu I2C1
-	//pr�dkos� sygna�u zegarowego linii SCL - 100kHz (standardowo)
 	I2C_InitStruct.I2C_ClockSpeed = value;
-	//tryb dzia�ania uk�adu - dost�pne r�wnie� rozszerzenie protoko�u: SMBus
 	I2C_InitStruct.I2C_Mode = I2C_Mode_I2C;
-	// ustawienia Timing'�w sygna�u - istotne w fast mode - tutaj standardowo 50%
 	I2C_InitStruct.I2C_DutyCycle = I2C_DutyCycle_2;
-	//adres uk�adu - w trybie Master nieistotny (nieu�ywany)
 	I2C_InitStruct.I2C_OwnAddress1 = 0x00;
-	//wysy�aj potwierdzenie (ACK) po ka�dym otrzymanym bajcie
-	//r�wnoznaczne z ��daniem nast�pnego bajtu danych od Slave
 	I2C_InitStruct.I2C_Ack = I2C_Ack_Enable;
-	//korzystamy z adres�w 7-bitowych + 1bit kierunku
 	I2C_InitStruct.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
-
-	//Przekazanie wype�nionej struktury do funkcji inicjalizuj�cej uk�ad I2C1
 	I2C_Init(this->i2c,&I2C_InitStruct);
 
-	//zezwolenie na prac� uk�adu
 	I2C_Cmd(this->i2c,ENABLE);
 
 }

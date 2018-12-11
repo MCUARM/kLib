@@ -235,42 +235,51 @@
 
 	};
 
-#ifdef kPort_config_USE_PORTA_OBJECT
- 	extern kPort PORTA;
-#endif
-#ifdef kPort_config_USE_PORTB_OBJECT
- 	extern kPort PORTB;
-#endif
-#ifdef kPort_config_USE_PORTB_OBJECT
- 	extern kPort PORTB;
-#endif
-#ifdef kPort_config_USE_PORTC_OBJECT
- 	extern kPort PORTC;
-#endif
-#ifdef kPort_config_USE_PORTD_OBJECT
- 	extern kPort PORTD;
-#endif
-#ifdef kPort_config_USE_PORTE_OBJECT
- 	extern kPort PORTE;
-#endif
-#ifdef kPort_config_USE_PORTF_OBJECT
- 	extern kPort PORTF;
-#endif
-#ifdef kPort_config_USE_PORTG_OBJECT
- 	extern kPort PORTG;
-#endif
-#ifdef kPort_config_USE_PORTH_OBJECT
- 	extern kPort PORTH;
-#endif
-#ifdef kPort_config_USE_PORTI_OBJECT
- 	extern kPort PORTI;
-#endif
-#ifdef kPort_config_USE_PORTJ_OBJECT
- 	extern kPort PORTJ;
-#endif
-#ifdef kPort_config_USE_PORTK_OBJECT
- 	extern kPort PORTK;
-#endif
 
+
+
+	#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+		#define kPort_config_USE_PORTA_OBJECT
+		#define kPort_config_USE_PORTB_OBJECT
+		#define kPort_config_USE_PORTC_OBJECT
+		#define kPort_config_USE_PORTD_OBJECT
+		#define kPort_config_USE_PORTH_OBJECT
+	#endif
+
+
+	#ifdef kPort_config_USE_PORTA_OBJECT
+		extern kPort PORTA(GPIOA);
+	#endif
+	#ifdef kPort_config_USE_PORTB_OBJECT
+		extern kPort PORTA(GPIOB);
+	#endif
+	#ifdef kPort_config_USE_PORTC_OBJECT
+		extern kPort PORTA(GPIOC);
+	#endif
+	#ifdef kPort_config_USE_PORTD_OBJECT
+		extern kPort PORTA(GPIOD);
+	#endif
+	#ifdef kPort_config_USE_PORTE_OBJECT
+		extern kPort PORTA(GPIOE);
+	#endif
+	#ifdef kPort_config_USE_PORTF_OBJECT
+		extern kPort PORTA(GPIOF);
+	#endif
+	#ifdef kPort_config_USE_PORTG_OBJECT
+		extern kPort PORTA(GPIOG);
+	#endif
+	#ifdef kPort_config_USE_PORTH_OBJECT
+		extern kPort PORTA(GPIOH);
+	#endif
+	#ifdef kPort_config_USE_PORTI_OBJECT
+		extern kPort PORTA(GPIOI);
+	#endif
+	#ifdef kPort_config_USE_PORTJ_OBJECT
+		extern kPort PORTA(GPIOJ);
+	#endif
+	#ifdef kPort_config_USE_PORTK_OBJECT
+		extern kPort PORTA(GPIOK);
+	#endif
+	
 
 #endif
