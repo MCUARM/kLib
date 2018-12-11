@@ -1,0 +1,46 @@
+<pwmOut device="STM32F429xx">
+	<device name="STM32F429xx">
+		
+		<GPIO name="PORTA">
+			<pin number="0">
+				<AF number="1" name="TIM2_CH1"></AF>
+				<AF number="2" name="TIM5_CH1"></AF>
+			</pin>
+		</GPIO>
+		
+		<timer name="Timer1" address="0x40010000" rccEnableBit="0" alternateFunction="1">
+			<OC number="1">
+				<GPIO>A8</GPIO>
+				<GPIO>E9</GPIO>
+			</OC>
+			<OC number="2">
+				<GPIO>A9</GPIO>
+				<GPIO>E11</GPIO>
+			</OC>
+			<OC number="3">
+				<GPIO>A10</GPIO>
+				<GPIO>E13</GPIO>
+			</OC>
+			<OC number="4">
+				<GPIO>A11</GPIO>
+				<GPIO>E14</GPIO>
+			</OC>
+		</timer>	
+		<timer name="Timer8"  address="0x40010400" rccEnableBit="1"  alternateFunction="3"></timer>
+		<timer name="Timer9"  address="0x40014000" rccEnableBit="16" alternateFunction="3"></timer>
+		<timer name="Timer10" address="0x40014400" rccEnableBit="17" alternateFunction="3"></timer>
+		<timer name="Timer11" address="0x40014800" rccEnableBit="18" alternateFunction="3"></timer>
+				
+		
+		<timer name="Timer2"  address="0x40000000" rccEnableBit="0" alternateFunction="1"></timer>
+		<timer name="Timer3"  address="0x40000400" rccEnableBit="1" alternateFunction="2"></timer>
+		<timer name="Timer4"  address="0x40000800" rccEnableBit="2" alternateFunction="2"></timer>
+		<timer name="Timer5"  address="0x40000C00" rccEnableBit="3" alternateFunction="2"></timer>
+		<timer name="Timer6"  address="0x40001000" rccEnableBit="4" alternateFunction=""></timer>
+		<timer name="Timer7"  address="0x40001400" rccEnableBit="5" alternateFunction=""></timer>
+		<timer name="Timer12" address="0x40001800" rccEnableBit="6" alternateFunction="9"></timer>
+		<timer name="Timer13" address="0x40001C00" rccEnableBit="7" alternateFunction="9"></timer>
+		<timer name="Timer14" address="0x40002000" rccEnableBit="8" alternateFunction="9"></timer>
+		
+	</device>
+</pwmOut>

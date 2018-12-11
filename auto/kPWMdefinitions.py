@@ -1,38 +1,14 @@
 from xml.dom import minidom
 from xml.dom.minidom import Node
+import re
 
 
-def getTimerSetupCode(OC_number):
-	oc_num = int(OC_number)
-	res =  ((oc_num-1) & 0x00000003) << 27
-	if oc_num > 2:
-		res |= 0x20000000
-	if (oc_num == 2) or (oc_num == 4):
-		res |= 0x40000000
-	return hex(res)
-
-def getHardwareSetupCode(user_code,peripheral_clock_enable_bit_position,RCC_APBx_ENR_byte_offset,peripheral_address,gpio_output_type,gpio_mode,alternate_function,gpio_pin):
-
-	res =  ((int(user_code) & 0x0000001F) << 27 )
-	res |= ((int(peripheral_clock_enable_bit_position) & 0x00000007) << 24 )
-	res |= ((int(RCC_APBx_ENR_byte_offset) & 0x00000003) << 22 )
-	res |= ((int(peripheral_address,16) & 0x0001FC00) << 5 )
-	res |= ((int(gpio_output_type) & 0x00000001) << 14 )
-	res |= ((int(gpio_mode) & 0x00000003) << 12 )
-	res |= ((int(alternate_function) & 0x0000000F) << 8 )
-	res |= (((ord(gpio_pin[0]) - 0x41) & 0x0000000F) << 4)
-	res |= int(gpio_pin[1:]) 
-
-	return hex(res)
-	
-
-
-# parse an xml file by name
-pwm_defs = minidom.parse('kPWMdefs.xml')
-
-
-file = open("kPWMdefs.h","w") 
-file.write("/***********************************************************************************\n" +
+def getHeaderOpener(header_name):
+	return str("#ifndef "+header_name+"\n"+"#define "+header_name+"\n\n")
+def getHeaderCloser(header_name):
+	return str("\n\n//End of file "+header_name+"\n"+"#endif\n")
+def getLicenseString():
+	return str("/***********************************************************************************\n" +
 		 " *                                                                                 *\n" +
 		 " *   kLib - C++ development tools for ARM Cortex-M devices                         *\n" +
 		 " *                                                                                 *\n" +
@@ -64,25 +40,93 @@ file.write("/*******************************************************************
 		 " *   ARISING  IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE\n" +
 		 " *   POSSIBILITY OF SUCH DAMAGE.\n" +
 		 " *\n" +
-		 " */\n\n")
-file.write("#ifndef __kPWM_H\n"+
-		"#define __kPWM_H\n\n")
- 
+		 " */\n\n"
+def getTimerSetupCode(OC_number):
+	oc_num = int(OC_number)
+	res =  ((oc_num-1) & 0x00000003) << 27
+	if oc_num > 2:
+		res |= 0x20000000
+	if (oc_num == 2) or (oc_num == 4):
+		res |= 0x40000000
+	return hex(res)
+def getHardwareSetupCode(user_code,peripheral_clock_enable_bit_position,peripheral_address,gpio_output_type,gpio_mode,alternate_function,gpio_pin):
 
-devices = pwm_defs.getElementsByTagName('device')
+	RCC_APBx_ENR_byte_offset = int(int(peripheral_clock_enable_bit_position)/8)
+	
+
+	res =  ((int(user_code) & 0x0000001F) << 27 )
+	res |= ((int(peripheral_clock_enable_bit_position) & 0x00000007) << 24 )
+	res |= ((int(RCC_APBx_ENR_byte_offset) & 0x00000003) << 22 )
+	res |= ((int(peripheral_address,16) & 0x0001FC00) << 5 )
+	res |= ((int(gpio_output_type) & 0x00000001) << 14 )
+	res |= ((int(gpio_mode) & 0x00000003) << 12 )
+	res |= ((int(alternate_function) & 0x0000000F) << 8 )
+	res |= (((ord(gpio_pin[0]) - 0x41) & 0x0000000F) << 4)
+	res |= int(gpio_pin[1:]) 
+
+	return hex(res)
+def getPlatformCondition(platform):
+	return str("#if (kLib_config_PLATFORM == kLib_"+platform+")\n\n")	
+def grabTags(parent,tag_name):
+	return parent.getElementsByTagName(tag_name)
+def getAttribute(tag,attribute_name):
+	return tag.attributes[attribute_name].value
+def getContent(tag):
+	return tag.nodeValue
+def isTimerAF(tag):
+	if 'TIM_CH' in getContent(tag):
+		return True
+	return false
+def isTimer(strg):
+	if "Timer" in getAttribute('name'):
+		return True
+	return False
+def getTimerOCchannel(strg):
+	return str(re.match("CH(.+?)",strg))
+def getTimer(strg):
+	return str("Timer" + str(re.match("TIM(.+?)",strg)))
+def grapPeriphTags(parent,periph_name):
+	res = []
+	for periph in grabTags(dev,'PERIPHERAL'):
+		if periph_name in getAttribute(periph,'name'):
+			res.append(periph)
+			
+def grabPeriphAFtags(peripheral_tag):
+
+def grabTimerOCx_AFtags(parent, oc_number):
+	res = []
+	for af in grabPeriphAFtags(parent):
+		if int(getTimerOCchannel(getContent(parent))) == oc_number:
+			res.append(af)
+
+
+	
+# parse an xml file by name
+defs = minidom.parse('devices.xml')
+devices = defs.getElementsByTagName('device')
+
+file = open("kPWMdefs.h","w") 
+file.write(getLicenseString())
+file.write(getHeaderOpener())
+
+
+
 for dev in devices:
-	file.write("#if (kLib_config_PLATFORM == kLib_"+dev.attributes['name'].value+")\n\n")
-	for tim in dev.getElementsByTagName('timer'):
-		for oc in tim.getElementsByTagName('OC'):
-			file.write(	"\ttypedef struct\n"+
-					"\t{\n"+
-					"\t\ttypedef enum\n"+
-					"\t\t{\n")
+	file.write(getPlatformCondition(getAttribute(dev,'name'))
+				
+	for tim in grapPeriphTags(dev,'Timer'):
+		for oc_x in range(1,4):
+			oc_exist = False
+			for pin in grabTimerOCx_AFtags(tim,oc_x):
+				if not oc_exist:
+					file.write(	"\ttypedef struct\n"+
+							"\t{\n"+
+							"\t\ttypedef enum\n"+
+							"\t\t{\n")
+					oc_exist = True
 
-			for gpio in oc.getElementsByTagName('GPIO'):
 				code = int(getHardwareSetupCode(0,
 								tim.attributes['rccEnableBit'].value,
-								tim.attributes['rccEnableByte'].value,
 								tim.attributes['address'].value,
 								0,
 								2,
@@ -98,8 +142,5 @@ for dev in devices:
   
 	file.write("\n#endif\n")
 	
-
-
-file.write("\n#endif\n")
-
+file.write(getHeaderCloser())
 file.close() 
