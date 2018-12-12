@@ -1,7 +1,7 @@
 <devices>
   <device name="STM32F429xx">
-    <AFM pinName="PA0" number="1">TIM2_CH1</AFM>
-    <AFM pinName="PA0" number="2">TIM5_CH1</AFM>
+    <AFM pinName="PA0" number="1" value="TIM2_CH1"/>
+    <AFM pinName="PA0" number="2" value="TIM5_CH1"/>
     <PERIPHERAL name="GPIOA" address="0x40020000" rccEnableBit="0"/>
     <PERIPHERAL name="GPIOB" address="0x40020400" rccEnableBit="1"/>
     <PERIPHERAL name="GPIOC" address="0x40020800" rccEnableBit="2"/>
@@ -14,8 +14,8 @@
     <PERIPHERAL name="Timer11" address="0x40014800" rccEnableBit="3"/>
   </device>
   <device name="STM32F427xx">
-    <AFM pinName="PA0" number="1">TIM2_CH1</AFM>
-    <AFM pinName="PA0" number="2">TIM5_CH1</AFM>
+    <AFM pinName="PA0" number="1" value="TIM2_CH1"/>
+    <AFM pinName="PA0" number="2" value="TIM5_CH1"/>
     <PERIPHERAL name="GPIOA" address="0x40020000" rccEnableBit="0"/>
     <PERIPHERAL name="GPIOB" address="0x40020400" rccEnableBit="1"/>
     <PERIPHERAL name="GPIOC" address="0x40020800" rccEnableBit="2"/>

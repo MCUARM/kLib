@@ -32,17 +32,27 @@
  *
  */
 
-#ifndef __kPWMDEFS_H
-#define __kPWMDEFS_H
+#ifndef __kPORTDEFS_H
+#define __kPORTDEFS_H
 
 #if (kLib_config_PLATFORM == kLib_STM32F429xx)
 
+	#define kPort_config_USE_PORTA_OBJECT
+	#define kPort_config_USE_PORTB_OBJECT
+	#define kPort_config_USE_PORTC_OBJECT
+	#define kPort_config_USE_PORTD_OBJECT
+	#define kPort_config_USE_PORTE_OBJECT
 
 #endif
 #if (kLib_config_PLATFORM == kLib_STM32F427xx)
 
+	#define kPort_config_USE_PORTA_OBJECT
+	#define kPort_config_USE_PORTB_OBJECT
+	#define kPort_config_USE_PORTC_OBJECT
+	#define kPort_config_USE_PORTD_OBJECT
+	#define kPort_config_USE_PORTE_OBJECT
 
 #endif
 
 
-#endif  //End of __kPWMDEFS_H
+#endif  //End of __kPORTDEFS_H

@@ -32,17 +32,3 @@
  *
  */
 
-#ifndef __kPWMDEFS_H
-#define __kPWMDEFS_H
-
-#if (kLib_config_PLATFORM == kLib_STM32F429xx)
-
-
-#endif
-#if (kLib_config_PLATFORM == kLib_STM32F427xx)
-
-
-#endif
-
-
-#endif  //End of __kPWMDEFS_H

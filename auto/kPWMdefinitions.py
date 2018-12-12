@@ -2,45 +2,82 @@ from xml.dom import minidom
 from xml.dom.minidom import Node
 import re
 
+from xlrd import open_workbook
+from lxml import etree
+import os
+
+def xls2xml():
+
+	filesDir = 'devices/';
+	root = etree.Element("devices")
+	
+	for file in os.listdir("devices/"):
+		if file.endswith(".xlsx"):
+
+			wb = open_workbook(filesDir + file)
+
+
+
+			device = None
+			for sheet in wb.sheets():
+				number_of_rows = sheet.nrows
+				number_of_columns = sheet.ncols
+				
+				
+				
+				if sheet.name == "AFM":
+				
+					if number_of_columns < 16:
+						continue
+					if number_of_rows < 2:
+						continue
+						
+					
+					if device == None:	
+						device = etree.SubElement(root, "device", name=str(sheet.cell(0,1).value))
+
+
+					for row in range(2, number_of_rows):
+
+						for col in range(1,number_of_columns):
+							value = str((sheet.cell(row,col).value))
+							if not value or value.isspace():
+								continue
+								
+							af = etree.SubElement(device, "AFM")
+							af.set('pinName',str(sheet.cell(row,0).value))
+							af.set('number',str(col-1))
+							af.set('value',str(sheet.cell(row,col).value))
+				
+
+				if sheet.name == "Peripherals":
+					
+					if number_of_columns < 3:
+						continue
+					if number_of_rows < 2:
+						continue
+						
+					if device == None:	
+						device = etree.SubElement(root, "device", name=str(sheet.cell(0,1).value))
+						
+					for row in range(2, number_of_rows):
+
+						periph = etree.SubElement(device, 'PERIPHERAL',name=str(sheet.cell(row,0).value))
+						periph.set('address',str(sheet.cell(row,1).value))
+						periph.set('rccEnableBit',str(int(float(str(sheet.cell(row,2).value)))))
+				
+				
+	tree = etree.ElementTree(root)
+	tree.write('devices.xml',pretty_print=True)
+				
 
 def getHeaderOpener(header_name):
 	return str("#ifndef "+header_name+"\n"+"#define "+header_name+"\n\n")
 def getHeaderCloser(header_name):
-	return str("\n\n//End of file "+header_name+"\n"+"#endif\n")
+	return str("\n\n#endif  //End of "+header_name+"\n")
 def getLicenseString():
-	return str("/***********************************************************************************\n" +
-		 " *                                                                                 *\n" +
-		 " *   kLib - C++ development tools for ARM Cortex-M devices                         *\n" +
-		 " *                                                                                 *\n" +
-		 " *     Copyright (c) 2016, project author Pawel Zalewski                           *\n" +
-		 " *     All rights reserved.                                                        *\n" +
-		 " *                                                                                 *\n" +
-		 " ***********************************************************************************\n" +
-		 " * Redistribution and use in source and binary forms, with or without modification,\n" +
-		 " * are permitted provided that the following conditions are met:\n" +
-		 " *\n" +
-		 " *   1. Redistributions of source code must retain the above copyright notice,\n" +
-		 " *      this list of conditions and the following disclaimer.\n" +
-		 " *   2. Redistributions  in  binary  form  must  reproduce the above copyright\n" +
-		 " *      notice,  this  list  of conditions and the following disclaimer in the\n" +
-		 " *      documentation  and/or  other materials provided with the distribution.\n" +
-		 " *   3. Neither  the  name  of  the  copyright  holder  nor  the  names of its\n" +
-		 " *      contributors  may  be used to endorse or promote products derived from\n" +
-		 " *      this software without specific prior written permission.\n" +
-		 " *\n" +
-		 " *   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n" +
-		 " *   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,  BUT NOT LIMITED  TO, THE\n" +
-		 " *   IMPLIED WARRANTIES OF MERCHANTABILITY  AND FITNESS FOR A PARTICULAR PURPOSE\n" +
-		 " *   ARE DISCLAIMED.  IN NO EVENT SHALL  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE\n" +
-		 " *   LIABLE  FOR  ANY  DIRECT,  INDIRECT,  INCIDENTAL,  SPECIAL,  EXEMPLARY,  OR\n" +
-		 " *   CONSEQUENTIAL  DAMAGES  (INCLUDING,  BUT  NOT  LIMITED  TO,  PROCUREMENT OF\n" +
-		 " *   SUBSTITUTE  GOODS  OR SERVICES;  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS\n" +
-		 " *   INTERRUPTION) HOWEVER  CAUSED  AND  ON  ANY THEORY OF LIABILITY, WHETHER IN\n" +
-		 " *   CONTRACT,  STRICT  LIABILITY,  OR  TORT (INCLUDING NEGLIGENCE OR OTHERWISE)\n" +
-		 " *   ARISING  IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE\n" +
-		 " *   POSSIBILITY OF SUCH DAMAGE.\n" +
-		 " *\n" +
-		 " */\n\n"
+	str = open('License.txt', 'r').read()
+	return str
 def getTimerSetupCode(OC_number):
 	oc_num = int(OC_number)
 	res =  ((oc_num-1) & 0x00000003) << 27
@@ -66,81 +103,124 @@ def getHardwareSetupCode(user_code,peripheral_clock_enable_bit_position,peripher
 
 	return hex(res)
 def getPlatformCondition(platform):
-	return str("#if (kLib_config_PLATFORM == kLib_"+platform+")\n\n")	
+	return str("#if (kLib_config_PLATFORM == kLib_"+platform+")\n\n")
+def getEndIfStr():
+	return str("#endif\n")
 def grabTags(parent,tag_name):
 	return parent.getElementsByTagName(tag_name)
 def getAttribute(tag,attribute_name):
-	return tag.attributes[attribute_name].value
-def getContent(tag):
-	return tag.nodeValue
+	return str(tag.attributes[attribute_name].value)
+def getValue(tag):
+	return getAttribute(tag,'value')
 def isTimerAF(tag):
-	if 'TIM_CH' in getContent(tag):
+	if 'TIM' in getValue(tag):
 		return True
 	return false
-def isTimer(strg):
-	if "Timer" in getAttribute('name'):
+def getName(tag):
+	return getAttribute(tag,'name')
+def isTimer(tag):
+	if "Timer" in getName(tag):
 		return True
 	return False
-def getTimerOCchannel(strg):
-	return str(re.match("CH(.+?)",strg))
-def getTimer(strg):
-	return str("Timer" + str(re.match("TIM(.+?)",strg)))
-def grapPeriphTags(parent,periph_name):
+def getTimerOCchannelFromAFtag(afm_tag):
+	return int(str(re.findall("CH(.+?)",getValue(afm_tag))[0]))
+def getTimerNumberFromAFtag(afm_tag):
+	return int(str(re.findall("TIM(.+?)",getValue(afm_tag))[0]))
+def grabPeriphTags(dev,periph_name):
 	res = []
 	for periph in grabTags(dev,'PERIPHERAL'):
-		if periph_name in getAttribute(periph,'name'):
+		if periph_name in getName(periph):
 			res.append(periph)
-			
-def grabPeriphAFtags(peripheral_tag):
-
-def grabTimerOCx_AFtags(parent, oc_number):
-	res = []
-	for af in grabPeriphAFtags(parent):
-		if int(getTimerOCchannel(getContent(parent))) == oc_number:
-			res.append(af)
-
-
-	
-# parse an xml file by name
-defs = minidom.parse('devices.xml')
-devices = defs.getElementsByTagName('device')
-
-file = open("kPWMdefs.h","w") 
-file.write(getLicenseString())
-file.write(getHeaderOpener())
-
-
-
-for dev in devices:
-	file.write(getPlatformCondition(getAttribute(dev,'name'))
-				
-	for tim in grapPeriphTags(dev,'Timer'):
-		for oc_x in range(1,4):
-			oc_exist = False
-			for pin in grabTimerOCx_AFtags(tim,oc_x):
-				if not oc_exist:
-					file.write(	"\ttypedef struct\n"+
-							"\t{\n"+
-							"\t\ttypedef enum\n"+
-							"\t\t{\n")
-					oc_exist = True
-
-				code = int(getHardwareSetupCode(0,
-								tim.attributes['rccEnableBit'].value,
-								tim.attributes['address'].value,
-								0,
-								2,
-								tim.attributes['alternateFunction'].value,
-								gpio.firstChild.data),16)
-				code |= int(getTimerSetupCode(oc.attributes['number'].value),16)
-				file.write("\t\t\tPORT"+gpio.firstChild.data+" = "+hex(code)+"\n")
+	return res	
+def getPeripheralNumber(periph_tag):
+		return int(str(re.findall("\d+",getName(periph_tag))[0]))
+def grabPeriphAFtags(device_tag,peripheral_tag):
+	periph_num = getPeripheralNumber(peripheral_tag)
+	pattern = ""
+	if isTimer(peripheral_tag):
+		pattern = str("TIM")
 		
-			file.write(	"\t\t}kPWM_"+tim.attributes['name'].value+"_OC"+oc.attributes['number'].value+"_Pin;\n")
-			file.write(	"\t}kPWM_OC"+oc.attributes['number'].value+"_"+tim.attributes['name'].value+";\n\n")
-				
+	pattern += str(periph_num)
+	res = []
+	for afm in grabTags(device_tag,'AFM'):
+		if pattern in getValue(afm):
+			res.append(afm)
+	return res
+def grabTimerOCx_AFtags(device_tag,timer_tag, oc_number):
+	res = []
+	for af in grabPeriphAFtags(device_tag,timer_tag):
+		if getTimerOCchannelFromAFtag(af) == oc_number:
+			res.append(af)
+	return res
+def grabAllTimers(device_tag):
+	return grabPeriphTags(device_tag,'Timer')
+def grabAllGPIOs(device_tag):
+	return grabPeriphTags(device_tag,'GPIO')
+def getPortFromAFtag(afm_tag):
+	return getAttribute(afm_tag,'pinName').split("P",1)[1] 
 
-  
-	file.write("\n#endif\n")
-	
-file.write(getHeaderCloser())
-file.close() 
+def createPWMdefs():
+	# parse an xml file by name
+	defs = minidom.parse('devices.xml')
+	devices = defs.getElementsByTagName('device')
+
+	file = open("kPWMdefs.h","w")
+	header_name = '__kPWMDEFS_H'
+	file.write(getLicenseString())
+	file.write(getHeaderOpener(header_name))
+
+	for dev in devices:
+		file.write(getPlatformCondition(getName(dev)))
+		for tim in grabAllTimers(dev):
+			for oc_x in range(1,5):
+				oc_exist = False
+				for af in grabTimerOCx_AFtags(dev,tim,oc_x):
+					if not oc_exist:
+						file.write("\ttypedef struct\n"+
+								"\t{\n"+
+								"\t\ttypedef enum\n"+
+								"\t\t{\n")
+						oc_exist = True
+
+					code = int(getHardwareSetupCode(0,
+									getAttribute(tim,'rccEnableBit'),
+									getAttribute(tim,'address'),
+									0,
+									2,
+									getAttribute(af,'number'),
+									getPortFromAFtag(af)),16)
+									
+					code |= int(getTimerSetupCode(oc_x),16)
+					file.write("\t\t\tPORT"+getPortFromAFtag(af)+" = "+hex(code)+"\n")
+					
+				if oc_exist:
+					file.write(	"\t\t}kPWM_"+getName(tim)+"_OC"+str(oc_x)+"_Pin;\n")
+					file.write(	"\t}kPWM_OC"+str(oc_x)+"_"+getName(tim)+";\n\n")
+					
+	  
+		file.write("\n#endif\n")
+		
+	file.write(getHeaderCloser(header_name))
+	file.close()
+def createPORTdefs():
+	# parse an xml file by name
+	defs = minidom.parse('devices.xml')
+	devices = defs.getElementsByTagName('device')
+
+	file = open("kPORTdefs.h","w")
+	header_name = '__kPORTDEFS_H'
+	file.write(getLicenseString())
+	file.write(getHeaderOpener(header_name))
+
+	for dev in devices:
+		file.write(getPlatformCondition(getName(dev)))
+		for gpio in grabAllGPIOs(dev):
+			file.write("\t#define kPort_config_USE_"+getName(gpio).replace("GPIO","PORT")+"_OBJECT\n")
+		file.write("\n#endif\n")	
+	file.write(getHeaderCloser(header_name))
+	file.close()
+
+
+xls2xml()
+createPWMdefs()
+createPORTdefs()

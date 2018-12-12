@@ -43,7 +43,7 @@ def xls2xml():
 							af = etree.SubElement(device, "AFM")
 							af.set('pinName',str(sheet.cell(row,0).value))
 							af.set('number',str(col-1))
-							af.text = str(sheet.cell(row,col).value)
+							af.set('value',str(sheet.cell(row,col).value))
 				
 
 				if sheet.name == "Peripherals":
