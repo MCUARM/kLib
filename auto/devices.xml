@@ -16,6 +16,10 @@
   <device name="STM32F427xx">
     <AFM pinName="PA0" number="1" value="TIM2_CH1"/>
     <AFM pinName="PA0" number="2" value="TIM5_CH1"/>
+    <AFM pinName="PA9" number="7" value="USART1_TX"/>
+    <AFM pinName="PA10" number="7" value="USART1_RX"/>
+    <AFM pinName="PB6" number="7" value="USART1_TX"/>
+    <AFM pinName="PB7" number="7" value="USART1_RX"/>
     <PERIPHERAL name="GPIOA" address="0x40020000" rccEnableBit="0"/>
     <PERIPHERAL name="GPIOB" address="0x40020400" rccEnableBit="1"/>
     <PERIPHERAL name="GPIOC" address="0x40020800" rccEnableBit="2"/>
@@ -26,5 +30,6 @@
     <PERIPHERAL name="Timer9" address="0x40014000" rccEnableBit="3"/>
     <PERIPHERAL name="Timer10" address="0x40014400" rccEnableBit="3"/>
     <PERIPHERAL name="Timer11" address="0x40014800" rccEnableBit="3"/>
+    <PERIPHERAL name="USART1" address="0x40011000" rccEnableBit="3"/>
   </device>
 </devices>

@@ -86,6 +86,14 @@ def getTimerSetupCode(OC_number):
 	if (oc_num == 2) or (oc_num == 4):
 		res |= 0x40000000
 	return hex(res)
+def getUsartSetupCode(enable_rx,enable_tx):
+	res = 0
+	if enable_rx:
+		res |= 4
+	if enable_tx:
+		res |=8
+	res = res << 25
+	return hex(res)
 def getHardwareSetupCode(user_code,peripheral_clock_enable_bit_position,peripheral_address,gpio_output_type,gpio_mode,alternate_function,gpio_pin):
 
 	RCC_APBx_ENR_byte_offset = int(int(peripheral_clock_enable_bit_position)/8)
@@ -135,27 +143,51 @@ def grabPeriphTags(dev,periph_name):
 def getPeripheralNumber(periph_tag):
 		return int(str(re.findall("\d+",getName(periph_tag))[0]))
 def grabPeriphAFtags(device_tag,peripheral_tag):
-	periph_num = getPeripheralNumber(peripheral_tag)
-	pattern = ""
+	
+	pattern = getName(peripheral_tag)
 	if isTimer(peripheral_tag):
+		periph_num = getPeripheralNumber(peripheral_tag)
 		pattern = str("TIM")
-		
-	pattern += str(periph_num)
+		pattern += str(periph_num)
+	
 	res = []
 	for afm in grabTags(device_tag,'AFM'):
 		if pattern in getValue(afm):
 			res.append(afm)
 	return res
+
 def grabTimerOCx_AFtags(device_tag,timer_tag, oc_number):
 	res = []
 	for af in grabPeriphAFtags(device_tag,timer_tag):
 		if getTimerOCchannelFromAFtag(af) == oc_number:
 			res.append(af)
 	return res
+def isUartRx_AFtag(afm_tag):
+	if "RX" in getValue(afm_tag):
+		return True
+	return False
+def grabUartRx_AFtags(device_tag,uart_tag):
+	res = []
+	for af in grabPeriphAFtags(device_tag,uart_tag):
+		if isUartRx_AFtag(af):
+			res.append(af)
+	return res
+def isUartTx_AFtag(afm_tag):
+	if "TX" in getValue(afm_tag):
+		return True
+	return False
+def grabUartTx_AFtags(device_tag,uart_tag):
+	res = []
+	for af in grabPeriphAFtags(device_tag,uart_tag):
+		if isUartTx_AFtag(af):
+			res.append(af)
+	return res
 def grabAllTimers(device_tag):
 	return grabPeriphTags(device_tag,'Timer')
 def grabAllGPIOs(device_tag):
 	return grabPeriphTags(device_tag,'GPIO')
+def grabAllUARTS(device_tag):
+	return (grabPeriphTags(device_tag,'UART') + grabPeriphTags(device_tag,'USART'))
 def getPortFromAFtag(afm_tag):
 	return getAttribute(afm_tag,'pinName').split("P",1)[1] 
 
@@ -179,8 +211,7 @@ def createPWMdefs():
 						file.write("\ttypedef struct\n"+
 								"\t{\n"+
 								"\t\ttypedef enum\n"+
-								"\t\t{\n")
-						oc_exist = True
+								"\t\t{")
 
 					code = int(getHardwareSetupCode(0,
 									getAttribute(tim,'rccEnableBit'),
@@ -190,11 +221,14 @@ def createPWMdefs():
 									getAttribute(af,'number'),
 									getPortFromAFtag(af)),16)
 									
+					if oc_exist:
+						file.write(',')
+					oc_exist = True
 					code |= int(getTimerSetupCode(oc_x),16)
-					file.write("\t\t\tPORT"+getPortFromAFtag(af)+" = "+hex(code)+"\n")
+					file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+hex(code))
 					
 				if oc_exist:
-					file.write(	"\t\t}kPWM_"+getName(tim)+"_OC"+str(oc_x)+"_Pin;\n")
+					file.write(	"\n\t\t}kPWM_"+getName(tim)+"_OC"+str(oc_x)+"_Pin;\n")
 					file.write(	"\t}kPWM_OC"+str(oc_x)+"_"+getName(tim)+";\n\n")
 					
 	  
@@ -202,6 +236,54 @@ def createPWMdefs():
 		
 	file.write(getHeaderCloser(header_name))
 	file.close()
+
+def createUSARTdefs():
+	# parse an xml file by name
+	defs = minidom.parse('devices.xml')
+	devices = defs.getElementsByTagName('device')
+
+	file = open("kSerialDefs.h","w")
+	header_name = '__kSERIALDEFS_H'
+	file.write(getLicenseString())
+	file.write(getHeaderOpener(header_name))
+
+	for dev in devices:
+		file.write(getPlatformCondition(getName(dev)))
+		for uart in grabAllUARTS(dev):
+			print(getName(uart))
+			rx_exist = False
+			for af in grabUartRx_AFtags(dev,uart):
+				if not rx_exist:
+					file.write("\ttypedef struct\n"+
+							"\t{\n"+
+							"\t\ttypedef enum\n"+
+							"\t\t{")
+					
+
+				code = int(getHardwareSetupCode(0,
+								getAttribute(uart,'rccEnableBit'),
+								getAttribute(uart,'address'),
+								0,
+								2,
+								getAttribute(af,'number'),
+								getPortFromAFtag(af)),16)
+				
+				if rx_exist:
+					file.write(",")
+				rx_exist = True
+				code |= int(getUsartSetupCode(True,False),16)
+				file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+hex(code))
+				
+			if rx_exist:
+				file.write(	"\n\t\t}kSerial_"+getName(uart)+"_RX_Pin;\n")
+				file.write(	"\t}kSerial_"+getName(uart)+"_RX;\n\n")
+					
+	  
+		file.write("\n#endif\n")
+		
+	file.write(getHeaderCloser(header_name))
+	file.close()
+	
 def createPORTdefs():
 	# parse an xml file by name
 	defs = minidom.parse('devices.xml')
@@ -224,3 +306,4 @@ def createPORTdefs():
 xls2xml()
 createPWMdefs()
 createPORTdefs()
+createUSARTdefs()
