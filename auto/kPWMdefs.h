@@ -35,7 +35,39 @@
 #ifndef __kPWMDEFS_H
 #define __kPWMDEFS_H
 
-#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+#if (kLib_config_PLATFORM == kLib_STM32F427xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x202108
+		}kPWM_Timer1_OC1_Pin;
+	}kPWM_OC1_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x48202109
+		}kPWM_Timer1_OC2_Pin;
+	}kPWM_OC2_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x3020210a
+		}kPWM_Timer1_OC3_Pin;
+	}kPWM_OC3_Timer1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x7820210b
+		}kPWM_Timer1_OC4_Pin;
+	}kPWM_OC4_Timer1;
 
 
 #endif

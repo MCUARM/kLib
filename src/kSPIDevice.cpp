@@ -41,25 +41,38 @@ kSPIDeviceHardware::kSPIDeviceHardware(void)
 }
 kSPIDeviceHardware& kSPIDeviceHardware::operator = (unsigned int hard_code)
 {
+	// check if it is spi configuration or pin configuration
 	if(hard_code & 0x08000000)
 	{
+		// spi configuration
+		
+		// decode peripheral address
 		this->spi = (SPI_TypeDef*)kPrivate::getPeriheralAndEnableClock(hard_code);
 		// make sure spi is stopped and clear first three bits and 7th
-		this->spi->CR1 &= ~(0x00C7);
+		// these bits are responsible for:
+		// [0]: CPHA - Data capture on first or second edge
+		// [1]: CPOL - Clock polarity CK 0 or 1 when idle
+		// [2]: MSTR - Master or slave configuration
+		// [7]: LSBFIRST - Frame format is LSB first?
+		// [9]: SSM - Software Slave Management enable/disable
+		this->spi->CR1 &= ~(0x02C7);
 		// set new settings
-		if(hard_code & 0x80000000) this->spi->CR1 |= (1<<7);
-		this->spi->CR1 |= ((hard_code & 0x70000000) >> 28);
-
-
+		
+		// setup LSBFIRST
+		this->spi->CR1 |= ((hard_code & 0x00000004) << 4)
+		// setup [0:2] bits
+		this->spi->CR1 |= (hard_code & 0x00000007)
 
 	}else
 	{
+		// this is only gpio pin configuration
 		this->spi = (SPI_TypeDef*)kPrivate::setupPeripheralOutput(hard_code);
 	}
 	return (*this);
 }
 kSPIDeviceHardware& kSPIDeviceHardware::operator = (kSPI_SPI_NSS::kSPI_SPI_NSS_PIN nss_pin)
 {
+	// software NSS pin configuration
 	this->NSS = (kPin::kPIN_PIN)nss_pin;
 	return (*this);
 }

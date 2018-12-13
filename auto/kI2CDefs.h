@@ -32,8 +32,8 @@
  *
  */
 
-#ifndef __kSERIALDEFS_H
-#define __kSERIALDEFS_H
+#ifndef __kSI2CDEFS_H
+#define __kSI2CDEFS_H
 
 #if (kLib_config_PLATFORM == kLib_STM32F427xx)
 
@@ -41,58 +41,26 @@
 	{
 		typedef enum
 		{
-			PORTC11 = 0xb89a82b
-		}kSerial_UART4_RX_Pin;
-	}kSerial_UART4_RX;
+			PORTB7 = 0x58ae417,
+			PORTB9 = 0x58ae419
+		}kI2C_I2C1_SDA_Pin;
+	}kSPI_I2C1_SDA;
 
 	typedef struct
 	{
 		typedef enum
 		{
-			PORTC10 = 0xb89a82a
-		}kSerial_UART4_TX_Pin;
-	}kSerial_UART4_TX;
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTB7 = 0xc222717
-		}kSerial_USART1_RX_Pin;
-	}kSerial_USART1_RX;
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTB6 = 0xc222716
-		}kSerial_USART1_TX_Pin;
-	}kSerial_USART1_TX;
+			PORTB6 = 0x58ae416,
+			PORTB8 = 0x58ae418
+		}kI2C_I2C1_SCL_Pin;
+	}kSPI_I2C1_SCL;
 
 
 #endif
 #if (kLib_config_PLATFORM == kLib_STM32F427xx)
 
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTA10 = 0xb22270a,
-			PORTB7 = 0xb222717
-		}kSerial_USART1_RX_Pin;
-	}kSerial_USART1_RX;
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTA9 = 0xb222709,
-			PORTB6 = 0xb222716
-		}kSerial_USART1_TX_Pin;
-	}kSerial_USART1_TX;
-
 
 #endif
 
 
-#endif  //End of __kSERIALDEFS_H
+#endif  //End of __kSI2CDEFS_H

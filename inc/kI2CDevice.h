@@ -117,20 +117,8 @@
 		public:
 
 			I2C_TypeDef * i2c;
-			GPIO_TypeDef * sdaGPIO;
-			GPIO_TypeDef * sclGPIO;
-			unsigned char sdaPin;
-			unsigned char sclPin;
-
-			void operator = (const kI2C1Pin & i2cHard);
-			void operator = (const kI2C2Pin & i2cHard);
-			void operator = (const kI2C3Pin & i2cHard);
-
-			void setupSCLPin(void);
-			void setupSDAPin(void);
-			void clockSpeed(unsigned int value);
-
-
+			void operator = (unsigned int hard_code);
+			
 
 	};
 
@@ -139,16 +127,10 @@
 		public:
 
 			kI2CDeviceHardware hardware;
-			unsigned char I2C_Address;
+			uint8_t I2C_Address;
 
 			kI2CDevice(void);
-			kI2CDevice(const kI2C1Pin & SCL,const kI2C1Pin & SDA,unsigned int clockSpeed);
-			kI2CDevice(const kI2C2Pin & SCL,const kI2C2Pin & SDA,unsigned int clockSpeed);
-			kI2CDevice(const kI2C3Pin & SCL,const kI2C3Pin & SDA,unsigned int clockSpeed);
-
-			static const kI2C1 * I2C_1;
-			static const kI2C2 * I2C_2;
-			static const kI2C3 * I2C_3;
+			void run(unsigned int clock_speed);
 
 			void write(uint8_t StartingRegisterAddress,uint8_t * transmit_buffer,uint8_t BytesToWrite);
 			void write(uint8_t RegisterAddress,uint8_t value);
