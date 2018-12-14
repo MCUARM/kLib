@@ -41,7 +41,7 @@
 	{
 		typedef enum
 		{
-			PORTC11 = 0xb89a82b
+			PORTC11 = 0x0B89A82B
 		}kSerial_UART4_RX_Pin;
 	}kSerial_UART4_RX;
 
@@ -49,7 +49,7 @@
 	{
 		typedef enum
 		{
-			PORTC10 = 0xb89a82a
+			PORTC10 = 0x0B89A82A
 		}kSerial_UART4_TX_Pin;
 	}kSerial_UART4_TX;
 
@@ -57,7 +57,7 @@
 	{
 		typedef enum
 		{
-			PORTB7 = 0xc222717
+			PORTB7 = 0x0C222717
 		}kSerial_USART1_RX_Pin;
 	}kSerial_USART1_RX;
 
@@ -65,7 +65,7 @@
 	{
 		typedef enum
 		{
-			PORTB6 = 0xc222716
+			PORTB6 = 0x0C222716
 		}kSerial_USART1_TX_Pin;
 	}kSerial_USART1_TX;
 
@@ -77,8 +77,8 @@
 	{
 		typedef enum
 		{
-			PORTA10 = 0xb22270a,
-			PORTB7 = 0xb222717
+			PORTA10 = 0x0B22270A,
+			PORTB7 = 0x0B222717
 		}kSerial_USART1_RX_Pin;
 	}kSerial_USART1_RX;
 
@@ -86,8 +86,8 @@
 	{
 		typedef enum
 		{
-			PORTA9 = 0xb222709,
-			PORTB6 = 0xb222716
+			PORTA9 = 0x0B222709,
+			PORTB6 = 0x0B222716
 		}kSerial_USART1_TX_Pin;
 	}kSerial_USART1_TX;
 

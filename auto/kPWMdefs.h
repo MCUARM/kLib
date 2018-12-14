@@ -41,7 +41,7 @@
 	{
 		typedef enum
 		{
-			PORTA8 = 0x202108
+			PORTA8 = 0x00202108
 		}kPWM_Timer1_OC1_Pin;
 	}kPWM_OC1_Timer1;
 
@@ -57,7 +57,7 @@
 	{
 		typedef enum
 		{
-			PORTA10 = 0x3020210a
+			PORTA10 = 0x3020210A
 		}kPWM_Timer1_OC3_Pin;
 	}kPWM_OC3_Timer1;
 
@@ -65,7 +65,7 @@
 	{
 		typedef enum
 		{
-			PORTA11 = 0x7820210b
+			PORTA11 = 0x7820210B
 		}kPWM_Timer1_OC4_Pin;
 	}kPWM_OC4_Timer1;
 

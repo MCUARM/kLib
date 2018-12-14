@@ -6,6 +6,23 @@ from xlrd import open_workbook
 from lxml import etree
 import os
 
+
+def formatHex(hex_str):
+	
+	tmp = removeWhiteSigns(hex_str.upper())
+	tmp = tmp.replace("X","x")
+	n = len(tmp)
+	
+	res = ""
+	for i in range(0,2):
+		res += tmp[i]
+	for i in range(0,10-n):
+		res += "0"
+	for i in range(2,n):
+		res += tmp[i]
+		
+	return res
+	
 def removeWhiteSigns(str):
 	res = ""
 	
@@ -15,6 +32,8 @@ def removeWhiteSigns(str):
 	return res
 def getCellValue(sheet,row,col):
 	return removeWhiteSigns(str(sheet.cell(row,col).value))
+
+
 
 def xls2xml():
 
@@ -221,6 +240,10 @@ def isSPIxSCK_AFtag(afm_tag):
 	if "SCK" in getValue(afm_tag):
 		return True
 	return False
+def isSPIxNSS_AFtag(afm_tag):
+	if "NSS" in getValue(afm_tag):
+		return True
+	return False
 def grabI2CxSDA_AFtags(device_tag,i2c_tag):
 	res = []
 	for af in grabPeriphAFtags(device_tag,i2c_tag):
@@ -245,12 +268,20 @@ def grabSPIxSCK_AFtags(device_tag,spi_tag):
 		if isSPIxSCK_AFtag(af):
 			res.append(af)
 	return res
+def grabSPIxNSS_AFtags(device_tag,spi_tag):
+	res = []
+	for af in grabPeriphAFtags(device_tag,spi_tag):
+		if isSPIxNSS_AFtag(af):
+			res.append(af)
+	return res
 def grabAllTimers(device_tag):
 	return grabPeriphTags(device_tag,'Timer')
 def grabAllI2Cs(device_tag):
 	return grabPeriphTags(device_tag,'I2C')
 def grabAllGPIOs(device_tag):
 	return grabPeriphTags(device_tag,'GPIO')
+def getGPIOnumber(gpio_tag):
+	return str(re.findall("GPIO(.+?)",getName(gpio_tag))[0])
 def grabAllSPIs(device_tag):
 	return grabPeriphTags(device_tag,'SPI')
 def grabAllUARTS(device_tag):
@@ -276,7 +307,7 @@ def getStructCloser(struct_name):
 	return res
 
 def getStructEnumItemString(af_tag,hardware_code):
-	return str("\n\t\t\tPORT"+getPortFromAFtag(af_tag)+" = "+hex(hardware_code))
+	return str("\n\t\t\tPORT"+getPortFromAFtag(af_tag)+" = "+formatHex(hex(hardware_code)))
 def grabDevices():
 	defs = minidom.parse('devices.xml')
 	return defs.getElementsByTagName('device')
@@ -310,7 +341,7 @@ def createPWMdefs():
 						file.write(',')
 					oc_exist = True
 					code |= int(getTimerSetupCode(oc_x),16)
-					file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+hex(code))
+					file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+formatHex(hex(code)))
 					
 				if oc_exist:
 					file.write(getStructEnumCloser("kPWM_"+getName(tim)+"_OC"+str(oc_x)+"_Pin","kPWM_OC"+str(oc_x)+"_"+getName(tim)))	
@@ -347,7 +378,7 @@ def createUSARTdefs():
 								getPortFromAFtag(af)),16)
 				
 				code |= int(getUsartSetupCode(True,False),16)
-				file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+hex(code))
+				file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+formatHex(hex(code)))
 				
 			if rx_exist:
 				file.write(getStructEnumCloser("kSerial_"+getName(uart)+"_RX_Pin","kSerial_"+getName(uart)+"_RX"))	
@@ -369,7 +400,7 @@ def createUSARTdefs():
 								getPortFromAFtag(af)),16)
 				
 				code |= int(getUsartSetupCode(True,False),16)
-				file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+hex(code))
+				file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+formatHex(hex(code)))
 				
 			if tx_exist:
 				file.write(getStructEnumCloser("kSerial_"+getName(uart)+"_TX_Pin","kSerial_"+getName(uart)+"_TX"))				
@@ -448,7 +479,7 @@ def createI2Cdefs():
 	file.close()
 
 
-def getSPIconfigStructs(spi_tag):
+def getSPIconfigStructs(device,spi_tag):
 
 	res = ""
 
@@ -474,10 +505,10 @@ def getSPIconfigStructs(spi_tag):
 				code |= 0x08000000
 			
 				res += getStructEnumOpener() + "\n"
-				res += str("\n\t\t\tDataCapture_1Edge = " + hex(code)+",")
+				res += str("\n\t\t\tDataCapture_1Edge = " + formatHex(hex(code))+",")
 				
 				code |= 1
-				res += str("\n\t\t\tDataCapture_2Edge = " + hex(code))
+				res += str("\n\t\t\tDataCapture_2Edge = " + formatHex(hex(code)))
 				
 				name = "kSPI_" + getName(spi_tag) + "_" + MSTR_str[MSTR] + "_" + LSBFIRST_str[LSBFIRST] + "_" + CPOL_str[CPOL]
 				res += getStructEnumCloser(	name + "_SELECT", name + "_EDGE")
@@ -509,13 +540,32 @@ def getSPIconfigStructs(spi_tag):
 
 			name = "kSPI_" + getName(spi_tag) + "_" + MSTR_str[MSTR] + "_SELECT_SELECT_SELECT"
 			res += getStructCloser(name)
-				
-	res += getStructOpener()
-	for MSTR in range(0,2):
-		item_name = "kSPI_" + getName(spi_tag) + "_" + MSTR_str[MSTR] + "_SELECT_SELECT_SELECT "
-		res += str("\n\t\t" + item_name + MSTR_name[MSTR] +";")
-	name = "kSPI_" + getName(spi_tag)
-	res += getStructCloser(name)
+
+
+	nss_exist = False
+	for af in grabSPIxNSS_AFtags(device,spi_tag):
+		if not nss_exist:
+			res += getStructEnumOpener()
+		if nss_exist:
+			res += ","
+		nss_exist = True	
+
+		code = int(getHardwareSetupCode(0,
+						getAttribute(spi,'rccEnableBit'),
+						getAttribute(spi,'address'),
+						0,
+						2,
+						getAttribute(af,'number'),
+						getPortFromAFtag(af)),16)
+		
+		res += getStructEnumItemString(af,code)
+		
+	if nss_exist:
+		res += getStructEnumCloser("kSPI_"+getName(spi)+"_NSS_HARD_Pin","kSPI_"+getName(spi)+"_NSS_HARD")
+
+		
+	
+	
 	
 	return res
 
@@ -594,10 +644,69 @@ def createSPIdefs():
 				
 			if sck_exist:
 				file.write(getStructEnumCloser("kSPI_"+getName(spi)+"_SCK_Pin","kSPI_"+getName(spi)+"_SCK"))
-				
-				
-			file.write(getSPIconfigStructs(spi))	
+
+
+			file.write(getSPIconfigStructs(dev,spi))	
+	
+
+		file.write(getStructEnumOpener())
+		
+		soft_nss_exist = False
+		for gpio in grabAllGPIOs(dev):
+			for pin in range(0,16):
+					
+					if soft_nss_exist:
+						file.write(",")
+					soft_nss_exist = True
 			
+					pin_number = getGPIOnumber(gpio)+str(pin)
+				
+					code = int(getHardwareSetupCode(0,
+					getAttribute(spi,'rccEnableBit'),
+					getAttribute(spi,'address'),
+					0,
+					2,
+					'0',
+					pin_number),16)
+					
+					if pin < 10: pin_number += " "
+					file.write(str("\n\t\t\tPORT"+pin_number+" = "+formatHex(hex(code))))
+					
+		if soft_nss_exist:
+			file.write(getStructEnumCloser("kSPI_NSS_SOFT_Pin","kSPI_NSS_SOFT"))	
+
+		for spi in grabAllSPIs(dev):
+			file.write(getStructOpener())
+			file.write("\n\t\tkSPI_" + getName(spi) + "_NSS Hard;\n")
+			file.write("\t\tkSPI_NSS_SOFT Soft;")
+			file.write(getStructCloser("kSPI_" + getName(spi) + "_NSS_SELECT"))
+			
+
+		file.write(getStructOpener())
+		MSTR_name = ["Master","Slave"]
+		MSTR_str = ["SLAVE","MASTER"]
+		for MSTR in range(0,2):
+			item_name = "kSPI_" + getName(spi) + "_" + MSTR_str[MSTR] + "_SELECT_SELECT_SELECT "
+			file.write(str("\n\t\t" + item_name + MSTR_name[MSTR] +";"))
+		
+		
+		file.write(str("\n\t\tkSPI_" + getName(spi) + "_MISO MISO;"))
+		file.write(str("\n\t\tkSPI_" + getName(spi) + "_MOSI MOSI;"))
+		file.write(str("\n\t\tkSPI_" + getName(spi) + "_SCK  SCK;"))
+		file.write(str("\n\t\tkSPI_" + getName(spi) + "_NSS_SELECT NSS;"))
+		name = "kSPI_" + getName(spi)
+		file.write(getStructCloser(name))
+
+
+		file.write("\tclass\n")
+		file.write("\t{\n")
+		file.write("\t\tpublic:\n")
+		file.write("\n")
+		for spi in grabAllSPIs(dev):
+			file.write("\t\t\tstatic const kSPI_"+getName(spi) + " * " + getName(spi).lower() + ";\n")
+		file.write("\n\t}\n\n")	
+		
+		
 			
 		file.write("\n#endif\n")
 	file.write(getHeaderCloser(header_name))

@@ -41,8 +41,8 @@
 	{
 		typedef enum
 		{
-			PORTB7 = 0x58ae417,
-			PORTB9 = 0x58ae419
+			PORTB7 = 0x058AE417,
+			PORTB9 = 0x058AE419
 		}kI2C_I2C1_SDA_Pin;
 	}kSPI_I2C1_SDA;
 
@@ -50,8 +50,8 @@
 	{
 		typedef enum
 		{
-			PORTB6 = 0x58ae416,
-			PORTB8 = 0x58ae418
+			PORTB6 = 0x058AE416,
+			PORTB8 = 0x058AE418
 		}kI2C_I2C1_SCL_Pin;
 	}kSPI_I2C1_SCL;
 
