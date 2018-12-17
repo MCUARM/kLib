@@ -7,6 +7,24 @@ from lxml import etree
 import os
 
 
+def replaceCodeRegion(file_path,region_name,new_region_content):
+	#pragma region
+	regex = "#pragma region " + region_name + ".*" + "#pragma endregion " + region_name
+	
+	file_content = open(file_path, 'r').read();
+	old_region_content = str(re.search(regex, file_content,re.DOTALL)[0])
+
+	
+	file_content_list = file_content.split(old_region_content,1)
+	file_content = file_content_list[0]
+	file_content += "#pragma region " + region_name + "\n\n"
+	file_content += new_region_content
+	file_content += "\n\n#pragma endregion " + region_name
+	file_content += file_content_list[1]
+	f = open(file_path,"w")
+	f.write(file_content)	
+
+
 def updateLicenseText():
 	license = getLicenseString();
 	
@@ -358,21 +376,20 @@ def grabDevices():
 	defs = minidom.parse('devices.xml')
 	return defs.getElementsByTagName('device')
 def createPWMdefs():
-	file = open("kPWMdefs.h","w")
-	header_name = '__kPWMDEFS_H'
-	file.write(getLicenseString())
-	file.write(getHeaderOpener(header_name))
+
+	res = ""
+
 
 	for dev in grabDevices():
-		file.write(getPlatformCondition(dev))
+		res += getPlatformCondition(dev)
 		for tim in grabAllTimers(dev):
 			for oc_x in range(1,5):
 				oc_exist = False
 				for af in grabTimerOCx_AFtags(dev,tim,oc_x):
 					if not oc_exist:
-						file.write(getStructEnumOpener())
+						res += getStructEnumOpener()
 					if oc_exist:
-						file.write(',')
+						res += ','
 					oc_exist = True
 					code = int(getHardwareSetupCode(0,
 									getAttribute(tim,'rccEnableBit'),
@@ -384,20 +401,20 @@ def createPWMdefs():
 									
 					code |= int(getTimerSetupCode(oc_x),16)
 					
-					file.write(getStructEnumItemString(af,code))
+					res += getStructEnumItemString(af,code)
 					
 				if oc_exist:
-					file.write(getStructEnumCloser("kPWM_"+getName(tim)+"_OC"+str(oc_x)+"_Pin","kPWM_OC"+str(oc_x)+"_"+getName(tim)))	
+					res += getStructEnumCloser("kPWM_"+getName(tim)+"_OC"+str(oc_x)+"_Pin","kPWM_OC"+str(oc_x)+"_"+getName(tim))	
 			oc_exist = False	
 			for oc_x in range(1,5):
 				for af in grabTimerOCx_AFtags(dev,tim,oc_x):
 					if not oc_exist:
-						file.write(getStructOpener())
+						res += getStructOpener()
 					oc_exist = True
-					file.write("\n\t\tkPWM_OC"+str(oc_x)+"_"+getName(tim) + " OC" + str(oc_x)+";")
+					res += "\n\t\tkPWM_OC"+str(oc_x)+"_"+getName(tim) + " OC" + str(oc_x)+";"
 					break	
 			if oc_exist:
-				file.write(getStructCloser("kPWM_"+getName(tim)))
+				res += getStructCloser("kPWM_"+getName(tim))
 		
 		for gpio in grabAllGPIOs(dev):
 			for i in range(0,16):
@@ -410,9 +427,9 @@ def createPWMdefs():
 					if not isTimerAF(af): continue
 			
 					if not pwm_out_exist:
-						file.write(getStructEnumOpener())
+						res += getStructEnumOpener()
 					if pwm_out_exist:
-						file.write(",")
+						res += ","
 					pwm_out_exist = True
 					
 					tim = grabPeriphByName(dev,str("Timer" + str(getTimerNumberFromAFtag(af))))
@@ -428,10 +445,10 @@ def createPWMdefs():
 					code |= int(getTimerSetupCode(getTimerOCchannelFromAFtag(af)),16)
 					
 					if getTimerNumberFromAFtag(af) < 10: space = " "
-					file.write("\n\t\t\tTimer"+str(getTimerNumberFromAFtag(af))+"_OC"+str(getTimerOCchannelFromAFtag(af))+space+" = "+formatHex(hex(code)))	
+					res += "\n\t\t\tTimer"+str(getTimerNumberFromAFtag(af))+"_OC"+str(getTimerOCchannelFromAFtag(af))+space+" = "+formatHex(hex(code))	
 				if pwm_out_exist:
-					file.write(getStructEnumCloser(	"kPWM_OUT_PORT"+getGPIOnumber(gpio) + str(i)+"_PIN",
-													"kPWM_out_PORT"+getGPIOnumber(gpio) + str(i)))
+					res += getStructEnumCloser(	"kPWM_OUT_PORT"+getGPIOnumber(gpio) + str(i)+"_PIN",
+													"kPWM_out_PORT"+getGPIOnumber(gpio) + str(i))
 
 		
 		
@@ -441,13 +458,13 @@ def createPWMdefs():
 			for oc_x in range(1,5):
 				for af in grabTimerOCx_AFtags(dev,tim,oc_x):
 					if not pwm_out_exist:
-						file.write(getStructOpener())
+						res += getStructOpener()
 					pwm_out_exist = True
 					oc_exist = True
 			if oc_exist:
 				space = " "
 				if getPeripheralNumber(tim) < 10: space += " "
-				file.write("\n\t\tkPWM_"+getName(tim) + space + getName(tim) +";")
+				res += "\n\t\tkPWM_"+getName(tim) + space + getName(tim) +";"
 				
 		
 		for gpio in grabAllGPIOs(dev):
@@ -459,47 +476,45 @@ def createPWMdefs():
 					if not isTimerAF(af): continue
 					
 					if not pwm_out_exist:
-						file.write(getStructEnumOpener())
+						res += getStructEnumOpener()
 					pwm_out_exist = True
 					if not gpio_pwm_out_exist:
-						file.write("\n")
+						res += "\n"
 						gpio_pwm_out_exist = True
 					
 					space = " " 
 					if i < 10: space += " ";
 					
 					if not pin_exist:
-						file.write("\n\t\tkPWM_out_PORT"+getGPIOnumber(gpio) + str(i) + space + "PORT" + getGPIOnumber(gpio) + str(i) + ";"+space+"//  "+getValue(af))
+						res += "\n\t\tkPWM_out_PORT"+getGPIOnumber(gpio) + str(i) + space + "PORT" + getGPIOnumber(gpio) + str(i) + ";"+space+"//  "+getValue(af)
 					else:
-						file.write(space + getValue(af))
+						res += space + getValue(af)
 					pin_exist = True	
 					
 						
 		if pwm_out_exist:
-			file.write(getStructCloser("kPWM_out"))
+			res += getStructCloser("kPWM_out")
 
 
 
-		file.write("\n#endif\n")
+		res += "\n#endif\n"
 		
-	file.write(getHeaderCloser(header_name))
-	file.close()
+
+	return res
+	
 def createUSARTdefs():
 
-	file = open("kSerialDefs.h","w")
-	header_name = '__kSERIALDEFS_H'
-	file.write(getLicenseString())
-	file.write(getHeaderOpener(header_name))
+	res = ""
 
 	for dev in grabDevices():
-		file.write(getPlatformCondition(dev))
+		res += getPlatformCondition(dev)
 		for uart in grabAllUARTS(dev):
 			rx_exist = False
 			for af in grabUartRx_AFtags(dev,uart):
 				if not rx_exist:
-					file.write(getStructEnumOpener())
+					res += getStructEnumOpener()
 				if rx_exist:
-					file.write(",")
+					res += ","
 				rx_exist = True	
 
 				code = int(getHardwareSetupCode(0,
@@ -511,17 +526,17 @@ def createUSARTdefs():
 								getPortFromAFtag(af)),16)
 				
 				code |= int(getUsartSetupCode(True,False),16)
-				file.write(getStructEnumItemString(af,code))
+				res += getStructEnumItemString(af,code)
 				
 			if rx_exist:
-				file.write(getStructEnumCloser("kSerial_"+getName(uart)+"_RX_Pin","kSerial_"+getName(uart)+"_RX"))	
+				res += getStructEnumCloser("kSerial_"+getName(uart)+"_RX_Pin","kSerial_"+getName(uart)+"_RX")
 				
 			tx_exist = False
 			for af in grabUartTx_AFtags(dev,uart):
 				if not tx_exist:
-					file.write(getStructEnumOpener())
+					res += getStructEnumOpener()
 				if tx_exist:
-					file.write(",")
+					res += ","
 				tx_exist = True	
 
 				code = int(getHardwareSetupCode(0,
@@ -533,15 +548,20 @@ def createUSARTdefs():
 								getPortFromAFtag(af)),16)
 				
 				code |= int(getUsartSetupCode(True,False),16)
-				file.write(getStructEnumItemString(af,code))
+				res += getStructEnumItemString(af,code)
 				
 			if tx_exist:
-				file.write(getStructEnumCloser("kSerial_"+getName(uart)+"_TX_Pin","kSerial_"+getName(uart)+"_TX"))				
+				res += getStructEnumCloser("kSerial_"+getName(uart)+"_TX_Pin","kSerial_"+getName(uart)+"_TX")			
 	  
-		file.write("\n#endif\n")
-		
-	file.write(getHeaderCloser(header_name))
-	file.close()	
+		for uart in grabAllUARTS(dev):
+			res += getStructOpener()
+			res += "\n\t\tkSerial_" + getName(uart) + "_RX RX;"
+			res += "\n\t\tkSerial_" + getName(uart) + "_TX TX;"
+			res += getStructCloser("kSerial_" + getName(uart))
+
+		res += "\n#endif\n"
+
+	return res	
 def createPORTdefs():
 
 	file = open("kPORTdefs.h","w")
@@ -558,20 +578,18 @@ def createPORTdefs():
 	file.close()
 def createI2Cdefs():
 
-	file = open("kI2CDefs.h","w")
-	header_name = '__kSI2CDEFS_H'
-	file.write(getLicenseString())
-	file.write(getHeaderOpener(header_name))
-
+	
+	res = ""
+	
 	for dev in grabDevices():
-		file.write(getPlatformCondition(dev))
+		res += getPlatformCondition(dev)
 		for i2c in grabAllI2Cs(dev):
 			sda_exist = False
 			for af in grabI2CxSDA_AFtags(dev,i2c):
 				if not sda_exist:
-					file.write(getStructEnumOpener())
+					res += getStructEnumOpener()
 				if sda_exist:
-					file.write(",")
+					res += ","
 				sda_exist = True	
 
 				code = int(getHardwareSetupCode(0,
@@ -582,17 +600,17 @@ def createI2Cdefs():
 								getAttribute(af,'number'),
 								getPortFromAFtag(af)),16)
 				
-				file.write(getStructEnumItemString(af,code))
+				res += getStructEnumItemString(af,code)
 				
 			if sda_exist:
-				file.write(getStructEnumCloser("kI2C_"+getName(i2c)+"_SDA_Pin","kSPI_"+getName(i2c)+"_SDA"))
+				res += getStructEnumCloser("kI2C_"+getName(i2c)+"_SDA_Pin","kI2C_"+getName(i2c)+"_SDA")
 		
 			scl_exist = False
 			for af in grabI2CxSCL_AFtags(dev,i2c):
 				if not scl_exist:
-					file.write(getStructEnumOpener())
+					res += getStructEnumOpener()
 				if scl_exist:
-					file.write(",")
+					res += ","
 				scl_exist = True	
 
 				code = int(getHardwareSetupCode(0,
@@ -603,13 +621,19 @@ def createI2Cdefs():
 								getAttribute(af,'number'),
 								getPortFromAFtag(af)),16)
 				
-				file.write(getStructEnumItemString(af,code))
+				res += getStructEnumItemString(af,code)
 				
 			if scl_exist:
-				file.write(getStructEnumCloser("kI2C_"+getName(i2c)+"_SCL_Pin","kSPI_"+getName(i2c)+"_SCL"))
-		file.write("\n#endif\n")
-	file.write(getHeaderCloser(header_name))
-	file.close()
+				res += getStructEnumCloser("kI2C_"+getName(i2c)+"_SCL_Pin","kI2C_"+getName(i2c)+"_SCL")
+				
+		for i2c in grabAllI2Cs(dev):
+			res += getStructOpener()
+			res += "\n\t\tkI2C_" + getName(i2c) + "_SDA SDA;"
+			res += "\n\t\tkI2C_" + getName(i2c) + "_SCL SCL;"
+			res += getStructCloser("kI2C_" + getName(i2c))
+				
+		res += "\n#endif\n"
+	return res
 
 
 def getSPIconfigStructs(device,spi_tag):
@@ -706,20 +730,17 @@ def getSPIconfigStructs(device,spi_tag):
 
 def createSPIdefs():
 
-	file = open("kSPIDefs.h","w")
-	header_name = '__kSPIDEFS_H'
-	file.write(getLicenseString())
-	file.write(getHeaderOpener(header_name))
-
+	res = ""
+	
 	for dev in grabDevices():
-		file.write(getPlatformCondition(dev))
+		res += getPlatformCondition(dev)
 		for spi in grabAllSPIs(dev):
 			miso_exist = False
 			for af in grabSPIxMISO_AFtags(dev,spi):
 				if not miso_exist:
-					file.write(getStructEnumOpener())
+					res += getStructEnumOpener()
 				if miso_exist:
-					file.write(",")
+					res += ","
 				miso_exist = True	
 
 				code = int(getHardwareSetupCode(0,
@@ -730,17 +751,17 @@ def createSPIdefs():
 								getAttribute(af,'number'),
 								getPortFromAFtag(af)),16)
 				
-				file.write(getStructEnumItemString(af,code))
+				res += getStructEnumItemString(af,code)
 				
 			if miso_exist:
-				file.write(getStructEnumCloser("kSPI_"+getName(spi)+"_MISO_Pin","kSPI_"+getName(spi)+"_MISO"))
+				res += getStructEnumCloser("kSPI_"+getName(spi)+"_MISO_Pin","kSPI_"+getName(spi)+"_MISO")
 			
 			mosi_exist = False
 			for af in grabSPIxMOSI_AFtags(dev,spi):
 				if not mosi_exist:
-					file.write(getStructEnumOpener())
+					res += getStructEnumOpener()
 				if mosi_exist:
-					file.write(",")
+					res += ","
 				mosi_exist = True	
 
 				code = int(getHardwareSetupCode(0,
@@ -751,18 +772,18 @@ def createSPIdefs():
 								getAttribute(af,'number'),
 								getPortFromAFtag(af)),16)
 				
-				file.write(getStructEnumItemString(af,code))
+				res += getStructEnumItemString(af,code)
 				
 			if mosi_exist:
-				file.write(getStructEnumCloser("kSPI_"+getName(spi)+"_MOSI_Pin","kSPI_"+getName(spi)+"_MOSI"))
+				res += getStructEnumCloser("kSPI_"+getName(spi)+"_MOSI_Pin","kSPI_"+getName(spi)+"_MOSI")
 				
 				
 			sck_exist = False
 			for af in grabSPIxSCK_AFtags(dev,spi):
 				if not sck_exist:
-					file.write(getStructEnumOpener())
+					res += getStructEnumOpener()
 				if sck_exist:
-					file.write(",")
+					res += ","
 				sck_exist = True	
 
 				code = int(getHardwareSetupCode(0,
@@ -773,23 +794,23 @@ def createSPIdefs():
 								getAttribute(af,'number'),
 								getPortFromAFtag(af)),16)
 				
-				file.write(getStructEnumItemString(af,code))
+				res += getStructEnumItemString(af,code)
 				
 			if sck_exist:
-				file.write(getStructEnumCloser("kSPI_"+getName(spi)+"_SCK_Pin","kSPI_"+getName(spi)+"_SCK"))
+				res += getStructEnumCloser("kSPI_"+getName(spi)+"_SCK_Pin","kSPI_"+getName(spi)+"_SCK")
 
 
-			file.write(getSPIconfigStructs(dev,spi))	
+			res += getSPIconfigStructs(dev,spi)	
 	
 
-		file.write(getStructEnumOpener())
+		res += getStructEnumOpener()
 		
 		soft_nss_exist = False
 		for gpio in grabAllGPIOs(dev):
 			for pin in range(0,16):
 					
 					if soft_nss_exist:
-						file.write(",")
+						res += ","
 					soft_nss_exist = True
 			
 					pin_number = getGPIOnumber(gpio)+str(pin)
@@ -803,53 +824,46 @@ def createSPIdefs():
 					pin_number),16)
 					
 					if pin < 10: pin_number += " "
-					file.write(str("\n\t\t\tPORT"+pin_number+" = "+formatHex(hex(code))))
+					res += str("\n\t\t\tPORT"+pin_number+" = "+formatHex(hex(code)))
 					
 		if soft_nss_exist:
-			file.write(getStructEnumCloser("kSPI_NSS_SOFT_Pin","kSPI_NSS_SOFT"))	
+			res += getStructEnumCloser("kSPI_NSS_SOFT_Pin","kSPI_NSS_SOFT")	
 
 		for spi in grabAllSPIs(dev):
-			file.write(getStructOpener())
-			file.write("\n\t\tkSPI_" + getName(spi) + "_NSS Hard;\n")
-			file.write("\t\tkSPI_NSS_SOFT Soft;")
-			file.write(getStructCloser("kSPI_" + getName(spi) + "_NSS_SELECT"))
+			res += getStructOpener()
+			res += "\n\t\tkSPI_" + getName(spi) + "_NSS Hard;\n"
+			res += "\t\tkSPI_NSS_SOFT Soft;"
+			res += getStructCloser("kSPI_" + getName(spi) + "_NSS_SELECT")
 			
 
-		file.write(getStructOpener())
+		res += getStructOpener()
 		MSTR_name = ["Master","Slave"]
 		MSTR_str = ["SLAVE","MASTER"]
 		for MSTR in range(0,2):
 			item_name = "kSPI_" + getName(spi) + "_" + MSTR_str[MSTR] + "_SELECT_SELECT_SELECT "
-			file.write(str("\n\t\t" + item_name + MSTR_name[MSTR] +";"))
+			res += str("\n\t\t" + item_name + MSTR_name[MSTR] +";")
 		
 		
-		file.write(str("\n\t\tkSPI_" + getName(spi) + "_MISO MISO;"))
-		file.write(str("\n\t\tkSPI_" + getName(spi) + "_MOSI MOSI;"))
-		file.write(str("\n\t\tkSPI_" + getName(spi) + "_SCK  SCK;"))
-		file.write(str("\n\t\tkSPI_" + getName(spi) + "_NSS_SELECT NSS;"))
+		res += str("\n\t\tkSPI_" + getName(spi) + "_MISO MISO;")
+		res += str("\n\t\tkSPI_" + getName(spi) + "_MOSI MOSI;")
+		res += str("\n\t\tkSPI_" + getName(spi) + "_SCK  SCK;")
+		res += str("\n\t\tkSPI_" + getName(spi) + "_NSS_SELECT NSS;")
 		name = "kSPI_" + getName(spi)
-		file.write(getStructCloser(name))
+		res += getStructCloser(name)
 
-
-		file.write("\tclass\n")
-		file.write("\t{\n")
-		file.write("\t\tpublic:\n")
-		file.write("\n")
-		for spi in grabAllSPIs(dev):
-			file.write("\t\t\tstatic const kSPI_"+getName(spi) + " * " + getName(spi).lower() + ";\n")
-		file.write("\n\t}\n\n")	
-		
-		
-			
-		file.write("\n#endif\n")
-	file.write(getHeaderCloser(header_name))
-	file.close()
 
 	
+		
+			
+		res += "\n#endif\n"
+
+	return res
+	
 xls2xml()
-createPWMdefs()
+replaceCodeRegion("../inc/kPWM.h",'PLATFORM_DEPENDED_STRUCTS',createPWMdefs())
+replaceCodeRegion("../inc/kSerial.h",'PLATFORM_DEPENDED_STRUCTS',createUSARTdefs())
+replaceCodeRegion("../inc/kI2CDevice.h",'PLATFORM_DEPENDED_STRUCTS',createI2Cdefs())
+replaceCodeRegion("../inc/kSPIDevice.h",'PLATFORM_DEPENDED_STRUCTS',createSPIdefs())
 createPORTdefs()
-createUSARTdefs()
-createI2Cdefs()
-createSPIdefs()
+
 updateLicenseText()

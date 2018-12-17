@@ -54,6 +54,77 @@
 
 	#define kSerial_rxBuffer_size 512
 
+#pragma region PLATFORM_DEPENDED_STRUCTS
+
+#if (kLib_config_PLATFORM == kLib_STM32F427xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1  = 0x0B89A801,
+			PORTC11 = 0x0B89A82B
+		}kSerial_UART4_RX_Pin;
+	}kSerial_UART4_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0  = 0x0B89A800,
+			PORTC10 = 0x0B89A82A
+		}kSerial_UART4_TX_Pin;
+	}kSerial_UART4_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTD2  = 0x0C8A2832
+		}kSerial_UART5_RX_Pin;
+	}kSerial_UART5_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTC12 = 0x0C8A282C
+		}kSerial_UART5_TX_Pin;
+	}kSerial_UART5_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTE7  = 0x0ECF2847,
+			PORTF6  = 0x0ECF2856
+		}kSerial_UART7_RX_Pin;
+	}kSerial_UART7_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTE8  = 0x0ECF2848,
+			PORTF7  = 0x0ECF2857
+		}kSerial_UART7_TX_Pin;
+	}kSerial_UART7_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTE0  = 0x0FCFA840
+		}kSerial_UART8_RX_Pin;
+	}kSerial_UART8_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTE1  = 0x0FCFA841
+		}kSerial_UART8_TX_Pin;
+	}kSerial_UART8_TX;
 
 	typedef struct
 	{
@@ -62,51 +133,34 @@
 			PORTA10 = 0x0C22270A,
 			PORTB7  = 0x0C222717
 		}kSerial_USART1_RX_Pin;
-
 	}kSerial_USART1_RX;
 
 	typedef struct
 	{
 		typedef enum
 		{
-			PORTA9 = 0x14222709,
-			PORTB6 = 0x14222716
+			PORTA9  = 0x0C222709,
+			PORTB6  = 0x0C222716
 		}kSerial_USART1_TX_Pin;
-
 	}kSerial_USART1_TX;
-
-	typedef struct
-	{
-		kSerial_USART1_RX RX;
-		kSerial_USART1_TX TX;
-	}kSerial_USART1;
 
 	typedef struct
 	{
 		typedef enum
 		{
-			PORTA3 = 0x0988A703,
-			PORTD6 = 0x0988A736
+			PORTA3  = 0x0988A703,
+			PORTD6  = 0x0988A736
 		}kSerial_USART2_RX_Pin;
-
 	}kSerial_USART2_RX;
 
 	typedef struct
 	{
 		typedef enum
 		{
-			PORTA2 = 0x1188A702,
-			PORTD5 = 0x1188A735
+			PORTA2  = 0x0988A702,
+			PORTD5  = 0x0988A735
 		}kSerial_USART2_TX_Pin;
-
 	}kSerial_USART2_TX;
-
-	typedef struct
-	{
-		kSerial_USART2_RX RX;
-		kSerial_USART2_TX TX;
-	}kSerial_USART2;
-
 
 	typedef struct
 	{
@@ -116,46 +170,35 @@
 			PORTC11 = 0x0A89272B,
 			PORTD9  = 0x0A892739
 		}kSerial_USART3_RX_Pin;
-
 	}kSerial_USART3_RX;
 
 	typedef struct
 	{
 		typedef enum
 		{
-			PORTB10 = 0x1289271A,
-			PORTC10 = 0x1289272A,
-			PORTD8  = 0x12892738
+			PORTB10 = 0x0A89271A,
+			PORTC10 = 0x0A89272A,
+			PORTD8  = 0x0A892738
 		}kSerial_USART3_TX_Pin;
-
 	}kSerial_USART3_TX;
 
 	typedef struct
 	{
-		kSerial_USART3_RX RX;
-		kSerial_USART3_TX TX;
-	}kSerial_USART3;
-
+		typedef enum
+		{
+			PORTC7  = 0x0D22A827,
+			PORTG9  = 0x0D22A869
+		}kSerial_USART6_RX_Pin;
+	}kSerial_USART6_RX;
 
 	typedef struct
 	{
 		typedef enum
 		{
-			PORTA1  = 0x104C2801,
-			PORTC11 = 0x104C282B
-		}kSerial_UART4_RX_Pin;
-
-	}kSerial_UART4_RX;
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTA0  = 0x204C2800,
-			PORTC10 = 0x204C282A
-		}kSerial_UART4_TX_Pin;
-
-	}kSerial_UART4_TX;
+			PORTC6  = 0x0D22A826,
+			PORTG14 = 0x0D22A86E
+		}kSerial_USART6_TX_Pin;
+	}kSerial_USART6_TX;
 
 	typedef struct
 	{
@@ -165,74 +208,9 @@
 
 	typedef struct
 	{
-		typedef enum
-		{
-			PORTD2 = 0x10502832
-		}kSerial_UART5_RX_Pin;
-
-	}kSerial_UART5_RX;
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTC12 = 0x2050282C
-		}kSerial_UART5_TX_Pin;
-
-	}kSerial_UART5_TX;
-
-	typedef struct
-	{
 		kSerial_UART5_RX RX;
 		kSerial_UART5_TX TX;
 	}kSerial_UART5;
-
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTC7 = 0x11142287,
-			PORTG9 = 0x11142689
-		}kSerial_USART6_RX_Pin;
-
-	}kSerial_USART6_RX;
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTC6  = 0x21142286,
-			PORTG14 = 0x2114268E
-		}kSerial_USART6_TX_Pin;
-
-	}kSerial_USART6_TX;
-
-	typedef struct
-	{
-		kSerial_USART6_RX RX;
-		kSerial_USART6_TX TX;
-	}kSerial_USART6;
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTE7 = 0x10782487,
-			PORTF6 = 0x10782586
-		}kSerial_UART7_RX_Pin;
-
-	}kSerial_UART7_RX;
-
-	typedef struct
-	{
-		typedef enum
-		{
-			PORTE8 = 0x20782488,
-			PORTF7 = 0x20782587
-		}kSerial_UART7_TX_Pin;
-
-	}kSerial_UART7_TX;
 
 	typedef struct
 	{
@@ -242,21 +220,197 @@
 
 	typedef struct
 	{
+		kSerial_UART8_RX RX;
+		kSerial_UART8_TX TX;
+	}kSerial_UART8;
+
+	typedef struct
+	{
+		kSerial_USART1_RX RX;
+		kSerial_USART1_TX TX;
+	}kSerial_USART1;
+
+	typedef struct
+	{
+		kSerial_USART2_RX RX;
+		kSerial_USART2_TX TX;
+	}kSerial_USART2;
+
+	typedef struct
+	{
+		kSerial_USART3_RX RX;
+		kSerial_USART3_TX TX;
+	}kSerial_USART3;
+
+	typedef struct
+	{
+		kSerial_USART6_RX RX;
+		kSerial_USART6_TX TX;
+	}kSerial_USART6;
+
+
+#endif
+#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+
+	typedef struct
+	{
 		typedef enum
 		{
-			PORTE0 = 0x107C2480
-		}kSerial_UART8_RX_Pin;
+			PORTA1  = 0x0B89A801,
+			PORTC11 = 0x0B89A82B
+		}kSerial_UART4_RX_Pin;
+	}kSerial_UART4_RX;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0  = 0x0B89A800,
+			PORTC10 = 0x0B89A82A
+		}kSerial_UART4_TX_Pin;
+	}kSerial_UART4_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTD2  = 0x0C8A2832
+		}kSerial_UART5_RX_Pin;
+	}kSerial_UART5_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTC12 = 0x0C8A282C
+		}kSerial_UART5_TX_Pin;
+	}kSerial_UART5_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTE7  = 0x0ECF2847,
+			PORTF6  = 0x0ECF2856
+		}kSerial_UART7_RX_Pin;
+	}kSerial_UART7_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTE8  = 0x0ECF2848,
+			PORTF7  = 0x0ECF2857
+		}kSerial_UART7_TX_Pin;
+	}kSerial_UART7_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTE0  = 0x0FCFA840
+		}kSerial_UART8_RX_Pin;
 	}kSerial_UART8_RX;
 
 	typedef struct
 	{
 		typedef enum
 		{
-			PORTE1 = 0x207C2481
+			PORTE1  = 0x0FCFA841
 		}kSerial_UART8_TX_Pin;
-
 	}kSerial_UART8_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x0C22270A,
+			PORTB7  = 0x0C222717
+		}kSerial_USART1_RX_Pin;
+	}kSerial_USART1_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9  = 0x0C222709,
+			PORTB6  = 0x0C222716
+		}kSerial_USART1_TX_Pin;
+	}kSerial_USART1_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3  = 0x0988A703,
+			PORTD6  = 0x0988A736
+		}kSerial_USART2_RX_Pin;
+	}kSerial_USART2_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2  = 0x0988A702,
+			PORTD5  = 0x0988A735
+		}kSerial_USART2_TX_Pin;
+	}kSerial_USART2_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB11 = 0x0A89271B,
+			PORTC11 = 0x0A89272B,
+			PORTD9  = 0x0A892739
+		}kSerial_USART3_RX_Pin;
+	}kSerial_USART3_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB10 = 0x0A89271A,
+			PORTC10 = 0x0A89272A,
+			PORTD8  = 0x0A892738
+		}kSerial_USART3_TX_Pin;
+	}kSerial_USART3_TX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTC7  = 0x0D22A827,
+			PORTG9  = 0x0D22A869
+		}kSerial_USART6_RX_Pin;
+	}kSerial_USART6_RX;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTC6  = 0x0D22A826,
+			PORTG14 = 0x0D22A86E
+		}kSerial_USART6_TX_Pin;
+	}kSerial_USART6_TX;
+
+	typedef struct
+	{
+		kSerial_UART4_RX RX;
+		kSerial_UART4_TX TX;
+	}kSerial_UART4;
+
+	typedef struct
+	{
+		kSerial_UART5_RX RX;
+		kSerial_UART5_TX TX;
+	}kSerial_UART5;
+
+	typedef struct
+	{
+		kSerial_UART7_RX RX;
+		kSerial_UART7_TX TX;
+	}kSerial_UART7;
 
 	typedef struct
 	{
@@ -264,8 +418,35 @@
 		kSerial_UART8_TX TX;
 	}kSerial_UART8;
 
+	typedef struct
+	{
+		kSerial_USART1_RX RX;
+		kSerial_USART1_TX TX;
+	}kSerial_USART1;
+
+	typedef struct
+	{
+		kSerial_USART2_RX RX;
+		kSerial_USART2_TX TX;
+	}kSerial_USART2;
+
+	typedef struct
+	{
+		kSerial_USART3_RX RX;
+		kSerial_USART3_TX TX;
+	}kSerial_USART3;
+
+	typedef struct
+	{
+		kSerial_USART6_RX RX;
+		kSerial_USART6_TX TX;
+	}kSerial_USART6;
 
 
+#endif
+
+
+#pragma endregion PLATFORM_DEPENDED_STRUCTS
 
 	class kSerial;
 

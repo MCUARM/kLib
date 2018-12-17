@@ -40,80 +40,167 @@
 #include "stm32f4xx_i2c.h"
 #include "kPort.h"
 
+#pragma region PLATFORM_DEPENDED_STRUCTS
+
+#if (kLib_config_PLATFORM == kLib_STM32F427xx)
 
 	typedef struct
 	{
-		unsigned char kI2C1pin;
-	}kI2C1Pin;
+		typedef enum
+		{
+			PORTB7  = 0x058AE417,
+			PORTB9  = 0x058AE419
+		}kI2C_I2C1_SDA_Pin;
+	}kI2C_I2C1_SDA;
 
 	typedef struct
 	{
-		kI2C1Pin PORTB7;
-		kI2C1Pin PORTB9;
-
-	}kI2C1_SDA_Pin;
-
-	typedef struct
-	{
-		kI2C1Pin PORTB6;
-		kI2C1Pin PORTB8;
-	}kI2C1_SCL_Pin;
+		typedef enum
+		{
+			PORTB6  = 0x058AE416,
+			PORTB8  = 0x058AE418
+		}kI2C_I2C1_SCL_Pin;
+	}kI2C_I2C1_SCL;
 
 	typedef struct
 	{
-		kI2C1_SCL_Pin SCL;
-		kI2C1_SDA_Pin SDA;
-	}kI2C1;
+		typedef enum
+		{
+			PORTB11 = 0x068B641B,
+			PORTF0  = 0x068B6450,
+			PORTH5  = 0x068B6475
+		}kI2C_I2C2_SDA_Pin;
+	}kI2C_I2C2_SDA;
 
 	typedef struct
 	{
-		unsigned char kI2C1pin;
-	}kI2C2Pin;
+		typedef enum
+		{
+			PORTB10 = 0x068B641A,
+			PORTF1  = 0x068B6451,
+			PORTH4  = 0x068B6474
+		}kI2C_I2C2_SCL_Pin;
+	}kI2C_I2C2_SCL;
 
 	typedef struct
 	{
-		kI2C2Pin PORTB11;
-		kI2C2Pin PORTF0;
-		kI2C2Pin PORTH5;
-
-	}kI2C2_SDA_Pin;
-
-	typedef struct
-	{
-		kI2C2Pin PORTB10;
-		kI2C2Pin PORTF1;
-		kI2C2Pin PORTH4;
-	}kI2C2_SCL_Pin;
+		typedef enum
+		{
+			PORTC9  = 0x078BE429,
+			PORTH8  = 0x078BE478
+		}kI2C_I2C3_SDA_Pin;
+	}kI2C_I2C3_SDA;
 
 	typedef struct
 	{
-		kI2C2_SCL_Pin SCL;
-		kI2C2_SDA_Pin SDA;
-	}kI2C2;
+		typedef enum
+		{
+			PORTA8  = 0x078BE408,
+			PORTH7  = 0x078BE477
+		}kI2C_I2C3_SCL_Pin;
+	}kI2C_I2C3_SCL;
 
 	typedef struct
 	{
-		unsigned char kI2C3pin;
-	}kI2C3Pin;
+		kI2C_I2C1_SDA SDA;
+		kI2C_I2C1_SCL SCL;
+	}kI2C_I2C1;
 
 	typedef struct
 	{
-		kI2C3Pin PORTC9;
-		kI2C3Pin PORTH8;
-
-	}kI2C3_SDA_Pin;
-
-	typedef struct
-	{
-		kI2C3Pin PORTA8;
-		kI2C3Pin PORTH7;
-	}kI2C3_SCL_Pin;
+		kI2C_I2C2_SDA SDA;
+		kI2C_I2C2_SCL SCL;
+	}kI2C_I2C2;
 
 	typedef struct
 	{
-		kI2C3_SCL_Pin SCL;
-		kI2C3_SDA_Pin SDA;
-	}kI2C3;
+		kI2C_I2C3_SDA SDA;
+		kI2C_I2C3_SCL SCL;
+	}kI2C_I2C3;
+
+
+#endif
+#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB7  = 0x058AE417,
+			PORTB9  = 0x058AE419
+		}kI2C_I2C1_SDA_Pin;
+	}kI2C_I2C1_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB6  = 0x058AE416,
+			PORTB8  = 0x058AE418
+		}kI2C_I2C1_SCL_Pin;
+	}kI2C_I2C1_SCL;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB11 = 0x068B641B,
+			PORTF0  = 0x068B6450,
+			PORTH5  = 0x068B6475
+		}kI2C_I2C2_SDA_Pin;
+	}kI2C_I2C2_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB10 = 0x068B641A,
+			PORTF1  = 0x068B6451,
+			PORTH4  = 0x068B6474
+		}kI2C_I2C2_SCL_Pin;
+	}kI2C_I2C2_SCL;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTC9  = 0x078BE429,
+			PORTH8  = 0x078BE478
+		}kI2C_I2C3_SDA_Pin;
+	}kI2C_I2C3_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8  = 0x078BE408,
+			PORTH7  = 0x078BE477
+		}kI2C_I2C3_SCL_Pin;
+	}kI2C_I2C3_SCL;
+
+	typedef struct
+	{
+		kI2C_I2C1_SDA SDA;
+		kI2C_I2C1_SCL SCL;
+	}kI2C_I2C1;
+
+	typedef struct
+	{
+		kI2C_I2C2_SDA SDA;
+		kI2C_I2C2_SCL SCL;
+	}kI2C_I2C2;
+
+	typedef struct
+	{
+		kI2C_I2C3_SDA SDA;
+		kI2C_I2C3_SCL SCL;
+	}kI2C_I2C3;
+
+
+#endif
+
+
+#pragma endregion PLATFORM_DEPENDED_STRUCTS
 
 	class kI2CDeviceHardware
 	{
