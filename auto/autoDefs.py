@@ -10,11 +10,11 @@ import os
 def updateLicenseText():
 	license = getLicenseString();
 	
-	dir = "../inc"
+	dir = "../inc/"
 	files = []
 	for file in os.listdir(dir):
 		if file.endswith(".h"):
-		files.append(file)
+			files.append(file)
 		
 	for file in files:
 		file_content = open(dir + file, 'r').read();
@@ -23,11 +23,11 @@ def updateLicenseText():
 		f = open(dir + file,"w")
 		f.write(file_content)
 		
-	dir = "../src"
+	dir = "../src/"
 	files = []
 	for file in os.listdir(dir):
 		if file.endswith(".cpp"):
-		files.append(file)
+			files.append(file)
 		
 	for file in files:
 		file_content = open(dir + file, 'r').read();
@@ -64,6 +64,7 @@ def removeWhiteSigns(str):
 	return res
 def getCellValue(sheet,row,col):
 	return removeWhiteSigns(str(sheet.cell(row,col).value))
+
 
 
 
@@ -183,7 +184,7 @@ def getValue(tag):
 def isTimerAF(tag):
 	if 'TIM' in getValue(tag):
 		return True
-	return false
+	return False
 def getName(tag):
 	return getAttribute(tag,'name')
 def isTimer(tag):
@@ -200,8 +201,16 @@ def grabPeriphTags(dev,periph_name):
 		if periph_name in getName(periph):
 			res.append(periph)
 	return res
+def grabPeriphByName(dev,periph_name):
+	return grabPeriphTags(dev,periph_name)[0]
 def getPeripheralNumber(periph_tag):
 		return int(str(re.findall("\d+",getName(periph_tag))[0]))
+def grabPinAFtags(device_tag,pin):
+	res = []
+	for afm in grabTags(device_tag,'AFM'):
+		if pin == getAttribute(afm,'pinName'):
+			res.append(afm)
+	return res
 def grabPeriphAFtags(device_tag,peripheral_tag):
 	
 	pattern = getName(peripheral_tag)
@@ -319,7 +328,9 @@ def grabAllSPIs(device_tag):
 def grabAllUARTS(device_tag):
 	return (grabPeriphTags(device_tag,'UART') + grabPeriphTags(device_tag,'USART'))
 def getPortFromAFtag(afm_tag):
-	return getAttribute(afm_tag,'pinName').split("P",1)[1] 
+	return getAttribute(afm_tag,'pinName').split("P",1)[1]
+def getPinNumberFromAFtag(afm_tag):	
+	return int(str(re.findall("\d+",getPortFromAFtag(afm_tag))[0]))
 def getStructEnumOpener():
 	res = str(	"\ttypedef struct\n"+
 				"\t{\n"+
@@ -339,7 +350,10 @@ def getStructCloser(struct_name):
 	return res
 
 def getStructEnumItemString(af_tag,hardware_code):
-	return str("\n\t\t\tPORT"+getPortFromAFtag(af_tag)+" = "+formatHex(hex(hardware_code)))
+	space = ""
+	if getPinNumberFromAFtag(af_tag) < 10:
+		space = " "
+	return str("\n\t\t\tPORT"+getPortFromAFtag(af_tag)+space+" = "+formatHex(hex(hardware_code)))
 def grabDevices():
 	defs = minidom.parse('devices.xml')
 	return defs.getElementsByTagName('device')
@@ -368,9 +382,9 @@ def createPWMdefs():
 									getAttribute(af,'number'),
 									getPortFromAFtag(af)),16)
 									
-
 					code |= int(getTimerSetupCode(oc_x),16)
-					file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+formatHex(hex(code)))
+					
+					file.write(getStructEnumItemString(af,code))
 					
 				if oc_exist:
 					file.write(getStructEnumCloser("kPWM_"+getName(tim)+"_OC"+str(oc_x)+"_Pin","kPWM_OC"+str(oc_x)+"_"+getName(tim)))	
@@ -385,6 +399,42 @@ def createPWMdefs():
 			if oc_exist:
 				file.write(getStructCloser("kPWM_"+getName(tim)))
 		
+		for gpio in grabAllGPIOs(dev):
+			for i in range(0,16):
+				
+				pin = "P" + getGPIOnumber(gpio) + str(i)
+			
+		
+				pwm_out_exist = False
+				for af in grabPinAFtags(dev,pin):
+					if not isTimerAF(af): continue
+			
+					if not pwm_out_exist:
+						file.write(getStructEnumOpener())
+					if pwm_out_exist:
+						file.write(",")
+					pwm_out_exist = True
+					
+					tim = grabPeriphByName(dev,str("Timer" + str(getTimerNumberFromAFtag(af))))
+					
+					code = int(getHardwareSetupCode(0,
+								getAttribute(tim,'rccEnableBit'),
+								getAttribute(tim,'address'),
+								0,
+								2,
+								getAttribute(af,'number'),
+								getPortFromAFtag(af)),16)
+								
+					code |= int(getTimerSetupCode(getTimerOCchannelFromAFtag(af)),16)
+					
+					if getTimerNumberFromAFtag(af) < 10: space = " "
+					file.write("\n\t\t\tTimer"+str(getTimerNumberFromAFtag(af))+"_OC"+str(getTimerOCchannelFromAFtag(af))+space+" = "+formatHex(hex(code)))	
+				if pwm_out_exist:
+					file.write(getStructEnumCloser(	"kPWM_OUT_PORT"+getGPIOnumber(gpio) + str(i)+"_PIN",
+													"kPWM_out_PORT"+getGPIOnumber(gpio) + str(i)))
+
+		
+		
 		pwm_out_exist = False
 		for tim in grabAllTimers(dev):		
 			oc_exist = False	
@@ -395,9 +445,40 @@ def createPWMdefs():
 					pwm_out_exist = True
 					oc_exist = True
 			if oc_exist:
-				file.write("\n\t\tkPWM_"+getName(tim) + " " + getName(tim) +";")	
+				space = " "
+				if getPeripheralNumber(tim) < 10: space += " "
+				file.write("\n\t\tkPWM_"+getName(tim) + space + getName(tim) +";")
+				
+		
+		for gpio in grabAllGPIOs(dev):
+			gpio_pwm_out_exist = False
+			for i in range(0,16):
+				pin = "P" + getGPIOnumber(gpio) + str(i)
+				pin_exist = False
+				for af in grabPinAFtags(dev,pin):
+					if not isTimerAF(af): continue
+					
+					if not pwm_out_exist:
+						file.write(getStructEnumOpener())
+					pwm_out_exist = True
+					if not gpio_pwm_out_exist:
+						file.write("\n")
+						gpio_pwm_out_exist = True
+					
+					space = " " 
+					if i < 10: space += " ";
+					
+					if not pin_exist:
+						file.write("\n\t\tkPWM_out_PORT"+getGPIOnumber(gpio) + str(i) + space + "PORT" + getGPIOnumber(gpio) + str(i) + ";"+space+"//  "+getValue(af))
+					else:
+						file.write(space + getValue(af))
+					pin_exist = True	
+					
+						
 		if pwm_out_exist:
 			file.write(getStructCloser("kPWM_out"))
+
+
 
 		file.write("\n#endif\n")
 		
@@ -430,7 +511,7 @@ def createUSARTdefs():
 								getPortFromAFtag(af)),16)
 				
 				code |= int(getUsartSetupCode(True,False),16)
-				file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+formatHex(hex(code)))
+				file.write(getStructEnumItemString(af,code))
 				
 			if rx_exist:
 				file.write(getStructEnumCloser("kSerial_"+getName(uart)+"_RX_Pin","kSerial_"+getName(uart)+"_RX"))	
@@ -452,7 +533,7 @@ def createUSARTdefs():
 								getPortFromAFtag(af)),16)
 				
 				code |= int(getUsartSetupCode(True,False),16)
-				file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+formatHex(hex(code)))
+				file.write(getStructEnumItemString(af,code))
 				
 			if tx_exist:
 				file.write(getStructEnumCloser("kSerial_"+getName(uart)+"_TX_Pin","kSerial_"+getName(uart)+"_TX"))				
@@ -603,8 +684,8 @@ def getSPIconfigStructs(device,spi_tag):
 		nss_exist = True	
 
 		code = int(getHardwareSetupCode(0,
-						getAttribute(spi,'rccEnableBit'),
-						getAttribute(spi,'address'),
+						getAttribute(spi_tag,'rccEnableBit'),
+						getAttribute(spi_tag,'address'),
 						0,
 						2,
 						getAttribute(af,'number'),
@@ -613,7 +694,7 @@ def getSPIconfigStructs(device,spi_tag):
 		res += getStructEnumItemString(af,code)
 		
 	if nss_exist:
-		res += getStructEnumCloser("kSPI_"+getName(spi)+"_NSS_HARD_Pin","kSPI_"+getName(spi)+"_NSS_HARD")
+		res += getStructEnumCloser("kSPI_"+getName(spi_tag)+"_NSS_HARD_Pin","kSPI_"+getName(spi_tag)+"_NSS_HARD")
 
 		
 	
@@ -771,3 +852,4 @@ createPORTdefs()
 createUSARTdefs()
 createI2Cdefs()
 createSPIdefs()
+updateLicenseText()

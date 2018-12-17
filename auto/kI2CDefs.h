@@ -2,7 +2,7 @@
  *                                                                                 *
  *   kLib - C++ development tools for ARM Cortex-M devices                         *
  *                                                                                 *
- *     Copyright (c) 2016, project author Pawel Zalewski                           *
+ *     Copyright (c) 2018, project author Pawel Zalewski                           *
  *     All rights reserved.                                                        *
  *                                                                                 *
  ***********************************************************************************
@@ -41,8 +41,8 @@
 	{
 		typedef enum
 		{
-			PORTB7 = 0x058AE417,
-			PORTB9 = 0x058AE419
+			PORTB7  = 0x058AE417,
+			PORTB9  = 0x058AE419
 		}kI2C_I2C1_SDA_Pin;
 	}kSPI_I2C1_SDA;
 
@@ -50,14 +50,108 @@
 	{
 		typedef enum
 		{
-			PORTB6 = 0x058AE416,
-			PORTB8 = 0x058AE418
+			PORTB6  = 0x058AE416,
+			PORTB8  = 0x058AE418
 		}kI2C_I2C1_SCL_Pin;
 	}kSPI_I2C1_SCL;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB11 = 0x068B641B,
+			PORTF0  = 0x068B6450,
+			PORTH5  = 0x068B6475
+		}kI2C_I2C2_SDA_Pin;
+	}kSPI_I2C2_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB10 = 0x068B641A,
+			PORTF1  = 0x068B6451,
+			PORTH4  = 0x068B6474
+		}kI2C_I2C2_SCL_Pin;
+	}kSPI_I2C2_SCL;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTC9  = 0x078BE429,
+			PORTH8  = 0x078BE478
+		}kI2C_I2C3_SDA_Pin;
+	}kSPI_I2C3_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8  = 0x078BE408,
+			PORTH7  = 0x078BE477
+		}kI2C_I2C3_SCL_Pin;
+	}kSPI_I2C3_SCL;
+
 
 #endif
-#if (kLib_config_PLATFORM == kLib_STM32F427xx)
+#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB7  = 0x058AE417,
+			PORTB9  = 0x058AE419
+		}kI2C_I2C1_SDA_Pin;
+	}kSPI_I2C1_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB6  = 0x058AE416,
+			PORTB8  = 0x058AE418
+		}kI2C_I2C1_SCL_Pin;
+	}kSPI_I2C1_SCL;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB11 = 0x068B641B,
+			PORTF0  = 0x068B6450,
+			PORTH5  = 0x068B6475
+		}kI2C_I2C2_SDA_Pin;
+	}kSPI_I2C2_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB10 = 0x068B641A,
+			PORTF1  = 0x068B6451,
+			PORTH4  = 0x068B6474
+		}kI2C_I2C2_SCL_Pin;
+	}kSPI_I2C2_SCL;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTC9  = 0x078BE429,
+			PORTH8  = 0x078BE478
+		}kI2C_I2C3_SDA_Pin;
+	}kSPI_I2C3_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8  = 0x078BE408,
+			PORTH7  = 0x078BE477
+		}kI2C_I2C3_SCL_Pin;
+	}kSPI_I2C3_SCL;
 
 
 #endif

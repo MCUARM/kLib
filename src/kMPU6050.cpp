@@ -1,9 +1,8 @@
-
 /***********************************************************************************
  *                                                                                 *
  *   kLib - C++ development tools for ARM Cortex-M devices                         *
  *                                                                                 *
- *     Copyright (c) 2016, project author Paweł Zalewski                                          *
+ *     Copyright (c) 2018, project author Pawel Zalewski                           *
  *     All rights reserved.                                                        *
  *                                                                                 *
  ***********************************************************************************
@@ -32,6 +31,9 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
+
+
 #include "kMPU6050.h"
 
 // Tablice wsp�czynnik�w przeliczaj�cych pomiary
