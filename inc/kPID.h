@@ -57,6 +57,8 @@
 			kIntegrator Integral;
 
 			kPID(void);
+			kPID(float Kp,float Kd=0, float Ki=0);
+			
 
 			float feed(float x);
 			void useIntegralSaturation(bool state);

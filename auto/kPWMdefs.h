@@ -69,6 +69,19 @@
 		}kPWM_Timer1_OC4_Pin;
 	}kPWM_OC4_Timer1;
 
+	typedef struct
+	{
+		kPWM_OC1_Timer1 OC1;
+		kPWM_OC2_Timer1 OC2;
+		kPWM_OC3_Timer1 OC3;
+		kPWM_OC4_Timer1 OC4;
+	}kPWM_Timer1;
+
+	typedef struct
+	{
+		kPWM_Timer1 Timer1;
+	}kPWM_out;
+
 
 #endif
 #if (kLib_config_PLATFORM == kLib_STM32F427xx)

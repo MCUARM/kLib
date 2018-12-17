@@ -7,6 +7,38 @@ from lxml import etree
 import os
 
 
+def updateLicenseText():
+	license = getLicenseString();
+	
+	dir = "../inc"
+	files = []
+	for file in os.listdir(dir):
+		if file.endswith(".h"):
+		files.append(file)
+		
+	for file in files:
+		file_content = open(dir + file, 'r').read();
+		file_content = file_content.split("#ifndef",1)[1]
+		file_content = license + "\n\n" + "#ifndef" + file_content
+		f = open(dir + file,"w")
+		f.write(file_content)
+		
+	dir = "../src"
+	files = []
+	for file in os.listdir(dir):
+		if file.endswith(".cpp"):
+		files.append(file)
+		
+	for file in files:
+		file_content = open(dir + file, 'r').read();
+		file_content = file_content.split("#include",1)[1]
+		file_content = license + "\n\n" + "#include" + file_content
+		f = open(dir + file,"w")
+		f.write(file_content)
+		
+		
+
+
 def formatHex(hex_str):
 	
 	tmp = removeWhiteSigns(hex_str.upper())
@@ -324,11 +356,10 @@ def createPWMdefs():
 				oc_exist = False
 				for af in grabTimerOCx_AFtags(dev,tim,oc_x):
 					if not oc_exist:
-						file.write("\ttypedef struct\n"+
-								"\t{\n"+
-								"\t\ttypedef enum\n"+
-								"\t\t{")
-
+						file.write(getStructEnumOpener())
+					if oc_exist:
+						file.write(',')
+					oc_exist = True
 					code = int(getHardwareSetupCode(0,
 									getAttribute(tim,'rccEnableBit'),
 									getAttribute(tim,'address'),
@@ -337,16 +368,37 @@ def createPWMdefs():
 									getAttribute(af,'number'),
 									getPortFromAFtag(af)),16)
 									
-					if oc_exist:
-						file.write(',')
-					oc_exist = True
+
 					code |= int(getTimerSetupCode(oc_x),16)
 					file.write("\n\t\t\tPORT"+getPortFromAFtag(af)+" = "+formatHex(hex(code)))
 					
 				if oc_exist:
 					file.write(getStructEnumCloser("kPWM_"+getName(tim)+"_OC"+str(oc_x)+"_Pin","kPWM_OC"+str(oc_x)+"_"+getName(tim)))	
-					
-	  
+			oc_exist = False	
+			for oc_x in range(1,5):
+				for af in grabTimerOCx_AFtags(dev,tim,oc_x):
+					if not oc_exist:
+						file.write(getStructOpener())
+					oc_exist = True
+					file.write("\n\t\tkPWM_OC"+str(oc_x)+"_"+getName(tim) + " OC" + str(oc_x)+";")
+					break	
+			if oc_exist:
+				file.write(getStructCloser("kPWM_"+getName(tim)))
+		
+		pwm_out_exist = False
+		for tim in grabAllTimers(dev):		
+			oc_exist = False	
+			for oc_x in range(1,5):
+				for af in grabTimerOCx_AFtags(dev,tim,oc_x):
+					if not pwm_out_exist:
+						file.write(getStructOpener())
+					pwm_out_exist = True
+					oc_exist = True
+			if oc_exist:
+				file.write("\n\t\tkPWM_"+getName(tim) + " " + getName(tim) +";")	
+		if pwm_out_exist:
+			file.write(getStructCloser("kPWM_out"))
+
 		file.write("\n#endif\n")
 		
 	file.write(getHeaderCloser(header_name))

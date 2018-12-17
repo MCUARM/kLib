@@ -48,14 +48,11 @@ float kPID::feed(float x)
 {
 	float res;
 
-	float deriv = Derivative.feed(x);
-	float integral = Integral.feed(Ki*x);
-
-
 	// calculate response
 	res = 	Kp*x;
-	res += 	Kd*deriv;
-	res += 	integral;
+	res += 	Kd*Derivative.feed(x);
+	// Ki is multiplied in Integral.feed argument because of the possible saturation
+	res += 	Integral.feed(Ki*x);
 
 	// check saturation
 	if(use_output_saturation) res = OutputSaturation.feed(res);

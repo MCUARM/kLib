@@ -241,12 +241,6 @@ k_System::k_System(void)
 		kSystem_isr_vector[11] = (void (*)())g_pfnVectors[11]; // SVC_Handler
 		kSystem_isr_vector[14] = (void (*)())g_pfnVectors[14]; // PendSV_Handler
 
-
-		kRTOS::task_t main_task_handler;
-		kRTOS::taskCreate(main,"LED1",1024,NULL,1,&main_task_handler);
-		kRTOS::startScheduler();
-
-
 	#endif
 
 
