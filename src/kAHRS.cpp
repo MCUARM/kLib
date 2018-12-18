@@ -162,7 +162,7 @@ void kAHRS::calculateAngles(void)
 {
 	kVector3 gyro(*this->sens_p,*this->sens_q,*this->sens_r);
 
-	this->temp_AxisAngle = kAxisAngle::create(gyro,gyro.length()*this->dt);
+	this->temp_AxisAngle = kAxisAngle::create(gyro,gyro.length()*dt());
 	this->qg = kQuaternion::fromAxisAngle(this->temp_AxisAngle);
 
 	this->q *= this->qg;

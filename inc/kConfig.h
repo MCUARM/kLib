@@ -53,7 +53,7 @@
 
 		//#define kLib_config_PLATFORM kLib_STM32F411xx
 		//#define kLib_config_PLATFORM kLib_STM32F407xx
-		//#define kLib_config_PLATFORM kLib_STM32F429xx
+		#define kLib_config_PLATFORM kLib_STM32F429xx
 		//#define kLib_config_PLATFORM kLib_STM32L053xx
 
 

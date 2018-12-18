@@ -9,7 +9,7 @@ import os
 
 def replaceCodeRegion(file_path,region_name,new_region_content):
 	#pragma region
-	regex = "#pragma region " + region_name + ".*" + "#pragma endregion " + region_name
+	regex = "// region " + region_name + ".*" + "// endregion " + region_name
 	
 	file_content = open(file_path, 'r').read();
 	old_region_content = str(re.search(regex, file_content,re.DOTALL)[0])
@@ -17,9 +17,9 @@ def replaceCodeRegion(file_path,region_name,new_region_content):
 	
 	file_content_list = file_content.split(old_region_content,1)
 	file_content = file_content_list[0]
-	file_content += "#pragma region " + region_name + "\n\n"
+	file_content += "// region " + region_name + "\n\n"
 	file_content += new_region_content
-	file_content += "\n\n#pragma endregion " + region_name
+	file_content += "\n\n// endregion " + region_name
 	file_content += file_content_list[1]
 	f = open(file_path,"w")
 	f.write(file_content)	
@@ -333,6 +333,11 @@ def grabSPIxNSS_AFtags(device_tag,spi_tag):
 		if isSPIxNSS_AFtag(af):
 			res.append(af)
 	return res
+def existHardNSS(device_tag,spi_tag):
+	res = grabSPIxNSS_AFtags(device_tag,spi_tag)
+	if not res: return False
+	return True
+
 def grabAllTimers(device_tag):
 	return grabPeriphTags(device_tag,'Timer')
 def grabAllI2Cs(device_tag):
@@ -564,18 +569,16 @@ def createUSARTdefs():
 	return res	
 def createPORTdefs():
 
-	file = open("kPORTdefs.h","w")
-	header_name = '__kPORTDEFS_H'
-	file.write(getLicenseString())
-	file.write(getHeaderOpener(header_name))
-
+	res = ""
+	
 	for dev in grabDevices():
-		file.write(getPlatformCondition(dev))
+		res += getPlatformCondition(dev)
 		for gpio in grabAllGPIOs(dev):
-			file.write("\t#define kPort_config_USE_"+getName(gpio).replace("GPIO","PORT")+"_OBJECT\n")
-		file.write("\n#endif\n")	
-	file.write(getHeaderCloser(header_name))
-	file.close()
+			res += "\t#define kPort_config_USE_"+getName(gpio).replace("GPIO","PORT")+"_OBJECT\n"
+		res += "\n#endif\n"	
+	
+	return res
+	
 def createI2Cdefs():
 
 	
@@ -800,6 +803,28 @@ def createSPIdefs():
 				res += getStructEnumCloser("kSPI_"+getName(spi)+"_SCK_Pin","kSPI_"+getName(spi)+"_SCK")
 
 
+			nss_exist = False
+			for af in grabSPIxNSS_AFtags(dev,spi):
+				if not nss_exist:
+					res += getStructEnumOpener()
+				if nss_exist:
+					res += ","
+				nss_exist = True	
+
+				code = int(getHardwareSetupCode(0,
+								getAttribute(spi,'rccEnableBit'),
+								getAttribute(spi,'address'),
+								0,
+								2,
+								getAttribute(af,'number'),
+								getPortFromAFtag(af)),16)
+				
+				res += getStructEnumItemString(af,code)
+				
+			if nss_exist:
+				res += getStructEnumCloser("kSPI_"+getName(spi)+"_NSS_Pin","kSPI_"+getName(spi)+"_NSS")
+
+
 			res += getSPIconfigStructs(dev,spi)	
 	
 
@@ -831,28 +856,32 @@ def createSPIdefs():
 
 		for spi in grabAllSPIs(dev):
 			res += getStructOpener()
-			res += "\n\t\tkSPI_" + getName(spi) + "_NSS Hard;\n"
-			res += "\t\tkSPI_NSS_SOFT Soft;"
+			
+			if existHardNSS(dev,spi):
+				res += "\n\t\tkSPI_" + getName(spi) + "_NSS Hard;"
+			
+			res += "\n\t\tkSPI_NSS_SOFT Soft;"
 			res += getStructCloser("kSPI_" + getName(spi) + "_NSS_SELECT")
 			
 
-		res += getStructOpener()
+		
 		MSTR_name = ["Master","Slave"]
 		MSTR_str = ["SLAVE","MASTER"]
-		for MSTR in range(0,2):
-			item_name = "kSPI_" + getName(spi) + "_" + MSTR_str[MSTR] + "_SELECT_SELECT_SELECT "
-			res += str("\n\t\t" + item_name + MSTR_name[MSTR] +";")
+		
+		for spi in grabAllSPIs(dev):
+			res += getStructOpener()
+			
+			for MSTR in range(0,2):
+				item_name = "kSPI_" + getName(spi) + "_" + MSTR_str[MSTR] + "_SELECT_SELECT_SELECT "
+				res += str("\n\t\t" + item_name + MSTR_name[MSTR] +";")
 		
 		
-		res += str("\n\t\tkSPI_" + getName(spi) + "_MISO MISO;")
-		res += str("\n\t\tkSPI_" + getName(spi) + "_MOSI MOSI;")
-		res += str("\n\t\tkSPI_" + getName(spi) + "_SCK  SCK;")
-		res += str("\n\t\tkSPI_" + getName(spi) + "_NSS_SELECT NSS;")
-		name = "kSPI_" + getName(spi)
-		res += getStructCloser(name)
-
-
-	
+			res += str("\n\t\tkSPI_" + getName(spi) + "_MISO MISO;")
+			res += str("\n\t\tkSPI_" + getName(spi) + "_MOSI MOSI;")
+			res += str("\n\t\tkSPI_" + getName(spi) + "_SCK  SCK;")
+			res += str("\n\t\tkSPI_" + getName(spi) + "_NSS_SELECT NSS;")
+			name = "kSPI_" + getName(spi)
+			res += getStructCloser(name)
 		
 			
 		res += "\n#endif\n"
@@ -864,6 +893,5 @@ replaceCodeRegion("../inc/kPWM.h",'PLATFORM_DEPENDED_STRUCTS',createPWMdefs())
 replaceCodeRegion("../inc/kSerial.h",'PLATFORM_DEPENDED_STRUCTS',createUSARTdefs())
 replaceCodeRegion("../inc/kI2CDevice.h",'PLATFORM_DEPENDED_STRUCTS',createI2Cdefs())
 replaceCodeRegion("../inc/kSPIDevice.h",'PLATFORM_DEPENDED_STRUCTS',createSPIdefs())
-createPORTdefs()
-
+replaceCodeRegion("../inc/kPORT.h",'PLATFORM_DEPENDED_STRUCTS',createPORTdefs())
 updateLicenseText()

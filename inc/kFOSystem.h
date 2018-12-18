@@ -52,9 +52,9 @@
 		public:
 
 			kFOSystem(void);
-			kFOSystem(float sampling_time, float time_constant, float initial_output=0);
+			kFOSystem(float time_constant, float initial_output=0);
 			void setTimeConstant(float time_constant);
-			void init(float sampling_time, float time_constant, float initial_output=0);
+			void init(float time_constant, float initial_output=0);
 			bool setSamplingTime(float sampling_time);
 			float feed(float x);
 

@@ -61,9 +61,9 @@ kSPIDeviceHardware& kSPIDeviceHardware::operator = (unsigned int hard_code)
 		// set new settings
 		
 		// setup LSBFIRST
-		this->spi->CR1 |= ((hard_code & 0x00000004) << 4)
+		this->spi->CR1 |= ((hard_code & 0x00000004) << 4);
 		// setup [0:2] bits
-		this->spi->CR1 |= (hard_code & 0x00000007)
+		this->spi->CR1 |= (hard_code & 0x00000007);
 
 	}else
 	{
@@ -72,12 +72,7 @@ kSPIDeviceHardware& kSPIDeviceHardware::operator = (unsigned int hard_code)
 	}
 	return (*this);
 }
-kSPIDeviceHardware& kSPIDeviceHardware::operator = (kSPI_SPI_NSS::kSPI_SPI_NSS_PIN nss_pin)
-{
-	// software NSS pin configuration
-	this->NSS = (kPin::kPIN_PIN)nss_pin;
-	return (*this);
-}
+
 void kSPIDevice::run(unsigned int sck_freq)
 {
 	// assert

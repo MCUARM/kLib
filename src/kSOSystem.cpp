@@ -59,10 +59,9 @@ void kSOSystem::init(float sampling_time, float damping_ratio, float resonance_f
 	this->first_last_value = initial_output;
 	this->second_last_value = initial_output;
 
-	if(sampling_time > 0) this->dt = sampling_time;
 
-	this->a_coeff = this->dt*this->dt;
-	this->b_coeff = 2*damping_ratio*resonance_freq_in_radians*this->dt;
+	this->a_coeff = sampling_time*sampling_time;
+	this->b_coeff = 2*damping_ratio*resonance_freq_in_radians*sampling_time;
 	this->c_coeff = 1/(1+this->b_coeff + this->a_coeff*resonance_freq_in_radians*resonance_freq_in_radians);
 	this->a_coeff = this->a_coeff*this->c_coeff;
 	this->b_coeff = (2+this->b_coeff)*this->c_coeff;

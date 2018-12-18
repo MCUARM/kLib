@@ -38,28 +38,23 @@
 
 kHPF::kHPF(void)
 {
-	this->init(1,1);
+	this->init(1);
 }
-kHPF::kHPF(float sampling_time, float time_constant)
+kHPF::kHPF(float time_constant)
 {
-	this->init(sampling_time,time_constant);
+	this->init(time_constant);
 }
-void kHPF::init(float sampling_time, float time_constant)
+void kHPF::init(float time_constant)
 {
 	this->T = time_constant;
-	this->deriv.setSamplingTime(sampling_time);
-	this->inertia.init(sampling_time,this->T);
+	this->inertia.init(this->T);
 }
 void kHPF::setTimeConstant(float time_constant)
 {
 	this->T = time_constant;
 	this->inertia.setTimeConstant(this->T);
 }
-bool kHPF::setSamplingTime(float sampling_time)
-{
-	this->inertia.setSamplingTime(sampling_time);
-	return this->deriv.setSamplingTime(sampling_time);
-}
+
 float kHPF::feed(float x)
 {
 	float res = this->T*this->deriv.feed(x);

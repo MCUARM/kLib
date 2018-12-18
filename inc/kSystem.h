@@ -57,6 +57,7 @@
 	#include "kSerial.h"
 
 
+
 	#if(kLib_config_USE_MODULE == 1)
 
 		#include "kRegister.h"
@@ -78,9 +79,10 @@
 	{
 		private:
 
+			friend class kPort;
 			friend class kPWM;
 			friend class kSerial;
-			friend class kI2CDevice;
+			friend class kI2CDeviceHardware;
 			friend class kSPIDeviceHardware;
 
 			union uintSplitter
@@ -126,7 +128,6 @@
 	};
 
 
-	extern void main(void*);
 
 #if (kLib_config_USE_MODULE == 1)
 	class k_System : public kModule
@@ -157,7 +158,6 @@
 			#if(kLib_config_USE_RTOS == 1)
 
 				__inline__ void addTask(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,kRTOS::task_t * const created_task) __attribute__((always_inline));
-				__inline__ void addTaskFixeRate(unsigned char void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,kRTOS::task_t * const created_task) __attribute__((always_inline));
 
 			#endif
 

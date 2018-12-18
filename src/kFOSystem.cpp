@@ -38,25 +38,25 @@
 
 kFOSystem::kFOSystem(void)
 {
-	this->init(1,1,0);
+	this->init(1,0);
 }
-kFOSystem::kFOSystem(float sampling_time, float time_constant, float initial_output)
+kFOSystem::kFOSystem(float time_constant, float initial_output)
 {
 	this->T=1;
-	this->dt=1;
 	this->last_value=0;
-	this->init(sampling_time,time_constant,initial_output);
+	this->init(time_constant,initial_output);
 }
-void kFOSystem::init(float sampling_time, float time_constant, float initial_output)
+void kFOSystem::init(float time_constant, float initial_output)
 {
-	if(sampling_time > 0) this->dt = sampling_time;
 	if(time_constant >= 0) this->T = time_constant;
 	this->last_value = initial_output;
 
-	// use sampling_time as temporary storage
-	sampling_time = 1/(this->T+this->dt);
 
-	this->a_coeff = this->dt*sampling_time;
+	// use sampling_time as temporary storage
+	float dt = this->dt();
+	float sampling_time = 1/(this->T+dt);
+
+	this->a_coeff = dt*sampling_time;
 	this->b_coeff = this->T*sampling_time;
 
 }
@@ -74,9 +74,11 @@ void kFOSystem::setTimeConstant(float time_constant)
 
 	float sampling_time;
 	// use sampling_time as temporary storage
-	sampling_time = 1/(this->T+this->dt);
+	// get dt
+	float dt = this->dt();
+	sampling_time = 1/(this->T+dt);
 
-	this->a_coeff = this->dt*sampling_time;
+	this->a_coeff = dt*sampling_time;
 	this->b_coeff = this->T*sampling_time;
 }
 float kFOSystem::feed(float x)

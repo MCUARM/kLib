@@ -38,7 +38,7 @@
 
 kLPF::kLPF(void)
 {
-	kFOSystem::init(1,1,0);
+	kFOSystem::init(1,0);
 }
 float kLPF::feedAngle(kAngle_0_to_2pi & x)
 {

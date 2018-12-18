@@ -49,7 +49,6 @@ float kDifferentiator::feed(float x)
 	{
 		res = 0;
 		first_launch = false;
-		kDiscrete::init();
 	}else
 	{
 		float t = dt();
