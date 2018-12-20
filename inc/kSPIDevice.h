@@ -45,6 +45,997 @@
 
 // region PLATFORM_DEPENDED_STRUCTS
 
+#if (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6  = 0x04662506,
+			PORTB4  = 0x04662514
+		}kSPI_SPI1_MISO_Pin;
+	}kSPI_SPI1_MISO;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7  = 0x04662507,
+			PORTB5  = 0x04662515
+		}kSPI_SPI1_MOSI_Pin;
+	}kSPI_SPI1_MOSI;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5  = 0x04662505,
+			PORTB3  = 0x04662513
+		}kSPI_SPI1_SCK_Pin;
+	}kSPI_SPI1_SCK;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4  = 0x04662504,
+			PORTA15 = 0x0466250F
+		}kSPI_SPI1_NSS_Pin;
+	}kSPI_SPI1_NSS;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660000,
+			DataCapture_2Edge = 0x0C660001
+		}kSPI_SPI1_SLAVE_MSB_LOW_SELECT;
+	}kSPI_SPI1_SLAVE_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660002,
+			DataCapture_2Edge = 0x0C660003
+		}kSPI_SPI1_SLAVE_MSB_HIGH_SELECT;
+	}kSPI_SPI1_SLAVE_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660008,
+			DataCapture_2Edge = 0x0C660009
+		}kSPI_SPI1_SLAVE_LSB_LOW_SELECT;
+	}kSPI_SPI1_SLAVE_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C66000A,
+			DataCapture_2Edge = 0x0C66000B
+		}kSPI_SPI1_SLAVE_LSB_HIGH_SELECT;
+	}kSPI_SPI1_SLAVE_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660004,
+			DataCapture_2Edge = 0x0C660005
+		}kSPI_SPI1_MASTER_MSB_LOW_SELECT;
+	}kSPI_SPI1_MASTER_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660006,
+			DataCapture_2Edge = 0x0C660007
+		}kSPI_SPI1_MASTER_MSB_HIGH_SELECT;
+	}kSPI_SPI1_MASTER_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C66000C,
+			DataCapture_2Edge = 0x0C66000D
+		}kSPI_SPI1_MASTER_LSB_LOW_SELECT;
+	}kSPI_SPI1_MASTER_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C66000E,
+			DataCapture_2Edge = 0x0C66000F
+		}kSPI_SPI1_MASTER_LSB_HIGH_SELECT;
+	}kSPI_SPI1_MASTER_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		kSPI_SPI1_SLAVE_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI1_SLAVE_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI1_SLAVE_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_SLAVE_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI1_SLAVE_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI1_SLAVE_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_MASTER_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI1_MASTER_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI1_MASTER_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_MASTER_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI1_MASTER_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI1_MASTER_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_SLAVE_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI1_SLAVE_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI1_SLAVE_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_MASTER_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI1_MASTER_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI1_MASTER_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4  = 0x04662504,
+			PORTA15 = 0x0466250F
+		}kSPI_SPI1_NSS_HARD_Pin;
+	}kSPI_SPI1_NSS_HARD;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB14 = 0x0647251E,
+			PORTC2  = 0x06472522
+		}kSPI_SPI2_MISO_Pin;
+	}kSPI_SPI2_MISO;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB15 = 0x0647251F,
+			PORTC3  = 0x06472523
+		}kSPI_SPI2_MOSI_Pin;
+	}kSPI_SPI2_MOSI;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB10 = 0x0647251A,
+			PORTB13 = 0x0647251D,
+			PORTC7  = 0x06472527,
+			PORTD3  = 0x06472533
+		}kSPI_SPI2_SCK_Pin;
+	}kSPI_SPI2_SCK;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB9  = 0x06472519,
+			PORTB12 = 0x0647251C
+		}kSPI_SPI2_NSS_Pin;
+	}kSPI_SPI2_NSS;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470000,
+			DataCapture_2Edge = 0x0E470001
+		}kSPI_SPI2_SLAVE_MSB_LOW_SELECT;
+	}kSPI_SPI2_SLAVE_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470002,
+			DataCapture_2Edge = 0x0E470003
+		}kSPI_SPI2_SLAVE_MSB_HIGH_SELECT;
+	}kSPI_SPI2_SLAVE_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470008,
+			DataCapture_2Edge = 0x0E470009
+		}kSPI_SPI2_SLAVE_LSB_LOW_SELECT;
+	}kSPI_SPI2_SLAVE_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E47000A,
+			DataCapture_2Edge = 0x0E47000B
+		}kSPI_SPI2_SLAVE_LSB_HIGH_SELECT;
+	}kSPI_SPI2_SLAVE_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470004,
+			DataCapture_2Edge = 0x0E470005
+		}kSPI_SPI2_MASTER_MSB_LOW_SELECT;
+	}kSPI_SPI2_MASTER_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470006,
+			DataCapture_2Edge = 0x0E470007
+		}kSPI_SPI2_MASTER_MSB_HIGH_SELECT;
+	}kSPI_SPI2_MASTER_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E47000C,
+			DataCapture_2Edge = 0x0E47000D
+		}kSPI_SPI2_MASTER_LSB_LOW_SELECT;
+	}kSPI_SPI2_MASTER_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E47000E,
+			DataCapture_2Edge = 0x0E47000F
+		}kSPI_SPI2_MASTER_LSB_HIGH_SELECT;
+	}kSPI_SPI2_MASTER_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		kSPI_SPI2_SLAVE_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI2_SLAVE_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI2_SLAVE_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_SLAVE_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI2_SLAVE_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI2_SLAVE_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_MASTER_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI2_MASTER_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI2_MASTER_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_MASTER_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI2_MASTER_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI2_MASTER_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_SLAVE_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI2_SLAVE_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI2_SLAVE_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_MASTER_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI2_MASTER_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI2_MASTER_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB9  = 0x06472519,
+			PORTB12 = 0x0647251C
+		}kSPI_SPI2_NSS_HARD_Pin;
+	}kSPI_SPI2_NSS_HARD;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB4  = 0x0747A614,
+			PORTC11 = 0x0747A62B
+		}kSPI_SPI3_MISO_Pin;
+	}kSPI_SPI3_MISO;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB5  = 0x0747A615,
+			PORTC12 = 0x0747A62C,
+			PORTD6  = 0x0747A536
+		}kSPI_SPI3_MOSI_Pin;
+	}kSPI_SPI3_MOSI;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB3  = 0x0747A613,
+			PORTB12 = 0x0747A71C,
+			PORTC10 = 0x0747A62A
+		}kSPI_SPI3_SCK_Pin;
+	}kSPI_SPI3_SCK;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4  = 0x0747A604,
+			PORTA15 = 0x0747A60F
+		}kSPI_SPI3_NSS_Pin;
+	}kSPI_SPI3_NSS;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0F478000,
+			DataCapture_2Edge = 0x0F478001
+		}kSPI_SPI3_SLAVE_MSB_LOW_SELECT;
+	}kSPI_SPI3_SLAVE_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0F478002,
+			DataCapture_2Edge = 0x0F478003
+		}kSPI_SPI3_SLAVE_MSB_HIGH_SELECT;
+	}kSPI_SPI3_SLAVE_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0F478008,
+			DataCapture_2Edge = 0x0F478009
+		}kSPI_SPI3_SLAVE_LSB_LOW_SELECT;
+	}kSPI_SPI3_SLAVE_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0F47800A,
+			DataCapture_2Edge = 0x0F47800B
+		}kSPI_SPI3_SLAVE_LSB_HIGH_SELECT;
+	}kSPI_SPI3_SLAVE_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0F478004,
+			DataCapture_2Edge = 0x0F478005
+		}kSPI_SPI3_MASTER_MSB_LOW_SELECT;
+	}kSPI_SPI3_MASTER_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0F478006,
+			DataCapture_2Edge = 0x0F478007
+		}kSPI_SPI3_MASTER_MSB_HIGH_SELECT;
+	}kSPI_SPI3_MASTER_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0F47800C,
+			DataCapture_2Edge = 0x0F47800D
+		}kSPI_SPI3_MASTER_LSB_LOW_SELECT;
+	}kSPI_SPI3_MASTER_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0F47800E,
+			DataCapture_2Edge = 0x0F47800F
+		}kSPI_SPI3_MASTER_LSB_HIGH_SELECT;
+	}kSPI_SPI3_MASTER_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		kSPI_SPI3_SLAVE_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI3_SLAVE_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI3_SLAVE_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI3_SLAVE_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI3_SLAVE_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI3_SLAVE_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI3_MASTER_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI3_MASTER_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI3_MASTER_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI3_MASTER_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI3_MASTER_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI3_MASTER_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI3_SLAVE_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI3_SLAVE_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI3_SLAVE_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI3_MASTER_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI3_MASTER_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI3_MASTER_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4  = 0x0747A604,
+			PORTA15 = 0x0747A60F
+		}kSPI_SPI3_NSS_HARD_Pin;
+	}kSPI_SPI3_NSS_HARD;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x0666A60B,
+			PORTE5  = 0x0666A545,
+			PORTE13 = 0x0666A54D
+		}kSPI_SPI4_MISO_Pin;
+	}kSPI_SPI4_MISO;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1  = 0x0666A501,
+			PORTE6  = 0x0666A546,
+			PORTE14 = 0x0666A54E
+		}kSPI_SPI4_MOSI_Pin;
+	}kSPI_SPI4_MOSI;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB13 = 0x0666A61D,
+			PORTE2  = 0x0666A542,
+			PORTE12 = 0x0666A54C
+		}kSPI_SPI4_SCK_Pin;
+	}kSPI_SPI4_SCK;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB12 = 0x0666A61C,
+			PORTE4  = 0x0666A544,
+			PORTE11 = 0x0666A54B
+		}kSPI_SPI4_NSS_Pin;
+	}kSPI_SPI4_NSS;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E668000,
+			DataCapture_2Edge = 0x0E668001
+		}kSPI_SPI4_SLAVE_MSB_LOW_SELECT;
+	}kSPI_SPI4_SLAVE_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E668002,
+			DataCapture_2Edge = 0x0E668003
+		}kSPI_SPI4_SLAVE_MSB_HIGH_SELECT;
+	}kSPI_SPI4_SLAVE_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E668008,
+			DataCapture_2Edge = 0x0E668009
+		}kSPI_SPI4_SLAVE_LSB_LOW_SELECT;
+	}kSPI_SPI4_SLAVE_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E66800A,
+			DataCapture_2Edge = 0x0E66800B
+		}kSPI_SPI4_SLAVE_LSB_HIGH_SELECT;
+	}kSPI_SPI4_SLAVE_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E668004,
+			DataCapture_2Edge = 0x0E668005
+		}kSPI_SPI4_MASTER_MSB_LOW_SELECT;
+	}kSPI_SPI4_MASTER_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E668006,
+			DataCapture_2Edge = 0x0E668007
+		}kSPI_SPI4_MASTER_MSB_HIGH_SELECT;
+	}kSPI_SPI4_MASTER_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E66800C,
+			DataCapture_2Edge = 0x0E66800D
+		}kSPI_SPI4_MASTER_LSB_LOW_SELECT;
+	}kSPI_SPI4_MASTER_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E66800E,
+			DataCapture_2Edge = 0x0E66800F
+		}kSPI_SPI4_MASTER_LSB_HIGH_SELECT;
+	}kSPI_SPI4_MASTER_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		kSPI_SPI4_SLAVE_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI4_SLAVE_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI4_SLAVE_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI4_SLAVE_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI4_SLAVE_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI4_SLAVE_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI4_MASTER_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI4_MASTER_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI4_MASTER_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI4_MASTER_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI4_MASTER_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI4_MASTER_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI4_SLAVE_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI4_SLAVE_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI4_SLAVE_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI4_MASTER_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI4_MASTER_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI4_MASTER_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB12 = 0x0666A61C,
+			PORTE4  = 0x0666A544,
+			PORTE11 = 0x0666A54B
+		}kSPI_SPI4_NSS_HARD_Pin;
+	}kSPI_SPI4_NSS_HARD;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x04AA260C,
+			PORTE5  = 0x04AA2645,
+			PORTE13 = 0x04AA264D
+		}kSPI_SPI5_MISO_Pin;
+	}kSPI_SPI5_MISO;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x04AA260A,
+			PORTB8  = 0x04AA2618,
+			PORTE6  = 0x04AA2646,
+			PORTE14 = 0x04AA264E
+		}kSPI_SPI5_MOSI_Pin;
+	}kSPI_SPI5_MOSI;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB0  = 0x04AA2610,
+			PORTE2  = 0x04AA2642,
+			PORTE12 = 0x04AA264C
+		}kSPI_SPI5_SCK_Pin;
+	}kSPI_SPI5_SCK;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB1  = 0x04AA2611,
+			PORTE4  = 0x04AA2644,
+			PORTE11 = 0x04AA264B
+		}kSPI_SPI5_NSS_Pin;
+	}kSPI_SPI5_NSS;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0CAA0000,
+			DataCapture_2Edge = 0x0CAA0001
+		}kSPI_SPI5_SLAVE_MSB_LOW_SELECT;
+	}kSPI_SPI5_SLAVE_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0CAA0002,
+			DataCapture_2Edge = 0x0CAA0003
+		}kSPI_SPI5_SLAVE_MSB_HIGH_SELECT;
+	}kSPI_SPI5_SLAVE_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0CAA0008,
+			DataCapture_2Edge = 0x0CAA0009
+		}kSPI_SPI5_SLAVE_LSB_LOW_SELECT;
+	}kSPI_SPI5_SLAVE_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0CAA000A,
+			DataCapture_2Edge = 0x0CAA000B
+		}kSPI_SPI5_SLAVE_LSB_HIGH_SELECT;
+	}kSPI_SPI5_SLAVE_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0CAA0004,
+			DataCapture_2Edge = 0x0CAA0005
+		}kSPI_SPI5_MASTER_MSB_LOW_SELECT;
+	}kSPI_SPI5_MASTER_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0CAA0006,
+			DataCapture_2Edge = 0x0CAA0007
+		}kSPI_SPI5_MASTER_MSB_HIGH_SELECT;
+	}kSPI_SPI5_MASTER_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0CAA000C,
+			DataCapture_2Edge = 0x0CAA000D
+		}kSPI_SPI5_MASTER_LSB_LOW_SELECT;
+	}kSPI_SPI5_MASTER_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0CAA000E,
+			DataCapture_2Edge = 0x0CAA000F
+		}kSPI_SPI5_MASTER_LSB_HIGH_SELECT;
+	}kSPI_SPI5_MASTER_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		kSPI_SPI5_SLAVE_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI5_SLAVE_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI5_SLAVE_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI5_SLAVE_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI5_SLAVE_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI5_SLAVE_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI5_MASTER_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI5_MASTER_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI5_MASTER_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI5_MASTER_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI5_MASTER_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI5_MASTER_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI5_SLAVE_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI5_SLAVE_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI5_SLAVE_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI5_MASTER_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI5_MASTER_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI5_MASTER_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB1  = 0x04AA2611,
+			PORTE4  = 0x04AA2644,
+			PORTE11 = 0x04AA264B
+		}kSPI_SPI5_NSS_HARD_Pin;
+	}kSPI_SPI5_NSS_HARD;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0  = 0x04AA2000,
+			PORTA1  = 0x04AA2001,
+			PORTA2  = 0x04AA2002,
+			PORTA3  = 0x04AA2003,
+			PORTA4  = 0x04AA2004,
+			PORTA5  = 0x04AA2005,
+			PORTA6  = 0x04AA2006,
+			PORTA7  = 0x04AA2007,
+			PORTA8  = 0x04AA2008,
+			PORTA9  = 0x04AA2009,
+			PORTA10 = 0x04AA200A,
+			PORTA11 = 0x04AA200B,
+			PORTA12 = 0x04AA200C,
+			PORTA13 = 0x04AA200D,
+			PORTA14 = 0x04AA200E,
+			PORTA15 = 0x04AA200F,
+			PORTB0  = 0x04AA2010,
+			PORTB1  = 0x04AA2011,
+			PORTB2  = 0x04AA2012,
+			PORTB3  = 0x04AA2013,
+			PORTB4  = 0x04AA2014,
+			PORTB5  = 0x04AA2015,
+			PORTB6  = 0x04AA2016,
+			PORTB7  = 0x04AA2017,
+			PORTB8  = 0x04AA2018,
+			PORTB9  = 0x04AA2019,
+			PORTB10 = 0x04AA201A,
+			PORTB11 = 0x04AA201B,
+			PORTB12 = 0x04AA201C,
+			PORTB13 = 0x04AA201D,
+			PORTB14 = 0x04AA201E,
+			PORTB15 = 0x04AA201F,
+			PORTC0  = 0x04AA2020,
+			PORTC1  = 0x04AA2021,
+			PORTC2  = 0x04AA2022,
+			PORTC3  = 0x04AA2023,
+			PORTC4  = 0x04AA2024,
+			PORTC5  = 0x04AA2025,
+			PORTC6  = 0x04AA2026,
+			PORTC7  = 0x04AA2027,
+			PORTC8  = 0x04AA2028,
+			PORTC9  = 0x04AA2029,
+			PORTC10 = 0x04AA202A,
+			PORTC11 = 0x04AA202B,
+			PORTC12 = 0x04AA202C,
+			PORTC13 = 0x04AA202D,
+			PORTC14 = 0x04AA202E,
+			PORTC15 = 0x04AA202F,
+			PORTD0  = 0x04AA2030,
+			PORTD1  = 0x04AA2031,
+			PORTD2  = 0x04AA2032,
+			PORTD3  = 0x04AA2033,
+			PORTD4  = 0x04AA2034,
+			PORTD5  = 0x04AA2035,
+			PORTD6  = 0x04AA2036,
+			PORTD7  = 0x04AA2037,
+			PORTD8  = 0x04AA2038,
+			PORTD9  = 0x04AA2039,
+			PORTD10 = 0x04AA203A,
+			PORTD11 = 0x04AA203B,
+			PORTD12 = 0x04AA203C,
+			PORTD13 = 0x04AA203D,
+			PORTD14 = 0x04AA203E,
+			PORTD15 = 0x04AA203F,
+			PORTE0  = 0x04AA2040,
+			PORTE1  = 0x04AA2041,
+			PORTE2  = 0x04AA2042,
+			PORTE3  = 0x04AA2043,
+			PORTE4  = 0x04AA2044,
+			PORTE5  = 0x04AA2045,
+			PORTE6  = 0x04AA2046,
+			PORTE7  = 0x04AA2047,
+			PORTE8  = 0x04AA2048,
+			PORTE9  = 0x04AA2049,
+			PORTE10 = 0x04AA204A,
+			PORTE11 = 0x04AA204B,
+			PORTE12 = 0x04AA204C,
+			PORTE13 = 0x04AA204D,
+			PORTE14 = 0x04AA204E,
+			PORTE15 = 0x04AA204F
+		}kSPI_NSS_SOFT_Pin;
+	}kSPI_NSS_SOFT;
+
+	typedef struct
+	{
+		kSPI_SPI1_NSS Hard;
+		kSPI_NSS_SOFT Soft;
+	}kSPI_SPI1_NSS_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_NSS Hard;
+		kSPI_NSS_SOFT Soft;
+	}kSPI_SPI2_NSS_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI3_NSS Hard;
+		kSPI_NSS_SOFT Soft;
+	}kSPI_SPI3_NSS_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI4_NSS Hard;
+		kSPI_NSS_SOFT Soft;
+	}kSPI_SPI4_NSS_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI5_NSS Hard;
+		kSPI_NSS_SOFT Soft;
+	}kSPI_SPI5_NSS_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_SLAVE_SELECT_SELECT_SELECT Master;
+		kSPI_SPI1_MASTER_SELECT_SELECT_SELECT Slave;
+		kSPI_SPI1_MISO MISO;
+		kSPI_SPI1_MOSI MOSI;
+		kSPI_SPI1_SCK  SCK;
+		kSPI_SPI1_NSS_SELECT NSS;
+	}kSPI_SPI1;
+
+	typedef struct
+	{
+		kSPI_SPI2_SLAVE_SELECT_SELECT_SELECT Master;
+		kSPI_SPI2_MASTER_SELECT_SELECT_SELECT Slave;
+		kSPI_SPI2_MISO MISO;
+		kSPI_SPI2_MOSI MOSI;
+		kSPI_SPI2_SCK  SCK;
+		kSPI_SPI2_NSS_SELECT NSS;
+	}kSPI_SPI2;
+
+	typedef struct
+	{
+		kSPI_SPI3_SLAVE_SELECT_SELECT_SELECT Master;
+		kSPI_SPI3_MASTER_SELECT_SELECT_SELECT Slave;
+		kSPI_SPI3_MISO MISO;
+		kSPI_SPI3_MOSI MOSI;
+		kSPI_SPI3_SCK  SCK;
+		kSPI_SPI3_NSS_SELECT NSS;
+	}kSPI_SPI3;
+
+	typedef struct
+	{
+		kSPI_SPI4_SLAVE_SELECT_SELECT_SELECT Master;
+		kSPI_SPI4_MASTER_SELECT_SELECT_SELECT Slave;
+		kSPI_SPI4_MISO MISO;
+		kSPI_SPI4_MOSI MOSI;
+		kSPI_SPI4_SCK  SCK;
+		kSPI_SPI4_NSS_SELECT NSS;
+	}kSPI_SPI4;
+
+	typedef struct
+	{
+		kSPI_SPI5_SLAVE_SELECT_SELECT_SELECT Master;
+		kSPI_SPI5_MASTER_SELECT_SELECT_SELECT Slave;
+		kSPI_SPI5_MISO MISO;
+		kSPI_SPI5_MOSI MOSI;
+		kSPI_SPI5_SCK  SCK;
+		kSPI_SPI5_NSS_SELECT NSS;
+	}kSPI_SPI5;
+
+
+#endif
 #if (kLib_config_PLATFORM == kLib_STM32F429xx)
 
 	typedef struct
@@ -1243,6 +2234,464 @@
 
 
 #endif
+#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB4  = 0x04662014
+		}kSPI_SPI1_MISO_Pin;
+	}kSPI_SPI1_MISO;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7  = 0x04662007,
+			PORTA12 = 0x0466200C,
+			PORTB5  = 0x04662015
+		}kSPI_SPI1_MOSI_Pin;
+	}kSPI_SPI1_MOSI;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB3  = 0x04662013
+		}kSPI_SPI1_SCK_Pin;
+	}kSPI_SPI1_SCK;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4  = 0x04662004
+		}kSPI_SPI1_NSS_Pin;
+	}kSPI_SPI1_NSS;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660000,
+			DataCapture_2Edge = 0x0C660001
+		}kSPI_SPI1_SLAVE_MSB_LOW_SELECT;
+	}kSPI_SPI1_SLAVE_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660002,
+			DataCapture_2Edge = 0x0C660003
+		}kSPI_SPI1_SLAVE_MSB_HIGH_SELECT;
+	}kSPI_SPI1_SLAVE_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660008,
+			DataCapture_2Edge = 0x0C660009
+		}kSPI_SPI1_SLAVE_LSB_LOW_SELECT;
+	}kSPI_SPI1_SLAVE_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C66000A,
+			DataCapture_2Edge = 0x0C66000B
+		}kSPI_SPI1_SLAVE_LSB_HIGH_SELECT;
+	}kSPI_SPI1_SLAVE_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660004,
+			DataCapture_2Edge = 0x0C660005
+		}kSPI_SPI1_MASTER_MSB_LOW_SELECT;
+	}kSPI_SPI1_MASTER_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C660006,
+			DataCapture_2Edge = 0x0C660007
+		}kSPI_SPI1_MASTER_MSB_HIGH_SELECT;
+	}kSPI_SPI1_MASTER_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C66000C,
+			DataCapture_2Edge = 0x0C66000D
+		}kSPI_SPI1_MASTER_LSB_LOW_SELECT;
+	}kSPI_SPI1_MASTER_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0C66000E,
+			DataCapture_2Edge = 0x0C66000F
+		}kSPI_SPI1_MASTER_LSB_HIGH_SELECT;
+	}kSPI_SPI1_MASTER_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		kSPI_SPI1_SLAVE_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI1_SLAVE_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI1_SLAVE_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_SLAVE_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI1_SLAVE_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI1_SLAVE_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_MASTER_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI1_MASTER_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI1_MASTER_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_MASTER_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI1_MASTER_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI1_MASTER_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_SLAVE_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI1_SLAVE_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI1_SLAVE_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_MASTER_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI1_MASTER_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI1_MASTER_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4  = 0x04662004
+		}kSPI_SPI1_NSS_HARD_Pin;
+	}kSPI_SPI1_NSS_HARD;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB14 = 0x0647201E,
+			PORTC2  = 0x06472222
+		}kSPI_SPI2_MISO_Pin;
+	}kSPI_SPI2_MISO;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB15 = 0x0647201F,
+			PORTC3  = 0x06472223
+		}kSPI_SPI2_MOSI_Pin;
+	}kSPI_SPI2_MOSI;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB10 = 0x0647251A,
+			PORTB13 = 0x0647201D
+		}kSPI_SPI2_SCK_Pin;
+	}kSPI_SPI2_SCK;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB9  = 0x06472519,
+			PORTB12 = 0x0647201C
+		}kSPI_SPI2_NSS_Pin;
+	}kSPI_SPI2_NSS;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470000,
+			DataCapture_2Edge = 0x0E470001
+		}kSPI_SPI2_SLAVE_MSB_LOW_SELECT;
+	}kSPI_SPI2_SLAVE_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470002,
+			DataCapture_2Edge = 0x0E470003
+		}kSPI_SPI2_SLAVE_MSB_HIGH_SELECT;
+	}kSPI_SPI2_SLAVE_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470008,
+			DataCapture_2Edge = 0x0E470009
+		}kSPI_SPI2_SLAVE_LSB_LOW_SELECT;
+	}kSPI_SPI2_SLAVE_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E47000A,
+			DataCapture_2Edge = 0x0E47000B
+		}kSPI_SPI2_SLAVE_LSB_HIGH_SELECT;
+	}kSPI_SPI2_SLAVE_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470004,
+			DataCapture_2Edge = 0x0E470005
+		}kSPI_SPI2_MASTER_MSB_LOW_SELECT;
+	}kSPI_SPI2_MASTER_MSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E470006,
+			DataCapture_2Edge = 0x0E470007
+		}kSPI_SPI2_MASTER_MSB_HIGH_SELECT;
+	}kSPI_SPI2_MASTER_MSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E47000C,
+			DataCapture_2Edge = 0x0E47000D
+		}kSPI_SPI2_MASTER_LSB_LOW_SELECT;
+	}kSPI_SPI2_MASTER_LSB_LOW_EDGE;
+
+	typedef struct
+	{
+		typedef enum
+		{
+
+			DataCapture_1Edge = 0x0E47000E,
+			DataCapture_2Edge = 0x0E47000F
+		}kSPI_SPI2_MASTER_LSB_HIGH_SELECT;
+	}kSPI_SPI2_MASTER_LSB_HIGH_EDGE;
+
+	typedef struct
+	{
+		kSPI_SPI2_SLAVE_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI2_SLAVE_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI2_SLAVE_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_SLAVE_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI2_SLAVE_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI2_SLAVE_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_MASTER_MSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI2_MASTER_MSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI2_MASTER_MSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_MASTER_LSB_LOW_EDGE SCK_IdleLow;
+		kSPI_SPI2_MASTER_LSB_HIGH_EDGE SCK_IdleHigh;
+	}kSPI_SPI2_MASTER_LSB_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_SLAVE_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI2_SLAVE_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI2_SLAVE_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_MASTER_MSB_SELECT_SELECT MSB_First;
+		kSPI_SPI2_MASTER_LSB_SELECT_SELECT LSB_First;
+	}kSPI_SPI2_MASTER_SELECT_SELECT_SELECT;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB9  = 0x06472519,
+			PORTB12 = 0x0647201C
+		}kSPI_SPI2_NSS_HARD_Pin;
+	}kSPI_SPI2_NSS_HARD;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0  = 0x06472000,
+			PORTA1  = 0x06472001,
+			PORTA2  = 0x06472002,
+			PORTA3  = 0x06472003,
+			PORTA4  = 0x06472004,
+			PORTA5  = 0x06472005,
+			PORTA6  = 0x06472006,
+			PORTA7  = 0x06472007,
+			PORTA8  = 0x06472008,
+			PORTA9  = 0x06472009,
+			PORTA10 = 0x0647200A,
+			PORTA11 = 0x0647200B,
+			PORTA12 = 0x0647200C,
+			PORTA13 = 0x0647200D,
+			PORTA14 = 0x0647200E,
+			PORTA15 = 0x0647200F,
+			PORTB0  = 0x06472010,
+			PORTB1  = 0x06472011,
+			PORTB2  = 0x06472012,
+			PORTB3  = 0x06472013,
+			PORTB4  = 0x06472014,
+			PORTB5  = 0x06472015,
+			PORTB6  = 0x06472016,
+			PORTB7  = 0x06472017,
+			PORTB8  = 0x06472018,
+			PORTB9  = 0x06472019,
+			PORTB10 = 0x0647201A,
+			PORTB11 = 0x0647201B,
+			PORTB12 = 0x0647201C,
+			PORTB13 = 0x0647201D,
+			PORTB14 = 0x0647201E,
+			PORTB15 = 0x0647201F,
+			PORTC0  = 0x06472020,
+			PORTC1  = 0x06472021,
+			PORTC2  = 0x06472022,
+			PORTC3  = 0x06472023,
+			PORTC4  = 0x06472024,
+			PORTC5  = 0x06472025,
+			PORTC6  = 0x06472026,
+			PORTC7  = 0x06472027,
+			PORTC8  = 0x06472028,
+			PORTC9  = 0x06472029,
+			PORTC10 = 0x0647202A,
+			PORTC11 = 0x0647202B,
+			PORTC12 = 0x0647202C,
+			PORTC13 = 0x0647202D,
+			PORTC14 = 0x0647202E,
+			PORTC15 = 0x0647202F,
+			PORTD0  = 0x06472030,
+			PORTD1  = 0x06472031,
+			PORTD2  = 0x06472032,
+			PORTD3  = 0x06472033,
+			PORTD4  = 0x06472034,
+			PORTD5  = 0x06472035,
+			PORTD6  = 0x06472036,
+			PORTD7  = 0x06472037,
+			PORTD8  = 0x06472038,
+			PORTD9  = 0x06472039,
+			PORTD10 = 0x0647203A,
+			PORTD11 = 0x0647203B,
+			PORTD12 = 0x0647203C,
+			PORTD13 = 0x0647203D,
+			PORTD14 = 0x0647203E,
+			PORTD15 = 0x0647203F,
+			PORTE0  = 0x06472040,
+			PORTE1  = 0x06472041,
+			PORTE2  = 0x06472042,
+			PORTE3  = 0x06472043,
+			PORTE4  = 0x06472044,
+			PORTE5  = 0x06472045,
+			PORTE6  = 0x06472046,
+			PORTE7  = 0x06472047,
+			PORTE8  = 0x06472048,
+			PORTE9  = 0x06472049,
+			PORTE10 = 0x0647204A,
+			PORTE11 = 0x0647204B,
+			PORTE12 = 0x0647204C,
+			PORTE13 = 0x0647204D,
+			PORTE14 = 0x0647204E,
+			PORTE15 = 0x0647204F,
+			PORTH0  = 0x06472070,
+			PORTH1  = 0x06472071,
+			PORTH2  = 0x06472072,
+			PORTH3  = 0x06472073,
+			PORTH4  = 0x06472074,
+			PORTH5  = 0x06472075,
+			PORTH6  = 0x06472076,
+			PORTH7  = 0x06472077,
+			PORTH8  = 0x06472078,
+			PORTH9  = 0x06472079,
+			PORTH10 = 0x0647207A,
+			PORTH11 = 0x0647207B,
+			PORTH12 = 0x0647207C,
+			PORTH13 = 0x0647207D,
+			PORTH14 = 0x0647207E,
+			PORTH15 = 0x0647207F
+		}kSPI_NSS_SOFT_Pin;
+	}kSPI_NSS_SOFT;
+
+	typedef struct
+	{
+		kSPI_SPI1_NSS Hard;
+		kSPI_NSS_SOFT Soft;
+	}kSPI_SPI1_NSS_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI2_NSS Hard;
+		kSPI_NSS_SOFT Soft;
+	}kSPI_SPI2_NSS_SELECT;
+
+	typedef struct
+	{
+		kSPI_SPI1_SLAVE_SELECT_SELECT_SELECT Master;
+		kSPI_SPI1_MASTER_SELECT_SELECT_SELECT Slave;
+		kSPI_SPI1_MISO MISO;
+		kSPI_SPI1_MOSI MOSI;
+		kSPI_SPI1_SCK  SCK;
+		kSPI_SPI1_NSS_SELECT NSS;
+	}kSPI_SPI1;
+
+	typedef struct
+	{
+		kSPI_SPI2_SLAVE_SELECT_SELECT_SELECT Master;
+		kSPI_SPI2_MASTER_SELECT_SELECT_SELECT Slave;
+		kSPI_SPI2_MISO MISO;
+		kSPI_SPI2_MOSI MOSI;
+		kSPI_SPI2_SCK  SCK;
+		kSPI_SPI2_NSS_SELECT NSS;
+	}kSPI_SPI2;
+
+
+#endif
 
 
 // endregion PLATFORM_DEPENDED_STRUCTS
@@ -1251,8 +2700,39 @@
 	{
 		public:
 
-			static const kSPI_SPI1 * spi1;
+// region SPI_DECLARATIONS
 
+		#if (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+			static const kSPI_SPI1  * spi1;
+			static const kSPI_SPI2  * spi2;
+			static const kSPI_SPI3  * spi3;
+			static const kSPI_SPI4  * spi4;
+			static const kSPI_SPI5  * spi5;
+
+		#endif
+
+		#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+
+			static const kSPI_SPI1  * spi1;
+			static const kSPI_SPI2  * spi2;
+			static const kSPI_SPI3  * spi3;
+			static const kSPI_SPI4  * spi4;
+			static const kSPI_SPI5  * spi5;
+			static const kSPI_SPI6  * spi6;
+
+		#endif
+
+		#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+
+			static const kSPI_SPI1  * spi1;
+			static const kSPI_SPI2  * spi2;
+
+		#endif
+
+
+
+// endregion SPI_DECLARATIONS
 
 	};
 

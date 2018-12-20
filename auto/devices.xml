@@ -1,4 +1,246 @@
 <devices>
+  <device name="STM32F411xx">
+    <AFM pinName="PA0" number="1" value="TIM2_CH1"/>
+    <AFM pinName="PA0" number="2" value="TIM5_CH1"/>
+    <AFM pinName="PA1" number="1" value="TIM2_CH2"/>
+    <AFM pinName="PA1" number="2" value="TIM5_CH2"/>
+    <AFM pinName="PA1" number="5" value="SPI4_MOSI"/>
+    <AFM pinName="PA2" number="1" value="TIM2_CH3"/>
+    <AFM pinName="PA2" number="2" value="TIM5_CH3"/>
+    <AFM pinName="PA2" number="3" value="TIM9_CH1"/>
+    <AFM pinName="PA2" number="7" value="USART2_TX"/>
+    <AFM pinName="PA3" number="1" value="TIM2_CH4"/>
+    <AFM pinName="PA3" number="2" value="TIM5_CH4"/>
+    <AFM pinName="PA3" number="3" value="TIM9_CH2"/>
+    <AFM pinName="PA3" number="7" value="USART2_RX"/>
+    <AFM pinName="PA4" number="5" value="SPI1_NSS"/>
+    <AFM pinName="PA4" number="6" value="SPI3_NSS"/>
+    <AFM pinName="PA5" number="1" value="TIM2_CH1"/>
+    <AFM pinName="PA5" number="5" value="SPI1_SCK"/>
+    <AFM pinName="PA6" number="2" value="TIM3_CH1"/>
+    <AFM pinName="PA6" number="5" value="SPI1_MISO"/>
+    <AFM pinName="PA7" number="2" value="TIM3_CH2"/>
+    <AFM pinName="PA7" number="5" value="SPI1_MOSI"/>
+    <AFM pinName="PA8" number="1" value="TIM1_CH1"/>
+    <AFM pinName="PA8" number="4" value="I2C3_SCL"/>
+    <AFM pinName="PA9" number="1" value="TIM1_CH2"/>
+    <AFM pinName="PA9" number="7" value="USART1_TX"/>
+    <AFM pinName="PA10" number="1" value="TIM1_CH3"/>
+    <AFM pinName="PA10" number="6" value="SPI5_MOSI"/>
+    <AFM pinName="PA10" number="7" value="USART1_RX"/>
+    <AFM pinName="PA11" number="1" value="TIM1_CH4"/>
+    <AFM pinName="PA11" number="6" value="SPI4_MISO"/>
+    <AFM pinName="PA11" number="8" value="USART6_TX"/>
+    <AFM pinName="PA12" number="6" value="SPI5_MISO"/>
+    <AFM pinName="PA12" number="8" value="USART6_RX"/>
+    <AFM pinName="PA15" number="1" value="TIM2_CH1"/>
+    <AFM pinName="PA15" number="5" value="SPI1_NSS"/>
+    <AFM pinName="PA15" number="6" value="SPI3_NSS"/>
+    <AFM pinName="PA15" number="7" value="USART1_TX"/>
+    <AFM pinName="PB0" number="2" value="TIM3_CH3"/>
+    <AFM pinName="PB0" number="6" value="SPI5_SCK"/>
+    <AFM pinName="PB1" number="2" value="TIM3_CH4"/>
+    <AFM pinName="PB1" number="6" value="SPI5_NSS"/>
+    <AFM pinName="PB3" number="1" value="TIM2_CH2"/>
+    <AFM pinName="PB3" number="5" value="SPI1_SCK"/>
+    <AFM pinName="PB3" number="6" value="SPI3_SCK"/>
+    <AFM pinName="PB3" number="7" value="USART1_RX"/>
+    <AFM pinName="PB3" number="9" value="I2C2_SDA"/>
+    <AFM pinName="PB4" number="2" value="TIM3_CH1"/>
+    <AFM pinName="PB4" number="5" value="SPI1_MISO"/>
+    <AFM pinName="PB4" number="6" value="SPI3_MISO"/>
+    <AFM pinName="PB4" number="9" value="I2C3_SDA"/>
+    <AFM pinName="PB5" number="2" value="TIM3_CH2"/>
+    <AFM pinName="PB5" number="5" value="SPI1_MOSI"/>
+    <AFM pinName="PB5" number="6" value="SPI3_MOSI"/>
+    <AFM pinName="PB6" number="2" value="TIM4_CH1"/>
+    <AFM pinName="PB6" number="4" value="I2C1_SCL"/>
+    <AFM pinName="PB6" number="7" value="USART1_TX"/>
+    <AFM pinName="PB7" number="2" value="TIM4_CH2"/>
+    <AFM pinName="PB7" number="4" value="I2C1_SDA"/>
+    <AFM pinName="PB7" number="7" value="USART1_RX"/>
+    <AFM pinName="PB8" number="2" value="TIM4_CH3"/>
+    <AFM pinName="PB8" number="3" value="TIM10_CH1"/>
+    <AFM pinName="PB8" number="4" value="I2C1_SCL"/>
+    <AFM pinName="PB8" number="6" value="SPI5_MOSI"/>
+    <AFM pinName="PB8" number="9" value="I2C3_SDA"/>
+    <AFM pinName="PB9" number="2" value="TIM4_CH4"/>
+    <AFM pinName="PB9" number="3" value="TIM11_CH1"/>
+    <AFM pinName="PB9" number="4" value="I2C1_SDA"/>
+    <AFM pinName="PB9" number="5" value="SPI2_NSS"/>
+    <AFM pinName="PB9" number="9" value="I2C2_SDA"/>
+    <AFM pinName="PB10" number="1" value="TIM2_CH3"/>
+    <AFM pinName="PB10" number="4" value="I2C2_SCL"/>
+    <AFM pinName="PB10" number="5" value="SPI2_SCK"/>
+    <AFM pinName="PB11" number="1" value="TIM2_CH4"/>
+    <AFM pinName="PB11" number="4" value="I2C2_SDA"/>
+    <AFM pinName="PB12" number="5" value="SPI2_NSS"/>
+    <AFM pinName="PB12" number="6" value="SPI4_NSS"/>
+    <AFM pinName="PB12" number="7" value="SPI3_SCK"/>
+    <AFM pinName="PB13" number="5" value="SPI2_SCK"/>
+    <AFM pinName="PB13" number="6" value="SPI4_SCK"/>
+    <AFM pinName="PB14" number="5" value="SPI2_MISO"/>
+    <AFM pinName="PB15" number="5" value="SPI2_MOSI"/>
+    <AFM pinName="PC2" number="5" value="SPI2_MISO"/>
+    <AFM pinName="PC3" number="5" value="SPI2_MOSI"/>
+    <AFM pinName="PC6" number="2" value="TIM3_CH1"/>
+    <AFM pinName="PC6" number="8" value="USART6_TX"/>
+    <AFM pinName="PC7" number="2" value="TIM3_CH2"/>
+    <AFM pinName="PC7" number="5" value="SPI2_SCK"/>
+    <AFM pinName="PC7" number="8" value="USART6_RX"/>
+    <AFM pinName="PC8" number="2" value="TIM3_CH3"/>
+    <AFM pinName="PC9" number="2" value="TIM3_CH4"/>
+    <AFM pinName="PC9" number="4" value="I2C3_SDA"/>
+    <AFM pinName="PC10" number="6" value="SPI3_SCK"/>
+    <AFM pinName="PC11" number="6" value="SPI3_MISO"/>
+    <AFM pinName="PC12" number="6" value="SPI3_MOSI"/>
+    <AFM pinName="PD3" number="5" value="SPI2_SCK"/>
+    <AFM pinName="PD5" number="7" value="USART2_TX"/>
+    <AFM pinName="PD6" number="5" value="SPI3_MOSI"/>
+    <AFM pinName="PD6" number="7" value="USART2_RX"/>
+    <AFM pinName="PD12" number="2" value="TIM4_CH1"/>
+    <AFM pinName="PD13" number="2" value="TIM4_CH2"/>
+    <AFM pinName="PD14" number="2" value="TIM4_CH3"/>
+    <AFM pinName="PD15" number="2" value="TIM4_CH4"/>
+    <AFM pinName="PE2" number="5" value="SPI4_SCK"/>
+    <AFM pinName="PE2" number="6" value="SPI5_SCK"/>
+    <AFM pinName="PE4" number="5" value="SPI4_NSS"/>
+    <AFM pinName="PE4" number="6" value="SPI5_NSS"/>
+    <AFM pinName="PE5" number="3" value="TIM9_CH1"/>
+    <AFM pinName="PE5" number="5" value="SPI4_MISO"/>
+    <AFM pinName="PE5" number="6" value="SPI5_MISO"/>
+    <AFM pinName="PE6" number="3" value="TIM9_CH2"/>
+    <AFM pinName="PE6" number="5" value="SPI4_MOSI"/>
+    <AFM pinName="PE6" number="6" value="SPI5_MOSI"/>
+    <AFM pinName="PE9" number="1" value="TIM1_CH1"/>
+    <AFM pinName="PE11" number="1" value="TIM1_CH2"/>
+    <AFM pinName="PE11" number="5" value="SPI4_NSS"/>
+    <AFM pinName="PE11" number="6" value="SPI5_NSS"/>
+    <AFM pinName="PE12" number="5" value="SPI4_SCK"/>
+    <AFM pinName="PE12" number="6" value="SPI5_SCK"/>
+    <AFM pinName="PE13" number="1" value="TIM1_CH3"/>
+    <AFM pinName="PE13" number="5" value="SPI4_MISO"/>
+    <AFM pinName="PE13" number="6" value="SPI5_MISO"/>
+    <AFM pinName="PE14" number="1" value="TIM1_CH4"/>
+    <AFM pinName="PE14" number="5" value="SPI4_MOSI"/>
+    <AFM pinName="PE14" number="6" value="SPI5_MOSI"/>
+    <PERIPHERAL name="GPIOA" address="0x40020000" rccEnableBit="0"/>
+    <PERIPHERAL name="GPIOB" address="0x40020400" rccEnableBit="1"/>
+    <PERIPHERAL name="GPIOC" address="0x40020800" rccEnableBit="2"/>
+    <PERIPHERAL name="GPIOD" address="0x40020C00" rccEnableBit="3"/>
+    <PERIPHERAL name="GPIOE" address="0x40021000" rccEnableBit="4"/>
+    <PERIPHERAL name="Timer2" address="0x40000000" rccEnableBit="0"/>
+    <PERIPHERAL name="Timer3" address="0x40000400" rccEnableBit="1"/>
+    <PERIPHERAL name="Timer4" address="0x40000800" rccEnableBit="2"/>
+    <PERIPHERAL name="Timer5" address="0x40000C00" rccEnableBit="3"/>
+    <PERIPHERAL name="Timer1" address="0x40010000" rccEnableBit="0"/>
+    <PERIPHERAL name="Timer9" address="0x40014000" rccEnableBit="16"/>
+    <PERIPHERAL name="Timer10" address="0x40014400" rccEnableBit="17"/>
+    <PERIPHERAL name="Timer11" address="0x40014800" rccEnableBit="18"/>
+    <PERIPHERAL name="I2C1" address="0x40005400" rccEnableBit="21"/>
+    <PERIPHERAL name="I2C2" address="0x40005800" rccEnableBit="22"/>
+    <PERIPHERAL name="I2C3" address="0x40005C00" rccEnableBit="23"/>
+    <PERIPHERAL name="USART1" address="0x40011000" rccEnableBit="4"/>
+    <PERIPHERAL name="USART2" address="0x40004400" rccEnableBit="17"/>
+    <PERIPHERAL name="USART6" address="0x40011400" rccEnableBit="5"/>
+    <PERIPHERAL name="SPI1" address="0x40013000" rccEnableBit="12"/>
+    <PERIPHERAL name="SPI2" address="0x40003800" rccEnableBit="14"/>
+    <PERIPHERAL name="SPI3" address="0x40003C00" rccEnableBit="15"/>
+    <PERIPHERAL name="SPI4" address="0x40013400" rccEnableBit="14"/>
+    <PERIPHERAL name="SPI5" address="0x40015000" rccEnableBit="20"/>
+    <PERIPHERAL name="DMA1" address="0x40026000" rccEnableBit="21"/>
+    <PERIPHERAL name="DMA2" address="0x40026400" rccEnableBit="22"/>
+    <DMA name="DMA1" channel="0" stream="0" value="SPI3_RX"/>
+    <DMA name="DMA1" channel="0" stream="2" value="SPI3_RX"/>
+    <DMA name="DMA1" channel="0" stream="3" value="SPI2_RX"/>
+    <DMA name="DMA1" channel="0" stream="4" value="SPI2_TX"/>
+    <DMA name="DMA1" channel="0" stream="5" value="SPI3_TX"/>
+    <DMA name="DMA1" channel="0" stream="7" value="SPI3_TX"/>
+    <DMA name="DMA1" channel="1" stream="0" value="I2C1_RX"/>
+    <DMA name="DMA1" channel="1" stream="2" value="TIM7_UP"/>
+    <DMA name="DMA1" channel="1" stream="4" value="TIM7_UP"/>
+    <DMA name="DMA1" channel="1" stream="5" value="I2C1_RX"/>
+    <DMA name="DMA1" channel="1" stream="6" value="I2C1_TX"/>
+    <DMA name="DMA1" channel="1" stream="7" value="I2C1_TX"/>
+    <DMA name="DMA1" channel="2" stream="0" value="TIM4_CH1"/>
+    <DMA name="DMA1" channel="2" stream="3" value="TIM4_CH2"/>
+    <DMA name="DMA1" channel="2" stream="6" value="TIM4_UP"/>
+    <DMA name="DMA1" channel="2" stream="7" value="TIM4_CH3"/>
+    <DMA name="DMA1" channel="3" stream="1" value="TIM2_CH3"/>
+    <DMA name="DMA1" channel="3" stream="2" value="I2C3_RX"/>
+    <DMA name="DMA1" channel="3" stream="4" value="I2C3_TX"/>
+    <DMA name="DMA1" channel="3" stream="5" value="TIM2_CH1"/>
+    <DMA name="DMA1" channel="3" stream="6" value="TIM2_CH2"/>
+    <DMA name="DMA1" channel="3" stream="6" value="TIM2_CH4"/>
+    <DMA name="DMA1" channel="3" stream="7" value="TIM2_CH4"/>
+    <DMA name="DMA1" channel="4" stream="0" value="UART5_RX"/>
+    <DMA name="DMA1" channel="4" stream="1" value="USART3_RX"/>
+    <DMA name="DMA1" channel="4" stream="2" value="UART4_RX"/>
+    <DMA name="DMA1" channel="4" stream="3" value="USART3_TX"/>
+    <DMA name="DMA1" channel="4" stream="4" value="UART4_TX"/>
+    <DMA name="DMA1" channel="4" stream="5" value="USART2_RX"/>
+    <DMA name="DMA1" channel="4" stream="6" value="USART2_TX"/>
+    <DMA name="DMA1" channel="4" stream="7" value="UART5_TX"/>
+    <DMA name="DMA1" channel="5" stream="2" value="TIM3_CH4"/>
+    <DMA name="DMA1" channel="5" stream="4" value="TIM3_CH1"/>
+    <DMA name="DMA1" channel="5" stream="4" value="TIM3_TRIG"/>
+    <DMA name="DMA1" channel="5" stream="5" value="TIM3_CH2"/>
+    <DMA name="DMA1" channel="5" stream="7" value="TIM3_CH3"/>
+    <DMA name="DMA1" channel="6" stream="0" value="TIM5_CH3"/>
+    <DMA name="DMA1" channel="6" stream="0" value="TIM5_UP"/>
+    <DMA name="DMA1" channel="6" stream="1" value="TIM5_CH4"/>
+    <DMA name="DMA1" channel="6" stream="1" value="TIM5_TRIG"/>
+    <DMA name="DMA1" channel="6" stream="2" value="TIM5_CH1"/>
+    <DMA name="DMA1" channel="6" stream="3" value="TIM5_CH4"/>
+    <DMA name="DMA1" channel="6" stream="3" value="TIM5_TRIG"/>
+    <DMA name="DMA1" channel="6" stream="4" value="TIM5_CH2"/>
+    <DMA name="DMA1" channel="6" stream="6" value="TIM5_UP"/>
+    <DMA name="DMA1" channel="7" stream="1" value="TIM6_UP"/>
+    <DMA name="DMA1" channel="7" stream="2" value="I2C2_RX"/>
+    <DMA name="DMA1" channel="7" stream="3" value="I2C2_RX"/>
+    <DMA name="DMA1" channel="7" stream="4" value="USART3_TX"/>
+    <DMA name="DMA1" channel="7" stream="5" value="DAC1"/>
+    <DMA name="DMA1" channel="7" stream="6" value="DAC2"/>
+    <DMA name="DMA1" channel="7" stream="7" value="I2C2_TX"/>
+    <DMA name="DMA2" channel="0" stream="0" value="ADC1"/>
+    <DMA name="DMA2" channel="0" stream="2" value="TIM8_CH1"/>
+    <DMA name="DMA2" channel="0" stream="2" value="TIM8_CH2"/>
+    <DMA name="DMA2" channel="0" stream="2" value="TIM8_CH3"/>
+    <DMA name="DMA2" channel="0" stream="4" value="ADC1"/>
+    <DMA name="DMA2" channel="0" stream="6" value="TIM1_CH1"/>
+    <DMA name="DMA2" channel="0" stream="6" value="TIM1_CH2"/>
+    <DMA name="DMA2" channel="0" stream="6" value="TIM1_CH3"/>
+    <DMA name="DMA2" channel="1" stream="2" value="ADC2"/>
+    <DMA name="DMA2" channel="1" stream="3" value="ADC2"/>
+    <DMA name="DMA2" channel="2" stream="0" value="ADC3"/>
+    <DMA name="DMA2" channel="2" stream="1" value="ADC3"/>
+    <DMA name="DMA2" channel="3" stream="0" value="SPI1_RX"/>
+    <DMA name="DMA2" channel="3" stream="2" value="SPI1_RX"/>
+    <DMA name="DMA2" channel="3" stream="3" value="SPI1_TX"/>
+    <DMA name="DMA2" channel="3" stream="5" value="SPI1_TX"/>
+    <DMA name="DMA2" channel="4" stream="1" value="SPI4_TX"/>
+    <DMA name="DMA2" channel="4" stream="2" value="USART1_RX"/>
+    <DMA name="DMA2" channel="4" stream="5" value="USART1_RX"/>
+    <DMA name="DMA2" channel="4" stream="7" value="USART1_TX"/>
+    <DMA name="DMA2" channel="5" stream="1" value="USART6_RX"/>
+    <DMA name="DMA2" channel="5" stream="2" value="USART6_RX"/>
+    <DMA name="DMA2" channel="5" stream="6" value="USART6_TX"/>
+    <DMA name="DMA2" channel="5" stream="7" value="USART6_TX"/>
+    <DMA name="DMA2" channel="6" stream="0" value="TIM1_TRIG"/>
+    <DMA name="DMA2" channel="6" stream="1" value="TIM1_CH1"/>
+    <DMA name="DMA2" channel="6" stream="2" value="TIM1_CH2"/>
+    <DMA name="DMA2" channel="6" stream="3" value="TIM1_CH1"/>
+    <DMA name="DMA2" channel="6" stream="4" value="TIM1_CH4"/>
+    <DMA name="DMA2" channel="6" stream="4" value="TIM1_TRIG"/>
+    <DMA name="DMA2" channel="6" stream="4" value="TIM1_COM"/>
+    <DMA name="DMA2" channel="6" stream="5" value="TIM1_UP"/>
+    <DMA name="DMA2" channel="7" stream="1" value="TIM8_UP"/>
+    <DMA name="DMA2" channel="7" stream="3" value="TIM8_CH2"/>
+    <DMA name="DMA2" channel="7" stream="4" value="TIM8_CH3"/>
+    <DMA name="DMA2" channel="7" stream="7" value="TIM8_CH4"/>
+    <DMA name="DMA2" channel="7" stream="7" value="TIM8_TRIG"/>
+    <DMA name="DMA2" channel="7" stream="7" value="TIM8_COM"/>
+  </device>
   <device name="STM32F429xx">
     <AFM pinName="PA0" number="1" value="TIM2_CH1"/>
     <AFM pinName="PA0" number="2" value="TIM5_CH1"/>
@@ -187,5 +429,86 @@
     <PERIPHERAL name="SPI4" address="0x40013400" rccEnableBit="14"/>
     <PERIPHERAL name="SPI5" address="0x40015000" rccEnableBit="20"/>
     <PERIPHERAL name="SPI6" address="0x40015400" rccEnableBit="21"/>
+  </device>
+  <device name="STM32L053xx">
+    <AFM pinName="PA0" number="2" value="TIM2_CH1"/>
+    <AFM pinName="PA1" number="2" value="TIM2_CH2"/>
+    <AFM pinName="PA2" number="0" value="TIM21_CH1"/>
+    <AFM pinName="PA2" number="2" value="TIM2_CH3"/>
+    <AFM pinName="PA2" number="4" value="USART2_TX"/>
+    <AFM pinName="PA3" number="0" value="TIM21_CH2"/>
+    <AFM pinName="PA3" number="2" value="TIM2_CH4"/>
+    <AFM pinName="PA3" number="4" value="USART2_RX"/>
+    <AFM pinName="PA4" number="0" value="SPI1_NSS"/>
+    <AFM pinName="PA5" number="0" value="SP1_SCK"/>
+    <AFM pinName="PA5" number="5" value="TIM2_CH1"/>
+    <AFM pinName="PA6" number="0" value="SP1_MISO"/>
+    <AFM pinName="PA6" number="5" value="TIM22_CH1"/>
+    <AFM pinName="PA7" number="0" value="SPI1_MOSI"/>
+    <AFM pinName="PA7" number="5" value="TIM22_CH2"/>
+    <AFM pinName="PA9" number="4" value="USART1_TX"/>
+    <AFM pinName="PA10" number="4" value="USART1_RX"/>
+    <AFM pinName="PA11" number="0" value="SP1_MISO"/>
+    <AFM pinName="PA12" number="0" value="SPI1_MOSI"/>
+    <AFM pinName="PA14" number="4" value="USART2_TX"/>
+    <AFM pinName="PA15" number="0" value="SP1_NSS"/>
+    <AFM pinName="PA15" number="4" value="USART2_RX"/>
+    <AFM pinName="PA15" number="5" value="TIM2_CH1"/>
+    <AFM pinName="PB3" number="0" value="SPI1_SCK"/>
+    <AFM pinName="PB3" number="2" value="TIM2_CH2"/>
+    <AFM pinName="PB4" number="0" value="SPI1_MISO"/>
+    <AFM pinName="PB4" number="4" value="TIM22_CH1"/>
+    <AFM pinName="PB5" number="0" value="SPI1_MOSI"/>
+    <AFM pinName="PB5" number="4" value="TIM22_CH2"/>
+    <AFM pinName="PB6" number="0" value="USART1_TX"/>
+    <AFM pinName="PB7" number="0" value="USART1_RX"/>
+    <AFM pinName="PB8" number="4" value="I2C1_SCL"/>
+    <AFM pinName="PB9" number="4" value="I2C1_SDA"/>
+    <AFM pinName="PB9" number="5" value="SPI2_NSS"/>
+    <AFM pinName="PB10" number="2" value="TIM2_CH3"/>
+    <AFM pinName="PB10" number="4" value="LPUART1_TX"/>
+    <AFM pinName="PB10" number="5" value="SPI2_SCK"/>
+    <AFM pinName="PB10" number="6" value="I2C2_SCL"/>
+    <AFM pinName="PB11" number="2" value="TIM2_CH4"/>
+    <AFM pinName="PB11" number="4" value="LPUART1_RX"/>
+    <AFM pinName="PB11" number="6" value="I2C2_SDA"/>
+    <AFM pinName="PB12" number="0" value="SPI2_NSS"/>
+    <AFM pinName="PB13" number="0" value="SPI2_SCK"/>
+    <AFM pinName="PB13" number="5" value="I2C2_SCL"/>
+    <AFM pinName="PB13" number="6" value="TIM21_CH1"/>
+    <AFM pinName="PB14" number="0" value="SPI2_MISO"/>
+    <AFM pinName="PB14" number="5" value="I2C2_SDA"/>
+    <AFM pinName="PB14" number="6" value="TIM21_CH2"/>
+    <AFM pinName="PB15" number="0" value="SPI2_MOSI"/>
+    <AFM pinName="PC2" number="2" value="SPI2_MISO"/>
+    <AFM pinName="PC3" number="2" value="SPI2_MOSI"/>
+    <AFM pinName="PC4" number="2" value="LPUART1_TX"/>
+    <AFM pinName="PC5" number="2" value="LPUART1_RX"/>
+    <AFM pinName="PC6" number="0" value="TIM22_CH1"/>
+    <AFM pinName="PC7" number="0" value="TIM22_CH2"/>
+    <AFM pinName="PC10" number="0" value="LPUART1_TX"/>
+    <AFM pinName="PC11" number="0" value="LPUART1_RX"/>
+    <PERIPHERAL name="GPIOA" address="0X50000000" rccEnableBit="0"/>
+    <PERIPHERAL name="GPIOB" address="0X50000400" rccEnableBit="1"/>
+    <PERIPHERAL name="GPIOC" address="0X50000800" rccEnableBit="2"/>
+    <PERIPHERAL name="GPIOD" address="0X50000C00" rccEnableBit="3"/>
+    <PERIPHERAL name="GPIOE" address="0X50001000" rccEnableBit="4"/>
+    <PERIPHERAL name="GPIOH" address="0X50001C00" rccEnableBit="7"/>
+    <PERIPHERAL name="USART1" address="0X40013800" rccEnableBit="14"/>
+    <PERIPHERAL name="Timer22" address="0X40011400" rccEnableBit="5"/>
+    <PERIPHERAL name="Timer21" address="0X40010800" rccEnableBit="2"/>
+    <PERIPHERAL name="I2C3" address="0X40007800" rccEnableBit="30"/>
+    <PERIPHERAL name="I2C2" address="0X40005800" rccEnableBit="22"/>
+    <PERIPHERAL name="I2C1" address="0X40005400" rccEnableBit="21"/>
+    <PERIPHERAL name="USART5" address="0X40005000" rccEnableBit="20"/>
+    <PERIPHERAL name="USART4" address="0X40004C00" rccEnableBit="19"/>
+    <PERIPHERAL name="LPUART1" address="0X40004800" rccEnableBit="18"/>
+    <PERIPHERAL name="USART2" address="0X40004400" rccEnableBit="17"/>
+    <PERIPHERAL name="SPI1" address="0X40013000" rccEnableBit="12"/>
+    <PERIPHERAL name="SPI2" address="0X40003800" rccEnableBit="14"/>
+    <PERIPHERAL name="Timer7" address="0X40001400" rccEnableBit="5"/>
+    <PERIPHERAL name="Timer6" address="0X40001000" rccEnableBit="4"/>
+    <PERIPHERAL name="Timer3" address="0X40000400" rccEnableBit="1"/>
+    <PERIPHERAL name="Timer2" address="0X40000000" rccEnableBit="0"/>
   </device>
 </devices>

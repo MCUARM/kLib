@@ -80,6 +80,8 @@ def removeWhiteSigns(str):
 		if ord(c) > 32 and ord(c) < 127:
 			res += c
 	return res
+def getCellValuesList(sheet,row,col):
+	return str(sheet.cell(row,col).value).split()	
 def getCellValue(sheet,row,col):
 	return removeWhiteSigns(str(sheet.cell(row,col).value))
 
@@ -128,6 +130,33 @@ def xls2xml():
 							af.set('pinName',getCellValue(sheet,row,0))
 							af.set('number',str(col-1))
 							af.set('value',getCellValue(sheet,row,col));
+
+				if "DMA" in sheet.name:
+				
+					if number_of_columns < 9:
+						continue
+					if number_of_rows < 10:
+						continue
+						
+					
+					if device == None:	
+						device = etree.SubElement(root, "device", name=getCellValue(sheet,0,1))
+
+
+					for row in range(2, number_of_rows):
+
+						for col in range(1,number_of_columns):
+						
+							for value in getCellValuesList(sheet,row,col):
+								if not value or value.isspace():
+									continue
+								
+								af = etree.SubElement(device, "DMA")
+								af.set('name',sheet.name)
+								af.set('channel',str(row-2))
+								af.set('stream',str(col-1))
+								af.set('value',value);
+
 				
 
 				if sheet.name == "Peripherals":
@@ -157,6 +186,8 @@ def getHeaderCloser(header_name):
 def getLicenseString():
 	str = open('License.txt', 'r').read()
 	return str
+	
+
 def getTimerSetupCode(OC_number):
 	oc_num = int(OC_number)
 	res =  ((oc_num-1) & 0x00000003) << 27
@@ -199,6 +230,22 @@ def getAttribute(tag,attribute_name):
 	return str(tag.attributes[attribute_name].value)
 def getValue(tag):
 	return getAttribute(tag,'value')
+def getAllDMAchannelTags(dev,DMA,stream):
+	res = []
+	for channel in grabTags(dev,"DMA"):
+		if getName(DMA) == getName(channel):
+			if int(getAttribute(channel,'stream')) == stream:
+				res.append(channel)
+	return res
+def getDMAchannelTags(dev,DMA,stream,channel_num):
+	res = []
+	for channel in grabTags(dev,"DMA"):
+		if getName(DMA) == getName(channel):
+			if int(getAttribute(channel,'stream')) == stream:
+				if int(getAttribute(channel,'channel')) == channel_num:
+					res.append(channel)
+	return res
+
 def isTimerAF(tag):
 	if 'TIM' in getValue(tag):
 		return True
@@ -342,6 +389,8 @@ def grabAllTimers(device_tag):
 	return grabPeriphTags(device_tag,'Timer')
 def grabAllI2Cs(device_tag):
 	return grabPeriphTags(device_tag,'I2C')
+def grabAllDMA(device_tag):
+	return grabPeriphTags(device_tag,'DMA')
 def grabAllGPIOs(device_tag):
 	return grabPeriphTags(device_tag,'GPIO')
 def getGPIOnumber(gpio_tag):
@@ -507,7 +556,7 @@ def createPWMdefs():
 
 	return res
 	
-def createUSARTdefs():
+def createUSARTstructDefs():
 
 	res = ""
 
@@ -566,7 +615,62 @@ def createUSARTdefs():
 
 		res += "\n#endif\n"
 
-	return res	
+	return res
+	
+def createUSARTdefs():
+	
+	res = ""
+	
+	for dev in grabDevices():
+		res += "\t\t" + getPlatformCondition(dev)
+		for uart in grabAllUARTS(dev):
+			
+			space = " "
+			if getPeripheralNumber(uart) < 10:
+				space += " "
+			res += "\t\t\tstatic const kSerial_"+getName(uart)+space + "* "+getName(uart).lower()+";\n"
+				
+		res += "\n\t\t#endif\n\n"
+
+
+	return res
+
+def createSPIdefs():
+	
+	res = ""
+	
+	for dev in grabDevices():
+		res += "\t\t" + getPlatformCondition(dev)
+		for spi in grabAllSPIs(dev):
+			
+			space = " "
+			if getPeripheralNumber(spi) < 10:
+				space += " "
+			res += "\t\t\tstatic const kSPI_"+getName(spi)+space + "* "+getName(spi).lower()+";\n"
+				
+		res += "\n\t\t#endif\n\n"
+
+
+	return res
+
+def createDMAdefs():
+	
+	res = ""
+	
+	for dev in grabDevices():
+		res += "\t\t" + getPlatformCondition(dev)
+		for dma in grabAllDMA(dev):
+			
+			space = " "
+			if getPeripheralNumber(dma) < 10:
+				space += " "
+			res += "\t\t\tstatic const kDMA_" + getName(dma) + space + "* _"+getName(dma)+";\n"
+				
+		res += "\n\t\t#endif\n\n"
+
+
+	return res
+
 def createPORTdefs():
 
 	res = ""
@@ -579,7 +683,7 @@ def createPORTdefs():
 	
 	return res
 	
-def createI2Cdefs():
+def createI2CstructDefs():
 
 	
 	res = ""
@@ -637,6 +741,25 @@ def createI2Cdefs():
 				
 		res += "\n#endif\n"
 	return res
+def createI2Cdefs():
+	
+	res = ""
+	
+	for dev in grabDevices():
+		res += "\t\t" + getPlatformCondition(dev)
+		for i2c in grabAllI2Cs(dev):
+			
+			space = " "
+			if getPeripheralNumber(i2c) < 10:
+				space += " "
+			res += "\t\t\tstatic const kI2C_"+getName(i2c)+space + "* "+getName(i2c).lower()+";\n"
+				
+		res += "\n\t\t#endif\n\n"
+
+
+	return res
+
+
 
 
 def getSPIconfigStructs(device,spi_tag):
@@ -731,7 +854,7 @@ def getSPIconfigStructs(device,spi_tag):
 
 
 
-def createSPIdefs():
+def createSPIstructDefs():
 
 	res = ""
 	
@@ -887,11 +1010,458 @@ def createSPIdefs():
 		res += "\n#endif\n"
 
 	return res
+
+
+
+
+def createDMAstructDefs():
+
+	res = ""
+	
+	
+	DMA_str = []
+	stream_str = []
+	DataTransferDirection_str = ["P2M","M2P","M2M"]
+	DataSize_str = ["Data8bit",
+					"Data16bit",
+					"Data32bit"]
+	MemoryIncrementMode_str =  ["MemAddrFixed",
+								"MemAddrIncr"]
+	CircularMode_str = ["CircOn",
+						"CircOff"]
+	priority_str = ["PriorityLow     ",
+					"PriorityMedium  ",
+					"PriorityHigh    ",
+					"PriorityVeryHigh"]
+	
+	
+	DMA_name = []
+	stream_name = []	
+	DataTransferDirection_name = ["P2M","M2P","M2M"]
+	DataSize_name = ["DATA8","DATA16","DATA32"]
+	MemoryIncrementMode_name = ["FIXED","INCR"]
+	CircularMode_name = ["CIRCON","CIRCOFF"]
+	priority_name = ["LOW","MEDIUM","HIGH","VERYHIGH"]	
+	
+	for dev in grabDevices():
+		res += getPlatformCondition(dev)
+		for dma_idx,DMA in enumerate(grabAllDMA(dev)):
+			
+		
+			
+			DMA_str.append(getName(DMA).lower())
+			DMA_name.append(getName(DMA))
+		
+			for stream in range(0,8):
+			
+				stream_str.append("Stream" + str(stream))
+				stream_name.append("STREAM" + str(stream))
+			
+				for DataTransferDirection in range(0,2):
+				
+					for channel_num in range(0,8):
+					
+						for channel in getDMAchannelTags(dev,DMA,stream,channel_num):
+					
+					
+							channel_str = getValue(channel)
+							channel_name = "CHANNEL" + str(channel_num) + "_" + getValue(channel)					
+					
+						
+							for DataSize in range (0,3):
+								for MemoryIncrementMode in range (0,2):
+									for CircularMode in range (0,2):
+
+										res += getStructEnumOpener()
+									
+										for priority in range(0,4):
+											if priority > 0:
+												res += ","
+											
+										
+											PeripheralFlowControler = 0
+											if DataTransferDirection < 2:
+												PeripheralFlowControler = 1
+											if DataTransferDirection > 1:
+												channel_num = 0
+										
+											code = getDMAsetupCode(	getPeripheralNumber(DMA),
+																	stream,
+																	channel_num,
+																	priority,
+																	DataSize,
+																	MemoryIncrementMode,
+																	CircularMode,
+																	DataTransferDirection,
+																	PeripheralFlowControler)
+																	
+											res += "\n\t\t\t" + priority_str[priority] + " = " + formatHex(hex(code))
+																	
+										name = 	"kDMA_"	+ DMA_name[dma_idx]
+										name += "_" + stream_name[stream] 
+										name += "_" + DataTransferDirection_name[DataTransferDirection]
+										if DataTransferDirection < 2:
+											name += "_" + channel_name
+										name += "_" + DataSize_name[DataSize]
+										name += "_" + MemoryIncrementMode_name[MemoryIncrementMode]
+										name += "_" + CircularMode_name[CircularMode]
+										name += "_" + "SELECT"
+										
+										res += getStructEnumCloser(name + "_ENUM",name + "_STRUCT")
+
+				for DataTransferDirection in range(2,3):
+				
+					for DataSize in range (0,3):
+						for MemoryIncrementMode in range (0,2):
+							for CircularMode in range (0,2):
+
+								res += getStructEnumOpener()
+							
+								for priority in range(0,4):
+									if priority > 0:
+										res += ","
+									
+								
+									PeripheralFlowControler = 0
+									if DataTransferDirection < 2:
+										PeripheralFlowControler = 1
+									if DataTransferDirection > 1:
+										channel_num = 0
+								
+									code = getDMAsetupCode(	getPeripheralNumber(DMA),
+															stream,
+															channel_num,
+															priority,
+															DataSize,
+															MemoryIncrementMode,
+															CircularMode,
+															DataTransferDirection,
+															PeripheralFlowControler)
+															
+									res += "\n\t\t\t" + priority_str[priority] + " = " + formatHex(hex(code))
+															
+								name = 	"kDMA_"	+ DMA_name[dma_idx]
+								name += "_" + stream_name[stream] 
+								name += "_" + DataTransferDirection_name[DataTransferDirection]
+
+								name += "_" + DataSize_name[DataSize]
+								name += "_" + MemoryIncrementMode_name[MemoryIncrementMode]
+								name += "_" + CircularMode_name[CircularMode]
+								name += "_" + "SELECT"
+								
+								res += getStructEnumCloser(name + "_ENUM",name + "_STRUCT")
+
+										
+			for stream in range(0,8):
+			
+				for DataTransferDirection in range(0,2):
+			
+					for channel_num in range(0,8):
+					
+						for channel in getDMAchannelTags(dev,DMA,stream,channel_num):
+					
+					
+							channel_str = getValue(channel)
+							channel_name = "CHANNEL" + str(channel_num) + "_" + getValue(channel)					
+						
+						
+							for DataSize in range (0,3):
+								for MemoryIncrementMode in range (0,2):
+									res += getStructOpener()
+									name_new = ""
+									for CircularMode in range (0,2):
+						
+										
+																	
+										name = 	"kDMA_"	+ DMA_name[dma_idx]
+										name += "_" + stream_name[stream]
+										name += "_" + DataTransferDirection_name[DataTransferDirection]
+										if DataTransferDirection < 2:
+											name += "_" + channel_name
+										name += "_" + DataSize_name[DataSize]
+										name += "_" + MemoryIncrementMode_name[MemoryIncrementMode]
+										
+										name_new = name
+										name_new += "_SELECT_SELECT"
+										
+										name += "_" + CircularMode_name[CircularMode]										
+										name += "_" + "SELECT_STRUCT"
+										
+										res += "\n\t\t" + name + " " + CircularMode_str[CircularMode] + ";"
+										
+									res += getStructCloser(name_new)
+
+				for DataTransferDirection in range(2,3):
+			
+
+					for DataSize in range (0,3):
+						for MemoryIncrementMode in range (0,2):
+							res += getStructOpener()
+							name_new = ""
+							for CircularMode in range (0,2):
+				
+								
+															
+								name = 	"kDMA_"	+ DMA_name[dma_idx]
+								name += "_" + stream_name[stream]
+								name += "_" + DataTransferDirection_name[DataTransferDirection]
+								name += "_" + DataSize_name[DataSize]
+								name += "_" + MemoryIncrementMode_name[MemoryIncrementMode]
+								
+								name_new = name
+								name_new += "_SELECT_SELECT"
+								
+								name += "_" + CircularMode_name[CircularMode]										
+								name += "_" + "SELECT_STRUCT"
+								
+								res += "\n\t\t" + name + " " + CircularMode_str[CircularMode] + ";"
+								
+							res += getStructCloser(name_new)
+
+			
+			for stream in range(0,8):
+			
+				for DataTransferDirection in range(0,2):
+				
+					for channel_num in range(0,8):
+					
+						for channel in getDMAchannelTags(dev,DMA,stream,channel_num):
+					
+							channel_str = getValue(channel)
+							channel_name = "CHANNEL" + str(channel_num) + "_" + getValue(channel)					
+						
+						
+							for DataSize in range (0,3):
+								res += getStructOpener()
+								
+								name_new = ""
+								for MemoryIncrementMode in range (0,2):
+																	
+									name = 	"kDMA_"	+ DMA_name[dma_idx]
+									name += "_" + stream_name[stream]
+									name += "_" + DataTransferDirection_name[DataTransferDirection]
+									if DataTransferDirection < 2:
+										name += "_" + channel_name
+									name += "_" + DataSize_name[DataSize]
+									
+									name_new = name
+									
+									name += "_" + MemoryIncrementMode_name[MemoryIncrementMode]
+									name += "_SELECT_SELECT"
+									name_new += "_SELECT_SELECT_SELECT"
+									
+									res += "\n\t\t" + name + " " + MemoryIncrementMode_str[MemoryIncrementMode] + ";"
+										
+								res += getStructCloser(name_new)
+
+				for DataTransferDirection in range(2,3):
+							
+					for DataSize in range (0,3):
+						res += getStructOpener()
+						
+						name_new = ""
+						for MemoryIncrementMode in range (0,2):
+															
+							name = 	"kDMA_"	+ DMA_name[dma_idx]
+							name += "_" + stream_name[stream]
+							name += "_" + DataTransferDirection_name[DataTransferDirection]
+
+							name += "_" + DataSize_name[DataSize]
+							
+							name_new = name
+							
+							name += "_" + MemoryIncrementMode_name[MemoryIncrementMode]
+							name += "_SELECT_SELECT"
+							name_new += "_SELECT_SELECT_SELECT"
+							
+							res += "\n\t\t" + name + " " + MemoryIncrementMode_str[MemoryIncrementMode] + ";"
+								
+						res += getStructCloser(name_new)
+
+			for stream in range(0,8):
+			
+				for DataTransferDirection in range(0,2):
+			
+					for channel_num in range(0,8):
+					
+						for channel in getDMAchannelTags(dev,DMA,stream,channel_num):
+					
+					
+							channel_str = getValue(channel)
+							channel_name = "CHANNEL" + str(channel_num) + "_" + getValue(channel)					
+						
+						
+						
+							res += getStructOpener()
+							name_new = ""
+							for DataSize in range (0,3):
+								
+																	
+									name = 	"kDMA_"	+ DMA_name[dma_idx]
+									name += "_" + stream_name[stream]
+									name += "_" + DataTransferDirection_name[DataTransferDirection]
+									if DataTransferDirection < 2:
+										name += "_" + channel_name
+									
+									name_new = name
+									
+									name += "_" + DataSize_name[DataSize]
+									
+									name += "_SELECT_SELECT_SELECT"
+									name_new += "_SELECT_SELECT_SELECT_SELECT"
+									
+									res += "\n\t\t" + name + " " + DataSize_str[DataSize] + ";"
+										
+							res += getStructCloser(name_new)
+
+				for DataTransferDirection in range(2,3):
+
+					res += getStructOpener()
+					name_new = ""
+					for DataSize in range (0,3):
+						
+															
+							name = 	"kDMA_"	+ DMA_name[dma_idx]
+							name += "_" + stream_name[stream]
+							name += "_" + DataTransferDirection_name[DataTransferDirection]
+
+							
+							name_new = name
+							
+							name += "_" + DataSize_name[DataSize]
+							
+							name += "_SELECT_SELECT_SELECT"
+							name_new += "_SELECT_SELECT_SELECT_SELECT"
+							
+							res += "\n\t\t" + name + " " + DataSize_str[DataSize] + ";"
+								
+					res += getStructCloser(name_new)
+
+
+			for stream in range(0,8):
+			
+				for DataTransferDirection in range(0,2):
+			
+						name_new = ""
+					
+						channel_exist = False
+						for channel in getAllDMAchannelTags(dev,DMA,stream):
+							if not channel_exist:
+								res += getStructOpener()
+							channel_exist = True
+					
+							channel_str = "_"+getValue(channel)
+							channel_name = "CHANNEL" + getAttribute(channel,'channel') + "_" + getValue(channel)					
+						
+
+							
+	
+							name = 	"kDMA_"	+ DMA_name[dma_idx]
+							name += "_" + stream_name[stream]
+							name += "_" + DataTransferDirection_name[DataTransferDirection]
+							
+							
+							name_new = name
+							
+							if DataTransferDirection < 2:
+								name += "_" + channel_name
+							
+							name += "_SELECT_SELECT_SELECT_SELECT"
+							name_new += "_SELECT_SELECT_SELECT_SELECT_SELECT"
+							
+							res += "\n\t\t" + name + " " + channel_str + ";"
+						
+						if channel_exist:
+							res += getStructCloser(name_new)
+							
+
+			for stream in range(0,8):
+		
+				res += getStructOpener()
+				name_new = ""
+				for DataTransferDirection in range(0,3):
+	
+
+					name = 	"kDMA_"	+ DMA_name[dma_idx]
+					name += "_" + stream_name[stream] 
+					
+					name_new = name
+					
+					name += "_" + DataTransferDirection_name[DataTransferDirection]
+
+					
+					name += "_SELECT_SELECT_SELECT_SELECT"
+					if DataTransferDirection < 2:
+						name += "_SELECT"
+					name_new += "_SELECT_SELECT_SELECT_SELECT_SELECT_SELECT"
+					
+					res += "\n\t\t" + name + " " + DataTransferDirection_str[DataTransferDirection] + ";"
+									
+				res += getStructCloser(name_new)
+
+			res += getStructOpener()
+			name_new = ""
+			for stream in range(0,8):
+			
+	
+				name = 	"kDMA_"	+ DMA_name[dma_idx]
+				
+				name_new = name
+				
+				name += "_" + stream_name[stream] 
+				name += "_SELECT_SELECT_SELECT_SELECT_SELECT_SELECT"
+				
+				res += "\n\t\t" + name + " " + stream_str[stream] + ";"
+										
+			res += getStructCloser(name_new)
+
+
+
+
+
+		res += "\n#endif\n"							
+									
+	return res								
+
+
+def getDMAsetupCode(dma_number,stream,channel,priority,DataSize,MemoryIncrementMode,CircularMode,DataTransferDirection,PeripheralFlowControler):
+	code = 0;
+	if PeripheralFlowControler != 0:
+		code |= (1 << 5)
+	code |= (DataTransferDirection << 6)
+	if CircularMode != 0:
+		code |= (1 << 8)
+	if MemoryIncrementMode != 1:
+		code |= (1 << 10)
+	code |= (DataSize << 11)
+	code |= (DataSize << 13)
+	code |= (priority << 16)
+	code |= (channel << 25)
+	code |= (stream << 28)
+	
+	dma_number -= 1
+	code  |= (dma_number << 31)
+
+	return code
+
+
+
 	
 xls2xml()
 replaceCodeRegion("../inc/kPWM.h",'PLATFORM_DEPENDED_STRUCTS',createPWMdefs())
-replaceCodeRegion("../inc/kSerial.h",'PLATFORM_DEPENDED_STRUCTS',createUSARTdefs())
-replaceCodeRegion("../inc/kI2CDevice.h",'PLATFORM_DEPENDED_STRUCTS',createI2Cdefs())
-replaceCodeRegion("../inc/kSPIDevice.h",'PLATFORM_DEPENDED_STRUCTS',createSPIdefs())
+
+replaceCodeRegion("../inc/kSerial.h",'PLATFORM_DEPENDED_STRUCTS',createUSARTstructDefs())
+replaceCodeRegion("../inc/kSerial.h",'USARTS_DECLARATIONS',createUSARTdefs())
+
+replaceCodeRegion("../inc/kI2CDevice.h",'PLATFORM_DEPENDED_STRUCTS',createI2CstructDefs())
+replaceCodeRegion("../inc/kI2CDevice.h",'I2C_DECLARATIONS',createI2Cdefs())
+
+
+replaceCodeRegion("../inc/kSPIDevice.h",'PLATFORM_DEPENDED_STRUCTS',createSPIstructDefs())
+replaceCodeRegion("../inc/kSPIDevice.h",'SPI_DECLARATIONS',createSPIdefs())
+
+replaceCodeRegion("../inc/kDMA.h",'PLATFORM_DEPENDED_STRUCTS',createDMAstructDefs())
+replaceCodeRegion("../inc/kDMA.h",'DMA_DECLARATIONS',createDMAdefs())
+
 replaceCodeRegion("../inc/kPORT.h",'PLATFORM_DEPENDED_STRUCTS',createPORTdefs())
 updateLicenseText()

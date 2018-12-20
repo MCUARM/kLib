@@ -238,6 +238,15 @@
 
 // region PLATFORM_DEPENDED_STRUCTS
 
+#if (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+	#define kPort_config_USE_PORTA_OBJECT
+	#define kPort_config_USE_PORTB_OBJECT
+	#define kPort_config_USE_PORTC_OBJECT
+	#define kPort_config_USE_PORTD_OBJECT
+	#define kPort_config_USE_PORTE_OBJECT
+
+#endif
 #if (kLib_config_PLATFORM == kLib_STM32F429xx)
 
 	#define kPort_config_USE_PORTA_OBJECT
@@ -247,6 +256,16 @@
 	#define kPort_config_USE_PORTE_OBJECT
 	#define kPort_config_USE_PORTF_OBJECT
 	#define kPort_config_USE_PORTG_OBJECT
+	#define kPort_config_USE_PORTH_OBJECT
+
+#endif
+#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+
+	#define kPort_config_USE_PORTA_OBJECT
+	#define kPort_config_USE_PORTB_OBJECT
+	#define kPort_config_USE_PORTC_OBJECT
+	#define kPort_config_USE_PORTD_OBJECT
+	#define kPort_config_USE_PORTE_OBJECT
 	#define kPort_config_USE_PORTH_OBJECT
 
 #endif

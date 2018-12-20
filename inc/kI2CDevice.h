@@ -42,6 +42,82 @@
 
 // region PLATFORM_DEPENDED_STRUCTS
 
+#if (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB7  = 0x058AE417,
+			PORTB9  = 0x058AE419
+		}kI2C_I2C1_SDA_Pin;
+	}kI2C_I2C1_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB6  = 0x058AE416,
+			PORTB8  = 0x058AE418
+		}kI2C_I2C1_SCL_Pin;
+	}kI2C_I2C1_SCL;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB3  = 0x068B6913,
+			PORTB9  = 0x068B6919,
+			PORTB11 = 0x068B641B
+		}kI2C_I2C2_SDA_Pin;
+	}kI2C_I2C2_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB10 = 0x068B641A
+		}kI2C_I2C2_SCL_Pin;
+	}kI2C_I2C2_SCL;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB4  = 0x078BE914,
+			PORTB8  = 0x078BE918,
+			PORTC9  = 0x078BE429
+		}kI2C_I2C3_SDA_Pin;
+	}kI2C_I2C3_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8  = 0x078BE408
+		}kI2C_I2C3_SCL_Pin;
+	}kI2C_I2C3_SCL;
+
+	typedef struct
+	{
+		kI2C_I2C1_SDA SDA;
+		kI2C_I2C1_SCL SCL;
+	}kI2C_I2C1;
+
+	typedef struct
+	{
+		kI2C_I2C2_SDA SDA;
+		kI2C_I2C2_SCL SCL;
+	}kI2C_I2C2;
+
+	typedef struct
+	{
+		kI2C_I2C3_SDA SDA;
+		kI2C_I2C3_SCL SCL;
+	}kI2C_I2C3;
+
+
+#endif
 #if (kLib_config_PLATFORM == kLib_STM32F429xx)
 
 	typedef struct
@@ -120,9 +196,103 @@
 
 
 #endif
+#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB11 = 0x068B661B,
+			PORTB14 = 0x068B651E
+		}kI2C_I2C2_SDA_Pin;
+	}kI2C_I2C2_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB10 = 0x068B661A,
+			PORTB13 = 0x068B651D
+		}kI2C_I2C2_SCL_Pin;
+	}kI2C_I2C2_SCL;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB9  = 0x058AE419
+		}kI2C_I2C1_SDA_Pin;
+	}kI2C_I2C1_SDA;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTB8  = 0x058AE418
+		}kI2C_I2C1_SCL_Pin;
+	}kI2C_I2C1_SCL;
+
+	typedef struct
+	{
+		kI2C_I2C3_SDA SDA;
+		kI2C_I2C3_SCL SCL;
+	}kI2C_I2C3;
+
+	typedef struct
+	{
+		kI2C_I2C2_SDA SDA;
+		kI2C_I2C2_SCL SCL;
+	}kI2C_I2C2;
+
+	typedef struct
+	{
+		kI2C_I2C1_SDA SDA;
+		kI2C_I2C1_SCL SCL;
+	}kI2C_I2C1;
+
+
+#endif
 
 
 // endregion PLATFORM_DEPENDED_STRUCTS
+
+
+	class kI2C
+	{
+		public:
+
+// region I2C_DECLARATIONS
+
+		#if (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+			static const kI2C_I2C1  * i2c1;
+			static const kI2C_I2C2  * i2c2;
+			static const kI2C_I2C3  * i2c3;
+
+		#endif
+
+		#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+
+			static const kI2C_I2C1  * i2c1;
+			static const kI2C_I2C2  * i2c2;
+			static const kI2C_I2C3  * i2c3;
+
+		#endif
+
+		#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+
+			static const kI2C_I2C3  * i2c3;
+			static const kI2C_I2C2  * i2c2;
+			static const kI2C_I2C1  * i2c1;
+
+		#endif
+
+
+
+// endregion I2C_DECLARATIONS
+
+	};
+
 
 	class kI2CDeviceHardware
 	{
@@ -144,10 +314,10 @@
 			kI2CDevice(void);
 			void run(unsigned int clock_speed);
 
-			void write(uint8_t StartingRegisterAddress,uint8_t * transmit_buffer,uint8_t BytesToWrite);
+			void write(uint8_t StartingRegisterAddress, void * transmit_buffer,uint8_t BytesToWrite);
 			void write(uint8_t RegisterAddress,uint8_t value);
 
-			void read(uint8_t StartingRegisterAddress, uint8_t * recieve_buffer,uint8_t BytesToRead);
+			void read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead);
 			unsigned char read(uint8_t RegisterAddress);
 
 	};

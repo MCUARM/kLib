@@ -59,6 +59,8 @@
 			static __inline__ void taskDelayUntil(tick_t * previous_wake_time_ms, const tick_t time_increment_ms)__attribute__((always_inline));
 			static __inline__ void taskDelay(const tick_t time_increment_ms)__attribute__((always_inline));
 			static __inline__ tick_t taskGetTickCount(void) __attribute__((always_inline));
+			static __inline__ void taskYield(void);
+
 		};
 
 		__attribute__((always_inline)) void kRTOS::taskCreate(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,kRTOS::task_t * const created_task)
@@ -81,6 +83,10 @@
 		__attribute__((always_inline)) kRTOS::tick_t kRTOS::taskGetTickCount(void)
 		{
 			return xTaskGetTickCount();
+		}
+		__attribute__((always_inline)) void kRTOS::taskYield(void)
+		{
+			taskYIELD();
 		}
 
 	#endif

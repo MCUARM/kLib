@@ -34,49 +34,89 @@
 
 
 
-#ifndef __kConfig_H
-#define __kConfig_H
-
-	// kLib configuration file
-
-	// F4 series
-	#define kLib_STM32F407xx 1
-	#define kLib_STM32F411xx 2
-	#define kLib_STM32F429xx 3
-	
-	// L0 series
-	#define kLib_STM32L053xx 4
-	
-
-	// PLATFORM SELECTION
-	// Uncomment one line below
-
-		#define kLib_config_PLATFORM kLib_STM32F411xx
-		//#define kLib_config_PLATFORM kLib_STM32F407xx
-		//#define kLib_config_PLATFORM kLib_STM32F429xx
-		//#define kLib_config_PLATFORM kLib_STM32L053xx
+#include "kDMA.h"
 
 
-	#ifndef kLib_config_PLATFORM
-		#error "Please select platform first in kConfig.h header file"
-	#endif
+kDMAHardware::kDMAHardware()
+{
+
+}
+
+void kDMAHardware::clearStatusFlags(void)
+{
+	// clear all status bits for this stream
+	// this is done by writing 1 into LIFCR or LIFCR register
+	uint32_t * reg = DMA2->LIFCR + (this->streamNumber & 0x04);
+	*reg |= this->interruptClearVal;
+}
+
+kDMAHardware& kDMAHardware::operator = (unsigned int hard_code)
+{
+	// NOTE: Only the DMA2 controller is able to perform memory-to-memory transfers.
+
+	// Decode DMA address
+	uint32_t dmaBitPos = (hard_code >> 31);
+	this->DMA = DMA1 | (dmaBitPos << 4);
+
+	// Decode DMA Stream
+	this->streamNumber = ((hard_code >> 28) & 0x00000007);
+	this->DMA_Stream =  this->DMA | (0x10 + 0x18*this->streamNumber);
+
+	// generate value to clear interrupt status register bits for stream
+	this->interruptClearVal = 0x3D << ((this->streamNumber & 0x01)*6);
+	this->interruptClearVal = this->interruptClearVal << (8*(this->streamNumber & 0x02));
 
 
-	// GENERAL SETTINGS
-	#define kLib_config_USE_RTOS 1
-	#define kLib_config_USE_MODULE 0
+	// make sure DMA2 clock is enabled
+	RCC->AHB1ENR |= (1 << (21+dmaBitPos));
+
+	// make sure there is no ongoing transactions on stream
+	// clear EN bit
+	this->DMA_Stream->CR &= ~(1 << 0);
+
+	// wait until this bit is cleared
+	// this may take a while if stream is operating
+	while(this->DMA_Stream->CR & (1 << 0));
+
+	// clear all status bits for this stream
+	// this is done by writing 1 into LIFCR or LIFCR register
+	this->clearStatusFlags();
+
+	// clear unnecessary bits
+	hard_code &= ~(0xF << 28);
+	DMA_Stream->CR = hard_code;
 
 
-#endif
+	return (*this);
+}
+
+void kDMA::write(const void*source,const void*destination,uint16_t dataItems_to_transfer)
+{
+	// make sure there is no ongoing transactions on stream
+	// clear EN bit
+	this->hardware.DMA_Stream->CR &= ~(1 << 0);
+
+	// wait until this bit is cleared
+	// this may take a while if stream is operating
+	while(this->hardware.DMA_Stream->CR & (1 << 0));
+
+	// clear all status bits for this stream
+	// this is done by writing 1 into LIFCR or LIFCR register
+	this->hardware.clearStatusFlags();
+
+	// set source address
+	DMA2_Stream0->PAR = (uint32_t)source;
+
+	// set destination address
+	DMA2_Stream0->M0AR = (uint32_t)destination;
+
+	// set number of data items to be transfered
+	DMA2_Stream0->NDTR = dataItems_to_transfer;
 
 
+	// start operation
+	// set EN bit
+	DMA2_Stream0->CR |= 1;
 
+}
 
-
-#if (kLib_config_PLATFORM == kLib_STM32F411xx) || \
-	(kLib_config_PLATFORM == kLib_STM32F407xx) || \
-	(kLib_config_PLATFORM == kLib_STM32F429xx)
-
-	#include "stm32f4xx.h"
-
-#endif

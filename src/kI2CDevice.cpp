@@ -62,9 +62,10 @@ void kI2CDevice::run(unsigned int clock_speed)
 
 }
 
-void kI2CDevice::write(uint8_t StartingRegisterAddress,uint8_t * transmit_buffer,uint8_t BytesToWrite)
+void kI2CDevice::write(uint8_t StartingRegisterAddress,void * transmit_buffer,uint8_t BytesToWrite)
 {
 	uint8_t i;
+	uint8_t * tx_buffer = (uint8_t*)transmit_buffer;
 
 	//poczekaj dop�ki I2C1 jest zaj�ty
 	while(I2C_GetFlagStatus(this->hardware.i2c, I2C_FLAG_BUSY) != RESET);
@@ -89,11 +90,11 @@ void kI2CDevice::write(uint8_t StartingRegisterAddress,uint8_t * transmit_buffer
 	for(i=0;i<BytesToWrite;i++)
 	{
 		//wyslij bajt danych
-		I2C_SendData(this->hardware.i2c,*transmit_buffer);
+		I2C_SendData(this->hardware.i2c,*tx_buffer);
 		//czekaj dop�ki nie wys�ano bajtu danych
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
-		transmit_buffer++;
+		tx_buffer++;
 	}
 
 	//wyslij znak stop
@@ -130,10 +131,10 @@ void kI2CDevice::write(uint8_t RegisterAddress,uint8_t value)
 	//wyslij znak stop
 	I2C_GenerateSTOP(this->hardware.i2c,ENABLE);
 }
-void kI2CDevice::read(uint8_t StartingRegisterAddress, uint8_t * recieve_buffer,uint8_t BytesToRead)
+void kI2CDevice::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead)
 {
 	uint8_t i,loop_end;
-
+	uint8_t * rx_buffer = (uint8_t*)recieve_buffer;
 
 	if(BytesToRead > 1)
 	{
@@ -179,9 +180,9 @@ void kI2CDevice::read(uint8_t StartingRegisterAddress, uint8_t * recieve_buffer,
 			//czekaj a� I2Cx odbierze bajt danych
 			while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_RECEIVED));
 			//odbierz dane
-			*recieve_buffer = I2C_ReceiveData(this->hardware.i2c);
+			*rx_buffer = I2C_ReceiveData(this->hardware.i2c);
 
-			recieve_buffer++;
+			rx_buffer++;
 		}
 		//czekaj a� I2Cx odbierze bajt danych
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_RECEIVED));
@@ -200,13 +201,13 @@ void kI2CDevice::read(uint8_t StartingRegisterAddress, uint8_t * recieve_buffer,
 		I2C_GenerateSTOP(this->hardware.i2c,ENABLE);
 
 		// odbierz ostantie dwa bajty
-		*recieve_buffer = I2C_ReceiveData(this->hardware.i2c);
-		recieve_buffer++;
+		*rx_buffer = I2C_ReceiveData(this->hardware.i2c);
+		rx_buffer++;
 
 		//czekaj a� I2Cx odbierze bajt danych
 		while(!I2C_CheckEvent(this->hardware.i2c, I2C_EVENT_MASTER_BYTE_RECEIVED));
 		//odbierz dane
-		*recieve_buffer = I2C_ReceiveData(this->hardware.i2c);
+		*rx_buffer = I2C_ReceiveData(this->hardware.i2c);
 
 	}else
 	{
@@ -245,7 +246,7 @@ void kI2CDevice::read(uint8_t StartingRegisterAddress, uint8_t * recieve_buffer,
 		I2C_GenerateSTOP(this->hardware.i2c,ENABLE);
 
 		// odbierz bajt
-		*recieve_buffer = I2C_ReceiveData(this->hardware.i2c);
+		*rx_buffer = I2C_ReceiveData(this->hardware.i2c);
 	}
 
 }
