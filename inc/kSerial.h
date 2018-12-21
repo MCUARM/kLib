@@ -466,32 +466,32 @@
 
 		#if (kLib_config_PLATFORM == kLib_STM32F411xx)
 
-			static const kSerial_USART1  * usart1;
-			static const kSerial_USART2  * usart2;
-			static const kSerial_USART6  * usart6;
+			static const kSerial_USART1  * _USART1;
+			static const kSerial_USART2  * _USART2;
+			static const kSerial_USART6  * _USART6;
 
 		#endif
 
 		#if (kLib_config_PLATFORM == kLib_STM32F429xx)
 
-			static const kSerial_UART4  * uart4;
-			static const kSerial_UART5  * uart5;
-			static const kSerial_UART7  * uart7;
-			static const kSerial_UART8  * uart8;
-			static const kSerial_USART1  * usart1;
-			static const kSerial_USART2  * usart2;
-			static const kSerial_USART3  * usart3;
-			static const kSerial_USART6  * usart6;
+			static const kSerial_UART4  * _UART4;
+			static const kSerial_UART5  * _UART5;
+			static const kSerial_UART7  * _UART7;
+			static const kSerial_UART8  * _UART8;
+			static const kSerial_USART1  * _USART1;
+			static const kSerial_USART2  * _USART2;
+			static const kSerial_USART3  * _USART3;
+			static const kSerial_USART6  * _USART6;
 
 		#endif
 
 		#if (kLib_config_PLATFORM == kLib_STM32L053xx)
 
-			static const kSerial_LPUART1  * lpuart1;
-			static const kSerial_USART1  * usart1;
-			static const kSerial_USART5  * usart5;
-			static const kSerial_USART4  * usart4;
-			static const kSerial_USART2  * usart2;
+			static const kSerial_LPUART1  * _LPUART1;
+			static const kSerial_USART1  * _USART1;
+			static const kSerial_USART5  * _USART5;
+			static const kSerial_USART4  * _USART4;
+			static const kSerial_USART2  * _USART2;
 
 		#endif
 

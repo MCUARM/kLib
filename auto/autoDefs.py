@@ -628,7 +628,7 @@ def createUSARTdefs():
 			space = " "
 			if getPeripheralNumber(uart) < 10:
 				space += " "
-			res += "\t\t\tstatic const kSerial_"+getName(uart)+space + "* "+getName(uart).lower()+";\n"
+			res += "\t\t\tstatic const kSerial_"+getName(uart)+space + "* _"+getName(uart)+";\n"
 				
 		res += "\n\t\t#endif\n\n"
 
@@ -752,7 +752,7 @@ def createI2Cdefs():
 			space = " "
 			if getPeripheralNumber(i2c) < 10:
 				space += " "
-			res += "\t\t\tstatic const kI2C_"+getName(i2c)+space + "* "+getName(i2c).lower()+";\n"
+			res += "\t\t\tstatic const kI2C_"+getName(i2c)+space + "* _"+getName(i2c)+";\n"
 				
 		res += "\n\t\t#endif\n\n"
 

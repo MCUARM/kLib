@@ -41,10 +41,11 @@ kI2CDevice::kI2CDevice(void)
 {
 
 }
-void kI2CDeviceHardware::operator = (unsigned int hard_code)
+kI2CDeviceHardware& kI2CDeviceHardware::operator = (unsigned int hard_code)
 {
 	// setup output pin
 	this->i2c = (I2C_TypeDef*)kPrivate::setupPeripheralOutput(hard_code);
+	return (*this);
 }
 void kI2CDevice::run(unsigned int clock_speed)
 {

@@ -265,25 +265,25 @@
 
 		#if (kLib_config_PLATFORM == kLib_STM32F411xx)
 
-			static const kI2C_I2C1  * i2c1;
-			static const kI2C_I2C2  * i2c2;
-			static const kI2C_I2C3  * i2c3;
+			static const kI2C_I2C1  * _I2C1;
+			static const kI2C_I2C2  * _I2C2;
+			static const kI2C_I2C3  * _I2C3;
 
 		#endif
 
 		#if (kLib_config_PLATFORM == kLib_STM32F429xx)
 
-			static const kI2C_I2C1  * i2c1;
-			static const kI2C_I2C2  * i2c2;
-			static const kI2C_I2C3  * i2c3;
+			static const kI2C_I2C1  * _I2C1;
+			static const kI2C_I2C2  * _I2C2;
+			static const kI2C_I2C3  * _I2C3;
 
 		#endif
 
 		#if (kLib_config_PLATFORM == kLib_STM32L053xx)
 
-			static const kI2C_I2C3  * i2c3;
-			static const kI2C_I2C2  * i2c2;
-			static const kI2C_I2C1  * i2c1;
+			static const kI2C_I2C3  * _I2C3;
+			static const kI2C_I2C2  * _I2C2;
+			static const kI2C_I2C1  * _I2C1;
 
 		#endif
 
@@ -299,7 +299,7 @@
 		public:
 
 			I2C_TypeDef * i2c;
-			void operator = (unsigned int hard_code);
+			kI2CDeviceHardware & operator = (unsigned int hard_code);
 			
 
 	};
