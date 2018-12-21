@@ -45,8 +45,8 @@ kDMAHardware::kDMAHardware()
 void kDMAHardware::clearStatusFlags(void)
 {
 	// clear all status bits for this stream
-	// this is done by writing 1 into LIFCR or LIFCR register
-	uint32_t * reg = DMA2->LIFCR + (this->streamNumber & 0x04);
+	// this is done by writing 1 into LIFCR or HIFCR register
+	uint32_t * reg = (uint32_t*)(((uint32_t)&this->DMA->LIFCR) + ((uint32_t)(this->streamNumber & 0x04)));
 	*reg |= this->interruptClearVal;
 }
 
@@ -56,11 +56,11 @@ kDMAHardware& kDMAHardware::operator = (unsigned int hard_code)
 
 	// Decode DMA address
 	uint32_t dmaBitPos = (hard_code >> 31);
-	this->DMA = DMA1 | (dmaBitPos << 4);
+	this->DMA = (DMA_TypeDef*)(((uint32_t)DMA1) | (dmaBitPos << 10));
 
 	// Decode DMA Stream
 	this->streamNumber = ((hard_code >> 28) & 0x00000007);
-	this->DMA_Stream =  this->DMA | (0x10 + 0x18*this->streamNumber);
+	this->DMA_Stream =  (DMA_Stream_TypeDef*)(((uint32_t)this->DMA) | (0x10 + 0x18*this->streamNumber));
 
 	// generate value to clear interrupt status register bits for stream
 	this->interruptClearVal = 0x3D << ((this->streamNumber & 0x01)*6);
@@ -98,7 +98,7 @@ void kDMA::write(const void*source,const void*destination,uint16_t dataItems_to_
 
 	// wait until this bit is cleared
 	// this may take a while if stream is operating
-	while(this->hardware.DMA_Stream->CR & (1 << 0));
+	while(this->isOperating());
 
 	// clear all status bits for this stream
 	// this is done by writing 1 into LIFCR or LIFCR register
@@ -119,4 +119,7 @@ void kDMA::write(const void*source,const void*destination,uint16_t dataItems_to_
 	DMA2_Stream0->CR |= 1;
 
 }
-
+bool kDMA::isOperating(void)
+{
+	return (this->hardware.DMA_Stream->CR & (1 << 0));
+}
