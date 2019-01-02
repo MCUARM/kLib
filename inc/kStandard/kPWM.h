@@ -698,6 +698,218 @@
 		kPWM_out_PORTE14 PORTE14; //  TIM1_CH4
 	}kPWM_out;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x16670000,
+			PORTB0 = 0x16670010,
+			PORTC0 = 0x16670020,
+			PORTD0 = 0x16670030,
+			PORTE0 = 0x16670040
+		}kPWM_EXTI0_Pin;
+	}kPWM_EXTI0;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x16670001,
+			PORTB1 = 0x16670011,
+			PORTC1 = 0x16670021,
+			PORTD1 = 0x16670031,
+			PORTE1 = 0x16670041
+		}kPWM_EXTI1_Pin;
+	}kPWM_EXTI1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x16670002,
+			PORTB2 = 0x16670012,
+			PORTC2 = 0x16670022,
+			PORTD2 = 0x16670032,
+			PORTE2 = 0x16670042
+		}kPWM_EXTI2_Pin;
+	}kPWM_EXTI2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x16670003,
+			PORTB3 = 0x16670013,
+			PORTC3 = 0x16670023,
+			PORTD3 = 0x16670033,
+			PORTE3 = 0x16670043
+		}kPWM_EXTI3_Pin;
+	}kPWM_EXTI3;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x16670004,
+			PORTB4 = 0x16670014,
+			PORTC4 = 0x16670024,
+			PORTD4 = 0x16670034,
+			PORTE4 = 0x16670044
+		}kPWM_EXTI4_Pin;
+	}kPWM_EXTI4;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x16670005,
+			PORTB5 = 0x16670015,
+			PORTC5 = 0x16670025,
+			PORTD5 = 0x16670035,
+			PORTE5 = 0x16670045
+		}kPWM_EXTI5_Pin;
+	}kPWM_EXTI5;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x16670006,
+			PORTB6 = 0x16670016,
+			PORTC6 = 0x16670026,
+			PORTD6 = 0x16670036,
+			PORTE6 = 0x16670046
+		}kPWM_EXTI6_Pin;
+	}kPWM_EXTI6;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x16670007,
+			PORTB7 = 0x16670017,
+			PORTC7 = 0x16670027,
+			PORTD7 = 0x16670037,
+			PORTE7 = 0x16670047
+		}kPWM_EXTI7_Pin;
+	}kPWM_EXTI7;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x16670008,
+			PORTB8 = 0x16670018,
+			PORTC8 = 0x16670028,
+			PORTD8 = 0x16670038,
+			PORTE8 = 0x16670048
+		}kPWM_EXTI8_Pin;
+	}kPWM_EXTI8;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x16670009,
+			PORTB9 = 0x16670019,
+			PORTC9 = 0x16670029,
+			PORTD9 = 0x16670039,
+			PORTE9 = 0x16670049
+		}kPWM_EXTI9_Pin;
+	}kPWM_EXTI9;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1667000A,
+			PORTB10 = 0x1667001A,
+			PORTC10 = 0x1667002A,
+			PORTD10 = 0x1667003A,
+			PORTE10 = 0x1667004A
+		}kPWM_EXTI10_Pin;
+	}kPWM_EXTI10;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1667000B,
+			PORTB11 = 0x1667001B,
+			PORTC11 = 0x1667002B,
+			PORTD11 = 0x1667003B,
+			PORTE11 = 0x1667004B
+		}kPWM_EXTI11_Pin;
+	}kPWM_EXTI11;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1667000C,
+			PORTB12 = 0x1667001C,
+			PORTC12 = 0x1667002C,
+			PORTD12 = 0x1667003C,
+			PORTE12 = 0x1667004C
+		}kPWM_EXTI12_Pin;
+	}kPWM_EXTI12;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1667000D,
+			PORTB13 = 0x1667001D,
+			PORTC13 = 0x1667002D,
+			PORTD13 = 0x1667003D,
+			PORTE13 = 0x1667004D
+		}kPWM_EXTI13_Pin;
+	}kPWM_EXTI13;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1667000E,
+			PORTB14 = 0x1667001E,
+			PORTC14 = 0x1667002E,
+			PORTD14 = 0x1667003E,
+			PORTE14 = 0x1667004E
+		}kPWM_EXTI14_Pin;
+	}kPWM_EXTI14;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1667000F,
+			PORTB15 = 0x1667001F,
+			PORTC15 = 0x1667002F,
+			PORTD15 = 0x1667003F,
+			PORTE15 = 0x1667004F
+		}kPWM_EXTI15_Pin;
+	}kPWM_EXTI15;
+
+	typedef struct
+	{
+		kPWM_EXTI0 _EXTI0;
+		kPWM_EXTI1 _EXTI1;
+		kPWM_EXTI2 _EXTI2;
+		kPWM_EXTI3 _EXTI3;
+		kPWM_EXTI4 _EXTI4;
+		kPWM_EXTI5 _EXTI5;
+		kPWM_EXTI6 _EXTI6;
+		kPWM_EXTI7 _EXTI7;
+		kPWM_EXTI8 _EXTI8;
+		kPWM_EXTI9 _EXTI9;
+		kPWM_EXTI10 _EXTI10;
+		kPWM_EXTI11 _EXTI11;
+		kPWM_EXTI12 _EXTI12;
+		kPWM_EXTI13 _EXTI13;
+		kPWM_EXTI14 _EXTI14;
+		kPWM_EXTI15 _EXTI15;
+	}kPWM_in;
+
 
 #endif
 #if (kLib_config_PLATFORM == kLib_STM32F429xx)
@@ -1508,6 +1720,266 @@
 		kPWM_out_PORTH9  PORTH9;  //  TIM12_CH2
 	}kPWM_out;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x16670000,
+			PORTB0 = 0x16670010,
+			PORTC0 = 0x16670020,
+			PORTD0 = 0x16670030,
+			PORTE0 = 0x16670040,
+			PORTF0 = 0x16670050,
+			PORTG0 = 0x16670060,
+			PORTH0 = 0x16670070
+		}kPWM_EXTI0_Pin;
+	}kPWM_EXTI0;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x16670001,
+			PORTB1 = 0x16670011,
+			PORTC1 = 0x16670021,
+			PORTD1 = 0x16670031,
+			PORTE1 = 0x16670041,
+			PORTF1 = 0x16670051,
+			PORTG1 = 0x16670061,
+			PORTH1 = 0x16670071
+		}kPWM_EXTI1_Pin;
+	}kPWM_EXTI1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x16670002,
+			PORTB2 = 0x16670012,
+			PORTC2 = 0x16670022,
+			PORTD2 = 0x16670032,
+			PORTE2 = 0x16670042,
+			PORTF2 = 0x16670052,
+			PORTG2 = 0x16670062,
+			PORTH2 = 0x16670072
+		}kPWM_EXTI2_Pin;
+	}kPWM_EXTI2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x16670003,
+			PORTB3 = 0x16670013,
+			PORTC3 = 0x16670023,
+			PORTD3 = 0x16670033,
+			PORTE3 = 0x16670043,
+			PORTF3 = 0x16670053,
+			PORTG3 = 0x16670063,
+			PORTH3 = 0x16670073
+		}kPWM_EXTI3_Pin;
+	}kPWM_EXTI3;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x16670004,
+			PORTB4 = 0x16670014,
+			PORTC4 = 0x16670024,
+			PORTD4 = 0x16670034,
+			PORTE4 = 0x16670044,
+			PORTF4 = 0x16670054,
+			PORTG4 = 0x16670064,
+			PORTH4 = 0x16670074
+		}kPWM_EXTI4_Pin;
+	}kPWM_EXTI4;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x16670005,
+			PORTB5 = 0x16670015,
+			PORTC5 = 0x16670025,
+			PORTD5 = 0x16670035,
+			PORTE5 = 0x16670045,
+			PORTF5 = 0x16670055,
+			PORTG5 = 0x16670065,
+			PORTH5 = 0x16670075
+		}kPWM_EXTI5_Pin;
+	}kPWM_EXTI5;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x16670006,
+			PORTB6 = 0x16670016,
+			PORTC6 = 0x16670026,
+			PORTD6 = 0x16670036,
+			PORTE6 = 0x16670046,
+			PORTF6 = 0x16670056,
+			PORTG6 = 0x16670066,
+			PORTH6 = 0x16670076
+		}kPWM_EXTI6_Pin;
+	}kPWM_EXTI6;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x16670007,
+			PORTB7 = 0x16670017,
+			PORTC7 = 0x16670027,
+			PORTD7 = 0x16670037,
+			PORTE7 = 0x16670047,
+			PORTF7 = 0x16670057,
+			PORTG7 = 0x16670067,
+			PORTH7 = 0x16670077
+		}kPWM_EXTI7_Pin;
+	}kPWM_EXTI7;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x16670008,
+			PORTB8 = 0x16670018,
+			PORTC8 = 0x16670028,
+			PORTD8 = 0x16670038,
+			PORTE8 = 0x16670048,
+			PORTF8 = 0x16670058,
+			PORTG8 = 0x16670068,
+			PORTH8 = 0x16670078
+		}kPWM_EXTI8_Pin;
+	}kPWM_EXTI8;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x16670009,
+			PORTB9 = 0x16670019,
+			PORTC9 = 0x16670029,
+			PORTD9 = 0x16670039,
+			PORTE9 = 0x16670049,
+			PORTF9 = 0x16670059,
+			PORTG9 = 0x16670069,
+			PORTH9 = 0x16670079
+		}kPWM_EXTI9_Pin;
+	}kPWM_EXTI9;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1667000A,
+			PORTB10 = 0x1667001A,
+			PORTC10 = 0x1667002A,
+			PORTD10 = 0x1667003A,
+			PORTE10 = 0x1667004A,
+			PORTF10 = 0x1667005A,
+			PORTG10 = 0x1667006A,
+			PORTH10 = 0x1667007A
+		}kPWM_EXTI10_Pin;
+	}kPWM_EXTI10;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1667000B,
+			PORTB11 = 0x1667001B,
+			PORTC11 = 0x1667002B,
+			PORTD11 = 0x1667003B,
+			PORTE11 = 0x1667004B,
+			PORTF11 = 0x1667005B,
+			PORTG11 = 0x1667006B,
+			PORTH11 = 0x1667007B
+		}kPWM_EXTI11_Pin;
+	}kPWM_EXTI11;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1667000C,
+			PORTB12 = 0x1667001C,
+			PORTC12 = 0x1667002C,
+			PORTD12 = 0x1667003C,
+			PORTE12 = 0x1667004C,
+			PORTF12 = 0x1667005C,
+			PORTG12 = 0x1667006C,
+			PORTH12 = 0x1667007C
+		}kPWM_EXTI12_Pin;
+	}kPWM_EXTI12;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1667000D,
+			PORTB13 = 0x1667001D,
+			PORTC13 = 0x1667002D,
+			PORTD13 = 0x1667003D,
+			PORTE13 = 0x1667004D,
+			PORTF13 = 0x1667005D,
+			PORTG13 = 0x1667006D,
+			PORTH13 = 0x1667007D
+		}kPWM_EXTI13_Pin;
+	}kPWM_EXTI13;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1667000E,
+			PORTB14 = 0x1667001E,
+			PORTC14 = 0x1667002E,
+			PORTD14 = 0x1667003E,
+			PORTE14 = 0x1667004E,
+			PORTF14 = 0x1667005E,
+			PORTG14 = 0x1667006E,
+			PORTH14 = 0x1667007E
+		}kPWM_EXTI14_Pin;
+	}kPWM_EXTI14;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1667000F,
+			PORTB15 = 0x1667001F,
+			PORTC15 = 0x1667002F,
+			PORTD15 = 0x1667003F,
+			PORTE15 = 0x1667004F,
+			PORTF15 = 0x1667005F,
+			PORTG15 = 0x1667006F,
+			PORTH15 = 0x1667007F
+		}kPWM_EXTI15_Pin;
+	}kPWM_EXTI15;
+
+	typedef struct
+	{
+		kPWM_EXTI0 _EXTI0;
+		kPWM_EXTI1 _EXTI1;
+		kPWM_EXTI2 _EXTI2;
+		kPWM_EXTI3 _EXTI3;
+		kPWM_EXTI4 _EXTI4;
+		kPWM_EXTI5 _EXTI5;
+		kPWM_EXTI6 _EXTI6;
+		kPWM_EXTI7 _EXTI7;
+		kPWM_EXTI8 _EXTI8;
+		kPWM_EXTI9 _EXTI9;
+		kPWM_EXTI10 _EXTI10;
+		kPWM_EXTI11 _EXTI11;
+		kPWM_EXTI12 _EXTI12;
+		kPWM_EXTI13 _EXTI13;
+		kPWM_EXTI14 _EXTI14;
+		kPWM_EXTI15 _EXTI15;
+	}kPWM_in;
+
 
 #endif
 #if (kLib_config_PLATFORM == kLib_STM32L053xx)
@@ -1782,273 +2254,241 @@
 		kPWM_out_PORTC7  PORTC7;  //  TIM22_CH2
 	}kPWM_out;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x16670000,
+			PORTB0 = 0x16670010,
+			PORTC0 = 0x16670020,
+			PORTD0 = 0x16670030,
+			PORTE0 = 0x16670040,
+			PORTH0 = 0x16670070
+		}kPWM_EXTI0_Pin;
+	}kPWM_EXTI0;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x16670001,
+			PORTB1 = 0x16670011,
+			PORTC1 = 0x16670021,
+			PORTD1 = 0x16670031,
+			PORTE1 = 0x16670041,
+			PORTH1 = 0x16670071
+		}kPWM_EXTI1_Pin;
+	}kPWM_EXTI1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x16670002,
+			PORTB2 = 0x16670012,
+			PORTC2 = 0x16670022,
+			PORTD2 = 0x16670032,
+			PORTE2 = 0x16670042,
+			PORTH2 = 0x16670072
+		}kPWM_EXTI2_Pin;
+	}kPWM_EXTI2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x16670003,
+			PORTB3 = 0x16670013,
+			PORTC3 = 0x16670023,
+			PORTD3 = 0x16670033,
+			PORTE3 = 0x16670043,
+			PORTH3 = 0x16670073
+		}kPWM_EXTI3_Pin;
+	}kPWM_EXTI3;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x16670004,
+			PORTB4 = 0x16670014,
+			PORTC4 = 0x16670024,
+			PORTD4 = 0x16670034,
+			PORTE4 = 0x16670044,
+			PORTH4 = 0x16670074
+		}kPWM_EXTI4_Pin;
+	}kPWM_EXTI4;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x16670005,
+			PORTB5 = 0x16670015,
+			PORTC5 = 0x16670025,
+			PORTD5 = 0x16670035,
+			PORTE5 = 0x16670045,
+			PORTH5 = 0x16670075
+		}kPWM_EXTI5_Pin;
+	}kPWM_EXTI5;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x16670006,
+			PORTB6 = 0x16670016,
+			PORTC6 = 0x16670026,
+			PORTD6 = 0x16670036,
+			PORTE6 = 0x16670046,
+			PORTH6 = 0x16670076
+		}kPWM_EXTI6_Pin;
+	}kPWM_EXTI6;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x16670007,
+			PORTB7 = 0x16670017,
+			PORTC7 = 0x16670027,
+			PORTD7 = 0x16670037,
+			PORTE7 = 0x16670047,
+			PORTH7 = 0x16670077
+		}kPWM_EXTI7_Pin;
+	}kPWM_EXTI7;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x16670008,
+			PORTB8 = 0x16670018,
+			PORTC8 = 0x16670028,
+			PORTD8 = 0x16670038,
+			PORTE8 = 0x16670048,
+			PORTH8 = 0x16670078
+		}kPWM_EXTI8_Pin;
+	}kPWM_EXTI8;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x16670009,
+			PORTB9 = 0x16670019,
+			PORTC9 = 0x16670029,
+			PORTD9 = 0x16670039,
+			PORTE9 = 0x16670049,
+			PORTH9 = 0x16670079
+		}kPWM_EXTI9_Pin;
+	}kPWM_EXTI9;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1667000A,
+			PORTB10 = 0x1667001A,
+			PORTC10 = 0x1667002A,
+			PORTD10 = 0x1667003A,
+			PORTE10 = 0x1667004A,
+			PORTH10 = 0x1667007A
+		}kPWM_EXTI10_Pin;
+	}kPWM_EXTI10;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1667000B,
+			PORTB11 = 0x1667001B,
+			PORTC11 = 0x1667002B,
+			PORTD11 = 0x1667003B,
+			PORTE11 = 0x1667004B,
+			PORTH11 = 0x1667007B
+		}kPWM_EXTI11_Pin;
+	}kPWM_EXTI11;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1667000C,
+			PORTB12 = 0x1667001C,
+			PORTC12 = 0x1667002C,
+			PORTD12 = 0x1667003C,
+			PORTE12 = 0x1667004C,
+			PORTH12 = 0x1667007C
+		}kPWM_EXTI12_Pin;
+	}kPWM_EXTI12;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1667000D,
+			PORTB13 = 0x1667001D,
+			PORTC13 = 0x1667002D,
+			PORTD13 = 0x1667003D,
+			PORTE13 = 0x1667004D,
+			PORTH13 = 0x1667007D
+		}kPWM_EXTI13_Pin;
+	}kPWM_EXTI13;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1667000E,
+			PORTB14 = 0x1667001E,
+			PORTC14 = 0x1667002E,
+			PORTD14 = 0x1667003E,
+			PORTE14 = 0x1667004E,
+			PORTH14 = 0x1667007E
+		}kPWM_EXTI14_Pin;
+	}kPWM_EXTI14;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1667000F,
+			PORTB15 = 0x1667001F,
+			PORTC15 = 0x1667002F,
+			PORTD15 = 0x1667003F,
+			PORTE15 = 0x1667004F,
+			PORTH15 = 0x1667007F
+		}kPWM_EXTI15_Pin;
+	}kPWM_EXTI15;
+
+	typedef struct
+	{
+		kPWM_EXTI0 _EXTI0;
+		kPWM_EXTI1 _EXTI1;
+		kPWM_EXTI2 _EXTI2;
+		kPWM_EXTI3 _EXTI3;
+		kPWM_EXTI4 _EXTI4;
+		kPWM_EXTI5 _EXTI5;
+		kPWM_EXTI6 _EXTI6;
+		kPWM_EXTI7 _EXTI7;
+		kPWM_EXTI8 _EXTI8;
+		kPWM_EXTI9 _EXTI9;
+		kPWM_EXTI10 _EXTI10;
+		kPWM_EXTI11 _EXTI11;
+		kPWM_EXTI12 _EXTI12;
+		kPWM_EXTI13 _EXTI13;
+		kPWM_EXTI14 _EXTI14;
+		kPWM_EXTI15 _EXTI15;
+	}kPWM_in;
+
 
 #endif
 
 
 // endregion PLATFORM_DEPENDED_STRUCTS
 
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA0 = 0x00080000,
-				PORTB0 = 0x00080010,
-				PORTC0 = 0x00080020,
-				PORTD0 = 0x00080030,
-				PORTE0 = 0x00080040,
-				PORTF0 = 0x00080050,
-				PORTG0 = 0x00080060,
-				PORTH0 = 0x00080070
-			}kPWM_EXTI0_Pin;
-		}kPWM_EXTI0;
 
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA1 = 0x00080401,
-				PORTB1 = 0x00080411,
-				PORTC1 = 0x00080421,
-				PORTD1 = 0x00080431,
-				PORTE1 = 0x00080441,
-				PORTF1 = 0x00080451,
-				PORTG1 = 0x00080461,
-				PORTH1 = 0x00080471
-			}kPWM_EXTI1_Pin;
-		}kPWM_EXTI1;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA2 = 0x00080802,
-				PORTB2 = 0x00080812,
-				PORTC2 = 0x00080822,
-				PORTD2 = 0x00080832,
-				PORTE2 = 0x00080842,
-				PORTF2 = 0x00080852,
-				PORTG2 = 0x00080862,
-				PORTH2 = 0x00080872
-			}kPWM_EXTI2_Pin;
-		}kPWM_EXTI2;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA3 = 0x00080C03,
-				PORTB3 = 0x00080C13,
-				PORTC3 = 0x00080C23,
-				PORTD3 = 0x00080C33,
-				PORTE3 = 0x00080C43,
-				PORTF3 = 0x00080C53,
-				PORTG3 = 0x00080C63,
-				PORTH3 = 0x00080C73
-			}kPWM_EXTI3_Pin;
-		}kPWM_EXTI3;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA4 = 0x000C0004,
-				PORTB4 = 0x000C0014,
-				PORTC4 = 0x000C0024,
-				PORTD4 = 0x000C0034,
-				PORTE4 = 0x000C0044,
-				PORTF4 = 0x000C0054,
-				PORTG4 = 0x000C0064,
-				PORTH4 = 0x000C0074
-			}kPWM_EXTI4_Pin;
-		}kPWM_EXTI4;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA5 = 0x000C0405,
-				PORTB5 = 0x000C0415,
-				PORTC5 = 0x000C0425,
-				PORTD5 = 0x000C0435,
-				PORTE5 = 0x000C0445,
-				PORTF5 = 0x000C0455,
-				PORTG5 = 0x000C0465,
-				PORTH5 = 0x000C0475
-			}kPWM_EXTI5_Pin;
-		}kPWM_EXTI5;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA6 = 0x000C0806,
-				PORTB6 = 0x000C0816,
-				PORTC6 = 0x000C0826,
-				PORTD6 = 0x000C0836,
-				PORTE6 = 0x000C0846,
-				PORTF6 = 0x000C0856,
-				PORTG6 = 0x000C0866,
-				PORTH6 = 0x000C0876
-			}kPWM_EXTI6_Pin;
-		}kPWM_EXTI6;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA7 = 0x000C0C07,
-				PORTB7 = 0x000C0C17,
-				PORTC7 = 0x000C0C27,
-				PORTD7 = 0x000C0C37,
-				PORTE7 = 0x000C0C47,
-				PORTF7 = 0x000C0C57,
-				PORTG7 = 0x000C0C67,
-				PORTH7 = 0x000C0C77
-			}kPWM_EXTI7_Pin;
-		}kPWM_EXTI7;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA8 = 0x00100008,
-				PORTB8 = 0x00100018,
-				PORTC8 = 0x00100028,
-				PORTD8 = 0x00100038,
-				PORTE8 = 0x00100048,
-				PORTF8 = 0x00100058,
-				PORTG8 = 0x00100068,
-				PORTH8 = 0x00100078
-			}kPWM_EXTI8_Pin;
-		}kPWM_EXTI8;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA9 = 0x00100409,
-				PORTB9 = 0x00100419,
-				PORTC9 = 0x00100429,
-				PORTD9 = 0x00100439,
-				PORTE9 = 0x00100449,
-				PORTF9 = 0x00100459,
-				PORTG9 = 0x00100469,
-				PORTH9 = 0x00100479
-			}kPWM_EXTI9_Pin;
-		}kPWM_EXTI9;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA10 = 0x0010080A,
-				PORTB10 = 0x0010081A,
-				PORTC10 = 0x0010082A,
-				PORTD10 = 0x0010083A,
-				PORTE10 = 0x0010084A,
-				PORTF10 = 0x0010085A,
-				PORTG10 = 0x0010086A,
-				PORTH10 = 0x0010087A
-			}kPWM_EXTI10_Pin;
-		}kPWM_EXTI10;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA11 = 0x00100C0B,
-				PORTB11 = 0x00100C1B,
-				PORTC11 = 0x00100C2B,
-				PORTD11 = 0x00100C3B,
-				PORTE11 = 0x00100C4B,
-				PORTF11 = 0x00100C5B,
-				PORTG11 = 0x00100C6B,
-				PORTH11 = 0x00100C7B
-			}kPWM_EXTI11_Pin;
-		}kPWM_EXTI11;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA12 = 0x0014000C,
-				PORTB12 = 0x0014001C,
-				PORTC12 = 0x0014002C,
-				PORTD12 = 0x0014003C,
-				PORTE12 = 0x0014004C,
-				PORTF12 = 0x0014005C,
-				PORTG12 = 0x0014006C,
-				PORTH12 = 0x0014007C
-			}kPWM_EXTI12_Pin;
-		}kPWM_EXTI12;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA13 = 0x0014040D,
-				PORTB13 = 0x0014041D,
-				PORTC13 = 0x0014042D,
-				PORTD13 = 0x0014043D,
-				PORTE13 = 0x0014044D,
-				PORTF13 = 0x0014045D,
-				PORTG13 = 0x0014046D,
-				PORTH13 = 0x0014047D
-			}kPWM_EXTI13_Pin;
-		}kPWM_EXTI13;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA14 = 0x0014080E,
-				PORTB14 = 0x0014081E,
-				PORTC14 = 0x0014082E,
-				PORTD14 = 0x0014083E,
-				PORTE14 = 0x0014084E,
-				PORTF14 = 0x0014085E,
-				PORTG14 = 0x0014086E,
-				PORTH14 = 0x0014087E
-			}kPWM_EXTI14_Pin;
-		}kPWM_EXTI14;
-
-		typedef struct
-		{
-			typedef enum
-			{
-				PORTA15 = 0x00140C0F,
-				PORTB15 = 0x00140C1F,
-				PORTC15 = 0x00140C2F,
-				PORTD15 = 0x00140C3F,
-				PORTE15 = 0x00140C4F,
-				PORTF15 = 0x00140C5F,
-				PORTG15 = 0x00140C6F,
-				PORTH15 = 0x00140C7F
-			}kPWM_EXTI15_Pin;
-		}kPWM_EXTI15;
-
-		typedef struct
-		{
-			kPWM_EXTI0   EXTI0;
-			kPWM_EXTI1   EXTI1;
-			kPWM_EXTI2   EXTI2;
-			kPWM_EXTI3   EXTI3;
-			kPWM_EXTI4   EXTI4;
-			kPWM_EXTI5   EXTI5;
-			kPWM_EXTI6   EXTI6;
-			kPWM_EXTI7   EXTI7;
-			kPWM_EXTI8   EXTI8;
-			kPWM_EXTI9   EXTI9;
-			kPWM_EXTI10  EXTI10;
-			kPWM_EXTI11  EXTI11;
-			kPWM_EXTI12  EXTI12;
-			kPWM_EXTI13  EXTI13;
-			kPWM_EXTI14  EXTI14;
-			kPWM_EXTI15  EXTI15;
-		}kPWM_in;
-
-	class kPWM;
 
 	class kPWM
 	{
@@ -2072,35 +2512,20 @@
 
 				kPWM_EXTI_data_storage * EXTI_data;
 
-				void setupInputModeHardware(unsigned int hard_code);
+				TIM_TypeDef * tim;
+				kEXTI exti;
 
 			public:
 
-				TIM_TypeDef * tim;
+
 				uint32_t * output;
 				uint32_t input;
 
 				kPWMHardware(void);
 
-
 				kPWMHardware& operator = (unsigned int pwmHard);
 				kPWMHardware& operator = (const kPWM::kPWM_ActiveState state);
-				kPWMHardware& operator = (const kPWM_EXTI0::kPWM_EXTI0_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI1::kPWM_EXTI1_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI2::kPWM_EXTI2_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI3::kPWM_EXTI3_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI4::kPWM_EXTI4_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI5::kPWM_EXTI5_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI6::kPWM_EXTI6_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI7::kPWM_EXTI7_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI8::kPWM_EXTI8_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI9::kPWM_EXTI9_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI10::kPWM_EXTI10_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI11::kPWM_EXTI11_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI12::kPWM_EXTI12_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI13::kPWM_EXTI13_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI14::kPWM_EXTI14_Pin & pwmHard);
-				kPWMHardware& operator = (const kPWM_EXTI15::kPWM_EXTI15_Pin & pwmHard);
+
 		};
 
 

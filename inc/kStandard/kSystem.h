@@ -55,6 +55,7 @@
 	#include "kPort.h"
 	#include "kString.h"
 	#include "kSerial.h"
+	#include "kEXTI.h"
 
 
 

@@ -100,101 +100,91 @@ void kPWM_calculatePWM(kPWM_EXTI_data_storage & EXTIx_data,unsigned char channel
 
 }
 
-kPWM_EXTI_data_storage EXTI0_data;
+kPWM_EXTI_data_storage EXTIx_data[15];
 void kPWM_EXTI0_IRQ_Handler(void)
 {
-	kPWM_calculatePWM(EXTI0_data,0);
+	kPWM_calculatePWM(EXTIx_data[0],0);
 }
 
-kPWM_EXTI_data_storage EXTI1_data;
 void kPWM_EXTI1_IRQ_Handler(void)
 {
-	kPWM_calculatePWM(EXTI1_data,1);
+	kPWM_calculatePWM(EXTIx_data[1],1);
 }
-
-kPWM_EXTI_data_storage EXTI2_data;
 void kPWM_EXTI2_IRQ_Handler(void)
 {
-	kPWM_calculatePWM(EXTI2_data,2);
+	kPWM_calculatePWM(EXTIx_data[2],2);
 }
 
-kPWM_EXTI_data_storage EXTI3_data;
 void kPWM_EXTI3_IRQ_Handler(void)
 {
-	kPWM_calculatePWM(EXTI3_data,3);
+	kPWM_calculatePWM(EXTIx_data[3],3);
 }
 
-kPWM_EXTI_data_storage EXTI4_data;
 void kPWM_EXTI4_IRQ_Handler(void)
 {
-	kPWM_calculatePWM(EXTI4_data,4);
+	kPWM_calculatePWM(EXTIx_data[4],4);
 }
-
-
-kPWM_EXTI_data_storage EXTI5_data;
-kPWM_EXTI_data_storage EXTI6_data;
-kPWM_EXTI_data_storage EXTI7_data;
-kPWM_EXTI_data_storage EXTI8_data;
-kPWM_EXTI_data_storage EXTI9_data;
 void kPWM_EXTI9_5_IRQ_Handler(void)
 {
 	if(EXTI->PR & (1<<5))
 	{
-		kPWM_calculatePWM(EXTI5_data,5);
+		kPWM_calculatePWM(EXTIx_data[5],5);
 	}
 	if(EXTI->PR & (1<<6))
 	{
-		kPWM_calculatePWM(EXTI6_data,6);
+		kPWM_calculatePWM(EXTIx_data[6],6);
 	}
 	if(EXTI->PR & (1<<7))
 	{
-		kPWM_calculatePWM(EXTI7_data,7);
+		kPWM_calculatePWM(EXTIx_data[7],7);
 	}
 	if(EXTI->PR & (1<<8))
 	{
-		kPWM_calculatePWM(EXTI8_data,8);
+		kPWM_calculatePWM(EXTIx_data[8],8);
 	}
 	if(EXTI->PR & (1<<9))
 	{
-		kPWM_calculatePWM(EXTI9_data,9);
+		kPWM_calculatePWM(EXTIx_data[9],9);
 	}
 }
-
-kPWM_EXTI_data_storage EXTI10_data;
-kPWM_EXTI_data_storage EXTI11_data;
-kPWM_EXTI_data_storage EXTI12_data;
-kPWM_EXTI_data_storage EXTI13_data;
-kPWM_EXTI_data_storage EXTI14_data;
-kPWM_EXTI_data_storage EXTI15_data;
 void kPWM_EXTI15_10_IRQ_Handler(void)
 {
 	if(EXTI->PR & (1<<10))
 	{
-		kPWM_calculatePWM(EXTI10_data,10);
+		kPWM_calculatePWM(EXTIx_data[10],10);
 	}
 	if(EXTI->PR & (1<<11))
 	{
-		kPWM_calculatePWM(EXTI11_data,11);
+		kPWM_calculatePWM(EXTIx_data[11],11);
 	}
 	if(EXTI->PR & (1<<12))
 	{
-		kPWM_calculatePWM(EXTI12_data,12);
+		kPWM_calculatePWM(EXTIx_data[12],12);
 	}
 	if(EXTI->PR & (1<<13))
 	{
-		kPWM_calculatePWM(EXTI13_data,13);
+		kPWM_calculatePWM(EXTIx_data[13],13);
 	}
 	if(EXTI->PR & (1<<14))
 	{
-		kPWM_calculatePWM(EXTI14_data,14);
+		kPWM_calculatePWM(EXTIx_data[14],14);
 	}
 	if(EXTI->PR & (1<<15))
 	{
-		kPWM_calculatePWM(EXTI15_data,15);
+		kPWM_calculatePWM(EXTIx_data[15],15);
 	}
 }
 
-
+void (*kPWM_irq_handler[7])(void) =
+{
+	kPWM_EXTI0_IRQ_Handler, //0
+	kPWM_EXTI1_IRQ_Handler, //1
+	kPWM_EXTI2_IRQ_Handler, //2
+	kPWM_EXTI3_IRQ_Handler, //3
+	kPWM_EXTI4_IRQ_Handler, //4
+	kPWM_EXTI9_5_IRQ_Handler, //5
+	kPWM_EXTI15_10_IRQ_Handler //6
+};
 
 kPWM::kPWM(void)
 {
@@ -209,40 +199,74 @@ kPWM::kPWMHardware::kPWMHardware(void)
 
 kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (unsigned int pwmHard)
 {
-	unsigned int temp;
-	unsigned int * pReg;
-	unsigned char * pData;
 
-	this->tim = (TIM_TypeDef*)kPrivate::setupPeripheralOutput(pwmHard);
+	if(pwmHard & 0x80000000)
+	{
+		// PWM input mode (based on EXTI and system timer)
+		exti.hardware = pwmHard;
 
-	// decode output register
-	temp = (pwmHard & 0x18000000) >> 27;
-	this->output = (uint32_t*)&this->tim->CCR4 - (uint32_t)temp;
+		uint8_t EXTI_channel = pwmHard & 0x0F;
+		uint8_t IRQ_channel = EXTI_channel;
+		uint8_t IRQ_vector_index = EXTI_channel;
 
-	// make sure timer is stopped
-	this->tim->CR1 &= ~(1);
+		if(EXTI_channel > 9)
+		{
+			IRQ_channel = 40;
+			IRQ_vector_index = 6;
+		}else if(EXTI_channel > 4)
+		{
+			IRQ_channel = 23;
+			IRQ_vector_index = 5;
+		}else IRQ_channel += 6;
 
-	// if it is TIM1 or TIM8 set global output enable
-	if((unsigned int)this->tim & 0x00010000) this->tim->BDTR |= (1<<15);
+		this->EXTI_data = &EXTIx_data[EXTI_channel];
+
+		kSystem.setIRQHandler(IRQ_channel,kPWM_irq_handler[IRQ_vector_index]);
+		kSystem.enableInterrupt(IRQ_channel,0,0);
 
 
-	// setup OCx
-	// get CCMRx register
-	pReg = (unsigned int*)( ((unsigned int)&this->tim->CCMR1) |	((unsigned int)((pwmHard & 0x20000000) >> 27))  );
-	temp = *pReg;
-	pData = (unsigned char*)&temp;
-	pwmHard &= 0x40000000;
-	pwmHard = pwmHard >> 30;
-	pData+=pwmHard;
-	// clear bits
-	*pData &= ~(7<<4);
-	// set bits
-	*pData |= ((6<<4) | (1<<3));
-	// save settings
-	*pReg = temp;
 
-	//enable channel
-	this->tim->CCER |= (1<<( ((unsigned int)this->output) - ((unsigned int)&this->tim->CCR1)));
+	}else
+	{
+		// PWM output mode (based on Timer OC channel)
+
+		unsigned int temp;
+		unsigned int * pReg;
+		unsigned char * pData;
+
+		this->tim = (TIM_TypeDef*)kPrivate::setupPeripheralOutput(pwmHard);
+
+		// decode output register
+		temp = (pwmHard & 0x18000000) >> 27;
+		this->output = (uint32_t*)&this->tim->CCR4 - (uint32_t)temp;
+
+		// make sure timer is stopped
+		this->tim->CR1 &= ~(1);
+
+		// if it is TIM1 or TIM8 set global output enable
+		if((unsigned int)this->tim & 0x00010000) this->tim->BDTR |= (1<<15);
+
+
+		// setup OCx
+		// get CCMRx register
+		pReg = (unsigned int*)( ((unsigned int)&this->tim->CCMR1) |	((unsigned int)((pwmHard & 0x20000000) >> 27))  );
+		temp = *pReg;
+		pData = (unsigned char*)&temp;
+		pwmHard &= 0x40000000;
+		pwmHard = pwmHard >> 30;
+		pData+=pwmHard;
+		// clear bits
+		*pData &= ~(7<<4);
+		// set bits
+		*pData |= ((6<<4) | (1<<3));
+		// save settings
+		*pReg = temp;
+
+		//enable channel
+		this->tim->CCER |= (1<<( ((unsigned int)this->output) - ((unsigned int)&this->tim->CCR1)));
+
+	}
+
 
 	return (*this);
 }
@@ -287,232 +311,8 @@ void kPWM::run(unsigned short int resolution, unsigned int tick_freq)
 
 
 }
-void kPWM::kPWMHardware::setupInputModeHardware(unsigned int hard_code)
-{
-	uint32_t temp;
-
-	// decode pin number
-	unsigned char pin = hard_code & 0x0F;
-	// decode port number
-	unsigned char port = hard_code & 0xF0;
-	port = port >> 4;
-	// get gpio address
-	temp = ((uint32_t)port) << 10;
-	GPIO_TypeDef * gpio = ((GPIO_TypeDef*)(AHB1PERIPH_BASE | temp));
 
 
-
-	//make sure gpio clock is enabled
-	RCC->AHB1ENR |= (1<<port);
-
-	//make sure pin is in input state
-	gpio->MODER &= ~(3<<(pin*2));
-
-
-
-	// get SYSCFG->EXTICR shift bits number
-	hard_code = hard_code >> 8;
-	temp = hard_code & 0x000000FF;
-	// get proper SYSCFG->EXTICR address (saved in hard_code)
-	hard_code = hard_code >> 8;
-	hard_code |= ((uint32_t)SYSCFG);
-
-	// make sure SYSCFG clock is enabled
-	RCC->APB2ENR |= (1<<14);
-
-	// setup SYSCFG->EXTICR
-	// clear proper bits
-	*((uint32_t*)hard_code) &= ~(((uint32_t)0x0F) << temp);
-	// save new value
-	*((uint32_t*)hard_code) |=  (((uint32_t)port) << temp);
-
-
-	// enable EXTI interrupt handling
-	EXTI->IMR |= (1<<pin);
-	// enable EXTI rising edge detection
-	EXTI->RTSR |= (1<<pin);
-
-
-
-}
-
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI0::kPWM_EXTI0_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI0_data;
-
-	kSystem.setIRQHandler(6,kPWM_EXTI0_IRQ_Handler);
-	kSystem.enableInterrupt(6,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI1::kPWM_EXTI1_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI1_data;
-
-	kSystem.setIRQHandler(7,kPWM_EXTI1_IRQ_Handler);
-	kSystem.enableInterrupt(7,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI2::kPWM_EXTI2_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI2_data;
-
-	kSystem.setIRQHandler(8,kPWM_EXTI2_IRQ_Handler);
-	kSystem.enableInterrupt(8,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI3::kPWM_EXTI3_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI3_data;
-
-	kSystem.setIRQHandler(9,kPWM_EXTI3_IRQ_Handler);
-	kSystem.enableInterrupt(9,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI4::kPWM_EXTI4_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI4_data;
-
-	kSystem.setIRQHandler(10,kPWM_EXTI4_IRQ_Handler);
-	kSystem.enableInterrupt(10,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI5::kPWM_EXTI5_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI5_data;
-
-	kSystem.setIRQHandler(23,kPWM_EXTI9_5_IRQ_Handler);
-	kSystem.enableInterrupt(23,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI6::kPWM_EXTI6_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI6_data;
-
-	kSystem.setIRQHandler(23,kPWM_EXTI9_5_IRQ_Handler);
-	kSystem.enableInterrupt(23,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI7::kPWM_EXTI7_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI7_data;
-
-	kSystem.setIRQHandler(23,kPWM_EXTI9_5_IRQ_Handler);
-	kSystem.enableInterrupt(23,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI8::kPWM_EXTI8_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI8_data;
-
-	kSystem.setIRQHandler(23,kPWM_EXTI9_5_IRQ_Handler);
-	kSystem.enableInterrupt(23,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI9::kPWM_EXTI9_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI9_data;
-
-	kSystem.setIRQHandler(23,kPWM_EXTI9_5_IRQ_Handler);
-	kSystem.enableInterrupt(23,0,0);
-
-	return (*this);
-}
-
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI10::kPWM_EXTI10_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI10_data;
-
-	kSystem.setIRQHandler(40,kPWM_EXTI15_10_IRQ_Handler);
-	kSystem.enableInterrupt(40,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI11::kPWM_EXTI11_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI11_data;
-
-	kSystem.setIRQHandler(40,kPWM_EXTI15_10_IRQ_Handler);
-	kSystem.enableInterrupt(40,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI12::kPWM_EXTI12_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI12_data;
-
-	kSystem.setIRQHandler(40,kPWM_EXTI15_10_IRQ_Handler);
-	kSystem.enableInterrupt(40,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI13::kPWM_EXTI13_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI13_data;
-
-	kSystem.setIRQHandler(40,kPWM_EXTI15_10_IRQ_Handler);
-	kSystem.enableInterrupt(40,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI14::kPWM_EXTI14_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI14_data;
-
-	kSystem.setIRQHandler(40,kPWM_EXTI15_10_IRQ_Handler);
-	kSystem.enableInterrupt(40,0,0);
-
-	return (*this);
-}
-kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (const kPWM_EXTI15::kPWM_EXTI15_Pin & pwmHard)
-{
-	this->setupInputModeHardware((uint32_t)pwmHard);
-	// register input buffer
-	this->EXTI_data = &EXTI15_data;
-
-	kSystem.setIRQHandler(40,kPWM_EXTI15_10_IRQ_Handler);
-	kSystem.enableInterrupt(40,0,0);
-
-	return (*this);
-}
 kPWM::operator unsigned int()
 {
 	return (unsigned int)this->hardware.EXTI_data->pwm_input_register;

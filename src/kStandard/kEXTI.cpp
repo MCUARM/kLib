@@ -276,4 +276,20 @@ void kEXTI::setIRQHandler(void (*IRQ_Handler)(void),uint8_t preemptionPriority, 
 	kSystem.enableInterrupt(kEXTI_irq_channel_num[index],preemptionPriority,subPriority);
 
 }
-
+void kEXTI::forceInterrupt(void){
+	EXTI->SWIER |= (1 << hardware.exti_channel);
+}
+void kEXTI::triggerRisingEdge(bool state)
+{
+	if(state) EXTI->RTSR |= (1<<hardware.exti_channel);
+	else EXTI->RTSR &= ~ (1<<hardware.exti_channel);
+}
+void kEXTI::triggerFallingEdge(bool state)
+{
+	if(state) EXTI->FTSR |= (1<<hardware.exti_channel);
+	else EXTI->FTSR &= ~ (1<<hardware.exti_channel);
+}
+uint8_t kEXTI::getChannel(void)
+{
+	return hardware.exti_channel;
+}

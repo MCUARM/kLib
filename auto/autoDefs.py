@@ -550,6 +550,37 @@ def createPWMdefs():
 			res += getStructCloser("kPWM_out")
 
 
+		for exti_num in range(0,16):
+
+			res += getStructEnumOpener()
+			is_first = True
+			for gpio in grabAllGPIOs(dev):
+				if not is_first:
+					res += ","
+				is_first = False
+
+				syscfg = grabPeriphByName(dev,"SYSCFG")
+
+				port_name = getGPIOnumber(gpio) + str(exti_num)
+
+				code = int(	getHardwareSetupCode(2,
+							getAttribute(syscfg,'rccEnableBit'),
+							getAttribute(syscfg,'address'),
+							0,
+							0,
+							0,
+							port_name),16)
+				code |= 0x80000000
+				
+				res += "\n\t\t\tPORT"+port_name + " = " + formatHex(hex(code))
+				
+			res += getStructEnumCloser("kPWM_EXTI"+str(exti_num)+ "_Pin","kPWM_EXTI"+str(exti_num))
+			
+		res += getStructOpener()
+		for exti_num in range(0,16):
+			res += "\n\t\t" + "kPWM_EXTI"+str(exti_num) + " _EXTI" + str(exti_num) + ";"
+		res += getStructCloser("kPWM_in")
+
 
 		res += "\n#endif\n"
 		

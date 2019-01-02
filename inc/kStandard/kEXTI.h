@@ -2337,6 +2337,11 @@
 
 			kEXTIHardware hardware;
 			void setIRQHandler(void (*IRQ_Handler)(void),uint8_t preemptionPriority, uint8_t subPriority);
+			void forceInterrupt(void);
+			uint8_t getChannel(void);
+
+			void triggerRisingEdge(bool state);
+			void triggerFallingEdge(bool state);
 
 // region EXTI_DECLARATIONS
 
