@@ -83,7 +83,7 @@ kFAT::DRESULT kSDCardDrive::ioctl(unsigned char cmd, void* buff)
 	}
 
 	this->deselect();            /* CS = H */
-	this->kSPIDevice::read();    /* Idle (Release DO) */
+	this->kSPI::read();    /* Idle (Release DO) */
 
     return res;
 }

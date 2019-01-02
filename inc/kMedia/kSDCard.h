@@ -41,7 +41,7 @@
 	 * Includes
 	 */
 	#include "kSystem.h"
-	#include "kSPIDevice.h"
+	#include "kSPI.h"
 	#include "kFAT.h"
 
 
@@ -89,7 +89,7 @@
 	};
 
 
-	class kSDCard : public kSPIDevice
+	class kSDCard : public kSPI
 	{
 		friend class kSDCardDrive;
 

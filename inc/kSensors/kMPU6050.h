@@ -41,7 +41,7 @@
 	 * Includes
 	 */
 	#include "stm32f4xx.h"
-	#include "kI2CDevice.h"
+	#include "kI2C.h"
 	#include "kGyroscope.h"
 	#include "kAccelerometer.h"
 
@@ -1355,7 +1355,7 @@
 	#define MPU6050_BufferData_Slave3 (uint16_t)0x2000
 
 
-	class kMPU6050 : public kI2CDevice, public kAccelerometer, public kGyroscope
+	class kMPU6050 : public kI2C, public kAccelerometer, public kGyroscope
 	{
 		protected:
 

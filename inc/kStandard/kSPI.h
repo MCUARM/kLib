@@ -34,14 +34,13 @@
 
 
 
-#ifndef __kSPIDevice_H
-#define __kSPIDevice_H
+#ifndef __kSPI_H
+#define __kSPI_H
 
-	#include "stm32f4xx_spi.h"
 	#include "kSystem.h"
 
-	class kSPIDevice;
-	class kSPIDeviceHardware;
+	class kSPI;
+	class kSPIHardware;
 
 // region PLATFORM_DEPENDED_STRUCTS
 
@@ -2696,9 +2695,45 @@
 
 // endregion PLATFORM_DEPENDED_STRUCTS
 
+
+	class kSPIHardware
+	{
+		private:
+
+
+
+		public:
+
+			kPin NSS;
+			SPI_TypeDef * spi;
+
+
+
+			kSPIHardware(void);
+			kSPIHardware& operator = (unsigned int hard_code);
+			kSPIHardware& operator , (unsigned int hard_code);
+
+	};
+
+
+
 	class kSPI
 	{
 		public:
+
+			kSPIHardware hardware;
+			void run(unsigned int sck_freq);
+			bool isBusy(void);
+			bool byteReceived(void);
+			bool byteTransmitted(void);
+			void write(unsigned short int BytesToWrite,unsigned char * DataBuffer);
+			void write(unsigned char Byte);
+			void read(unsigned short int BytesToRead,unsigned char * ReadDataBuffer);
+			unsigned char read(void);
+			void select(void);
+			void deselect(void);
+
+
 
 // region SPI_DECLARATIONS
 
@@ -2734,41 +2769,6 @@
 
 // endregion SPI_DECLARATIONS
 
-	};
-
-	class kSPIDeviceHardware
-	{
-		private:
-
-
-
-		public:
-
-			kPin NSS;
-			SPI_TypeDef * spi;
-
-
-
-			kSPIDeviceHardware(void);
-			kSPIDeviceHardware& operator = (unsigned int hard_code);
-			kSPIDeviceHardware& operator , (unsigned int hard_code);
-
-	};
-
-	class kSPIDevice
-	{
-
-		public:
-
-			kSPIDeviceHardware hardware;
-			void run(unsigned int sck_freq);
-
-			void write(unsigned short int BytesToWrite,unsigned char * DataBuffer);
-			void write(unsigned char Byte);
-			void read(unsigned short int BytesToRead,unsigned char * ReadDataBuffer);
-			unsigned char read(void);
-			void select(void);
-			void deselect(void);
 	};
 
 

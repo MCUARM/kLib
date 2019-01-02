@@ -48,7 +48,7 @@ unsigned char kSDCard::getStatus(void)
 void kSDCard::run(unsigned int sck_freq)
 {
 	//this->hardware = kSPI::Master->MSB_First.SCK_IdleLow.DataCapture_1Edge;
-	kSPIDevice::run(sck_freq);
+	kSPI::run(sck_freq);
 }
 unsigned char kSDCard::init(void)
 {

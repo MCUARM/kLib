@@ -34,26 +34,26 @@
 
 
 
-#include "kI2CDevice.h"
+#include "kI2C.h"
 
 
-kI2CDevice::kI2CDevice(void)
+kI2C::kI2C(void)
 {
 
 }
-kI2CDeviceHardware& kI2CDeviceHardware::operator = (unsigned int hard_code)
+kI2CHardware& kI2CHardware::operator = (unsigned int hard_code)
 {
 	// setup output pin
 	this->i2c = (I2C_TypeDef*)kPrivate::setupPeripheralOutput(hard_code);
 	return (*this);
 }
 
-kI2CDeviceHardware& kI2CDeviceHardware::operator , (unsigned int hard_code)
+kI2CHardware& kI2CHardware::operator , (unsigned int hard_code)
 {
 	return ((*this) = hard_code);
 }
 
-void kI2CDevice::run(unsigned int clock_speed)
+void kI2C::run(unsigned int clock_speed)
 {
 	I2C_InitTypeDef I2C_InitStruct;
 
@@ -68,12 +68,12 @@ void kI2CDevice::run(unsigned int clock_speed)
 	I2C_Cmd(this->hardware.i2c,ENABLE);
 
 }
-void kI2CDevice::reset(void)
+void kI2C::reset(void)
 {
 	this->hardware.i2c->CR1 |= (1<<15);
 }
 
-void kI2CDevice::write(uint8_t StartingRegisterAddress,void * transmit_buffer,uint8_t BytesToWrite)
+void kI2C::write(uint8_t StartingRegisterAddress,void * transmit_buffer,uint8_t BytesToWrite)
 {
 	uint8_t i;
 	uint8_t * tx_buffer = (uint8_t*)transmit_buffer;
@@ -111,7 +111,7 @@ void kI2CDevice::write(uint8_t StartingRegisterAddress,void * transmit_buffer,ui
 	//wyslij znak stop
 	I2C_GenerateSTOP(this->hardware.i2c,ENABLE);
 }
-void kI2CDevice::write(uint8_t RegisterAddress,uint8_t value)
+void kI2C::write(uint8_t RegisterAddress,uint8_t value)
 {
 
 	//poczekaj dop�ki I2Cx jest zaj�ty
@@ -142,7 +142,7 @@ void kI2CDevice::write(uint8_t RegisterAddress,uint8_t value)
 	//wyslij znak stop
 	I2C_GenerateSTOP(this->hardware.i2c,ENABLE);
 }
-void kI2CDevice::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead)
+void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead)
 {
 	uint8_t i,loop_end;
 	uint8_t * rx_buffer = (uint8_t*)recieve_buffer;
@@ -261,7 +261,7 @@ void kI2CDevice::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uin
 	}
 
 }
-unsigned char kI2CDevice::read(uint8_t RegisterAddress)
+unsigned char kI2C::read(uint8_t RegisterAddress)
 {
 	// there is some problem with internal shift buffer
 	// that do not allow receiving single byte

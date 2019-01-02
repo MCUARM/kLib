@@ -41,7 +41,7 @@
 	 * Includes
 	 */
 	#include "stm32f4xx.h"
-	#include "kI2CDevice.h"
+	#include "kI2C.h"
 	#include "math.h"
 
 	// definicja struktury przechowuj�cej indywidualne parametry kalibruj�ce
@@ -74,7 +74,7 @@
 	#define BMP085_OSS_8_SAMPLES (uint8_t)0x03
 
 
-	class kBMP085 : public kI2CDevice
+	class kBMP085 : public kI2C
 	{
 		public:
 

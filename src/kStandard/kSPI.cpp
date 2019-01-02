@@ -34,14 +34,14 @@
 
 
 
-#include "kSPIDevice.h"
+#include "kSPI.h"
 
 
-kSPIDeviceHardware::kSPIDeviceHardware(void)
+kSPIHardware::kSPIHardware(void)
 {
 
 }
-kSPIDeviceHardware& kSPIDeviceHardware::operator = (unsigned int hard_code)
+kSPIHardware& kSPIHardware::operator = (unsigned int hard_code)
 {
 	// check if it is spi configuration or pin configuration
 	if(hard_code & 0x08000000)
@@ -72,12 +72,12 @@ kSPIDeviceHardware& kSPIDeviceHardware::operator = (unsigned int hard_code)
 	}
 	return (*this);
 }
-kSPIDeviceHardware& kSPIDeviceHardware::operator , (unsigned int hard_code)
+kSPIHardware& kSPIHardware::operator , (unsigned int hard_code)
 {
 
 	return ((*this) = hard_code);
 }
-void kSPIDevice::run(unsigned int sck_freq)
+void kSPI::run(unsigned int sck_freq)
 {
 	// assert
 	if(!sck_freq) return;
@@ -105,33 +105,44 @@ void kSPIDevice::run(unsigned int sck_freq)
 	this->hardware.spi->CR1 |= (i << 3);
 
 }
-
-void kSPIDevice::write(unsigned short int BytesToWrite,unsigned char * DataBuffer)
+bool kSPI::byteReceived(void)
+{
+	return (this->hardware.spi->SR & (~(1<<0)));
+}
+bool kSPI::byteTransmitted(void)
+{
+	return (this->hardware.spi->SR & (~(1<<1)));
+}
+void kSPI::write(unsigned short int BytesToWrite,unsigned char * DataBuffer)
 {
 	unsigned short int i;
 
 	for(i=0;i<BytesToWrite;i++)
 	{
 		// wait while TXE flag not set (transmit buffer empty flag)
-		while(!(this->hardware.spi->SR & (~(1<<1))));
+		while(!byteTransmitted());
 		// write data to data register
 		this->hardware.spi->DR = *DataBuffer;
 		// increment data pointer
 		DataBuffer++;
 	}
 	// wait while SPI is operating (Busy flag set)
-	while(this->hardware.spi->SR & (~(1<<7)));
+	while(isBusy());
 }
-void kSPIDevice::write(unsigned char Byte)
+bool kSPI::isBusy(void)
+{
+	return (this->hardware.spi->SR & (~(1<<7)));
+}
+void kSPI::write(unsigned char Byte)
 {
 	// wait while TXE flag not set (transmit buffer empty flag)
 	while(!(this->hardware.spi->SR & (~(1<<1))));
 	// write data to data register
 	this->hardware.spi->DR = Byte;
 	// wait while SPI is operating (Busy flag set)
-	while(this->hardware.spi->SR & (~(1<<7)));
+	while(isBusy());
 }
-void kSPIDevice::read(unsigned short int BytesToRead,unsigned char * ReadDataBuffer)
+void kSPI::read(unsigned short int BytesToRead,unsigned char * ReadDataBuffer)
 {
 	unsigned short int i;
 
@@ -139,32 +150,29 @@ void kSPIDevice::read(unsigned short int BytesToRead,unsigned char * ReadDataBuf
 	{
 		// send 0xFF
 		this->write(0xFF);
-
 		// wait until RXNE is set (Receiving buffer not empty
-		while(!(this->hardware.spi->SR & (~(1<<0))));
+		while (!byteReceived());
 		// receive one byte
 		*ReadDataBuffer = this->hardware.spi->DR;
 		// increment read buffer pointer
 		ReadDataBuffer++;
 	}
-	while(SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_BSY) != RESET);
 }
-unsigned char kSPIDevice::read(void)
+unsigned char kSPI::read(void)
 {
 	// Wyslanie 0xFF
-	while (SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_TXE) == RESET);
+	while(!byteTransmitted());
 	this->hardware.spi->DR = 0xFF;
 
 	// Odebranie bajtu
-	while (SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_RXNE) == RESET);
-	while(SPI_I2S_GetFlagStatus(this->hardware.spi, SPI_I2S_FLAG_BSY) != RESET);
-	return SPI_I2S_ReceiveData(this->hardware.spi);
+	while (!byteReceived());
+	return this->hardware.spi->DR;
 }
-void kSPIDevice::select(void)
+void kSPI::select(void)
 {
 	this->hardware.NSS = 0;
 }
-void kSPIDevice::deselect(void)
+void kSPI::deselect(void)
 {
 	this->hardware.NSS = 1;
 }

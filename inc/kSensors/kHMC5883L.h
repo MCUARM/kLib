@@ -41,7 +41,7 @@
 	 * Includes
 	 */
 	#include "stm32f4xx.h"
-	#include "kI2CDevice.h"
+	#include "kI2C.h"
 
 
 	typedef enum
@@ -158,7 +158,7 @@
 
 
 
-	class kHMC5883L : public kI2CDevice
+	class kHMC5883L : public kI2C
 	{
 		private:
 

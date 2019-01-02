@@ -257,9 +257,40 @@
 // endregion PLATFORM_DEPENDED_STRUCTS
 
 
+	class kI2CHardware
+	{
+		private:
+
+			friend class kI2C;
+
+			I2C_TypeDef * i2c;
+
+		public:
+
+			kI2CHardware & operator = (unsigned int hard_code);
+			kI2CHardware & operator , (unsigned int hard_code);
+
+	};
+
 	class kI2C
 	{
 		public:
+
+
+			kI2CHardware hardware;
+			uint8_t address;
+
+			kI2C(void);
+			void run(unsigned int clock_speed);
+
+			void reset(void);
+
+			void write(uint8_t StartingRegisterAddress, void * transmit_buffer,uint8_t BytesToWrite);
+			void write(uint8_t RegisterAddress,uint8_t value);
+
+			void read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead);
+			unsigned char read(uint8_t RegisterAddress);
+
 
 // region I2C_DECLARATIONS
 
@@ -292,43 +323,6 @@
 // endregion I2C_DECLARATIONS
 
 	};
-
-
-	class kI2CDeviceHardware
-	{
-		private:
-
-			friend class kI2CDevice;
-
-			I2C_TypeDef * i2c;
-
-		public:
-
-			kI2CDeviceHardware & operator = (unsigned int hard_code);
-			kI2CDeviceHardware & operator , (unsigned int hard_code);
-
-	};
-
-	class kI2CDevice
-	{
-		public:
-
-			kI2CDeviceHardware hardware;
-			uint8_t address;
-
-			kI2CDevice(void);
-			void run(unsigned int clock_speed);
-
-			void reset(void);
-
-			void write(uint8_t StartingRegisterAddress, void * transmit_buffer,uint8_t BytesToWrite);
-			void write(uint8_t RegisterAddress,uint8_t value);
-
-			void read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead);
-			unsigned char read(uint8_t RegisterAddress);
-
-	};
-
 
 
 

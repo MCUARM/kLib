@@ -83,8 +83,8 @@
 			friend class kPort;
 			friend class kPWM;
 			friend class kSerial;
-			friend class kI2CDeviceHardware;
-			friend class kSPIDeviceHardware;
+			friend class kI2CHardware;
+			friend class kSPIHardware;
 			friend class kEXTIHardware;
 
 			union uintSplitter
