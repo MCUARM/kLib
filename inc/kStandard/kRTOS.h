@@ -55,6 +55,7 @@
 
 
 			static __inline__ void taskCreate(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,task_t * const created_task) __attribute__((always_inline));
+			static void taskCreateScheduled(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,task_t * const created_task,tick_t scheduleInterval);
 			static __inline__ void run(void) __attribute__((always_inline));
 			static __inline__ void taskDelayUntil(tick_t * previous_wake_time_ms, const tick_t time_increment_ms)__attribute__((always_inline));
 			static __inline__ void taskDelay(const tick_t time_increment_ms)__attribute__((always_inline));

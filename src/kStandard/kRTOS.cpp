@@ -34,7 +34,39 @@
 
 
 
-#include "kRTOS.h"
+#include "kSystem.h"
+
+struct scheduledTaskArgs
+{
+	void (*function_handler)(void*);
+	kRTOS::tick_t scheduleInterval;
+	void * params;
+};
+
+void kRTOS_scheduledTask(void * args)
+{
+	scheduledTaskArgs *scheduledTaskData = (scheduledTaskArgs*)args;
+	kRTOS::tick_t time = kRTOS::taskGetTickCount();
+
+	while(1)
+	{
+		scheduledTaskData->function_handler(scheduledTaskData->params);
+		kRTOS::taskDelayUntil(&time,scheduledTaskData->scheduleInterval);
+	}
+}
 
 
+void kRTOS::taskCreateScheduled(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,task_t * const created_task,tick_t scheduleInterval)
+{
+	scheduledTaskArgs * scheduledTaskData;
+
+	scheduledTaskData = (scheduledTaskArgs*)pvPortMalloc(sizeof(scheduledTaskArgs));
+
+	scheduledTaskData->function_handler = function_handler;
+	scheduledTaskData->params = params;
+	scheduledTaskData->scheduleInterval = scheduleInterval;
+
+	kRTOS::taskCreate(kRTOS_scheduledTask,task_name,stack_size,scheduledTaskData,priority,created_task);
+
+}
 
