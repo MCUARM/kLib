@@ -1,0 +1,92 @@
+\hypertarget{misc_8h}{}\section{misc.\+h File Reference}
+\label{misc_8h}\index{misc.\+h@{misc.\+h}}
+
+
+This file contains all the functions prototypes for the miscellaneous firmware library functions (add-\/on to C\+M\+S\+IS functions).  
+
+
+{\ttfamily \#include \char`\"{}stm32f4xx.\+h\char`\"{}}\newline
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_n_v_i_c___init_type_def}{N\+V\+I\+C\+\_\+\+Init\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em N\+V\+IC Init Structure definition ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries N\+V\+I\+C\+\_\+\+Vect\+Tab\+\_\+\+R\+AM}~((uint32\+\_\+t)0x20000000)
+\item 
+\#define {\bfseries N\+V\+I\+C\+\_\+\+Vect\+Tab\+\_\+\+F\+L\+A\+SH}~((uint32\+\_\+t)0x08000000)
+\item 
+\#define {\bfseries I\+S\+\_\+\+N\+V\+I\+C\+\_\+\+V\+E\+C\+T\+T\+AB}(V\+E\+C\+T\+T\+AB)
+\item 
+\#define {\bfseries N\+V\+I\+C\+\_\+\+L\+P\+\_\+\+S\+E\+V\+O\+N\+P\+E\+ND}~((uint8\+\_\+t)0x10)
+\item 
+\#define {\bfseries N\+V\+I\+C\+\_\+\+L\+P\+\_\+\+S\+L\+E\+E\+P\+D\+E\+EP}~((uint8\+\_\+t)0x04)
+\item 
+\#define {\bfseries N\+V\+I\+C\+\_\+\+L\+P\+\_\+\+S\+L\+E\+E\+P\+O\+N\+E\+X\+IT}~((uint8\+\_\+t)0x02)
+\item 
+\#define {\bfseries I\+S\+\_\+\+N\+V\+I\+C\+\_\+\+LP}(LP)
+\item 
+\#define \mbox{\hyperlink{group___m_i_s_c___preemption___priority___group_gaeac0cf537f65d17bc19aee2410b2b60e}{N\+V\+I\+C\+\_\+\+Priority\+Group\+\_\+0}}~((uint32\+\_\+t)0x700)
+\item 
+\#define \mbox{\hyperlink{group___m_i_s_c___preemption___priority___group_ga89bf0bf9e70f1a372a541b1b8d7493aa}{N\+V\+I\+C\+\_\+\+Priority\+Group\+\_\+1}}~((uint32\+\_\+t)0x600)
+\item 
+\#define \mbox{\hyperlink{group___m_i_s_c___preemption___priority___group_ga505002e8b76aef65499ca371e40ec8b4}{N\+V\+I\+C\+\_\+\+Priority\+Group\+\_\+2}}~((uint32\+\_\+t)0x500)
+\item 
+\#define \mbox{\hyperlink{group___m_i_s_c___preemption___priority___group_ga49bdbee77d4a70339d63c80462d49b4d}{N\+V\+I\+C\+\_\+\+Priority\+Group\+\_\+3}}~((uint32\+\_\+t)0x400)
+\item 
+\#define \mbox{\hyperlink{group___m_i_s_c___preemption___priority___group_gaf9020c585da2a299328f0b06dee391a2}{N\+V\+I\+C\+\_\+\+Priority\+Group\+\_\+4}}~((uint32\+\_\+t)0x300)
+\item 
+\#define {\bfseries I\+S\+\_\+\+N\+V\+I\+C\+\_\+\+P\+R\+I\+O\+R\+I\+T\+Y\+\_\+\+G\+R\+O\+UP}(G\+R\+O\+UP)
+\item 
+\#define {\bfseries I\+S\+\_\+\+N\+V\+I\+C\+\_\+\+P\+R\+E\+E\+M\+P\+T\+I\+O\+N\+\_\+\+P\+R\+I\+O\+R\+I\+TY}(P\+R\+I\+O\+R\+I\+TY)~((P\+R\+I\+O\+R\+I\+TY) $<$ 0x10)
+\item 
+\#define {\bfseries I\+S\+\_\+\+N\+V\+I\+C\+\_\+\+S\+U\+B\+\_\+\+P\+R\+I\+O\+R\+I\+TY}(P\+R\+I\+O\+R\+I\+TY)~((P\+R\+I\+O\+R\+I\+TY) $<$ 0x10)
+\item 
+\#define {\bfseries I\+S\+\_\+\+N\+V\+I\+C\+\_\+\+O\+F\+F\+S\+ET}(O\+F\+F\+S\+ET)~((O\+F\+F\+S\+ET) $<$ 0x000\+F\+F\+F\+F\+F)
+\item 
+\#define {\bfseries Sys\+Tick\+\_\+\+C\+L\+K\+Source\+\_\+\+H\+C\+L\+K\+\_\+\+Div8}~((uint32\+\_\+t)0x\+F\+F\+F\+F\+F\+F\+F\+B)
+\item 
+\#define {\bfseries Sys\+Tick\+\_\+\+C\+L\+K\+Source\+\_\+\+H\+C\+LK}~((uint32\+\_\+t)0x00000004)
+\item 
+\#define {\bfseries I\+S\+\_\+\+S\+Y\+S\+T\+I\+C\+K\+\_\+\+C\+L\+K\+\_\+\+S\+O\+U\+R\+CE}(S\+O\+U\+R\+CE)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___m_i_s_c_gadfb1f34f803ce54c976643db8c484442}{N\+V\+I\+C\+\_\+\+Priority\+Group\+Config}} (uint32\+\_\+t N\+V\+I\+C\+\_\+\+Priority\+Group)
+\begin{DoxyCompactList}\small\item\em Configures the priority grouping\+: pre-\/emption priority and subpriority. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___m_i_s_c_ga4ab373ed0870c06fca5eb51d639adf41}{N\+V\+I\+C\+\_\+\+Init}} (\mbox{\hyperlink{struct_n_v_i_c___init_type_def}{N\+V\+I\+C\+\_\+\+Init\+Type\+Def}} $\ast$N\+V\+I\+C\+\_\+\+Init\+Struct)
+\begin{DoxyCompactList}\small\item\em Initializes the N\+V\+IC peripheral according to the specified parameters in the N\+V\+I\+C\+\_\+\+Init\+Struct. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___m_i_s_c_ga1145208ad70edfc2fab19b8b8ef1b1a1}{N\+V\+I\+C\+\_\+\+Set\+Vector\+Table}} (uint32\+\_\+t N\+V\+I\+C\+\_\+\+Vect\+Tab, uint32\+\_\+t Offset)
+\begin{DoxyCompactList}\small\item\em Sets the vector table location and Offset. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___m_i_s_c_gae21011c5232f5b8f366acbecd12a1d4a}{N\+V\+I\+C\+\_\+\+System\+L\+P\+Config}} (uint8\+\_\+t Low\+Power\+Mode, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Selects the condition for the system to enter low power mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___m_i_s_c_ga2777d255bb06ad62bb6372a9db1ff385}{Sys\+Tick\+\_\+\+C\+L\+K\+Source\+Config}} (uint32\+\_\+t Sys\+Tick\+\_\+\+C\+L\+K\+Source)
+\begin{DoxyCompactList}\small\item\em Configures the Sys\+Tick clock source. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains all the functions prototypes for the miscellaneous firmware library functions (add-\/on to C\+M\+S\+IS functions). 
+
+\begin{DoxyAuthor}{Author}
+M\+CD Application Team 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+V1.\+6.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+21-\/\+October-\/2015 
+\end{DoxyDate}
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+\subsubsection*{\begin{center}\copyright{} C\+O\+P\+Y\+R\+I\+G\+HT 2015 S\+T\+Microelectronics\end{center} }
+
+Licensed under M\+C\+D-\/\+ST Liberty SW License Agreement V2, (the \char`\"{}\+License\char`\"{}); You may not use this file except in compliance with the License. You may obtain a copy of the License at\+: \begin{DoxyVerb}   http://www.st.com/software_license_agreement_liberty_v2
+\end{DoxyVerb}
+
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \char`\"{}\+A\+S I\+S\char`\"{} B\+A\+S\+IS, W\+I\+T\+H\+O\+UT W\+A\+R\+R\+A\+N\+T\+I\+ES OR C\+O\+N\+D\+I\+T\+I\+O\+NS OF A\+NY K\+I\+ND, either express or implied. See the License for the specific language governing permissions and limitations under the License. 

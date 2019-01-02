@@ -1,0 +1,16 @@
+digraph "stm32f4xx_rcc.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node2 [label="stm32f4xx_rcc.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="stm32f4xx_gpio.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$stm32f4xx__gpio_8c.html",tooltip="This file provides firmware functions to manage the following functionalities of the GPIO peripheral:..."];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="stm32f4xx_i2c.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$stm32f4xx__i2c_8c.html",tooltip="This file provides firmware functions to manage the following functionalities of the Inter-integrated..."];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="stm32f4xx_rcc.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$stm32f4xx__rcc_8c.html",tooltip="This file provides firmware functions to manage the following functionalities of the Reset and clock ..."];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="stm32f4xx_spi.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$stm32f4xx__spi_8c.html",tooltip="This file provides firmware functions to manage the following functionalities of the Serial periphera..."];
+  Node2 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="stm32f4xx_usart.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$stm32f4xx__usart_8c.html",tooltip="This file provides firmware functions to manage the following functionalities of the Universal synchr..."];
+}

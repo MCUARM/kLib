@@ -1,0 +1,236 @@
+\hypertarget{group___s_p_i___group5}{}\section{Interrupts and flags management functions}
+\label{group___s_p_i___group5}\index{Interrupts and flags management functions@{Interrupts and flags management functions}}
+
+
+Interrupts and flags management functions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___s_p_i___group5_ga17f4ef132e8ddbf94cb6b1688d181e41}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+Config}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint8\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the specified S\+P\+I/\+I2S interrupts. \end{DoxyCompactList}\item 
+Flag\+Status \mbox{\hyperlink{group___s_p_i___group5_ga1bd785d129e09c5734a876c8f2767204}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG)
+\begin{DoxyCompactList}\small\item\em Checks whether the specified S\+P\+Ix/\+I2\+Sx flag is set or not. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group5_ga3aabd9e2437e213056c0ed9bdfa1a724}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+Flag}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG)
+\begin{DoxyCompactList}\small\item\em Clears the S\+P\+Ix C\+RC Error (C\+R\+C\+E\+RR) flag. \end{DoxyCompactList}\item 
+I\+T\+Status \mbox{\hyperlink{group___s_p_i___group5_ga72decbc1cd79f8fad92a2204beca6bc5}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint8\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT)
+\begin{DoxyCompactList}\small\item\em Checks whether the specified S\+P\+Ix/\+I2\+Sx interrupt has occurred or not. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group5_ga35a524a49ff3d058137060f751e8749f}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+I\+T\+Pending\+Bit}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint8\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT)
+\begin{DoxyCompactList}\small\item\em Clears the S\+P\+Ix C\+RC Error (C\+R\+C\+E\+RR) interrupt pending bit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Interrupts and flags management functions. 
+
+\begin{DoxyVerb} ===============================================================================
+            ##### Interrupts and flags management functions #####
+ ===============================================================================  
+ 
+ [..] This section provides a set of functions allowing to configure the SPI Interrupts 
+      sources and check or clear the flags or pending bits status.
+      The user should identify which mode will be used in his application to manage 
+      the communication: Polling mode, Interrupt mode or DMA mode. 
+    
+ *** Polling Mode ***
+ ====================
+[..] In Polling Mode, the SPI/I2S communication can be managed by 9 flags:
+  (#) SPI_I2S_FLAG_TXE : to indicate the status of the transmit buffer register
+  (#) SPI_I2S_FLAG_RXNE : to indicate the status of the receive buffer register
+  (#) SPI_I2S_FLAG_BSY : to indicate the state of the communication layer of the SPI.
+  (#) SPI_FLAG_CRCERR : to indicate if a CRC Calculation error occur              
+  (#) SPI_FLAG_MODF : to indicate if a Mode Fault error occur
+  (#) SPI_I2S_FLAG_OVR : to indicate if an Overrun error occur
+  (#) I2S_FLAG_TIFRFE: to indicate a Frame Format error occurs.
+  (#) I2S_FLAG_UDR: to indicate an Underrun error occurs.
+  (#) I2S_FLAG_CHSIDE: to indicate Channel Side.
+
+  (@) Do not use the BSY flag to handle each data transmission or reception. It is
+      better to use the TXE and RXNE flags instead.
+
+ [..] In this Mode it is advised to use the following functions:
+   (+) FlagStatus SPI_I2S_GetFlagStatus(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG);
+   (+) void SPI_I2S_ClearFlag(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG);
+
+ *** Interrupt Mode ***
+ ======================
+ [..] In Interrupt Mode, the SPI communication can be managed by 3 interrupt sources
+      and 7 pending bits: 
+   (+) Pending Bits:
+       (##) SPI_I2S_IT_TXE : to indicate the status of the transmit buffer register
+       (##) SPI_I2S_IT_RXNE : to indicate the status of the receive buffer register
+       (##) SPI_IT_CRCERR : to indicate if a CRC Calculation error occur (available in SPI mode only)            
+       (##) SPI_IT_MODF : to indicate if a Mode Fault error occur (available in SPI mode only)
+       (##) SPI_I2S_IT_OVR : to indicate if an Overrun error occur
+       (##) I2S_IT_UDR : to indicate an Underrun Error occurs (available in I2S mode only).
+       (##) I2S_FLAG_TIFRFE : to indicate a Frame Format error occurs (available in TI mode only).
+
+   (+) Interrupt Source:
+       (##) SPI_I2S_IT_TXE: specifies the interrupt source for the Tx buffer empty 
+            interrupt.  
+       (##) SPI_I2S_IT_RXNE : specifies the interrupt source for the Rx buffer not 
+            empty interrupt.
+       (##) SPI_I2S_IT_ERR : specifies the interrupt source for the errors interrupt.
+
+ [..] In this Mode it is advised to use the following functions:
+   (+) void SPI_I2S_ITConfig(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT, FunctionalState NewState);
+   (+) ITStatus SPI_I2S_GetITStatus(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT);
+   (+) void SPI_I2S_ClearITPendingBit(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT);
+
+ *** DMA Mode ***
+ ================
+ [..] In DMA Mode, the SPI communication can be managed by 2 DMA Channel requests:
+   (#) SPI_I2S_DMAReq_Tx: specifies the Tx buffer DMA transfer request
+   (#) SPI_I2S_DMAReq_Rx: specifies the Rx buffer DMA transfer request
+
+ [..] In this Mode it is advised to use the following function:
+   (+) void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState 
+       NewState);\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group___s_p_i___group5_ga3aabd9e2437e213056c0ed9bdfa1a724}\label{group___s_p_i___group5_ga3aabd9e2437e213056c0ed9bdfa1a724}} 
+\index{Interrupts and flags management functions@{Interrupts and flags management functions}!S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+Flag@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+Flag}}
+\index{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+Flag@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+Flag}!Interrupts and flags management functions@{Interrupts and flags management functions}}
+\subsubsection{\texorpdfstring{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+Flag()}{SPI\_I2S\_ClearFlag()}}
+{\footnotesize\ttfamily void S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+Flag (\begin{DoxyParamCaption}\item[{S\+P\+I\+\_\+\+Type\+Def $\ast$}]{S\+P\+Ix,  }\item[{uint16\+\_\+t}]{S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG }\end{DoxyParamCaption})}
+
+
+
+Clears the S\+P\+Ix C\+RC Error (C\+R\+C\+E\+RR) flag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S\+P\+Ix} & To select the S\+P\+Ix/\+I2\+Sx peripheral, where x can be\+: 1, 2, 3, 4, 5 or 6 in S\+PI mode or 2 or 3 in I2S mode or I2\+Sxext for I2S full duplex mode. \\
+\hline
+{\em S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG} & specifies the S\+PI flag to clear. This function clears only C\+R\+C\+E\+RR flag. \begin{DoxyItemize}
+\item S\+P\+I\+\_\+\+F\+L\+A\+G\+\_\+\+C\+R\+C\+E\+RR\+: C\+RC Error flag. ~\newline
+ \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+O\+VR (Over\+Run error) flag is cleared by software sequence\+: a read operation to S\+P\+I\+\_\+\+DR register (\mbox{\hyperlink{group___s_p_i___group2_gab77de76547f3bff403236b263b070a30}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Receive\+Data()}}) followed by a read operation to S\+P\+I\+\_\+\+SR register (\mbox{\hyperlink{group___s_p_i___group5_ga1bd785d129e09c5734a876c8f2767204}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status()}}). 
+
+U\+DR (Under\+Run error) flag is cleared by a read operation to S\+P\+I\+\_\+\+SR register (\mbox{\hyperlink{group___s_p_i___group5_ga1bd785d129e09c5734a876c8f2767204}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status()}}). ~\newline
+
+
+M\+O\+DF (Mode Fault) flag is cleared by software sequence\+: a read/write operation to S\+P\+I\+\_\+\+SR register (\mbox{\hyperlink{group___s_p_i___group5_ga1bd785d129e09c5734a876c8f2767204}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status()}}) followed by a write operation to S\+P\+I\+\_\+\+C\+R1 register (\mbox{\hyperlink{group___s_p_i___group1_gaa31357879a65ee1ed7223f3b9114dcf3}{S\+P\+I\+\_\+\+Cmd()}} to enable the S\+PI).
+\end{DoxyNote}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___s_p_i___group5_ga35a524a49ff3d058137060f751e8749f}\label{group___s_p_i___group5_ga35a524a49ff3d058137060f751e8749f}} 
+\index{Interrupts and flags management functions@{Interrupts and flags management functions}!S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+I\+T\+Pending\+Bit@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+I\+T\+Pending\+Bit}}
+\index{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+I\+T\+Pending\+Bit@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+I\+T\+Pending\+Bit}!Interrupts and flags management functions@{Interrupts and flags management functions}}
+\subsubsection{\texorpdfstring{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+I\+T\+Pending\+Bit()}{SPI\_I2S\_ClearITPendingBit()}}
+{\footnotesize\ttfamily void S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+I\+T\+Pending\+Bit (\begin{DoxyParamCaption}\item[{S\+P\+I\+\_\+\+Type\+Def $\ast$}]{S\+P\+Ix,  }\item[{uint8\+\_\+t}]{S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT }\end{DoxyParamCaption})}
+
+
+
+Clears the S\+P\+Ix C\+RC Error (C\+R\+C\+E\+RR) interrupt pending bit. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S\+P\+Ix} & To select the S\+P\+Ix/\+I2\+Sx peripheral, where x can be\+: 1, 2, 3, 4, 5 or 6 in S\+PI mode or 2 or 3 in I2S mode or I2\+Sxext for I2S full duplex mode. ~\newline
+\\
+\hline
+{\em S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT} & specifies the S\+PI interrupt pending bit to clear. This function clears only C\+R\+C\+E\+RR interrupt pending bit. ~\newline
+ \begin{DoxyItemize}
+\item S\+P\+I\+\_\+\+I\+T\+\_\+\+C\+R\+C\+E\+RR\+: C\+RC Error interrupt.\end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+O\+VR (Over\+Run Error) interrupt pending bit is cleared by software sequence\+: a read operation to S\+P\+I\+\_\+\+DR register (\mbox{\hyperlink{group___s_p_i___group2_gab77de76547f3bff403236b263b070a30}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Receive\+Data()}}) followed by a read operation to S\+P\+I\+\_\+\+SR register (\mbox{\hyperlink{group___s_p_i___group5_ga72decbc1cd79f8fad92a2204beca6bc5}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status()}}). 
+
+U\+DR (Under\+Run Error) interrupt pending bit is cleared by a read operation to S\+P\+I\+\_\+\+SR register (\mbox{\hyperlink{group___s_p_i___group5_ga72decbc1cd79f8fad92a2204beca6bc5}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status()}}). ~\newline
+
+
+M\+O\+DF (Mode Fault) interrupt pending bit is cleared by software sequence\+: a read/write operation to S\+P\+I\+\_\+\+SR register (\mbox{\hyperlink{group___s_p_i___group5_ga72decbc1cd79f8fad92a2204beca6bc5}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status()}}) followed by a write operation to S\+P\+I\+\_\+\+C\+R1 register (\mbox{\hyperlink{group___s_p_i___group1_gaa31357879a65ee1ed7223f3b9114dcf3}{S\+P\+I\+\_\+\+Cmd()}} to enable the S\+PI). 
+\end{DoxyNote}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___s_p_i___group5_ga1bd785d129e09c5734a876c8f2767204}\label{group___s_p_i___group5_ga1bd785d129e09c5734a876c8f2767204}} 
+\index{Interrupts and flags management functions@{Interrupts and flags management functions}!S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status}}
+\index{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status}!Interrupts and flags management functions@{Interrupts and flags management functions}}
+\subsubsection{\texorpdfstring{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status()}{SPI\_I2S\_GetFlagStatus()}}
+{\footnotesize\ttfamily Flag\+Status S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status (\begin{DoxyParamCaption}\item[{S\+P\+I\+\_\+\+Type\+Def $\ast$}]{S\+P\+Ix,  }\item[{uint16\+\_\+t}]{S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG }\end{DoxyParamCaption})}
+
+
+
+Checks whether the specified S\+P\+Ix/\+I2\+Sx flag is set or not. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S\+P\+Ix} & To select the S\+P\+Ix/\+I2\+Sx peripheral, where x can be\+: 1, 2, 3, 4, 5 or 6 in S\+PI mode or 2 or 3 in I2S mode or I2\+Sxext for I2S full duplex mode. \\
+\hline
+{\em S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG} & specifies the S\+PI flag to check. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+A\+G\+\_\+\+T\+XE\+: Transmit buffer empty flag. \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+A\+G\+\_\+\+R\+X\+NE\+: Receive buffer not empty flag. \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+A\+G\+\_\+\+B\+SY\+: Busy flag. \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+A\+G\+\_\+\+O\+VR\+: Overrun flag. \item S\+P\+I\+\_\+\+F\+L\+A\+G\+\_\+\+M\+O\+DF\+: Mode Fault flag. \item S\+P\+I\+\_\+\+F\+L\+A\+G\+\_\+\+C\+R\+C\+E\+RR\+: C\+RC Error flag. \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+A\+G\+\_\+\+T\+I\+F\+R\+FE\+: Format Error. \item I2\+S\+\_\+\+F\+L\+A\+G\+\_\+\+U\+DR\+: Underrun Error flag. \item I2\+S\+\_\+\+F\+L\+A\+G\+\_\+\+C\+H\+S\+I\+DE\+: Channel Side flag. ~\newline
+\end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em The} & new state of S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG (S\+ET or R\+E\+S\+ET). \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___s_p_i___group5_ga72decbc1cd79f8fad92a2204beca6bc5}\label{group___s_p_i___group5_ga72decbc1cd79f8fad92a2204beca6bc5}} 
+\index{Interrupts and flags management functions@{Interrupts and flags management functions}!S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status}}
+\index{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status}!Interrupts and flags management functions@{Interrupts and flags management functions}}
+\subsubsection{\texorpdfstring{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status()}{SPI\_I2S\_GetITStatus()}}
+{\footnotesize\ttfamily I\+T\+Status S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status (\begin{DoxyParamCaption}\item[{S\+P\+I\+\_\+\+Type\+Def $\ast$}]{S\+P\+Ix,  }\item[{uint8\+\_\+t}]{S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT }\end{DoxyParamCaption})}
+
+
+
+Checks whether the specified S\+P\+Ix/\+I2\+Sx interrupt has occurred or not. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S\+P\+Ix} & To select the S\+P\+Ix/\+I2\+Sx peripheral, where x can be\+: 1, 2, 3, 4, 5 or 6 in S\+PI mode or 2 or 3 in I2S mode or I2\+Sxext for I2S full duplex mode. ~\newline
+\\
+\hline
+{\em S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT} & specifies the S\+PI interrupt source to check. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+\_\+\+T\+XE\+: Transmit buffer empty interrupt. \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+\_\+\+R\+X\+NE\+: Receive buffer not empty interrupt. \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+\_\+\+O\+VR\+: Overrun interrupt. \item S\+P\+I\+\_\+\+I\+T\+\_\+\+M\+O\+DF\+: Mode Fault interrupt. \item S\+P\+I\+\_\+\+I\+T\+\_\+\+C\+R\+C\+E\+RR\+: C\+RC Error interrupt. \item I2\+S\+\_\+\+I\+T\+\_\+\+U\+DR\+: Underrun interrupt. ~\newline
+ \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+\_\+\+T\+I\+F\+R\+FE\+: Format Error interrupt. ~\newline
+\end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em The} & new state of S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT (S\+ET or R\+E\+S\+ET). \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___s_p_i___group5_ga17f4ef132e8ddbf94cb6b1688d181e41}\label{group___s_p_i___group5_ga17f4ef132e8ddbf94cb6b1688d181e41}} 
+\index{Interrupts and flags management functions@{Interrupts and flags management functions}!S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+Config@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+Config}}
+\index{S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+Config@{S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+Config}!Interrupts and flags management functions@{Interrupts and flags management functions}}
+\subsubsection{\texorpdfstring{S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+Config()}{SPI\_I2S\_ITConfig()}}
+{\footnotesize\ttfamily void S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+Config (\begin{DoxyParamCaption}\item[{S\+P\+I\+\_\+\+Type\+Def $\ast$}]{S\+P\+Ix,  }\item[{uint8\+\_\+t}]{S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT,  }\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Enables or disables the specified S\+P\+I/\+I2S interrupts. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em S\+P\+Ix} & To select the S\+P\+Ix/\+I2\+Sx peripheral, where x can be\+: 1, 2, 3, 4, 5 or 6 in S\+PI mode or 2 or 3 in I2S mode or I2\+Sxext for I2S full duplex mode. \\
+\hline
+{\em S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT} & specifies the S\+PI interrupt source to be enabled or disabled. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+\_\+\+T\+XE\+: Tx buffer empty interrupt mask \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+\_\+\+R\+X\+NE\+: Rx buffer not empty interrupt mask \item S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+\_\+\+E\+RR\+: Error interrupt mask \end{DoxyItemize}
+\\
+\hline
+{\em New\+State} & new state of the specified S\+PI interrupt. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}

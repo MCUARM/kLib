@@ -1,0 +1,458 @@
+\hypertarget{group___r_c_c___group1}{}\section{Internal and external clocks, P\+LL, C\+SS and M\+CO configuration functions}
+\label{group___r_c_c___group1}\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+
+
+Internal and external clocks, P\+LL, C\+SS and M\+CO configuration functions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga413f6422be11b1334abe60b3bff2e062}{R\+C\+C\+\_\+\+De\+Init}} (void)
+\begin{DoxyCompactList}\small\item\em Resets the R\+CC clock configuration to the default reset state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga523b06e73f6aa8a03e42299c855066a8}{R\+C\+C\+\_\+\+H\+S\+E\+Config}} (uint8\+\_\+t R\+C\+C\+\_\+\+H\+SE)
+\begin{DoxyCompactList}\small\item\em Configures the External High Speed oscillator (H\+SE). \end{DoxyCompactList}\item 
+Error\+Status \mbox{\hyperlink{group___r_c_c___group1_gae0f15692614dd048ee4110a056f001dc}{R\+C\+C\+\_\+\+Wait\+For\+H\+S\+E\+Start\+Up}} (void)
+\begin{DoxyCompactList}\small\item\em Waits for H\+SE start-\/up. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_gaa2d6a35f5c2e0f86317c3beb222677fc}{R\+C\+C\+\_\+\+Adjust\+H\+S\+I\+Calibration\+Value}} (uint8\+\_\+t H\+S\+I\+Calibration\+Value)
+\begin{DoxyCompactList}\small\item\em Adjusts the Internal High Speed oscillator (H\+SI) calibration value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga0c6772a1e43765909495f57815ef69e2}{R\+C\+C\+\_\+\+H\+S\+I\+Cmd}} (Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the Internal High Speed oscillator (H\+SI). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga65209ab5c3589b249c7d70f978735ca6}{R\+C\+C\+\_\+\+L\+S\+E\+Config}} (uint8\+\_\+t R\+C\+C\+\_\+\+L\+SE)
+\begin{DoxyCompactList}\small\item\em Configures the External Low Speed oscillator (L\+SE). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga81e3ca29fd154ac2019bba6936d6d5ed}{R\+C\+C\+\_\+\+L\+S\+I\+Cmd}} (Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the Internal Low Speed oscillator (L\+SI). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga84dee53c75e58fdb53571716593c2272}{R\+C\+C\+\_\+\+P\+L\+L\+Cmd}} (Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the main P\+LL. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga2efe493a6337d5e0034bfcdfb0f541e4}{R\+C\+C\+\_\+\+P\+L\+L\+I2\+S\+Cmd}} (Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the P\+L\+L\+I2S. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_gaf7b2c8f7533c8321dce97196d9f77fc1}{R\+C\+C\+\_\+\+P\+L\+L\+S\+A\+I\+Cmd}} (Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the P\+L\+L\+S\+AI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga0ff1fd7b9a8a49cdda11b7d7261c3494}{R\+C\+C\+\_\+\+Clock\+Security\+System\+Cmd}} (Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the Clock Security System. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_ga15c9ecb6ef015ed008cb28e5b7a50531}{R\+C\+C\+\_\+\+M\+C\+O1\+Config}} (uint32\+\_\+t R\+C\+C\+\_\+\+M\+C\+O1\+Source, uint32\+\_\+t R\+C\+C\+\_\+\+M\+C\+O1\+Div)
+\begin{DoxyCompactList}\small\item\em Selects the clock source to output on M\+C\+O1 pin(\+P\+A8). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___r_c_c___group1_gaf50f10675b747de60c739e44e5c22aee}{R\+C\+C\+\_\+\+M\+C\+O2\+Config}} (uint32\+\_\+t R\+C\+C\+\_\+\+M\+C\+O2\+Source, uint32\+\_\+t R\+C\+C\+\_\+\+M\+C\+O2\+Div)
+\begin{DoxyCompactList}\small\item\em Selects the clock source to output on M\+C\+O2 pin(\+P\+C9). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Internal and external clocks, P\+LL, C\+SS and M\+CO configuration functions. 
+
+\begin{DoxyVerb} ===================================================================================
+ ##### Internal and  external clocks, PLL, CSS and MCO configuration functions #####
+ ===================================================================================
+    [..]
+      This section provide functions allowing to configure the internal/external clocks,
+      PLLs, CSS and MCO pins.
+  
+      (#) HSI (high-speed internal), 16 MHz factory-trimmed RC used directly or through
+          the PLL as System clock source.
+
+      (#) LSI (low-speed internal), 32 KHz low consumption RC used as IWDG and/or RTC
+          clock source.
+
+      (#) HSE (high-speed external), 4 to 26 MHz crystal oscillator used directly or
+          through the PLL as System clock source. Can be used also as RTC clock source.
+
+      (#) LSE (low-speed external), 32 KHz oscillator used as RTC clock source.   
+
+      (#) PLL (clocked by HSI or HSE), featuring two different output clocks:
+        (++) The first output is used to generate the high speed system clock (up to 168 MHz)
+        (++) The second output is used to generate the clock for the USB OTG FS (48 MHz),
+             the random analog generator (<=48 MHz) and the SDIO (<= 48 MHz).
+
+      (#) PLLI2S (clocked by HSI or HSE), used to generate an accurate clock to achieve 
+          high-quality audio performance on the I2S interface or SAI interface in case 
+          of STM32F429x/439x devices.
+     
+      (#) PLLSAI clocked by (HSI or HSE), used to generate an accurate clock to SAI 
+          interface and LCD TFT controller available only for STM32F42xxx/43xxx/446xx/469xx/479xx devices.
+  
+      (#) CSS (Clock security system), once enable and if a HSE clock failure occurs 
+         (HSE used directly or through PLL as System clock source), the System clock
+         is automatically switched to HSI and an interrupt is generated if enabled. 
+         The interrupt is linked to the Cortex-M4 NMI (Non-Maskable Interrupt) 
+         exception vector.   
+
+      (#) MCO1 (microcontroller clock output), used to output HSI, LSE, HSE or PLL
+          clock (through a configurable prescaler) on PA8 pin.
+
+      (#) MCO2 (microcontroller clock output), used to output HSE, PLL, SYSCLK or PLLI2S
+          clock (through a configurable prescaler) on PC9 pin.\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group___r_c_c___group1_gaa2d6a35f5c2e0f86317c3beb222677fc}\label{group___r_c_c___group1_gaa2d6a35f5c2e0f86317c3beb222677fc}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+Adjust\+H\+S\+I\+Calibration\+Value@{R\+C\+C\+\_\+\+Adjust\+H\+S\+I\+Calibration\+Value}}
+\index{R\+C\+C\+\_\+\+Adjust\+H\+S\+I\+Calibration\+Value@{R\+C\+C\+\_\+\+Adjust\+H\+S\+I\+Calibration\+Value}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+Adjust\+H\+S\+I\+Calibration\+Value()}{RCC\_AdjustHSICalibrationValue()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+Adjust\+H\+S\+I\+Calibration\+Value (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{H\+S\+I\+Calibration\+Value }\end{DoxyParamCaption})}
+
+
+
+Adjusts the Internal High Speed oscillator (H\+SI) calibration value. 
+
+\begin{DoxyNote}{Note}
+The calibration is used to compensate for the variations in voltage and temperature that influence the frequency of the internal H\+SI RC. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em H\+S\+I\+Calibration\+Value} & specifies the calibration trimming value. This parameter must be a number between 0 and 0x1F. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga0ff1fd7b9a8a49cdda11b7d7261c3494}\label{group___r_c_c___group1_ga0ff1fd7b9a8a49cdda11b7d7261c3494}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+Clock\+Security\+System\+Cmd@{R\+C\+C\+\_\+\+Clock\+Security\+System\+Cmd}}
+\index{R\+C\+C\+\_\+\+Clock\+Security\+System\+Cmd@{R\+C\+C\+\_\+\+Clock\+Security\+System\+Cmd}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+Clock\+Security\+System\+Cmd()}{RCC\_ClockSecuritySystemCmd()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+Clock\+Security\+System\+Cmd (\begin{DoxyParamCaption}\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Enables or disables the Clock Security System. 
+
+\begin{DoxyNote}{Note}
+If a failure is detected on the H\+SE oscillator clock, this oscillator is automatically disabled and an interrupt is generated to inform the software about the failure (Clock Security System Interrupt, C\+S\+SI), allowing the M\+CU to perform rescue operations. The C\+S\+SI is linked to the Cortex-\/\+M4 N\+MI (Non-\/\+Maskable Interrupt) exception vector. ~\newline
+
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em New\+State} & new state of the Clock Security System. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga413f6422be11b1334abe60b3bff2e062}\label{group___r_c_c___group1_ga413f6422be11b1334abe60b3bff2e062}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+De\+Init@{R\+C\+C\+\_\+\+De\+Init}}
+\index{R\+C\+C\+\_\+\+De\+Init@{R\+C\+C\+\_\+\+De\+Init}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+De\+Init()}{RCC\_DeInit()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+De\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Resets the R\+CC clock configuration to the default reset state. 
+
+\begin{DoxyNote}{Note}
+The default reset state of the clock configuration is given below\+:
+\begin{DoxyItemize}
+\item H\+SI ON and used as system clock source
+\item H\+SE, P\+LL and P\+L\+L\+I2S O\+FF
+\item A\+HB, A\+P\+B1 and A\+P\+B2 prescaler set to 1.
+\item C\+SS, M\+C\+O1 and M\+C\+O2 O\+FF
+\item All interrupts disabled 
+\end{DoxyItemize}
+
+This function doesn\textquotesingle{}t modify the configuration of the
+\begin{DoxyItemize}
+\item Peripheral clocks ~\newline
+ -\/ L\+SI, L\+SE and R\+TC clocks 
+\end{DoxyItemize}
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga523b06e73f6aa8a03e42299c855066a8}\label{group___r_c_c___group1_ga523b06e73f6aa8a03e42299c855066a8}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+H\+S\+E\+Config@{R\+C\+C\+\_\+\+H\+S\+E\+Config}}
+\index{R\+C\+C\+\_\+\+H\+S\+E\+Config@{R\+C\+C\+\_\+\+H\+S\+E\+Config}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+H\+S\+E\+Config()}{RCC\_HSEConfig()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+H\+S\+E\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{R\+C\+C\+\_\+\+H\+SE }\end{DoxyParamCaption})}
+
+
+
+Configures the External High Speed oscillator (H\+SE). 
+
+\begin{DoxyNote}{Note}
+After enabling the H\+SE (R\+C\+C\+\_\+\+H\+S\+E\+\_\+\+ON or R\+C\+C\+\_\+\+H\+S\+E\+\_\+\+Bypass), the application software should wait on H\+S\+E\+R\+DY flag to be set indicating that H\+SE clock is stable and can be used to clock the P\+LL and/or system clock. 
+
+H\+SE state can not be changed if it is used directly or through the P\+LL as system clock. In this case, you have to select another source of the system clock then change the H\+SE state (ex. disable it). 
+
+The H\+SE is stopped by hardware when entering S\+T\+OP and S\+T\+A\+N\+D\+BY modes. ~\newline
+
+
+This function reset the C\+S\+S\+ON bit, so if the Clock security system(\+C\+S\+S) was previously enabled you have to enable it again after calling this function. ~\newline
+
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em R\+C\+C\+\_\+\+H\+SE} & specifies the new state of the H\+SE. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item R\+C\+C\+\_\+\+H\+S\+E\+\_\+\+O\+FF\+: turn O\+FF the H\+SE oscillator, H\+S\+E\+R\+DY flag goes low after 6 H\+SE oscillator clock cycles. \item R\+C\+C\+\_\+\+H\+S\+E\+\_\+\+ON\+: turn ON the H\+SE oscillator \item R\+C\+C\+\_\+\+H\+S\+E\+\_\+\+Bypass\+: H\+SE oscillator bypassed with external clock \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga0c6772a1e43765909495f57815ef69e2}\label{group___r_c_c___group1_ga0c6772a1e43765909495f57815ef69e2}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+H\+S\+I\+Cmd@{R\+C\+C\+\_\+\+H\+S\+I\+Cmd}}
+\index{R\+C\+C\+\_\+\+H\+S\+I\+Cmd@{R\+C\+C\+\_\+\+H\+S\+I\+Cmd}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+H\+S\+I\+Cmd()}{RCC\_HSICmd()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+H\+S\+I\+Cmd (\begin{DoxyParamCaption}\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Enables or disables the Internal High Speed oscillator (H\+SI). 
+
+\begin{DoxyNote}{Note}
+The H\+SI is stopped by hardware when entering S\+T\+OP and S\+T\+A\+N\+D\+BY modes. It is used (enabled by hardware) as system clock source after startup from Reset, wakeup from S\+T\+OP and S\+T\+A\+N\+D\+BY mode, or in case of failure of the H\+SE used directly or indirectly as system clock (if the Clock Security System C\+SS is enabled). ~\newline
+
+
+H\+SI can not be stopped if it is used as system clock source. In this case, you have to select another source of the system clock then stop the H\+SI. ~\newline
+
+
+After enabling the H\+SI, the application software should wait on H\+S\+I\+R\+DY flag to be set indicating that H\+SI clock is stable and can be used as system clock source. ~\newline
+
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em New\+State} & new state of the H\+SI. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+When the H\+SI is stopped, H\+S\+I\+R\+DY flag goes low after 6 H\+SI oscillator clock cycles. ~\newline
+
+\end{DoxyNote}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga65209ab5c3589b249c7d70f978735ca6}\label{group___r_c_c___group1_ga65209ab5c3589b249c7d70f978735ca6}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+L\+S\+E\+Config@{R\+C\+C\+\_\+\+L\+S\+E\+Config}}
+\index{R\+C\+C\+\_\+\+L\+S\+E\+Config@{R\+C\+C\+\_\+\+L\+S\+E\+Config}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+L\+S\+E\+Config()}{RCC\_LSEConfig()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+L\+S\+E\+Config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{R\+C\+C\+\_\+\+L\+SE }\end{DoxyParamCaption})}
+
+
+
+Configures the External Low Speed oscillator (L\+SE). 
+
+\begin{DoxyNote}{Note}
+As the L\+SE is in the Backup domain and write access is denied to this domain after reset, you have to enable write access using P\+W\+R\+\_\+\+Backup\+Access\+Cmd(\+E\+N\+A\+B\+L\+E) function before to configure the L\+SE (to be done once after reset). ~\newline
+
+
+After enabling the L\+SE (R\+C\+C\+\_\+\+L\+S\+E\+\_\+\+ON or R\+C\+C\+\_\+\+L\+S\+E\+\_\+\+Bypass), the application software should wait on L\+S\+E\+R\+DY flag to be set indicating that L\+SE clock is stable and can be used to clock the R\+TC. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em R\+C\+C\+\_\+\+L\+SE} & specifies the new state of the L\+SE. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item R\+C\+C\+\_\+\+L\+S\+E\+\_\+\+O\+FF\+: turn O\+FF the L\+SE oscillator, L\+S\+E\+R\+DY flag goes low after 6 L\+SE oscillator clock cycles. \item R\+C\+C\+\_\+\+L\+S\+E\+\_\+\+ON\+: turn ON the L\+SE oscillator \item R\+C\+C\+\_\+\+L\+S\+E\+\_\+\+Bypass\+: L\+SE oscillator bypassed with external clock \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga81e3ca29fd154ac2019bba6936d6d5ed}\label{group___r_c_c___group1_ga81e3ca29fd154ac2019bba6936d6d5ed}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+L\+S\+I\+Cmd@{R\+C\+C\+\_\+\+L\+S\+I\+Cmd}}
+\index{R\+C\+C\+\_\+\+L\+S\+I\+Cmd@{R\+C\+C\+\_\+\+L\+S\+I\+Cmd}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+L\+S\+I\+Cmd()}{RCC\_LSICmd()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+L\+S\+I\+Cmd (\begin{DoxyParamCaption}\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Enables or disables the Internal Low Speed oscillator (L\+SI). 
+
+\begin{DoxyNote}{Note}
+After enabling the L\+SI, the application software should wait on L\+S\+I\+R\+DY flag to be set indicating that L\+SI clock is stable and can be used to clock the I\+W\+DG and/or the R\+TC. 
+
+L\+SI can not be disabled if the I\+W\+DG is running. ~\newline
+
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em New\+State} & new state of the L\+SI. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+When the L\+SI is stopped, L\+S\+I\+R\+DY flag goes low after 6 L\+SI oscillator clock cycles. 
+\end{DoxyNote}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga15c9ecb6ef015ed008cb28e5b7a50531}\label{group___r_c_c___group1_ga15c9ecb6ef015ed008cb28e5b7a50531}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+M\+C\+O1\+Config@{R\+C\+C\+\_\+\+M\+C\+O1\+Config}}
+\index{R\+C\+C\+\_\+\+M\+C\+O1\+Config@{R\+C\+C\+\_\+\+M\+C\+O1\+Config}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+M\+C\+O1\+Config()}{RCC\_MCO1Config()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+M\+C\+O1\+Config (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{R\+C\+C\+\_\+\+M\+C\+O1\+Source,  }\item[{uint32\+\_\+t}]{R\+C\+C\+\_\+\+M\+C\+O1\+Div }\end{DoxyParamCaption})}
+
+
+
+Selects the clock source to output on M\+C\+O1 pin(\+P\+A8). 
+
+\begin{DoxyNote}{Note}
+P\+A8 should be configured in alternate function mode. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em R\+C\+C\+\_\+\+M\+C\+O1\+Source} & specifies the clock source to output. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item R\+C\+C\+\_\+\+M\+C\+O1\+Source\+\_\+\+H\+SI\+: H\+SI clock selected as M\+C\+O1 source \item R\+C\+C\+\_\+\+M\+C\+O1\+Source\+\_\+\+L\+SE\+: L\+SE clock selected as M\+C\+O1 source \item R\+C\+C\+\_\+\+M\+C\+O1\+Source\+\_\+\+H\+SE\+: H\+SE clock selected as M\+C\+O1 source \item R\+C\+C\+\_\+\+M\+C\+O1\+Source\+\_\+\+P\+L\+L\+C\+LK\+: main P\+LL clock selected as M\+C\+O1 source \end{DoxyItemize}
+\\
+\hline
+{\em R\+C\+C\+\_\+\+M\+C\+O1\+Div} & specifies the M\+C\+O1 prescaler. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item R\+C\+C\+\_\+\+M\+C\+O1\+Div\+\_\+1\+: no division applied to M\+C\+O1 clock \item R\+C\+C\+\_\+\+M\+C\+O1\+Div\+\_\+2\+: division by 2 applied to M\+C\+O1 clock \item R\+C\+C\+\_\+\+M\+C\+O1\+Div\+\_\+3\+: division by 3 applied to M\+C\+O1 clock \item R\+C\+C\+\_\+\+M\+C\+O1\+Div\+\_\+4\+: division by 4 applied to M\+C\+O1 clock \item R\+C\+C\+\_\+\+M\+C\+O1\+Div\+\_\+5\+: division by 5 applied to M\+C\+O1 clock \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_gaf50f10675b747de60c739e44e5c22aee}\label{group___r_c_c___group1_gaf50f10675b747de60c739e44e5c22aee}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+M\+C\+O2\+Config@{R\+C\+C\+\_\+\+M\+C\+O2\+Config}}
+\index{R\+C\+C\+\_\+\+M\+C\+O2\+Config@{R\+C\+C\+\_\+\+M\+C\+O2\+Config}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+M\+C\+O2\+Config()}{RCC\_MCO2Config()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+M\+C\+O2\+Config (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{R\+C\+C\+\_\+\+M\+C\+O2\+Source,  }\item[{uint32\+\_\+t}]{R\+C\+C\+\_\+\+M\+C\+O2\+Div }\end{DoxyParamCaption})}
+
+
+
+Selects the clock source to output on M\+C\+O2 pin(\+P\+C9). 
+
+\begin{DoxyNote}{Note}
+P\+C9 should be configured in alternate function mode. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em R\+C\+C\+\_\+\+M\+C\+O2\+Source} & specifies the clock source to output. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item R\+C\+C\+\_\+\+M\+C\+O2\+Source\+\_\+\+S\+Y\+S\+C\+LK\+: System clock (S\+Y\+S\+C\+LK) selected as M\+C\+O2 source \item R\+C\+C\+\_\+\+M\+C\+O2\+S\+O\+U\+R\+C\+E\+\_\+\+P\+L\+L\+I2\+S\+C\+LK\+: P\+L\+L\+I2S clock selected as M\+C\+O2 source, available for all S\+T\+M32\+F4 devices except S\+T\+M32\+F410xx \item R\+C\+C\+\_\+\+M\+C\+O2\+S\+O\+U\+R\+C\+E\+\_\+\+I2\+S\+C\+LK\+: I2\+S\+C\+LK clock selected as M\+C\+O2 source, available only for S\+T\+M32\+F410xx devices ~\newline
+ \item R\+C\+C\+\_\+\+M\+C\+O2\+Source\+\_\+\+H\+SE\+: H\+SE clock selected as M\+C\+O2 source \item R\+C\+C\+\_\+\+M\+C\+O2\+Source\+\_\+\+P\+L\+L\+C\+LK\+: main P\+LL clock selected as M\+C\+O2 source \end{DoxyItemize}
+\\
+\hline
+{\em R\+C\+C\+\_\+\+M\+C\+O2\+Div} & specifies the M\+C\+O2 prescaler. This parameter can be one of the following values\+: \begin{DoxyItemize}
+\item R\+C\+C\+\_\+\+M\+C\+O2\+Div\+\_\+1\+: no division applied to M\+C\+O2 clock \item R\+C\+C\+\_\+\+M\+C\+O2\+Div\+\_\+2\+: division by 2 applied to M\+C\+O2 clock \item R\+C\+C\+\_\+\+M\+C\+O2\+Div\+\_\+3\+: division by 3 applied to M\+C\+O2 clock \item R\+C\+C\+\_\+\+M\+C\+O2\+Div\+\_\+4\+: division by 4 applied to M\+C\+O2 clock \item R\+C\+C\+\_\+\+M\+C\+O2\+Div\+\_\+5\+: division by 5 applied to M\+C\+O2 clock \end{DoxyItemize}
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+For S\+T\+M32\+F410xx devices to output I2\+S\+C\+LK clock on M\+C\+O2 you should have at last one of the S\+PI clocks enabled (S\+P\+I1, S\+P\+I2 or S\+P\+I5). 
+\end{DoxyNote}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga84dee53c75e58fdb53571716593c2272}\label{group___r_c_c___group1_ga84dee53c75e58fdb53571716593c2272}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+P\+L\+L\+Cmd@{R\+C\+C\+\_\+\+P\+L\+L\+Cmd}}
+\index{R\+C\+C\+\_\+\+P\+L\+L\+Cmd@{R\+C\+C\+\_\+\+P\+L\+L\+Cmd}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+P\+L\+L\+Cmd()}{RCC\_PLLCmd()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+P\+L\+L\+Cmd (\begin{DoxyParamCaption}\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Enables or disables the main P\+LL. 
+
+\begin{DoxyNote}{Note}
+After enabling the main P\+LL, the application software should wait on P\+L\+L\+R\+DY flag to be set indicating that P\+LL clock is stable and can be used as system clock source. 
+
+The main P\+LL can not be disabled if it is used as system clock source 
+
+The main P\+LL is disabled by hardware when entering S\+T\+OP and S\+T\+A\+N\+D\+BY modes. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em New\+State} & new state of the main P\+LL. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_ga2efe493a6337d5e0034bfcdfb0f541e4}\label{group___r_c_c___group1_ga2efe493a6337d5e0034bfcdfb0f541e4}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+P\+L\+L\+I2\+S\+Cmd@{R\+C\+C\+\_\+\+P\+L\+L\+I2\+S\+Cmd}}
+\index{R\+C\+C\+\_\+\+P\+L\+L\+I2\+S\+Cmd@{R\+C\+C\+\_\+\+P\+L\+L\+I2\+S\+Cmd}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+P\+L\+L\+I2\+S\+Cmd()}{RCC\_PLLI2SCmd()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+P\+L\+L\+I2\+S\+Cmd (\begin{DoxyParamCaption}\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Enables or disables the P\+L\+L\+I2S. 
+
+\begin{DoxyNote}{Note}
+The P\+L\+L\+I2S is disabled by hardware when entering S\+T\+OP and S\+T\+A\+N\+D\+BY modes. ~\newline
+
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em New\+State} & new state of the P\+L\+L\+I2S. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_gaf7b2c8f7533c8321dce97196d9f77fc1}\label{group___r_c_c___group1_gaf7b2c8f7533c8321dce97196d9f77fc1}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+P\+L\+L\+S\+A\+I\+Cmd@{R\+C\+C\+\_\+\+P\+L\+L\+S\+A\+I\+Cmd}}
+\index{R\+C\+C\+\_\+\+P\+L\+L\+S\+A\+I\+Cmd@{R\+C\+C\+\_\+\+P\+L\+L\+S\+A\+I\+Cmd}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+P\+L\+L\+S\+A\+I\+Cmd()}{RCC\_PLLSAICmd()}}
+{\footnotesize\ttfamily void R\+C\+C\+\_\+\+P\+L\+L\+S\+A\+I\+Cmd (\begin{DoxyParamCaption}\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Enables or disables the P\+L\+L\+S\+AI. 
+
+\begin{DoxyNote}{Note}
+This function can be used only for S\+T\+M32\+F42xxx/43xxx/446xx/469xx/479xx devices
+
+The P\+L\+L\+S\+AI is disabled by hardware when entering S\+T\+OP and S\+T\+A\+N\+D\+BY modes. ~\newline
+
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em New\+State} & new state of the P\+L\+L\+S\+AI. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___r_c_c___group1_gae0f15692614dd048ee4110a056f001dc}\label{group___r_c_c___group1_gae0f15692614dd048ee4110a056f001dc}} 
+\index{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}!R\+C\+C\+\_\+\+Wait\+For\+H\+S\+E\+Start\+Up@{R\+C\+C\+\_\+\+Wait\+For\+H\+S\+E\+Start\+Up}}
+\index{R\+C\+C\+\_\+\+Wait\+For\+H\+S\+E\+Start\+Up@{R\+C\+C\+\_\+\+Wait\+For\+H\+S\+E\+Start\+Up}!Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions@{Internal and external clocks, P\+L\+L, C\+S\+S and M\+C\+O configuration functions}}
+\subsubsection{\texorpdfstring{R\+C\+C\+\_\+\+Wait\+For\+H\+S\+E\+Start\+Up()}{RCC\_WaitForHSEStartUp()}}
+{\footnotesize\ttfamily Error\+Status R\+C\+C\+\_\+\+Wait\+For\+H\+S\+E\+Start\+Up (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Waits for H\+SE start-\/up. 
+
+\begin{DoxyNote}{Note}
+This functions waits on H\+S\+E\+R\+DY flag to be set and return S\+U\+C\+C\+E\+SS if this flag is set, otherwise returns E\+R\+R\+OR if the timeout is reached and this flag is not set. The timeout value is defined by the constant H\+S\+E\+\_\+\+S\+T\+A\+R\+T\+U\+P\+\_\+\+T\+I\+M\+E\+O\+UT in stm32f4xx.\+h file. You can tailor it depending on the H\+SE crystal used in your application. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em An} & Error\+Status enumeration value\+:
+\begin{DoxyItemize}
+\item S\+U\+C\+C\+E\+SS\+: H\+SE oscillator is stable and ready to use
+\item E\+R\+R\+OR\+: H\+SE oscillator not yet ready 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyRetVals}

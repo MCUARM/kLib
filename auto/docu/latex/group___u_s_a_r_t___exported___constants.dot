@@ -1,0 +1,39 @@
+digraph "USART_Exported_Constants"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node8 [label="USART_Clock_Polarity",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___clock___polarity.html"];
+  Node5 [label="USART_Mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___mode.html"];
+  Node7 [label="USART_Clock",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___clock.html"];
+  Node10 [label="USART_Last_Bit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___last___bit.html"];
+  Node4 [label="USART_Parity",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___parity.html"];
+  Node16 [label="USART_Flags",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___flags.html"];
+  Node15 [label="USART_IrDA_Low_Power",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___ir_d_a___low___power.html"];
+  Node11 [label="USART_Interrupt_definition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___interrupt__definition.html"];
+  Node6 [label="USART_Hardware_Flow\l_Control",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___hardware___flow___control.html"];
+  Node2 [label="USART_Word_Length",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___word___length.html"];
+  Node1 [label="USART",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t.html",tooltip="USART driver modules. "];
+  Node12 [label="USART_DMA_Requests",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___d_m_a___requests.html"];
+  Node0 [label="USART_Exported_Constants",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 [label="USART_Stop_Bits",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___stop___bits.html"];
+  Node13 [label="USART_WakeUp_methods",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___wake_up__methods.html"];
+  Node14 [label="USART_LIN_Break_Detection\l_Length",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___l_i_n___break___detection___length.html"];
+  Node9 [label="USART_Clock_Phase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___clock___phase.html"];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node6 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node7 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node8 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node9 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node10 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node11 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node12 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node13 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node14 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node15 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node16 [shape=plaintext, dir="back", style="solid"];
+}

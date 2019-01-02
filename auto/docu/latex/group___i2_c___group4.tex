@@ -1,0 +1,71 @@
+\hypertarget{group___i2_c___group4}{}\section{D\+MA transfers management functions}
+\label{group___i2_c___group4}\index{D\+M\+A transfers management functions@{D\+M\+A transfers management functions}}
+
+
+D\+MA transfers management functions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___i2_c___group4_ga38502ce11e5ec923e0f6476aaa35b45c}{I2\+C\+\_\+\+D\+M\+A\+Cmd}} (I2\+C\+\_\+\+Type\+Def $\ast$I2\+Cx, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the specified I2C D\+MA requests. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___i2_c___group4_gab2e994c5681eb6ec7c26a03ffe1de060}{I2\+C\+\_\+\+D\+M\+A\+Last\+Transfer\+Cmd}} (I2\+C\+\_\+\+Type\+Def $\ast$I2\+Cx, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Specifies that the next D\+MA transfer is the last one. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+D\+MA transfers management functions. 
+
+\begin{DoxyVerb} ===============================================================================
+                ##### DMA transfers management functions #####
+ ===============================================================================  
+  This section provides functions allowing to configure the I2C DMA channels 
+  requests.\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{group___i2_c___group4_ga38502ce11e5ec923e0f6476aaa35b45c}\label{group___i2_c___group4_ga38502ce11e5ec923e0f6476aaa35b45c}} 
+\index{D\+M\+A transfers management functions@{D\+M\+A transfers management functions}!I2\+C\+\_\+\+D\+M\+A\+Cmd@{I2\+C\+\_\+\+D\+M\+A\+Cmd}}
+\index{I2\+C\+\_\+\+D\+M\+A\+Cmd@{I2\+C\+\_\+\+D\+M\+A\+Cmd}!D\+M\+A transfers management functions@{D\+M\+A transfers management functions}}
+\subsubsection{\texorpdfstring{I2\+C\+\_\+\+D\+M\+A\+Cmd()}{I2C\_DMACmd()}}
+{\footnotesize\ttfamily void I2\+C\+\_\+\+D\+M\+A\+Cmd (\begin{DoxyParamCaption}\item[{I2\+C\+\_\+\+Type\+Def $\ast$}]{I2\+Cx,  }\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Enables or disables the specified I2C D\+MA requests. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em I2\+Cx} & where x can be 1, 2 or 3 to select the I2C peripheral. \\
+\hline
+{\em New\+State} & new state of the I2C D\+MA transfer. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\mbox{\Hypertarget{group___i2_c___group4_gab2e994c5681eb6ec7c26a03ffe1de060}\label{group___i2_c___group4_gab2e994c5681eb6ec7c26a03ffe1de060}} 
+\index{D\+M\+A transfers management functions@{D\+M\+A transfers management functions}!I2\+C\+\_\+\+D\+M\+A\+Last\+Transfer\+Cmd@{I2\+C\+\_\+\+D\+M\+A\+Last\+Transfer\+Cmd}}
+\index{I2\+C\+\_\+\+D\+M\+A\+Last\+Transfer\+Cmd@{I2\+C\+\_\+\+D\+M\+A\+Last\+Transfer\+Cmd}!D\+M\+A transfers management functions@{D\+M\+A transfers management functions}}
+\subsubsection{\texorpdfstring{I2\+C\+\_\+\+D\+M\+A\+Last\+Transfer\+Cmd()}{I2C\_DMALastTransferCmd()}}
+{\footnotesize\ttfamily void I2\+C\+\_\+\+D\+M\+A\+Last\+Transfer\+Cmd (\begin{DoxyParamCaption}\item[{I2\+C\+\_\+\+Type\+Def $\ast$}]{I2\+Cx,  }\item[{Functional\+State}]{New\+State }\end{DoxyParamCaption})}
+
+
+
+Specifies that the next D\+MA transfer is the last one. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em I2\+Cx} & where x can be 1, 2 or 3 to select the I2C peripheral. \\
+\hline
+{\em New\+State} & new state of the I2C D\+MA last transfer. This parameter can be\+: E\+N\+A\+B\+LE or D\+I\+S\+A\+B\+LE. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}

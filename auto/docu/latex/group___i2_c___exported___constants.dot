@@ -1,0 +1,39 @@
+digraph "I2C_Exported_Constants"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node8 [label="I2C_registers",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__registers.html"];
+  Node10 [label="I2C_SMBus_alert_pin\l_level",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___s_m_bus__alert__pin__level.html"];
+  Node7 [label="I2C_acknowledged_address",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__acknowledged__address.html"];
+  Node0 [label="I2C_Exported_Constants",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node14 [label="I2C_Events",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___events.html"];
+  Node6 [label="I2C_transfer_direction",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__transfer__direction.html"];
+  Node1 [label="I2C",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c.html",tooltip="I2C driver modules. "];
+  Node11 [label="I2C_PEC_position",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___p_e_c__position.html"];
+  Node4 [label="I2C_duty_cycle_in_fast_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__duty__cycle__in__fast__mode.html"];
+  Node5 [label="I2C_acknowledgement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__acknowledgement.html"];
+  Node12 [label="I2C_interrupts_definition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__interrupts__definition.html"];
+  Node13 [label="I2C_flags_definition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__flags__definition.html"];
+  Node15 [label="I2C_own_address1",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__own__address1.html"];
+  Node3 [label="I2C_mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__mode.html"];
+  Node9 [label="I2C_NACK_position",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___n_a_c_k__position.html"];
+  Node16 [label="I2C_clock_speed",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c__clock__speed.html"];
+  Node2 [label="I2C_Digital_Filter",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___digital___filter.html"];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node6 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node7 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node8 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node9 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node10 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node11 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node12 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node13 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node14 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node15 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node16 [shape=plaintext, dir="back", style="solid"];
+}

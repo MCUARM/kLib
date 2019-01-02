@@ -1,0 +1,82 @@
+\hypertarget{struct_u_s_a_r_t___init_type_def}{}\section{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def Struct Reference}
+\label{struct_u_s_a_r_t___init_type_def}\index{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}}
+
+
+U\+S\+A\+RT Init Structure definition ~\newline
+  
+
+
+
+
+{\ttfamily \#include $<$stm32f4xx\+\_\+usart.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{struct_u_s_a_r_t___init_type_def_a8712e31ee9d088d83c84d38d88c6af0b}{U\+S\+A\+R\+T\+\_\+\+Baud\+Rate}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_u_s_a_r_t___init_type_def_aa1248b67914e095c0de768223eea9328}{U\+S\+A\+R\+T\+\_\+\+Word\+Length}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_u_s_a_r_t___init_type_def_aa58409990a6a0bc99f432eb90e204c0f}{U\+S\+A\+R\+T\+\_\+\+Stop\+Bits}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_u_s_a_r_t___init_type_def_a4edcc84644c8553a1a6e841c48ea8413}{U\+S\+A\+R\+T\+\_\+\+Parity}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_u_s_a_r_t___init_type_def_a1a581f24451bf5a4a210bab8d68998e2}{U\+S\+A\+R\+T\+\_\+\+Mode}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{struct_u_s_a_r_t___init_type_def_ab41fe3b9f5cb4ed89be23bff0a1f4114}{U\+S\+A\+R\+T\+\_\+\+Hardware\+Flow\+Control}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+U\+S\+A\+RT Init Structure definition ~\newline
+ 
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct_u_s_a_r_t___init_type_def_a8712e31ee9d088d83c84d38d88c6af0b}\label{struct_u_s_a_r_t___init_type_def_a8712e31ee9d088d83c84d38d88c6af0b}} 
+\index{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}!U\+S\+A\+R\+T\+\_\+\+Baud\+Rate@{U\+S\+A\+R\+T\+\_\+\+Baud\+Rate}}
+\index{U\+S\+A\+R\+T\+\_\+\+Baud\+Rate@{U\+S\+A\+R\+T\+\_\+\+Baud\+Rate}!U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}}
+\subsubsection{\texorpdfstring{U\+S\+A\+R\+T\+\_\+\+Baud\+Rate}{USART\_BaudRate}}
+{\footnotesize\ttfamily uint32\+\_\+t U\+S\+A\+R\+T\+\_\+\+Baud\+Rate}
+
+This member configures the U\+S\+A\+RT communication baud rate. The baud rate is computed using the following formula\+:
+\begin{DoxyItemize}
+\item Integer\+Divider = ((P\+C\+L\+Kx) / (8 $\ast$ (O\+V\+R8+1) $\ast$ (U\+S\+A\+R\+T\+\_\+\+Init\+Struct-\/$>$U\+S\+A\+R\+T\+\_\+\+Baud\+Rate)))
+\item Fractional\+Divider = ((Integer\+Divider -\/ ((u32) Integer\+Divider)) $\ast$ 8 $\ast$ (O\+V\+R8+1)) + 0.\+5 Where O\+V\+R8 is the \char`\"{}oversampling by 8 mode\char`\"{} configuration bit in the C\+R1 register. 
+\end{DoxyItemize}\mbox{\Hypertarget{struct_u_s_a_r_t___init_type_def_ab41fe3b9f5cb4ed89be23bff0a1f4114}\label{struct_u_s_a_r_t___init_type_def_ab41fe3b9f5cb4ed89be23bff0a1f4114}} 
+\index{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}!U\+S\+A\+R\+T\+\_\+\+Hardware\+Flow\+Control@{U\+S\+A\+R\+T\+\_\+\+Hardware\+Flow\+Control}}
+\index{U\+S\+A\+R\+T\+\_\+\+Hardware\+Flow\+Control@{U\+S\+A\+R\+T\+\_\+\+Hardware\+Flow\+Control}!U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}}
+\subsubsection{\texorpdfstring{U\+S\+A\+R\+T\+\_\+\+Hardware\+Flow\+Control}{USART\_HardwareFlowControl}}
+{\footnotesize\ttfamily uint16\+\_\+t U\+S\+A\+R\+T\+\_\+\+Hardware\+Flow\+Control}
+
+Specifies wether the hardware flow control mode is enabled or disabled. This parameter can be a value of \mbox{\hyperlink{group___u_s_a_r_t___hardware___flow___control}{U\+S\+A\+R\+T\+\_\+\+Hardware\+\_\+\+Flow\+\_\+\+Control}} \mbox{\Hypertarget{struct_u_s_a_r_t___init_type_def_a1a581f24451bf5a4a210bab8d68998e2}\label{struct_u_s_a_r_t___init_type_def_a1a581f24451bf5a4a210bab8d68998e2}} 
+\index{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}!U\+S\+A\+R\+T\+\_\+\+Mode@{U\+S\+A\+R\+T\+\_\+\+Mode}}
+\index{U\+S\+A\+R\+T\+\_\+\+Mode@{U\+S\+A\+R\+T\+\_\+\+Mode}!U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}}
+\subsubsection{\texorpdfstring{U\+S\+A\+R\+T\+\_\+\+Mode}{USART\_Mode}}
+{\footnotesize\ttfamily uint16\+\_\+t U\+S\+A\+R\+T\+\_\+\+Mode}
+
+Specifies whether the Receive or Transmit mode is enabled or disabled. This parameter can be a value of \mbox{\hyperlink{group___u_s_a_r_t___mode}{U\+S\+A\+R\+T\+\_\+\+Mode}} \mbox{\Hypertarget{struct_u_s_a_r_t___init_type_def_a4edcc84644c8553a1a6e841c48ea8413}\label{struct_u_s_a_r_t___init_type_def_a4edcc84644c8553a1a6e841c48ea8413}} 
+\index{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}!U\+S\+A\+R\+T\+\_\+\+Parity@{U\+S\+A\+R\+T\+\_\+\+Parity}}
+\index{U\+S\+A\+R\+T\+\_\+\+Parity@{U\+S\+A\+R\+T\+\_\+\+Parity}!U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}}
+\subsubsection{\texorpdfstring{U\+S\+A\+R\+T\+\_\+\+Parity}{USART\_Parity}}
+{\footnotesize\ttfamily uint16\+\_\+t U\+S\+A\+R\+T\+\_\+\+Parity}
+
+Specifies the parity mode. This parameter can be a value of \mbox{\hyperlink{group___u_s_a_r_t___parity}{U\+S\+A\+R\+T\+\_\+\+Parity}} \begin{DoxyNote}{Note}
+When parity is enabled, the computed parity is inserted at the M\+SB position of the transmitted data (9th bit when the word length is set to 9 data bits; 8th bit when the word length is set to 8 data bits). 
+\end{DoxyNote}
+\mbox{\Hypertarget{struct_u_s_a_r_t___init_type_def_aa58409990a6a0bc99f432eb90e204c0f}\label{struct_u_s_a_r_t___init_type_def_aa58409990a6a0bc99f432eb90e204c0f}} 
+\index{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}!U\+S\+A\+R\+T\+\_\+\+Stop\+Bits@{U\+S\+A\+R\+T\+\_\+\+Stop\+Bits}}
+\index{U\+S\+A\+R\+T\+\_\+\+Stop\+Bits@{U\+S\+A\+R\+T\+\_\+\+Stop\+Bits}!U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}}
+\subsubsection{\texorpdfstring{U\+S\+A\+R\+T\+\_\+\+Stop\+Bits}{USART\_StopBits}}
+{\footnotesize\ttfamily uint16\+\_\+t U\+S\+A\+R\+T\+\_\+\+Stop\+Bits}
+
+Specifies the number of stop bits transmitted. This parameter can be a value of \mbox{\hyperlink{group___u_s_a_r_t___stop___bits}{U\+S\+A\+R\+T\+\_\+\+Stop\+\_\+\+Bits}} \mbox{\Hypertarget{struct_u_s_a_r_t___init_type_def_aa1248b67914e095c0de768223eea9328}\label{struct_u_s_a_r_t___init_type_def_aa1248b67914e095c0de768223eea9328}} 
+\index{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}!U\+S\+A\+R\+T\+\_\+\+Word\+Length@{U\+S\+A\+R\+T\+\_\+\+Word\+Length}}
+\index{U\+S\+A\+R\+T\+\_\+\+Word\+Length@{U\+S\+A\+R\+T\+\_\+\+Word\+Length}!U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def@{U\+S\+A\+R\+T\+\_\+\+Init\+Type\+Def}}
+\subsubsection{\texorpdfstring{U\+S\+A\+R\+T\+\_\+\+Word\+Length}{USART\_WordLength}}
+{\footnotesize\ttfamily uint16\+\_\+t U\+S\+A\+R\+T\+\_\+\+Word\+Length}
+
+Specifies the number of data bits transmitted or received in a frame. This parameter can be a value of \mbox{\hyperlink{group___u_s_a_r_t___word___length}{U\+S\+A\+R\+T\+\_\+\+Word\+\_\+\+Length}} 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{stm32f4xx__usart_8h}{stm32f4xx\+\_\+usart.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,11 @@
+digraph "USART_Interrupt_definition"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node0 [label="USART_Interrupt_definition",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 [label="USART_Legacy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___legacy.html"];
+  Node1 [label="USART_Exported_Constants",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___exported___constants.html"];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+}

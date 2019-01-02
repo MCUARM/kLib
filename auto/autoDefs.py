@@ -646,7 +646,7 @@ def createSPIdefs():
 			space = " "
 			if getPeripheralNumber(spi) < 10:
 				space += " "
-			res += "\t\t\tstatic const kSPI_"+getName(spi)+space + "* "+getName(spi).lower()+";\n"
+			res += "\t\t\tstatic const kSPI_"+getName(spi)+space + "* _"+getName(spi)+";\n"
 				
 		res += "\n\t\t#endif\n\n"
 

@@ -1,0 +1,17 @@
+digraph "RCC_Private_Functions"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node2 [label="Internal and external\l clocks, PLL, CSS and\l MCO configuration functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___r_c_c___group1.html",tooltip="Internal and external clocks, PLL, CSS and MCO configuration functions. "];
+  Node3 [label="System AHB and APB\l busses clocks configuration\l functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___r_c_c___group2.html",tooltip="System, AHB and APB busses clocks configuration functions. "];
+  Node4 [label="Peripheral clocks configuration\l functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___r_c_c___group3.html",tooltip="Peripheral clocks configuration functions. "];
+  Node5 [label="Interrupts and flags\l management functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___r_c_c___group4.html",tooltip="Interrupts and flags management functions. "];
+  Node0 [label="RCC_Private_Functions",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 [label="RCC",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___r_c_c.html",tooltip="RCC driver modules. "];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+}

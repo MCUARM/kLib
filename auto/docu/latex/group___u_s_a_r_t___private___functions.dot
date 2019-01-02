@@ -1,0 +1,27 @@
+digraph "USART_Private_Functions"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node2 [label="Initialization and\l Configuration functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group1.html",tooltip="Initialization and Configuration functions. "];
+  Node3 [label="Data transfers functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group2.html",tooltip="Data transfers functions. "];
+  Node4 [label="MultiProcessor Communication\l functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group3.html",tooltip="Multi-Processor Communication functions. "];
+  Node5 [label="LIN mode functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group4.html",tooltip="LIN mode functions. "];
+  Node6 [label="Halfduplex mode function",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group5.html",tooltip="Half-duplex mode function. "];
+  Node7 [label="Smartcard mode functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group6.html",tooltip="Smartcard mode functions. "];
+  Node8 [label="IrDA mode functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group7.html",tooltip="IrDA mode functions. "];
+  Node9 [label="DMA transfers management\l functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group8.html",tooltip="DMA transfers management functions. "];
+  Node10 [label="Interrupts and flags\l management functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t___group9.html",tooltip="Interrupts and flags management functions. "];
+  Node0 [label="USART_Private_Functions",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 [label="USART",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___u_s_a_r_t.html",tooltip="USART driver modules. "];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node6 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node7 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node8 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node9 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node10 [shape=plaintext, dir="back", style="solid"];
+}

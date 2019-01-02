@@ -1,0 +1,17 @@
+digraph "MISC_Exported_Constants"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node4 [label="MISC_Preemption_Priority\l_Group",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___m_i_s_c___preemption___priority___group.html"];
+  Node1 [label="MISC",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___m_i_s_c.html",tooltip="MISC driver modules. "];
+  Node2 [label="MISC_Vector_Table_Base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___m_i_s_c___vector___table___base.html"];
+  Node0 [label="MISC_Exported_Constants",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 [label="MISC_System_Low_Power",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___m_i_s_c___system___low___power.html"];
+  Node5 [label="MISC_SysTick_clock\l_source",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___m_i_s_c___sys_tick__clock__source.html"];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+}

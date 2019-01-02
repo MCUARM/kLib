@@ -1,0 +1,19 @@
+digraph "I2C_Private_Functions"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node0 [label="I2C_Private_Functions",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 [label="I2C",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c.html",tooltip="I2C driver modules. "];
+  Node2 [label="Initialization and\l Configuration functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___group1.html",tooltip="Initialization and Configuration functions. "];
+  Node3 [label="Data transfers functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___group2.html",tooltip="Data transfers functions. "];
+  Node4 [label="PEC management functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___group3.html",tooltip="PEC management functions. "];
+  Node5 [label="DMA transfers management\l functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___group4.html",tooltip="DMA transfers management functions. "];
+  Node6 [label="Interrupts events and\l flags management functions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___i2_c___group5.html",tooltip="Interrupts, events and flags management functions. "];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node6 [shape=plaintext, dir="back", style="solid"];
+}

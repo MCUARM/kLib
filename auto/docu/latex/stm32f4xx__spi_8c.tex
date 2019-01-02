@@ -1,0 +1,232 @@
+\hypertarget{stm32f4xx__spi_8c}{}\section{stm32f4xx\+\_\+spi.\+c File Reference}
+\label{stm32f4xx__spi_8c}\index{stm32f4xx\+\_\+spi.\+c@{stm32f4xx\+\_\+spi.\+c}}
+
+
+This file provides firmware functions to manage the following functionalities of the Serial peripheral interface (S\+PI)\+:  
+
+
+{\ttfamily \#include \char`\"{}stm32f4xx\+\_\+spi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}stm32f4xx\+\_\+rcc.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries C\+R1\+\_\+\+C\+L\+E\+A\+R\+\_\+\+M\+A\+SK}~((uint16\+\_\+t)0x3040)
+\item 
+\#define {\bfseries I2\+S\+C\+F\+G\+R\+\_\+\+C\+L\+E\+A\+R\+\_\+\+M\+A\+SK}~((uint16\+\_\+t)0x\+F040)
+\item 
+\#define {\bfseries P\+L\+L\+C\+F\+G\+R\+\_\+\+P\+P\+L\+R\+\_\+\+M\+A\+SK}~((uint32\+\_\+t)0x70000000)
+\item 
+\#define {\bfseries P\+L\+L\+C\+F\+G\+R\+\_\+\+P\+P\+L\+N\+\_\+\+M\+A\+SK}~((uint32\+\_\+t)0x00007\+F\+C0)
+\item 
+\#define {\bfseries S\+P\+I\+\_\+\+C\+R2\+\_\+\+F\+RF}~((uint16\+\_\+t)0x0010)
+\item 
+\#define {\bfseries S\+P\+I\+\_\+\+S\+R\+\_\+\+T\+I\+F\+R\+FE}~((uint16\+\_\+t)0x0100)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___s_p_i___group1_gabe36880945fa56785283a9c0092124cc}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+De\+Init}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix)
+\begin{DoxyCompactList}\small\item\em De-\/initialize the S\+P\+Ix peripheral registers to their default reset values. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga8dacc1dc48bf08c0f12da409f4889037}{S\+P\+I\+\_\+\+Init}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, \mbox{\hyperlink{struct_s_p_i___init_type_def}{S\+P\+I\+\_\+\+Init\+Type\+Def}} $\ast$S\+P\+I\+\_\+\+Init\+Struct)
+\begin{DoxyCompactList}\small\item\em Initializes the S\+P\+Ix peripheral according to the specified parameters in the S\+P\+I\+\_\+\+Init\+Struct. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga53661884ae4a9640df7cbc59187782f7}{I2\+S\+\_\+\+Init}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, \mbox{\hyperlink{struct_i2_s___init_type_def}{I2\+S\+\_\+\+Init\+Type\+Def}} $\ast$I2\+S\+\_\+\+Init\+Struct)
+\begin{DoxyCompactList}\small\item\em Initializes the S\+P\+Ix peripheral according to the specified parameters in the I2\+S\+\_\+\+Init\+Struct. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga9a0116f88cc2c4478c270f05608703f1}{S\+P\+I\+\_\+\+Struct\+Init}} (\mbox{\hyperlink{struct_s_p_i___init_type_def}{S\+P\+I\+\_\+\+Init\+Type\+Def}} $\ast$S\+P\+I\+\_\+\+Init\+Struct)
+\begin{DoxyCompactList}\small\item\em Fills each S\+P\+I\+\_\+\+Init\+Struct member with its default value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga7470ec1d0759fdeeb42c7fe71a3b41b7}{I2\+S\+\_\+\+Struct\+Init}} (\mbox{\hyperlink{struct_i2_s___init_type_def}{I2\+S\+\_\+\+Init\+Type\+Def}} $\ast$I2\+S\+\_\+\+Init\+Struct)
+\begin{DoxyCompactList}\small\item\em Fills each I2\+S\+\_\+\+Init\+Struct member with its default value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_gaa31357879a65ee1ed7223f3b9114dcf3}{S\+P\+I\+\_\+\+Cmd}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the specified S\+PI peripheral. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_gafe061c71bbc5b4224f3f2884dc53739e}{I2\+S\+\_\+\+Cmd}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the specified S\+PI peripheral (in I2S mode). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_gafc82e90841d7879535d655c035709cb1}{S\+P\+I\+\_\+\+Data\+Size\+Config}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t S\+P\+I\+\_\+\+Data\+Size)
+\begin{DoxyCompactList}\small\item\em Configures the data size for the selected S\+PI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga166171c421fc51da7714723524d41b45}{S\+P\+I\+\_\+\+Bi\+Directional\+Line\+Config}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t S\+P\+I\+\_\+\+Direction)
+\begin{DoxyCompactList}\small\item\em Selects the data transfer direction in bidirectional mode for the specified S\+PI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga56fc508a482f032f9eb80e4c63184126}{S\+P\+I\+\_\+\+N\+S\+S\+Internal\+Software\+Config}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t S\+P\+I\+\_\+\+N\+S\+S\+Internal\+Soft)
+\begin{DoxyCompactList}\small\item\em Configures internally by software the N\+SS pin for the selected S\+PI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga4ec54abdedf6cd17403d853a926d91c1}{S\+P\+I\+\_\+\+S\+S\+Output\+Cmd}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the SS output for the selected S\+PI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga74594bf32e3bf4905ac7a2deef8eb475}{S\+P\+I\+\_\+\+T\+I\+Mode\+Cmd}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the S\+P\+Ix/\+I2\+Sx D\+MA interface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group1_ga60082947bedfe9efc233405be2a7bec2}{I2\+S\+\_\+\+Full\+Duplex\+Config}} (S\+P\+I\+\_\+\+Type\+Def $\ast$I2\+Sxext, \mbox{\hyperlink{struct_i2_s___init_type_def}{I2\+S\+\_\+\+Init\+Type\+Def}} $\ast$I2\+S\+\_\+\+Init\+Struct)
+\begin{DoxyCompactList}\small\item\em Configures the full duplex mode for the I2\+Sx peripheral using its extension I2\+Sxext according to the specified parameters in the I2\+S\+\_\+\+Init\+Struct. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group___s_p_i___group2_gab77de76547f3bff403236b263b070a30}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Receive\+Data}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix)
+\begin{DoxyCompactList}\small\item\em Returns the most recent received data by the S\+P\+Ix/\+I2\+Sx peripheral. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group2_gad5af40bebe8dbe3fa8bd476489d7e3da}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Send\+Data}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t Data)
+\begin{DoxyCompactList}\small\item\em Transmits a Data through the S\+P\+Ix/\+I2\+Sx peripheral. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group3_ga64f7276d119e6cb58afc100f8832adb0}{S\+P\+I\+\_\+\+Calculate\+C\+RC}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the C\+RC value calculation of the transferred bytes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group3_gace8b1058e09bab150b0dbe5978810273}{S\+P\+I\+\_\+\+Transmit\+C\+RC}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix)
+\begin{DoxyCompactList}\small\item\em Transmit the S\+P\+Ix C\+RC value. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group___s_p_i___group3_ga4c81c193516e82cf0a2fdc149ef20cc6}{S\+P\+I\+\_\+\+Get\+C\+RC}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint8\+\_\+t S\+P\+I\+\_\+\+C\+RC)
+\begin{DoxyCompactList}\small\item\em Returns the transmit or the receive C\+RC register value for the specified S\+PI. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{group___s_p_i___group3_ga80fb9374cfce670f29128bb78568353f}{S\+P\+I\+\_\+\+Get\+C\+R\+C\+Polynomial}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix)
+\begin{DoxyCompactList}\small\item\em Returns the C\+RC Polynomial register value for the specified S\+PI. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group4_gabed5b91a8576e6d578f364cc0e807e4a}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+D\+M\+A\+Cmd}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+D\+M\+A\+Req, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the S\+P\+Ix/\+I2\+Sx D\+MA interface. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group5_ga17f4ef132e8ddbf94cb6b1688d181e41}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+I\+T\+Config}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint8\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT, Functional\+State New\+State)
+\begin{DoxyCompactList}\small\item\em Enables or disables the specified S\+P\+I/\+I2S interrupts. \end{DoxyCompactList}\item 
+Flag\+Status \mbox{\hyperlink{group___s_p_i___group5_ga1bd785d129e09c5734a876c8f2767204}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+Flag\+Status}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG)
+\begin{DoxyCompactList}\small\item\em Checks whether the specified S\+P\+Ix/\+I2\+Sx flag is set or not. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group5_ga3aabd9e2437e213056c0ed9bdfa1a724}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+Flag}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint16\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+F\+L\+AG)
+\begin{DoxyCompactList}\small\item\em Clears the S\+P\+Ix C\+RC Error (C\+R\+C\+E\+RR) flag. \end{DoxyCompactList}\item 
+I\+T\+Status \mbox{\hyperlink{group___s_p_i___group5_ga72decbc1cd79f8fad92a2204beca6bc5}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Get\+I\+T\+Status}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint8\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT)
+\begin{DoxyCompactList}\small\item\em Checks whether the specified S\+P\+Ix/\+I2\+Sx interrupt has occurred or not. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group___s_p_i___group5_ga35a524a49ff3d058137060f751e8749f}{S\+P\+I\+\_\+\+I2\+S\+\_\+\+Clear\+I\+T\+Pending\+Bit}} (S\+P\+I\+\_\+\+Type\+Def $\ast$S\+P\+Ix, uint8\+\_\+t S\+P\+I\+\_\+\+I2\+S\+\_\+\+IT)
+\begin{DoxyCompactList}\small\item\em Clears the S\+P\+Ix C\+RC Error (C\+R\+C\+E\+RR) interrupt pending bit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file provides firmware functions to manage the following functionalities of the Serial peripheral interface (S\+PI)\+: 
+
+\begin{DoxyAuthor}{Author}
+M\+CD Application Team 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+V1.\+6.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+21-\/\+October-\/2015
+\begin{DoxyItemize}
+\item Initialization and Configuration
+\item Data transfers functions
+\item Hardware C\+RC Calculation
+\item D\+MA transfers management
+\item Interrupts and flags management
+\end{DoxyItemize}
+\end{DoxyDate}
+\begin{DoxyVerb} ===================================================================
+                  ##### How to use this driver #####
+ ===================================================================
+ [..]
+   (#) Enable peripheral clock using the following functions 
+       RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE) for SPI1
+       RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE) for SPI2
+       RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI3
+       RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI4
+       RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI5
+       RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE) for SPI6.
+  
+   (#) Enable SCK, MOSI, MISO and NSS GPIO clocks using RCC_AHB1PeriphClockCmd()
+       function. In I2S mode, if an external clock source is used then the I2S 
+       CKIN pin GPIO clock should also be enabled.
+  
+   (#) Peripherals alternate function: 
+       (++) Connect the pin to the desired peripherals' Alternate Function (AF) 
+            using GPIO_PinAFConfig() function
+       (++) Configure the desired pin in alternate function by: 
+            GPIO_InitStruct->GPIO_Mode = GPIO_Mode_AF
+       (++) Select the type, pull-up/pull-down and output speed via GPIO_PuPd, 
+            GPIO_OType and GPIO_Speed members
+       (++) Call GPIO_Init() function In I2S mode, if an external clock source is 
+            used then the I2S CKIN pin should be also configured in Alternate 
+            function Push-pull pull-up mode. 
+          
+   (#) Program the Polarity, Phase, First Data, Baud Rate Prescaler, Slave 
+       Management, Peripheral Mode and CRC Polynomial values using the SPI_Init()
+       function.
+       In I2S mode, program the Mode, Standard, Data Format, MCLK Output, Audio 
+       frequency and Polarity using I2S_Init() function. For I2S mode, make sure 
+       that either:
+       (++) I2S PLL is configured using the functions 
+            RCC_I2SCLKConfig(RCC_I2S2CLKSource_PLLI2S), RCC_PLLI2SCmd(ENABLE) and 
+            RCC_GetFlagStatus(RCC_FLAG_PLLI2SRDY); or 
+       (++) External clock source is configured using the function 
+            RCC_I2SCLKConfig(RCC_I2S2CLKSource_Ext) and after setting correctly 
+            the define constant I2S_EXTERNAL_CLOCK_VAL in the stm32f4xx_conf.h file. 
+  
+   (#) Enable the NVIC and the corresponding interrupt using the function 
+       SPI_ITConfig() if you need to use interrupt mode. 
+  
+   (#) When using the DMA mode 
+       (++) Configure the DMA using DMA_Init() function
+       (++) Active the needed channel Request using SPI_I2S_DMACmd() function
+   
+   (#) Enable the SPI using the SPI_Cmd() function or enable the I2S using
+       I2S_Cmd().
+   
+   (#) Enable the DMA using the DMA_Cmd() function when using DMA mode. 
+  
+   (#) Optionally, you can enable/configure the following parameters without
+       re-initialization (i.e there is no need to call again SPI_Init() function):
+       (++) When bidirectional mode (SPI_Direction_1Line_Rx or SPI_Direction_1Line_Tx)
+            is programmed as Data direction parameter using the SPI_Init() function
+            it can be possible to switch between SPI_Direction_Tx or SPI_Direction_Rx
+            using the SPI_BiDirectionalLineConfig() function.
+       (++) When SPI_NSS_Soft is selected as Slave Select Management parameter 
+            using the SPI_Init() function it can be possible to manage the 
+            NSS internal signal using the SPI_NSSInternalSoftwareConfig() function.
+       (++) Reconfigure the data size using the SPI_DataSizeConfig() function  
+       (++) Enable or disable the SS output using the SPI_SSOutputCmd() function  
+            
+    (#) To use the CRC Hardware calculation feature refer to the Peripheral 
+        CRC hardware Calculation subsection.
+     
+  
+ [..] It is possible to use SPI in I2S full duplex mode, in this case, each SPI 
+      peripheral is able to manage sending and receiving data simultaneously
+      using two data lines. Each SPI peripheral has an extended block called I2Sxext
+      (ie. I2S2ext for SPI2 and I2S3ext for SPI3).
+      The extension block is not a full SPI IP, it is used only as I2S slave to
+      implement full duplex mode. The extension block uses the same clock sources
+      as its master.          
+      To configure I2S full duplex you have to:
+              
+      (#) Configure SPIx in I2S mode (I2S_Init() function) as described above. 
+             
+      (#) Call the I2S_FullDuplexConfig() function using the same structure passed to  
+          I2S_Init() function.
+              
+      (#) Call I2S_Cmd() for SPIx then for its extended block.
+            
+      (#) To configure interrupts or DMA requests and to get/clear flag status, 
+          use I2Sxext instance for the extension block.
+               
+ [..] Functions that can be called with I2Sxext instances are: I2S_Cmd(), 
+      I2S_FullDuplexConfig(), SPI_I2S_ReceiveData(), SPI_I2S_SendData(), 
+      SPI_I2S_DMACmd(), SPI_I2S_ITConfig(), SPI_I2S_GetFlagStatus(), 
+      SPI_I2S_ClearFlag(), SPI_I2S_GetITStatus() and SPI_I2S_ClearITPendingBit().
+                   
+      Example: To use SPI3 in Full duplex mode (SPI3 is Master Tx, I2S3ext is Slave Rx):
+              
+      RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);   
+      I2S_StructInit(&I2SInitStruct);
+      I2SInitStruct.Mode = I2S_Mode_MasterTx;     
+      I2S_Init(SPI3, &I2SInitStruct);
+      I2S_FullDuplexConfig(SPI3ext, &I2SInitStruct)
+      I2S_Cmd(SPI3, ENABLE);
+      I2S_Cmd(SPI3ext, ENABLE);
+      ...
+      while (SPI_I2S_GetFlagStatus(SPI2, SPI_FLAG_TXE) == RESET)
+      {}
+      SPI_I2S_SendData(SPI3, txdata[i]);
+      ...  
+      while (SPI_I2S_GetFlagStatus(I2S3ext, SPI_FLAG_RXNE) == RESET)
+      {}
+      rxdata[i] = SPI_I2S_ReceiveData(I2S3ext);
+      ...          
+                
+ [..]       
+   (@) In I2S mode: if an external clock is used as source clock for the I2S,  
+       then the define I2S_EXTERNAL_CLOCK_VAL in file stm32f4xx_conf.h should 
+       be enabled and set to the value of the source clock frequency (in Hz).
+   
+   (@) In SPI mode: To use the SPI TI mode, call the function SPI_TIModeCmd() 
+       just after calling the function SPI_Init().\end{DoxyVerb}
+ ~\newline
+ \begin{DoxyVerb}@attention
+
+<h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+
+Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
+You may not use this file except in compliance with the License.
+You may obtain a copy of the License at:
+
+       http://www.st.com/software_license_agreement_liberty_v2
+
+Unless required by applicable law or agreed to in writing, software 
+distributed under the License is distributed on an "AS IS" BASIS, 
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.\end{DoxyVerb}

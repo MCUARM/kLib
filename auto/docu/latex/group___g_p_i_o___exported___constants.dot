@@ -1,0 +1,17 @@
+digraph "GPIO_Exported_Constants"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node0 [label="GPIO_Exported_Constants",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node4 [label="GPIO_Alternat_function\l_selection_define",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___g_p_i_o___alternat__function__selection__define.html"];
+  Node3 [label="GPIO_Pin_sources",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___g_p_i_o___pin__sources.html"];
+  Node5 [label="GPIO_Legacy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___g_p_i_o___legacy.html"];
+  Node2 [label="GPIO_pins_define",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___g_p_i_o__pins__define.html"];
+  Node1 [label="GPIO",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group___g_p_i_o.html",tooltip="GPIO driver modules. "];
+  Node1->Node0 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node3 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node4 [shape=plaintext, dir="back", style="solid"];
+  Node0->Node5 [shape=plaintext, dir="back", style="solid"];
+}
