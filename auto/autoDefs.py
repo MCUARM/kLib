@@ -682,7 +682,67 @@ def createPORTdefs():
 		res += "\n#endif\n"	
 	
 	return res
+
+
+def createEXTIstructDefs():
 	
+	res = ""
+	
+	for dev in grabDevices():
+		res += getPlatformCondition(dev)
+		for exti_num in range(0,16):
+		
+			edge_str = ["Null","FallingEdge"," RisingEdge","   BothEdges"]
+			edge_name = ["NULL","FALLING","RISING","BOTH"]
+		
+			for edge in range(1,4):
+		
+				res += getStructEnumOpener()
+				is_first = True
+				for gpio in grabAllGPIOs(dev):
+					if not is_first:
+						res += ","
+					is_first = False
+
+					syscfg = grabPeriphByName(dev,"SYSCFG")
+
+
+					port_name = getGPIOnumber(gpio) + str(exti_num)
+
+					code = int(	getHardwareSetupCode(edge,
+								getAttribute(syscfg,'rccEnableBit'),
+								getAttribute(syscfg,'address'),
+								0,
+								0,
+								0,
+								port_name),16)
+					
+					res += "\n\t\t\tPORT"+port_name + " = " + formatHex(hex(code))
+					
+				res += getStructEnumCloser("kEXTI_EXTI"+str(exti_num)+ "_" + edge_name[edge] + "_Pin","kEXTI_EXTI"+str(exti_num)+ "_" + edge_name[edge])
+			
+			res += getStructOpener()
+			for edge in range(1,4):
+				res += "\n\t\t" + "kEXTI_EXTI"+str(exti_num)+ "_" + edge_name[edge] + " " + edge_str[edge] + ";"
+			res += getStructCloser("kEXTI_EXTI"+str(exti_num))
+
+			
+		res += "\n#endif\n"
+	return res
+def createEXTIdefs():
+	res = ""
+	
+	for exti_num in range(0,16):
+			
+		space = " "
+		if exti_num < 10:
+			space += " "
+		res += "\t\t\tstatic const kEXTI_EXTI"+str(exti_num) + space + "_EXTI"+str(exti_num)+";\n"
+			
+
+	return res
+
+
 def createI2CstructDefs():
 
 	
@@ -1460,20 +1520,23 @@ def getDMAsetupCode(dma_number,stream,channel,priority,DataSize,MemoryIncrementM
 
 	
 xls2xml()
-replaceCodeRegion("../inc/kPWM.h",'PLATFORM_DEPENDED_STRUCTS',createPWMdefs())
+replaceCodeRegion("../inc/kStandard/kPWM.h",'PLATFORM_DEPENDED_STRUCTS',createPWMdefs())
 
-replaceCodeRegion("../inc/kSerial.h",'PLATFORM_DEPENDED_STRUCTS',createUSARTstructDefs())
-replaceCodeRegion("../inc/kSerial.h",'USARTS_DECLARATIONS',createUSARTdefs())
+replaceCodeRegion("../inc/kStandard/kEXTI.h",'PLATFORM_DEPENDED_STRUCTS',createEXTIstructDefs())
+replaceCodeRegion("../inc/kStandard/kEXTI.h",'EXTI_DECLARATIONS',createEXTIdefs())
 
-replaceCodeRegion("../inc/kI2CDevice.h",'PLATFORM_DEPENDED_STRUCTS',createI2CstructDefs())
-replaceCodeRegion("../inc/kI2CDevice.h",'I2C_DECLARATIONS',createI2Cdefs())
+replaceCodeRegion("../inc/kStandard/kSerial.h",'PLATFORM_DEPENDED_STRUCTS',createUSARTstructDefs())
+replaceCodeRegion("../inc/kStandard/kSerial.h",'USARTS_DECLARATIONS',createUSARTdefs())
+
+replaceCodeRegion("../inc/kStandard/kI2CDevice.h",'PLATFORM_DEPENDED_STRUCTS',createI2CstructDefs())
+replaceCodeRegion("../inc/kStandard/kI2CDevice.h",'I2C_DECLARATIONS',createI2Cdefs())
 
 
-replaceCodeRegion("../inc/kSPIDevice.h",'PLATFORM_DEPENDED_STRUCTS',createSPIstructDefs())
-replaceCodeRegion("../inc/kSPIDevice.h",'SPI_DECLARATIONS',createSPIdefs())
+replaceCodeRegion("../inc/kStandard/kSPIDevice.h",'PLATFORM_DEPENDED_STRUCTS',createSPIstructDefs())
+replaceCodeRegion("../inc/kStandard/kSPIDevice.h",'SPI_DECLARATIONS',createSPIdefs())
 
-replaceCodeRegion("../inc/kDMA.h",'PLATFORM_DEPENDED_STRUCTS',createDMAstructDefs())
-replaceCodeRegion("../inc/kDMA.h",'DMA_DECLARATIONS',createDMAdefs())
+replaceCodeRegion("../inc/kStandard/kDMA.h",'PLATFORM_DEPENDED_STRUCTS',createDMAstructDefs())
+replaceCodeRegion("../inc/kStandard/kDMA.h",'DMA_DECLARATIONS',createDMAdefs())
 
-replaceCodeRegion("../inc/kPORT.h",'PLATFORM_DEPENDED_STRUCTS',createPORTdefs())
+replaceCodeRegion("../inc/kStandard/kPORT.h",'PLATFORM_DEPENDED_STRUCTS',createPORTdefs())
 updateLicenseText()

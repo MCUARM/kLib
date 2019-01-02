@@ -37,9 +37,2328 @@
 #ifndef __kEXTI_H
 #define __kEXTI_H
 
+	#include "kSystem.h"
+
+
+// region PLATFORM_DEPENDED_STRUCTS
+
+#if (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x0E670000,
+			PORTB0 = 0x0E670010,
+			PORTC0 = 0x0E670020,
+			PORTD0 = 0x0E670030,
+			PORTE0 = 0x0E670040
+		}kEXTI_EXTI0_FALLING_Pin;
+	}kEXTI_EXTI0_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x16670000,
+			PORTB0 = 0x16670010,
+			PORTC0 = 0x16670020,
+			PORTD0 = 0x16670030,
+			PORTE0 = 0x16670040
+		}kEXTI_EXTI0_RISING_Pin;
+	}kEXTI_EXTI0_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x1E670000,
+			PORTB0 = 0x1E670010,
+			PORTC0 = 0x1E670020,
+			PORTD0 = 0x1E670030,
+			PORTE0 = 0x1E670040
+		}kEXTI_EXTI0_BOTH_Pin;
+	}kEXTI_EXTI0_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI0_FALLING FallingEdge;
+		kEXTI_EXTI0_RISING  RisingEdge;
+		kEXTI_EXTI0_BOTH    BothEdges;
+	}kEXTI_EXTI0;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x0E670001,
+			PORTB1 = 0x0E670011,
+			PORTC1 = 0x0E670021,
+			PORTD1 = 0x0E670031,
+			PORTE1 = 0x0E670041
+		}kEXTI_EXTI1_FALLING_Pin;
+	}kEXTI_EXTI1_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x16670001,
+			PORTB1 = 0x16670011,
+			PORTC1 = 0x16670021,
+			PORTD1 = 0x16670031,
+			PORTE1 = 0x16670041
+		}kEXTI_EXTI1_RISING_Pin;
+	}kEXTI_EXTI1_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x1E670001,
+			PORTB1 = 0x1E670011,
+			PORTC1 = 0x1E670021,
+			PORTD1 = 0x1E670031,
+			PORTE1 = 0x1E670041
+		}kEXTI_EXTI1_BOTH_Pin;
+	}kEXTI_EXTI1_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI1_FALLING FallingEdge;
+		kEXTI_EXTI1_RISING  RisingEdge;
+		kEXTI_EXTI1_BOTH    BothEdges;
+	}kEXTI_EXTI1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x0E670002,
+			PORTB2 = 0x0E670012,
+			PORTC2 = 0x0E670022,
+			PORTD2 = 0x0E670032,
+			PORTE2 = 0x0E670042
+		}kEXTI_EXTI2_FALLING_Pin;
+	}kEXTI_EXTI2_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x16670002,
+			PORTB2 = 0x16670012,
+			PORTC2 = 0x16670022,
+			PORTD2 = 0x16670032,
+			PORTE2 = 0x16670042
+		}kEXTI_EXTI2_RISING_Pin;
+	}kEXTI_EXTI2_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x1E670002,
+			PORTB2 = 0x1E670012,
+			PORTC2 = 0x1E670022,
+			PORTD2 = 0x1E670032,
+			PORTE2 = 0x1E670042
+		}kEXTI_EXTI2_BOTH_Pin;
+	}kEXTI_EXTI2_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI2_FALLING FallingEdge;
+		kEXTI_EXTI2_RISING  RisingEdge;
+		kEXTI_EXTI2_BOTH    BothEdges;
+	}kEXTI_EXTI2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x0E670003,
+			PORTB3 = 0x0E670013,
+			PORTC3 = 0x0E670023,
+			PORTD3 = 0x0E670033,
+			PORTE3 = 0x0E670043
+		}kEXTI_EXTI3_FALLING_Pin;
+	}kEXTI_EXTI3_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x16670003,
+			PORTB3 = 0x16670013,
+			PORTC3 = 0x16670023,
+			PORTD3 = 0x16670033,
+			PORTE3 = 0x16670043
+		}kEXTI_EXTI3_RISING_Pin;
+	}kEXTI_EXTI3_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x1E670003,
+			PORTB3 = 0x1E670013,
+			PORTC3 = 0x1E670023,
+			PORTD3 = 0x1E670033,
+			PORTE3 = 0x1E670043
+		}kEXTI_EXTI3_BOTH_Pin;
+	}kEXTI_EXTI3_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI3_FALLING FallingEdge;
+		kEXTI_EXTI3_RISING  RisingEdge;
+		kEXTI_EXTI3_BOTH    BothEdges;
+	}kEXTI_EXTI3;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x0E670004,
+			PORTB4 = 0x0E670014,
+			PORTC4 = 0x0E670024,
+			PORTD4 = 0x0E670034,
+			PORTE4 = 0x0E670044
+		}kEXTI_EXTI4_FALLING_Pin;
+	}kEXTI_EXTI4_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x16670004,
+			PORTB4 = 0x16670014,
+			PORTC4 = 0x16670024,
+			PORTD4 = 0x16670034,
+			PORTE4 = 0x16670044
+		}kEXTI_EXTI4_RISING_Pin;
+	}kEXTI_EXTI4_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x1E670004,
+			PORTB4 = 0x1E670014,
+			PORTC4 = 0x1E670024,
+			PORTD4 = 0x1E670034,
+			PORTE4 = 0x1E670044
+		}kEXTI_EXTI4_BOTH_Pin;
+	}kEXTI_EXTI4_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI4_FALLING FallingEdge;
+		kEXTI_EXTI4_RISING  RisingEdge;
+		kEXTI_EXTI4_BOTH    BothEdges;
+	}kEXTI_EXTI4;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x0E670005,
+			PORTB5 = 0x0E670015,
+			PORTC5 = 0x0E670025,
+			PORTD5 = 0x0E670035,
+			PORTE5 = 0x0E670045
+		}kEXTI_EXTI5_FALLING_Pin;
+	}kEXTI_EXTI5_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x16670005,
+			PORTB5 = 0x16670015,
+			PORTC5 = 0x16670025,
+			PORTD5 = 0x16670035,
+			PORTE5 = 0x16670045
+		}kEXTI_EXTI5_RISING_Pin;
+	}kEXTI_EXTI5_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x1E670005,
+			PORTB5 = 0x1E670015,
+			PORTC5 = 0x1E670025,
+			PORTD5 = 0x1E670035,
+			PORTE5 = 0x1E670045
+		}kEXTI_EXTI5_BOTH_Pin;
+	}kEXTI_EXTI5_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI5_FALLING FallingEdge;
+		kEXTI_EXTI5_RISING  RisingEdge;
+		kEXTI_EXTI5_BOTH    BothEdges;
+	}kEXTI_EXTI5;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x0E670006,
+			PORTB6 = 0x0E670016,
+			PORTC6 = 0x0E670026,
+			PORTD6 = 0x0E670036,
+			PORTE6 = 0x0E670046
+		}kEXTI_EXTI6_FALLING_Pin;
+	}kEXTI_EXTI6_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x16670006,
+			PORTB6 = 0x16670016,
+			PORTC6 = 0x16670026,
+			PORTD6 = 0x16670036,
+			PORTE6 = 0x16670046
+		}kEXTI_EXTI6_RISING_Pin;
+	}kEXTI_EXTI6_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x1E670006,
+			PORTB6 = 0x1E670016,
+			PORTC6 = 0x1E670026,
+			PORTD6 = 0x1E670036,
+			PORTE6 = 0x1E670046
+		}kEXTI_EXTI6_BOTH_Pin;
+	}kEXTI_EXTI6_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI6_FALLING FallingEdge;
+		kEXTI_EXTI6_RISING  RisingEdge;
+		kEXTI_EXTI6_BOTH    BothEdges;
+	}kEXTI_EXTI6;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x0E670007,
+			PORTB7 = 0x0E670017,
+			PORTC7 = 0x0E670027,
+			PORTD7 = 0x0E670037,
+			PORTE7 = 0x0E670047
+		}kEXTI_EXTI7_FALLING_Pin;
+	}kEXTI_EXTI7_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x16670007,
+			PORTB7 = 0x16670017,
+			PORTC7 = 0x16670027,
+			PORTD7 = 0x16670037,
+			PORTE7 = 0x16670047
+		}kEXTI_EXTI7_RISING_Pin;
+	}kEXTI_EXTI7_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x1E670007,
+			PORTB7 = 0x1E670017,
+			PORTC7 = 0x1E670027,
+			PORTD7 = 0x1E670037,
+			PORTE7 = 0x1E670047
+		}kEXTI_EXTI7_BOTH_Pin;
+	}kEXTI_EXTI7_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI7_FALLING FallingEdge;
+		kEXTI_EXTI7_RISING  RisingEdge;
+		kEXTI_EXTI7_BOTH    BothEdges;
+	}kEXTI_EXTI7;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x0E670008,
+			PORTB8 = 0x0E670018,
+			PORTC8 = 0x0E670028,
+			PORTD8 = 0x0E670038,
+			PORTE8 = 0x0E670048
+		}kEXTI_EXTI8_FALLING_Pin;
+	}kEXTI_EXTI8_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x16670008,
+			PORTB8 = 0x16670018,
+			PORTC8 = 0x16670028,
+			PORTD8 = 0x16670038,
+			PORTE8 = 0x16670048
+		}kEXTI_EXTI8_RISING_Pin;
+	}kEXTI_EXTI8_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x1E670008,
+			PORTB8 = 0x1E670018,
+			PORTC8 = 0x1E670028,
+			PORTD8 = 0x1E670038,
+			PORTE8 = 0x1E670048
+		}kEXTI_EXTI8_BOTH_Pin;
+	}kEXTI_EXTI8_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI8_FALLING FallingEdge;
+		kEXTI_EXTI8_RISING  RisingEdge;
+		kEXTI_EXTI8_BOTH    BothEdges;
+	}kEXTI_EXTI8;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x0E670009,
+			PORTB9 = 0x0E670019,
+			PORTC9 = 0x0E670029,
+			PORTD9 = 0x0E670039,
+			PORTE9 = 0x0E670049
+		}kEXTI_EXTI9_FALLING_Pin;
+	}kEXTI_EXTI9_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x16670009,
+			PORTB9 = 0x16670019,
+			PORTC9 = 0x16670029,
+			PORTD9 = 0x16670039,
+			PORTE9 = 0x16670049
+		}kEXTI_EXTI9_RISING_Pin;
+	}kEXTI_EXTI9_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x1E670009,
+			PORTB9 = 0x1E670019,
+			PORTC9 = 0x1E670029,
+			PORTD9 = 0x1E670039,
+			PORTE9 = 0x1E670049
+		}kEXTI_EXTI9_BOTH_Pin;
+	}kEXTI_EXTI9_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI9_FALLING FallingEdge;
+		kEXTI_EXTI9_RISING  RisingEdge;
+		kEXTI_EXTI9_BOTH    BothEdges;
+	}kEXTI_EXTI9;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x0E67000A,
+			PORTB10 = 0x0E67001A,
+			PORTC10 = 0x0E67002A,
+			PORTD10 = 0x0E67003A,
+			PORTE10 = 0x0E67004A
+		}kEXTI_EXTI10_FALLING_Pin;
+	}kEXTI_EXTI10_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1667000A,
+			PORTB10 = 0x1667001A,
+			PORTC10 = 0x1667002A,
+			PORTD10 = 0x1667003A,
+			PORTE10 = 0x1667004A
+		}kEXTI_EXTI10_RISING_Pin;
+	}kEXTI_EXTI10_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1E67000A,
+			PORTB10 = 0x1E67001A,
+			PORTC10 = 0x1E67002A,
+			PORTD10 = 0x1E67003A,
+			PORTE10 = 0x1E67004A
+		}kEXTI_EXTI10_BOTH_Pin;
+	}kEXTI_EXTI10_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI10_FALLING FallingEdge;
+		kEXTI_EXTI10_RISING  RisingEdge;
+		kEXTI_EXTI10_BOTH    BothEdges;
+	}kEXTI_EXTI10;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x0E67000B,
+			PORTB11 = 0x0E67001B,
+			PORTC11 = 0x0E67002B,
+			PORTD11 = 0x0E67003B,
+			PORTE11 = 0x0E67004B
+		}kEXTI_EXTI11_FALLING_Pin;
+	}kEXTI_EXTI11_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1667000B,
+			PORTB11 = 0x1667001B,
+			PORTC11 = 0x1667002B,
+			PORTD11 = 0x1667003B,
+			PORTE11 = 0x1667004B
+		}kEXTI_EXTI11_RISING_Pin;
+	}kEXTI_EXTI11_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1E67000B,
+			PORTB11 = 0x1E67001B,
+			PORTC11 = 0x1E67002B,
+			PORTD11 = 0x1E67003B,
+			PORTE11 = 0x1E67004B
+		}kEXTI_EXTI11_BOTH_Pin;
+	}kEXTI_EXTI11_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI11_FALLING FallingEdge;
+		kEXTI_EXTI11_RISING  RisingEdge;
+		kEXTI_EXTI11_BOTH    BothEdges;
+	}kEXTI_EXTI11;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x0E67000C,
+			PORTB12 = 0x0E67001C,
+			PORTC12 = 0x0E67002C,
+			PORTD12 = 0x0E67003C,
+			PORTE12 = 0x0E67004C
+		}kEXTI_EXTI12_FALLING_Pin;
+	}kEXTI_EXTI12_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1667000C,
+			PORTB12 = 0x1667001C,
+			PORTC12 = 0x1667002C,
+			PORTD12 = 0x1667003C,
+			PORTE12 = 0x1667004C
+		}kEXTI_EXTI12_RISING_Pin;
+	}kEXTI_EXTI12_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1E67000C,
+			PORTB12 = 0x1E67001C,
+			PORTC12 = 0x1E67002C,
+			PORTD12 = 0x1E67003C,
+			PORTE12 = 0x1E67004C
+		}kEXTI_EXTI12_BOTH_Pin;
+	}kEXTI_EXTI12_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI12_FALLING FallingEdge;
+		kEXTI_EXTI12_RISING  RisingEdge;
+		kEXTI_EXTI12_BOTH    BothEdges;
+	}kEXTI_EXTI12;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x0E67000D,
+			PORTB13 = 0x0E67001D,
+			PORTC13 = 0x0E67002D,
+			PORTD13 = 0x0E67003D,
+			PORTE13 = 0x0E67004D
+		}kEXTI_EXTI13_FALLING_Pin;
+	}kEXTI_EXTI13_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1667000D,
+			PORTB13 = 0x1667001D,
+			PORTC13 = 0x1667002D,
+			PORTD13 = 0x1667003D,
+			PORTE13 = 0x1667004D
+		}kEXTI_EXTI13_RISING_Pin;
+	}kEXTI_EXTI13_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1E67000D,
+			PORTB13 = 0x1E67001D,
+			PORTC13 = 0x1E67002D,
+			PORTD13 = 0x1E67003D,
+			PORTE13 = 0x1E67004D
+		}kEXTI_EXTI13_BOTH_Pin;
+	}kEXTI_EXTI13_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI13_FALLING FallingEdge;
+		kEXTI_EXTI13_RISING  RisingEdge;
+		kEXTI_EXTI13_BOTH    BothEdges;
+	}kEXTI_EXTI13;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x0E67000E,
+			PORTB14 = 0x0E67001E,
+			PORTC14 = 0x0E67002E,
+			PORTD14 = 0x0E67003E,
+			PORTE14 = 0x0E67004E
+		}kEXTI_EXTI14_FALLING_Pin;
+	}kEXTI_EXTI14_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1667000E,
+			PORTB14 = 0x1667001E,
+			PORTC14 = 0x1667002E,
+			PORTD14 = 0x1667003E,
+			PORTE14 = 0x1667004E
+		}kEXTI_EXTI14_RISING_Pin;
+	}kEXTI_EXTI14_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1E67000E,
+			PORTB14 = 0x1E67001E,
+			PORTC14 = 0x1E67002E,
+			PORTD14 = 0x1E67003E,
+			PORTE14 = 0x1E67004E
+		}kEXTI_EXTI14_BOTH_Pin;
+	}kEXTI_EXTI14_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI14_FALLING FallingEdge;
+		kEXTI_EXTI14_RISING  RisingEdge;
+		kEXTI_EXTI14_BOTH    BothEdges;
+	}kEXTI_EXTI14;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x0E67000F,
+			PORTB15 = 0x0E67001F,
+			PORTC15 = 0x0E67002F,
+			PORTD15 = 0x0E67003F,
+			PORTE15 = 0x0E67004F
+		}kEXTI_EXTI15_FALLING_Pin;
+	}kEXTI_EXTI15_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1667000F,
+			PORTB15 = 0x1667001F,
+			PORTC15 = 0x1667002F,
+			PORTD15 = 0x1667003F,
+			PORTE15 = 0x1667004F
+		}kEXTI_EXTI15_RISING_Pin;
+	}kEXTI_EXTI15_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1E67000F,
+			PORTB15 = 0x1E67001F,
+			PORTC15 = 0x1E67002F,
+			PORTD15 = 0x1E67003F,
+			PORTE15 = 0x1E67004F
+		}kEXTI_EXTI15_BOTH_Pin;
+	}kEXTI_EXTI15_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI15_FALLING FallingEdge;
+		kEXTI_EXTI15_RISING  RisingEdge;
+		kEXTI_EXTI15_BOTH    BothEdges;
+	}kEXTI_EXTI15;
+
+
+#endif
+#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x0E670000,
+			PORTB0 = 0x0E670010,
+			PORTC0 = 0x0E670020,
+			PORTD0 = 0x0E670030,
+			PORTE0 = 0x0E670040,
+			PORTF0 = 0x0E670050,
+			PORTG0 = 0x0E670060,
+			PORTH0 = 0x0E670070
+		}kEXTI_EXTI0_FALLING_Pin;
+	}kEXTI_EXTI0_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x16670000,
+			PORTB0 = 0x16670010,
+			PORTC0 = 0x16670020,
+			PORTD0 = 0x16670030,
+			PORTE0 = 0x16670040,
+			PORTF0 = 0x16670050,
+			PORTG0 = 0x16670060,
+			PORTH0 = 0x16670070
+		}kEXTI_EXTI0_RISING_Pin;
+	}kEXTI_EXTI0_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x1E670000,
+			PORTB0 = 0x1E670010,
+			PORTC0 = 0x1E670020,
+			PORTD0 = 0x1E670030,
+			PORTE0 = 0x1E670040,
+			PORTF0 = 0x1E670050,
+			PORTG0 = 0x1E670060,
+			PORTH0 = 0x1E670070
+		}kEXTI_EXTI0_BOTH_Pin;
+	}kEXTI_EXTI0_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI0_FALLING FallingEdge;
+		kEXTI_EXTI0_RISING  RisingEdge;
+		kEXTI_EXTI0_BOTH    BothEdges;
+	}kEXTI_EXTI0;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x0E670001,
+			PORTB1 = 0x0E670011,
+			PORTC1 = 0x0E670021,
+			PORTD1 = 0x0E670031,
+			PORTE1 = 0x0E670041,
+			PORTF1 = 0x0E670051,
+			PORTG1 = 0x0E670061,
+			PORTH1 = 0x0E670071
+		}kEXTI_EXTI1_FALLING_Pin;
+	}kEXTI_EXTI1_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x16670001,
+			PORTB1 = 0x16670011,
+			PORTC1 = 0x16670021,
+			PORTD1 = 0x16670031,
+			PORTE1 = 0x16670041,
+			PORTF1 = 0x16670051,
+			PORTG1 = 0x16670061,
+			PORTH1 = 0x16670071
+		}kEXTI_EXTI1_RISING_Pin;
+	}kEXTI_EXTI1_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x1E670001,
+			PORTB1 = 0x1E670011,
+			PORTC1 = 0x1E670021,
+			PORTD1 = 0x1E670031,
+			PORTE1 = 0x1E670041,
+			PORTF1 = 0x1E670051,
+			PORTG1 = 0x1E670061,
+			PORTH1 = 0x1E670071
+		}kEXTI_EXTI1_BOTH_Pin;
+	}kEXTI_EXTI1_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI1_FALLING FallingEdge;
+		kEXTI_EXTI1_RISING  RisingEdge;
+		kEXTI_EXTI1_BOTH    BothEdges;
+	}kEXTI_EXTI1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x0E670002,
+			PORTB2 = 0x0E670012,
+			PORTC2 = 0x0E670022,
+			PORTD2 = 0x0E670032,
+			PORTE2 = 0x0E670042,
+			PORTF2 = 0x0E670052,
+			PORTG2 = 0x0E670062,
+			PORTH2 = 0x0E670072
+		}kEXTI_EXTI2_FALLING_Pin;
+	}kEXTI_EXTI2_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x16670002,
+			PORTB2 = 0x16670012,
+			PORTC2 = 0x16670022,
+			PORTD2 = 0x16670032,
+			PORTE2 = 0x16670042,
+			PORTF2 = 0x16670052,
+			PORTG2 = 0x16670062,
+			PORTH2 = 0x16670072
+		}kEXTI_EXTI2_RISING_Pin;
+	}kEXTI_EXTI2_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x1E670002,
+			PORTB2 = 0x1E670012,
+			PORTC2 = 0x1E670022,
+			PORTD2 = 0x1E670032,
+			PORTE2 = 0x1E670042,
+			PORTF2 = 0x1E670052,
+			PORTG2 = 0x1E670062,
+			PORTH2 = 0x1E670072
+		}kEXTI_EXTI2_BOTH_Pin;
+	}kEXTI_EXTI2_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI2_FALLING FallingEdge;
+		kEXTI_EXTI2_RISING  RisingEdge;
+		kEXTI_EXTI2_BOTH    BothEdges;
+	}kEXTI_EXTI2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x0E670003,
+			PORTB3 = 0x0E670013,
+			PORTC3 = 0x0E670023,
+			PORTD3 = 0x0E670033,
+			PORTE3 = 0x0E670043,
+			PORTF3 = 0x0E670053,
+			PORTG3 = 0x0E670063,
+			PORTH3 = 0x0E670073
+		}kEXTI_EXTI3_FALLING_Pin;
+	}kEXTI_EXTI3_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x16670003,
+			PORTB3 = 0x16670013,
+			PORTC3 = 0x16670023,
+			PORTD3 = 0x16670033,
+			PORTE3 = 0x16670043,
+			PORTF3 = 0x16670053,
+			PORTG3 = 0x16670063,
+			PORTH3 = 0x16670073
+		}kEXTI_EXTI3_RISING_Pin;
+	}kEXTI_EXTI3_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x1E670003,
+			PORTB3 = 0x1E670013,
+			PORTC3 = 0x1E670023,
+			PORTD3 = 0x1E670033,
+			PORTE3 = 0x1E670043,
+			PORTF3 = 0x1E670053,
+			PORTG3 = 0x1E670063,
+			PORTH3 = 0x1E670073
+		}kEXTI_EXTI3_BOTH_Pin;
+	}kEXTI_EXTI3_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI3_FALLING FallingEdge;
+		kEXTI_EXTI3_RISING  RisingEdge;
+		kEXTI_EXTI3_BOTH    BothEdges;
+	}kEXTI_EXTI3;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x0E670004,
+			PORTB4 = 0x0E670014,
+			PORTC4 = 0x0E670024,
+			PORTD4 = 0x0E670034,
+			PORTE4 = 0x0E670044,
+			PORTF4 = 0x0E670054,
+			PORTG4 = 0x0E670064,
+			PORTH4 = 0x0E670074
+		}kEXTI_EXTI4_FALLING_Pin;
+	}kEXTI_EXTI4_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x16670004,
+			PORTB4 = 0x16670014,
+			PORTC4 = 0x16670024,
+			PORTD4 = 0x16670034,
+			PORTE4 = 0x16670044,
+			PORTF4 = 0x16670054,
+			PORTG4 = 0x16670064,
+			PORTH4 = 0x16670074
+		}kEXTI_EXTI4_RISING_Pin;
+	}kEXTI_EXTI4_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x1E670004,
+			PORTB4 = 0x1E670014,
+			PORTC4 = 0x1E670024,
+			PORTD4 = 0x1E670034,
+			PORTE4 = 0x1E670044,
+			PORTF4 = 0x1E670054,
+			PORTG4 = 0x1E670064,
+			PORTH4 = 0x1E670074
+		}kEXTI_EXTI4_BOTH_Pin;
+	}kEXTI_EXTI4_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI4_FALLING FallingEdge;
+		kEXTI_EXTI4_RISING  RisingEdge;
+		kEXTI_EXTI4_BOTH    BothEdges;
+	}kEXTI_EXTI4;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x0E670005,
+			PORTB5 = 0x0E670015,
+			PORTC5 = 0x0E670025,
+			PORTD5 = 0x0E670035,
+			PORTE5 = 0x0E670045,
+			PORTF5 = 0x0E670055,
+			PORTG5 = 0x0E670065,
+			PORTH5 = 0x0E670075
+		}kEXTI_EXTI5_FALLING_Pin;
+	}kEXTI_EXTI5_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x16670005,
+			PORTB5 = 0x16670015,
+			PORTC5 = 0x16670025,
+			PORTD5 = 0x16670035,
+			PORTE5 = 0x16670045,
+			PORTF5 = 0x16670055,
+			PORTG5 = 0x16670065,
+			PORTH5 = 0x16670075
+		}kEXTI_EXTI5_RISING_Pin;
+	}kEXTI_EXTI5_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x1E670005,
+			PORTB5 = 0x1E670015,
+			PORTC5 = 0x1E670025,
+			PORTD5 = 0x1E670035,
+			PORTE5 = 0x1E670045,
+			PORTF5 = 0x1E670055,
+			PORTG5 = 0x1E670065,
+			PORTH5 = 0x1E670075
+		}kEXTI_EXTI5_BOTH_Pin;
+	}kEXTI_EXTI5_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI5_FALLING FallingEdge;
+		kEXTI_EXTI5_RISING  RisingEdge;
+		kEXTI_EXTI5_BOTH    BothEdges;
+	}kEXTI_EXTI5;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x0E670006,
+			PORTB6 = 0x0E670016,
+			PORTC6 = 0x0E670026,
+			PORTD6 = 0x0E670036,
+			PORTE6 = 0x0E670046,
+			PORTF6 = 0x0E670056,
+			PORTG6 = 0x0E670066,
+			PORTH6 = 0x0E670076
+		}kEXTI_EXTI6_FALLING_Pin;
+	}kEXTI_EXTI6_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x16670006,
+			PORTB6 = 0x16670016,
+			PORTC6 = 0x16670026,
+			PORTD6 = 0x16670036,
+			PORTE6 = 0x16670046,
+			PORTF6 = 0x16670056,
+			PORTG6 = 0x16670066,
+			PORTH6 = 0x16670076
+		}kEXTI_EXTI6_RISING_Pin;
+	}kEXTI_EXTI6_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x1E670006,
+			PORTB6 = 0x1E670016,
+			PORTC6 = 0x1E670026,
+			PORTD6 = 0x1E670036,
+			PORTE6 = 0x1E670046,
+			PORTF6 = 0x1E670056,
+			PORTG6 = 0x1E670066,
+			PORTH6 = 0x1E670076
+		}kEXTI_EXTI6_BOTH_Pin;
+	}kEXTI_EXTI6_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI6_FALLING FallingEdge;
+		kEXTI_EXTI6_RISING  RisingEdge;
+		kEXTI_EXTI6_BOTH    BothEdges;
+	}kEXTI_EXTI6;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x0E670007,
+			PORTB7 = 0x0E670017,
+			PORTC7 = 0x0E670027,
+			PORTD7 = 0x0E670037,
+			PORTE7 = 0x0E670047,
+			PORTF7 = 0x0E670057,
+			PORTG7 = 0x0E670067,
+			PORTH7 = 0x0E670077
+		}kEXTI_EXTI7_FALLING_Pin;
+	}kEXTI_EXTI7_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x16670007,
+			PORTB7 = 0x16670017,
+			PORTC7 = 0x16670027,
+			PORTD7 = 0x16670037,
+			PORTE7 = 0x16670047,
+			PORTF7 = 0x16670057,
+			PORTG7 = 0x16670067,
+			PORTH7 = 0x16670077
+		}kEXTI_EXTI7_RISING_Pin;
+	}kEXTI_EXTI7_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x1E670007,
+			PORTB7 = 0x1E670017,
+			PORTC7 = 0x1E670027,
+			PORTD7 = 0x1E670037,
+			PORTE7 = 0x1E670047,
+			PORTF7 = 0x1E670057,
+			PORTG7 = 0x1E670067,
+			PORTH7 = 0x1E670077
+		}kEXTI_EXTI7_BOTH_Pin;
+	}kEXTI_EXTI7_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI7_FALLING FallingEdge;
+		kEXTI_EXTI7_RISING  RisingEdge;
+		kEXTI_EXTI7_BOTH    BothEdges;
+	}kEXTI_EXTI7;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x0E670008,
+			PORTB8 = 0x0E670018,
+			PORTC8 = 0x0E670028,
+			PORTD8 = 0x0E670038,
+			PORTE8 = 0x0E670048,
+			PORTF8 = 0x0E670058,
+			PORTG8 = 0x0E670068,
+			PORTH8 = 0x0E670078
+		}kEXTI_EXTI8_FALLING_Pin;
+	}kEXTI_EXTI8_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x16670008,
+			PORTB8 = 0x16670018,
+			PORTC8 = 0x16670028,
+			PORTD8 = 0x16670038,
+			PORTE8 = 0x16670048,
+			PORTF8 = 0x16670058,
+			PORTG8 = 0x16670068,
+			PORTH8 = 0x16670078
+		}kEXTI_EXTI8_RISING_Pin;
+	}kEXTI_EXTI8_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x1E670008,
+			PORTB8 = 0x1E670018,
+			PORTC8 = 0x1E670028,
+			PORTD8 = 0x1E670038,
+			PORTE8 = 0x1E670048,
+			PORTF8 = 0x1E670058,
+			PORTG8 = 0x1E670068,
+			PORTH8 = 0x1E670078
+		}kEXTI_EXTI8_BOTH_Pin;
+	}kEXTI_EXTI8_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI8_FALLING FallingEdge;
+		kEXTI_EXTI8_RISING  RisingEdge;
+		kEXTI_EXTI8_BOTH    BothEdges;
+	}kEXTI_EXTI8;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x0E670009,
+			PORTB9 = 0x0E670019,
+			PORTC9 = 0x0E670029,
+			PORTD9 = 0x0E670039,
+			PORTE9 = 0x0E670049,
+			PORTF9 = 0x0E670059,
+			PORTG9 = 0x0E670069,
+			PORTH9 = 0x0E670079
+		}kEXTI_EXTI9_FALLING_Pin;
+	}kEXTI_EXTI9_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x16670009,
+			PORTB9 = 0x16670019,
+			PORTC9 = 0x16670029,
+			PORTD9 = 0x16670039,
+			PORTE9 = 0x16670049,
+			PORTF9 = 0x16670059,
+			PORTG9 = 0x16670069,
+			PORTH9 = 0x16670079
+		}kEXTI_EXTI9_RISING_Pin;
+	}kEXTI_EXTI9_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x1E670009,
+			PORTB9 = 0x1E670019,
+			PORTC9 = 0x1E670029,
+			PORTD9 = 0x1E670039,
+			PORTE9 = 0x1E670049,
+			PORTF9 = 0x1E670059,
+			PORTG9 = 0x1E670069,
+			PORTH9 = 0x1E670079
+		}kEXTI_EXTI9_BOTH_Pin;
+	}kEXTI_EXTI9_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI9_FALLING FallingEdge;
+		kEXTI_EXTI9_RISING  RisingEdge;
+		kEXTI_EXTI9_BOTH    BothEdges;
+	}kEXTI_EXTI9;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x0E67000A,
+			PORTB10 = 0x0E67001A,
+			PORTC10 = 0x0E67002A,
+			PORTD10 = 0x0E67003A,
+			PORTE10 = 0x0E67004A,
+			PORTF10 = 0x0E67005A,
+			PORTG10 = 0x0E67006A,
+			PORTH10 = 0x0E67007A
+		}kEXTI_EXTI10_FALLING_Pin;
+	}kEXTI_EXTI10_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1667000A,
+			PORTB10 = 0x1667001A,
+			PORTC10 = 0x1667002A,
+			PORTD10 = 0x1667003A,
+			PORTE10 = 0x1667004A,
+			PORTF10 = 0x1667005A,
+			PORTG10 = 0x1667006A,
+			PORTH10 = 0x1667007A
+		}kEXTI_EXTI10_RISING_Pin;
+	}kEXTI_EXTI10_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1E67000A,
+			PORTB10 = 0x1E67001A,
+			PORTC10 = 0x1E67002A,
+			PORTD10 = 0x1E67003A,
+			PORTE10 = 0x1E67004A,
+			PORTF10 = 0x1E67005A,
+			PORTG10 = 0x1E67006A,
+			PORTH10 = 0x1E67007A
+		}kEXTI_EXTI10_BOTH_Pin;
+	}kEXTI_EXTI10_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI10_FALLING FallingEdge;
+		kEXTI_EXTI10_RISING  RisingEdge;
+		kEXTI_EXTI10_BOTH    BothEdges;
+	}kEXTI_EXTI10;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x0E67000B,
+			PORTB11 = 0x0E67001B,
+			PORTC11 = 0x0E67002B,
+			PORTD11 = 0x0E67003B,
+			PORTE11 = 0x0E67004B,
+			PORTF11 = 0x0E67005B,
+			PORTG11 = 0x0E67006B,
+			PORTH11 = 0x0E67007B
+		}kEXTI_EXTI11_FALLING_Pin;
+	}kEXTI_EXTI11_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1667000B,
+			PORTB11 = 0x1667001B,
+			PORTC11 = 0x1667002B,
+			PORTD11 = 0x1667003B,
+			PORTE11 = 0x1667004B,
+			PORTF11 = 0x1667005B,
+			PORTG11 = 0x1667006B,
+			PORTH11 = 0x1667007B
+		}kEXTI_EXTI11_RISING_Pin;
+	}kEXTI_EXTI11_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1E67000B,
+			PORTB11 = 0x1E67001B,
+			PORTC11 = 0x1E67002B,
+			PORTD11 = 0x1E67003B,
+			PORTE11 = 0x1E67004B,
+			PORTF11 = 0x1E67005B,
+			PORTG11 = 0x1E67006B,
+			PORTH11 = 0x1E67007B
+		}kEXTI_EXTI11_BOTH_Pin;
+	}kEXTI_EXTI11_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI11_FALLING FallingEdge;
+		kEXTI_EXTI11_RISING  RisingEdge;
+		kEXTI_EXTI11_BOTH    BothEdges;
+	}kEXTI_EXTI11;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x0E67000C,
+			PORTB12 = 0x0E67001C,
+			PORTC12 = 0x0E67002C,
+			PORTD12 = 0x0E67003C,
+			PORTE12 = 0x0E67004C,
+			PORTF12 = 0x0E67005C,
+			PORTG12 = 0x0E67006C,
+			PORTH12 = 0x0E67007C
+		}kEXTI_EXTI12_FALLING_Pin;
+	}kEXTI_EXTI12_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1667000C,
+			PORTB12 = 0x1667001C,
+			PORTC12 = 0x1667002C,
+			PORTD12 = 0x1667003C,
+			PORTE12 = 0x1667004C,
+			PORTF12 = 0x1667005C,
+			PORTG12 = 0x1667006C,
+			PORTH12 = 0x1667007C
+		}kEXTI_EXTI12_RISING_Pin;
+	}kEXTI_EXTI12_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1E67000C,
+			PORTB12 = 0x1E67001C,
+			PORTC12 = 0x1E67002C,
+			PORTD12 = 0x1E67003C,
+			PORTE12 = 0x1E67004C,
+			PORTF12 = 0x1E67005C,
+			PORTG12 = 0x1E67006C,
+			PORTH12 = 0x1E67007C
+		}kEXTI_EXTI12_BOTH_Pin;
+	}kEXTI_EXTI12_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI12_FALLING FallingEdge;
+		kEXTI_EXTI12_RISING  RisingEdge;
+		kEXTI_EXTI12_BOTH    BothEdges;
+	}kEXTI_EXTI12;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x0E67000D,
+			PORTB13 = 0x0E67001D,
+			PORTC13 = 0x0E67002D,
+			PORTD13 = 0x0E67003D,
+			PORTE13 = 0x0E67004D,
+			PORTF13 = 0x0E67005D,
+			PORTG13 = 0x0E67006D,
+			PORTH13 = 0x0E67007D
+		}kEXTI_EXTI13_FALLING_Pin;
+	}kEXTI_EXTI13_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1667000D,
+			PORTB13 = 0x1667001D,
+			PORTC13 = 0x1667002D,
+			PORTD13 = 0x1667003D,
+			PORTE13 = 0x1667004D,
+			PORTF13 = 0x1667005D,
+			PORTG13 = 0x1667006D,
+			PORTH13 = 0x1667007D
+		}kEXTI_EXTI13_RISING_Pin;
+	}kEXTI_EXTI13_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1E67000D,
+			PORTB13 = 0x1E67001D,
+			PORTC13 = 0x1E67002D,
+			PORTD13 = 0x1E67003D,
+			PORTE13 = 0x1E67004D,
+			PORTF13 = 0x1E67005D,
+			PORTG13 = 0x1E67006D,
+			PORTH13 = 0x1E67007D
+		}kEXTI_EXTI13_BOTH_Pin;
+	}kEXTI_EXTI13_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI13_FALLING FallingEdge;
+		kEXTI_EXTI13_RISING  RisingEdge;
+		kEXTI_EXTI13_BOTH    BothEdges;
+	}kEXTI_EXTI13;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x0E67000E,
+			PORTB14 = 0x0E67001E,
+			PORTC14 = 0x0E67002E,
+			PORTD14 = 0x0E67003E,
+			PORTE14 = 0x0E67004E,
+			PORTF14 = 0x0E67005E,
+			PORTG14 = 0x0E67006E,
+			PORTH14 = 0x0E67007E
+		}kEXTI_EXTI14_FALLING_Pin;
+	}kEXTI_EXTI14_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1667000E,
+			PORTB14 = 0x1667001E,
+			PORTC14 = 0x1667002E,
+			PORTD14 = 0x1667003E,
+			PORTE14 = 0x1667004E,
+			PORTF14 = 0x1667005E,
+			PORTG14 = 0x1667006E,
+			PORTH14 = 0x1667007E
+		}kEXTI_EXTI14_RISING_Pin;
+	}kEXTI_EXTI14_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1E67000E,
+			PORTB14 = 0x1E67001E,
+			PORTC14 = 0x1E67002E,
+			PORTD14 = 0x1E67003E,
+			PORTE14 = 0x1E67004E,
+			PORTF14 = 0x1E67005E,
+			PORTG14 = 0x1E67006E,
+			PORTH14 = 0x1E67007E
+		}kEXTI_EXTI14_BOTH_Pin;
+	}kEXTI_EXTI14_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI14_FALLING FallingEdge;
+		kEXTI_EXTI14_RISING  RisingEdge;
+		kEXTI_EXTI14_BOTH    BothEdges;
+	}kEXTI_EXTI14;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x0E67000F,
+			PORTB15 = 0x0E67001F,
+			PORTC15 = 0x0E67002F,
+			PORTD15 = 0x0E67003F,
+			PORTE15 = 0x0E67004F,
+			PORTF15 = 0x0E67005F,
+			PORTG15 = 0x0E67006F,
+			PORTH15 = 0x0E67007F
+		}kEXTI_EXTI15_FALLING_Pin;
+	}kEXTI_EXTI15_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1667000F,
+			PORTB15 = 0x1667001F,
+			PORTC15 = 0x1667002F,
+			PORTD15 = 0x1667003F,
+			PORTE15 = 0x1667004F,
+			PORTF15 = 0x1667005F,
+			PORTG15 = 0x1667006F,
+			PORTH15 = 0x1667007F
+		}kEXTI_EXTI15_RISING_Pin;
+	}kEXTI_EXTI15_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1E67000F,
+			PORTB15 = 0x1E67001F,
+			PORTC15 = 0x1E67002F,
+			PORTD15 = 0x1E67003F,
+			PORTE15 = 0x1E67004F,
+			PORTF15 = 0x1E67005F,
+			PORTG15 = 0x1E67006F,
+			PORTH15 = 0x1E67007F
+		}kEXTI_EXTI15_BOTH_Pin;
+	}kEXTI_EXTI15_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI15_FALLING FallingEdge;
+		kEXTI_EXTI15_RISING  RisingEdge;
+		kEXTI_EXTI15_BOTH    BothEdges;
+	}kEXTI_EXTI15;
+
+
+#endif
+#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x0E670000,
+			PORTB0 = 0x0E670010,
+			PORTC0 = 0x0E670020,
+			PORTD0 = 0x0E670030,
+			PORTE0 = 0x0E670040,
+			PORTH0 = 0x0E670070
+		}kEXTI_EXTI0_FALLING_Pin;
+	}kEXTI_EXTI0_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x16670000,
+			PORTB0 = 0x16670010,
+			PORTC0 = 0x16670020,
+			PORTD0 = 0x16670030,
+			PORTE0 = 0x16670040,
+			PORTH0 = 0x16670070
+		}kEXTI_EXTI0_RISING_Pin;
+	}kEXTI_EXTI0_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0 = 0x1E670000,
+			PORTB0 = 0x1E670010,
+			PORTC0 = 0x1E670020,
+			PORTD0 = 0x1E670030,
+			PORTE0 = 0x1E670040,
+			PORTH0 = 0x1E670070
+		}kEXTI_EXTI0_BOTH_Pin;
+	}kEXTI_EXTI0_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI0_FALLING FallingEdge;
+		kEXTI_EXTI0_RISING  RisingEdge;
+		kEXTI_EXTI0_BOTH    BothEdges;
+	}kEXTI_EXTI0;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x0E670001,
+			PORTB1 = 0x0E670011,
+			PORTC1 = 0x0E670021,
+			PORTD1 = 0x0E670031,
+			PORTE1 = 0x0E670041,
+			PORTH1 = 0x0E670071
+		}kEXTI_EXTI1_FALLING_Pin;
+	}kEXTI_EXTI1_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x16670001,
+			PORTB1 = 0x16670011,
+			PORTC1 = 0x16670021,
+			PORTD1 = 0x16670031,
+			PORTE1 = 0x16670041,
+			PORTH1 = 0x16670071
+		}kEXTI_EXTI1_RISING_Pin;
+	}kEXTI_EXTI1_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA1 = 0x1E670001,
+			PORTB1 = 0x1E670011,
+			PORTC1 = 0x1E670021,
+			PORTD1 = 0x1E670031,
+			PORTE1 = 0x1E670041,
+			PORTH1 = 0x1E670071
+		}kEXTI_EXTI1_BOTH_Pin;
+	}kEXTI_EXTI1_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI1_FALLING FallingEdge;
+		kEXTI_EXTI1_RISING  RisingEdge;
+		kEXTI_EXTI1_BOTH    BothEdges;
+	}kEXTI_EXTI1;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x0E670002,
+			PORTB2 = 0x0E670012,
+			PORTC2 = 0x0E670022,
+			PORTD2 = 0x0E670032,
+			PORTE2 = 0x0E670042,
+			PORTH2 = 0x0E670072
+		}kEXTI_EXTI2_FALLING_Pin;
+	}kEXTI_EXTI2_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x16670002,
+			PORTB2 = 0x16670012,
+			PORTC2 = 0x16670022,
+			PORTD2 = 0x16670032,
+			PORTE2 = 0x16670042,
+			PORTH2 = 0x16670072
+		}kEXTI_EXTI2_RISING_Pin;
+	}kEXTI_EXTI2_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA2 = 0x1E670002,
+			PORTB2 = 0x1E670012,
+			PORTC2 = 0x1E670022,
+			PORTD2 = 0x1E670032,
+			PORTE2 = 0x1E670042,
+			PORTH2 = 0x1E670072
+		}kEXTI_EXTI2_BOTH_Pin;
+	}kEXTI_EXTI2_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI2_FALLING FallingEdge;
+		kEXTI_EXTI2_RISING  RisingEdge;
+		kEXTI_EXTI2_BOTH    BothEdges;
+	}kEXTI_EXTI2;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x0E670003,
+			PORTB3 = 0x0E670013,
+			PORTC3 = 0x0E670023,
+			PORTD3 = 0x0E670033,
+			PORTE3 = 0x0E670043,
+			PORTH3 = 0x0E670073
+		}kEXTI_EXTI3_FALLING_Pin;
+	}kEXTI_EXTI3_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x16670003,
+			PORTB3 = 0x16670013,
+			PORTC3 = 0x16670023,
+			PORTD3 = 0x16670033,
+			PORTE3 = 0x16670043,
+			PORTH3 = 0x16670073
+		}kEXTI_EXTI3_RISING_Pin;
+	}kEXTI_EXTI3_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA3 = 0x1E670003,
+			PORTB3 = 0x1E670013,
+			PORTC3 = 0x1E670023,
+			PORTD3 = 0x1E670033,
+			PORTE3 = 0x1E670043,
+			PORTH3 = 0x1E670073
+		}kEXTI_EXTI3_BOTH_Pin;
+	}kEXTI_EXTI3_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI3_FALLING FallingEdge;
+		kEXTI_EXTI3_RISING  RisingEdge;
+		kEXTI_EXTI3_BOTH    BothEdges;
+	}kEXTI_EXTI3;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x0E670004,
+			PORTB4 = 0x0E670014,
+			PORTC4 = 0x0E670024,
+			PORTD4 = 0x0E670034,
+			PORTE4 = 0x0E670044,
+			PORTH4 = 0x0E670074
+		}kEXTI_EXTI4_FALLING_Pin;
+	}kEXTI_EXTI4_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x16670004,
+			PORTB4 = 0x16670014,
+			PORTC4 = 0x16670024,
+			PORTD4 = 0x16670034,
+			PORTE4 = 0x16670044,
+			PORTH4 = 0x16670074
+		}kEXTI_EXTI4_RISING_Pin;
+	}kEXTI_EXTI4_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA4 = 0x1E670004,
+			PORTB4 = 0x1E670014,
+			PORTC4 = 0x1E670024,
+			PORTD4 = 0x1E670034,
+			PORTE4 = 0x1E670044,
+			PORTH4 = 0x1E670074
+		}kEXTI_EXTI4_BOTH_Pin;
+	}kEXTI_EXTI4_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI4_FALLING FallingEdge;
+		kEXTI_EXTI4_RISING  RisingEdge;
+		kEXTI_EXTI4_BOTH    BothEdges;
+	}kEXTI_EXTI4;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x0E670005,
+			PORTB5 = 0x0E670015,
+			PORTC5 = 0x0E670025,
+			PORTD5 = 0x0E670035,
+			PORTE5 = 0x0E670045,
+			PORTH5 = 0x0E670075
+		}kEXTI_EXTI5_FALLING_Pin;
+	}kEXTI_EXTI5_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x16670005,
+			PORTB5 = 0x16670015,
+			PORTC5 = 0x16670025,
+			PORTD5 = 0x16670035,
+			PORTE5 = 0x16670045,
+			PORTH5 = 0x16670075
+		}kEXTI_EXTI5_RISING_Pin;
+	}kEXTI_EXTI5_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA5 = 0x1E670005,
+			PORTB5 = 0x1E670015,
+			PORTC5 = 0x1E670025,
+			PORTD5 = 0x1E670035,
+			PORTE5 = 0x1E670045,
+			PORTH5 = 0x1E670075
+		}kEXTI_EXTI5_BOTH_Pin;
+	}kEXTI_EXTI5_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI5_FALLING FallingEdge;
+		kEXTI_EXTI5_RISING  RisingEdge;
+		kEXTI_EXTI5_BOTH    BothEdges;
+	}kEXTI_EXTI5;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x0E670006,
+			PORTB6 = 0x0E670016,
+			PORTC6 = 0x0E670026,
+			PORTD6 = 0x0E670036,
+			PORTE6 = 0x0E670046,
+			PORTH6 = 0x0E670076
+		}kEXTI_EXTI6_FALLING_Pin;
+	}kEXTI_EXTI6_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x16670006,
+			PORTB6 = 0x16670016,
+			PORTC6 = 0x16670026,
+			PORTD6 = 0x16670036,
+			PORTE6 = 0x16670046,
+			PORTH6 = 0x16670076
+		}kEXTI_EXTI6_RISING_Pin;
+	}kEXTI_EXTI6_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA6 = 0x1E670006,
+			PORTB6 = 0x1E670016,
+			PORTC6 = 0x1E670026,
+			PORTD6 = 0x1E670036,
+			PORTE6 = 0x1E670046,
+			PORTH6 = 0x1E670076
+		}kEXTI_EXTI6_BOTH_Pin;
+	}kEXTI_EXTI6_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI6_FALLING FallingEdge;
+		kEXTI_EXTI6_RISING  RisingEdge;
+		kEXTI_EXTI6_BOTH    BothEdges;
+	}kEXTI_EXTI6;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x0E670007,
+			PORTB7 = 0x0E670017,
+			PORTC7 = 0x0E670027,
+			PORTD7 = 0x0E670037,
+			PORTE7 = 0x0E670047,
+			PORTH7 = 0x0E670077
+		}kEXTI_EXTI7_FALLING_Pin;
+	}kEXTI_EXTI7_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x16670007,
+			PORTB7 = 0x16670017,
+			PORTC7 = 0x16670027,
+			PORTD7 = 0x16670037,
+			PORTE7 = 0x16670047,
+			PORTH7 = 0x16670077
+		}kEXTI_EXTI7_RISING_Pin;
+	}kEXTI_EXTI7_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA7 = 0x1E670007,
+			PORTB7 = 0x1E670017,
+			PORTC7 = 0x1E670027,
+			PORTD7 = 0x1E670037,
+			PORTE7 = 0x1E670047,
+			PORTH7 = 0x1E670077
+		}kEXTI_EXTI7_BOTH_Pin;
+	}kEXTI_EXTI7_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI7_FALLING FallingEdge;
+		kEXTI_EXTI7_RISING  RisingEdge;
+		kEXTI_EXTI7_BOTH    BothEdges;
+	}kEXTI_EXTI7;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x0E670008,
+			PORTB8 = 0x0E670018,
+			PORTC8 = 0x0E670028,
+			PORTD8 = 0x0E670038,
+			PORTE8 = 0x0E670048,
+			PORTH8 = 0x0E670078
+		}kEXTI_EXTI8_FALLING_Pin;
+	}kEXTI_EXTI8_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x16670008,
+			PORTB8 = 0x16670018,
+			PORTC8 = 0x16670028,
+			PORTD8 = 0x16670038,
+			PORTE8 = 0x16670048,
+			PORTH8 = 0x16670078
+		}kEXTI_EXTI8_RISING_Pin;
+	}kEXTI_EXTI8_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA8 = 0x1E670008,
+			PORTB8 = 0x1E670018,
+			PORTC8 = 0x1E670028,
+			PORTD8 = 0x1E670038,
+			PORTE8 = 0x1E670048,
+			PORTH8 = 0x1E670078
+		}kEXTI_EXTI8_BOTH_Pin;
+	}kEXTI_EXTI8_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI8_FALLING FallingEdge;
+		kEXTI_EXTI8_RISING  RisingEdge;
+		kEXTI_EXTI8_BOTH    BothEdges;
+	}kEXTI_EXTI8;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x0E670009,
+			PORTB9 = 0x0E670019,
+			PORTC9 = 0x0E670029,
+			PORTD9 = 0x0E670039,
+			PORTE9 = 0x0E670049,
+			PORTH9 = 0x0E670079
+		}kEXTI_EXTI9_FALLING_Pin;
+	}kEXTI_EXTI9_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x16670009,
+			PORTB9 = 0x16670019,
+			PORTC9 = 0x16670029,
+			PORTD9 = 0x16670039,
+			PORTE9 = 0x16670049,
+			PORTH9 = 0x16670079
+		}kEXTI_EXTI9_RISING_Pin;
+	}kEXTI_EXTI9_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA9 = 0x1E670009,
+			PORTB9 = 0x1E670019,
+			PORTC9 = 0x1E670029,
+			PORTD9 = 0x1E670039,
+			PORTE9 = 0x1E670049,
+			PORTH9 = 0x1E670079
+		}kEXTI_EXTI9_BOTH_Pin;
+	}kEXTI_EXTI9_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI9_FALLING FallingEdge;
+		kEXTI_EXTI9_RISING  RisingEdge;
+		kEXTI_EXTI9_BOTH    BothEdges;
+	}kEXTI_EXTI9;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x0E67000A,
+			PORTB10 = 0x0E67001A,
+			PORTC10 = 0x0E67002A,
+			PORTD10 = 0x0E67003A,
+			PORTE10 = 0x0E67004A,
+			PORTH10 = 0x0E67007A
+		}kEXTI_EXTI10_FALLING_Pin;
+	}kEXTI_EXTI10_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1667000A,
+			PORTB10 = 0x1667001A,
+			PORTC10 = 0x1667002A,
+			PORTD10 = 0x1667003A,
+			PORTE10 = 0x1667004A,
+			PORTH10 = 0x1667007A
+		}kEXTI_EXTI10_RISING_Pin;
+	}kEXTI_EXTI10_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA10 = 0x1E67000A,
+			PORTB10 = 0x1E67001A,
+			PORTC10 = 0x1E67002A,
+			PORTD10 = 0x1E67003A,
+			PORTE10 = 0x1E67004A,
+			PORTH10 = 0x1E67007A
+		}kEXTI_EXTI10_BOTH_Pin;
+	}kEXTI_EXTI10_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI10_FALLING FallingEdge;
+		kEXTI_EXTI10_RISING  RisingEdge;
+		kEXTI_EXTI10_BOTH    BothEdges;
+	}kEXTI_EXTI10;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x0E67000B,
+			PORTB11 = 0x0E67001B,
+			PORTC11 = 0x0E67002B,
+			PORTD11 = 0x0E67003B,
+			PORTE11 = 0x0E67004B,
+			PORTH11 = 0x0E67007B
+		}kEXTI_EXTI11_FALLING_Pin;
+	}kEXTI_EXTI11_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1667000B,
+			PORTB11 = 0x1667001B,
+			PORTC11 = 0x1667002B,
+			PORTD11 = 0x1667003B,
+			PORTE11 = 0x1667004B,
+			PORTH11 = 0x1667007B
+		}kEXTI_EXTI11_RISING_Pin;
+	}kEXTI_EXTI11_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA11 = 0x1E67000B,
+			PORTB11 = 0x1E67001B,
+			PORTC11 = 0x1E67002B,
+			PORTD11 = 0x1E67003B,
+			PORTE11 = 0x1E67004B,
+			PORTH11 = 0x1E67007B
+		}kEXTI_EXTI11_BOTH_Pin;
+	}kEXTI_EXTI11_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI11_FALLING FallingEdge;
+		kEXTI_EXTI11_RISING  RisingEdge;
+		kEXTI_EXTI11_BOTH    BothEdges;
+	}kEXTI_EXTI11;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x0E67000C,
+			PORTB12 = 0x0E67001C,
+			PORTC12 = 0x0E67002C,
+			PORTD12 = 0x0E67003C,
+			PORTE12 = 0x0E67004C,
+			PORTH12 = 0x0E67007C
+		}kEXTI_EXTI12_FALLING_Pin;
+	}kEXTI_EXTI12_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1667000C,
+			PORTB12 = 0x1667001C,
+			PORTC12 = 0x1667002C,
+			PORTD12 = 0x1667003C,
+			PORTE12 = 0x1667004C,
+			PORTH12 = 0x1667007C
+		}kEXTI_EXTI12_RISING_Pin;
+	}kEXTI_EXTI12_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA12 = 0x1E67000C,
+			PORTB12 = 0x1E67001C,
+			PORTC12 = 0x1E67002C,
+			PORTD12 = 0x1E67003C,
+			PORTE12 = 0x1E67004C,
+			PORTH12 = 0x1E67007C
+		}kEXTI_EXTI12_BOTH_Pin;
+	}kEXTI_EXTI12_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI12_FALLING FallingEdge;
+		kEXTI_EXTI12_RISING  RisingEdge;
+		kEXTI_EXTI12_BOTH    BothEdges;
+	}kEXTI_EXTI12;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x0E67000D,
+			PORTB13 = 0x0E67001D,
+			PORTC13 = 0x0E67002D,
+			PORTD13 = 0x0E67003D,
+			PORTE13 = 0x0E67004D,
+			PORTH13 = 0x0E67007D
+		}kEXTI_EXTI13_FALLING_Pin;
+	}kEXTI_EXTI13_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1667000D,
+			PORTB13 = 0x1667001D,
+			PORTC13 = 0x1667002D,
+			PORTD13 = 0x1667003D,
+			PORTE13 = 0x1667004D,
+			PORTH13 = 0x1667007D
+		}kEXTI_EXTI13_RISING_Pin;
+	}kEXTI_EXTI13_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA13 = 0x1E67000D,
+			PORTB13 = 0x1E67001D,
+			PORTC13 = 0x1E67002D,
+			PORTD13 = 0x1E67003D,
+			PORTE13 = 0x1E67004D,
+			PORTH13 = 0x1E67007D
+		}kEXTI_EXTI13_BOTH_Pin;
+	}kEXTI_EXTI13_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI13_FALLING FallingEdge;
+		kEXTI_EXTI13_RISING  RisingEdge;
+		kEXTI_EXTI13_BOTH    BothEdges;
+	}kEXTI_EXTI13;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x0E67000E,
+			PORTB14 = 0x0E67001E,
+			PORTC14 = 0x0E67002E,
+			PORTD14 = 0x0E67003E,
+			PORTE14 = 0x0E67004E,
+			PORTH14 = 0x0E67007E
+		}kEXTI_EXTI14_FALLING_Pin;
+	}kEXTI_EXTI14_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1667000E,
+			PORTB14 = 0x1667001E,
+			PORTC14 = 0x1667002E,
+			PORTD14 = 0x1667003E,
+			PORTE14 = 0x1667004E,
+			PORTH14 = 0x1667007E
+		}kEXTI_EXTI14_RISING_Pin;
+	}kEXTI_EXTI14_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA14 = 0x1E67000E,
+			PORTB14 = 0x1E67001E,
+			PORTC14 = 0x1E67002E,
+			PORTD14 = 0x1E67003E,
+			PORTE14 = 0x1E67004E,
+			PORTH14 = 0x1E67007E
+		}kEXTI_EXTI14_BOTH_Pin;
+	}kEXTI_EXTI14_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI14_FALLING FallingEdge;
+		kEXTI_EXTI14_RISING  RisingEdge;
+		kEXTI_EXTI14_BOTH    BothEdges;
+	}kEXTI_EXTI14;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x0E67000F,
+			PORTB15 = 0x0E67001F,
+			PORTC15 = 0x0E67002F,
+			PORTD15 = 0x0E67003F,
+			PORTE15 = 0x0E67004F,
+			PORTH15 = 0x0E67007F
+		}kEXTI_EXTI15_FALLING_Pin;
+	}kEXTI_EXTI15_FALLING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1667000F,
+			PORTB15 = 0x1667001F,
+			PORTC15 = 0x1667002F,
+			PORTD15 = 0x1667003F,
+			PORTE15 = 0x1667004F,
+			PORTH15 = 0x1667007F
+		}kEXTI_EXTI15_RISING_Pin;
+	}kEXTI_EXTI15_RISING;
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA15 = 0x1E67000F,
+			PORTB15 = 0x1E67001F,
+			PORTC15 = 0x1E67002F,
+			PORTD15 = 0x1E67003F,
+			PORTE15 = 0x1E67004F,
+			PORTH15 = 0x1E67007F
+		}kEXTI_EXTI15_BOTH_Pin;
+	}kEXTI_EXTI15_BOTH;
+
+	typedef struct
+	{
+		kEXTI_EXTI15_FALLING FallingEdge;
+		kEXTI_EXTI15_RISING  RisingEdge;
+		kEXTI_EXTI15_BOTH    BothEdges;
+	}kEXTI_EXTI15;
+
+
+#endif
+
+
+// endregion PLATFORM_DEPENDED_STRUCTS
+
+	class kEXTIHardware
+	{
+		private:
+
+			friend class kEXTI;
+			uint8_t exti_channel=0;
+
+		public:
+
+			kEXTIHardware& operator = (unsigned int hard_code);
+			kEXTIHardware& operator , (unsigned int hard_code);
+
+
+
+	};
+
 	class kEXTI
 	{
 
+		public:
+
+			kEXTIHardware hardware;
+			void setIRQHandler(void (*IRQ_Handler)(void),uint8_t preemptionPriority, uint8_t subPriority);
+
+// region EXTI_DECLARATIONS
+
+			static const kEXTI_EXTI0  _EXTI0;
+			static const kEXTI_EXTI1  _EXTI1;
+			static const kEXTI_EXTI2  _EXTI2;
+			static const kEXTI_EXTI3  _EXTI3;
+			static const kEXTI_EXTI4  _EXTI4;
+			static const kEXTI_EXTI5  _EXTI5;
+			static const kEXTI_EXTI6  _EXTI6;
+			static const kEXTI_EXTI7  _EXTI7;
+			static const kEXTI_EXTI8  _EXTI8;
+			static const kEXTI_EXTI9  _EXTI9;
+			static const kEXTI_EXTI10 _EXTI10;
+			static const kEXTI_EXTI11 _EXTI11;
+			static const kEXTI_EXTI12 _EXTI12;
+			static const kEXTI_EXTI13 _EXTI13;
+			static const kEXTI_EXTI14 _EXTI14;
+			static const kEXTI_EXTI15 _EXTI15;
+
+
+// endregion EXTI_DECLARATIONS
 
 	};
 

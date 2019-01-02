@@ -150,6 +150,7 @@
     <PERIPHERAL name="SPI5" address="0x40015000" rccEnableBit="20"/>
     <PERIPHERAL name="DMA1" address="0x40026000" rccEnableBit="21"/>
     <PERIPHERAL name="DMA2" address="0x40026400" rccEnableBit="22"/>
+    <PERIPHERAL name="SYSCFG" address="0x40013800" rccEnableBit="14"/>
     <DMA name="DMA1" channel="0" stream="0" value="SPI3_RX"/>
     <DMA name="DMA1" channel="0" stream="2" value="SPI3_RX"/>
     <DMA name="DMA1" channel="0" stream="3" value="SPI2_RX"/>
@@ -429,6 +430,7 @@
     <PERIPHERAL name="SPI4" address="0x40013400" rccEnableBit="14"/>
     <PERIPHERAL name="SPI5" address="0x40015000" rccEnableBit="20"/>
     <PERIPHERAL name="SPI6" address="0x40015400" rccEnableBit="21"/>
+    <PERIPHERAL name="SYSCFG" address="0x40013800" rccEnableBit="14"/>
   </device>
   <device name="STM32L053xx">
     <AFM pinName="PA0" number="2" value="TIM2_CH1"/>
@@ -510,5 +512,6 @@
     <PERIPHERAL name="Timer6" address="0X40001000" rccEnableBit="4"/>
     <PERIPHERAL name="Timer3" address="0X40000400" rccEnableBit="1"/>
     <PERIPHERAL name="Timer2" address="0X40000000" rccEnableBit="0"/>
+    <PERIPHERAL name="SYSCFG" address="0x40013800" rccEnableBit="14"/>
   </device>
 </devices>

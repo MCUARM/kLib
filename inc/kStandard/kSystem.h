@@ -84,6 +84,7 @@
 			friend class kSerial;
 			friend class kI2CDeviceHardware;
 			friend class kSPIDeviceHardware;
+			friend class kEXTIHardware;
 
 			union uintSplitter
 			{
