@@ -37,7 +37,6 @@
 #ifndef __kI2CDevice_H
 #define __kI2CDevice_H
 
-#include "stm32f4xx_i2c.h"
 #include "kPort.h"
 
 // region PLATFORM_DEPENDED_STRUCTS
@@ -274,6 +273,20 @@
 
 	class kI2C
 	{
+			typedef enum
+			{
+				Receiving,
+				Transmitting
+			}transfer_direction;
+
+
+			void sendStart(void);
+			void sendAddress(transfer_direction dir);
+			void sendData(uint8_t data);
+			void sendStop(void);
+			void enableAcknowledge(bool state);
+			uint8_t readData(void);
+
 		public:
 
 
@@ -284,6 +297,7 @@
 			void run(unsigned int clock_speed);
 
 			void reset(void);
+
 
 			void write(uint8_t StartingRegisterAddress, void * transmit_buffer,uint8_t BytesToWrite);
 			void write(uint8_t RegisterAddress,uint8_t value);
