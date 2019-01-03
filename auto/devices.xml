@@ -241,6 +241,87 @@
     <DMA name="DMA2" channel="7" stream="7" value="TIM8_CH4"/>
     <DMA name="DMA2" channel="7" stream="7" value="TIM8_TRIG"/>
     <DMA name="DMA2" channel="7" stream="7" value="TIM8_COM"/>
+    <NVIC name="PVD" description="PVD through EXTI line detection interrupt" position="1" address="0x00000044"/>
+    <NVIC name="TAMP_STAMP" description="Tamper and TimeStamp interrupts through the EXTI line" position="2" address="0x00000048"/>
+    <NVIC name="RTC_WKUP" description="RTC Wakeup interrupt through the EXTI line" position="3" address="0x0000004C"/>
+    <NVIC name="FLASH" description="Flash global interrupt" position="4" address="0x00000050"/>
+    <NVIC name="RCC" description="RCC global interrupt" position="5" address="0x00000054"/>
+    <NVIC name="EXTI0" description="EXTI Line0 interrupt" position="6" address="0x00000058"/>
+    <NVIC name="EXTI1" description="EXTI Line1 interrupt" position="7" address="0x0000005C"/>
+    <NVIC name="EXTI2" description="EXTI Line2 interrupt" position="8" address="0x00000060"/>
+    <NVIC name="EXTI3" description="EXTI Line3 interrupt" position="9" address="0x00000064"/>
+    <NVIC name="EXTI4" description="EXTI Line4 interrupt" position="10" address="0x00000068"/>
+    <NVIC name="DMA1_Stream0" description="DMA1 Stream0 global interrupt" position="11" address="0x0000006C"/>
+    <NVIC name="DMA1_Stream1" description="DMA1 Stream1 global interrupt" position="12" address="0x00000070"/>
+    <NVIC name="DMA1_Stream2" description="DMA1 Stream2 global interrupt" position="13" address="0x00000074"/>
+    <NVIC name="DMA1_Stream3" description="DMA1 Stream3 global interrupt" position="14" address="0x00000078"/>
+    <NVIC name="DMA1_Stream4" description="DMA1 Stream4 global interrupt" position="15" address="0x0000007C"/>
+    <NVIC name="DMA1_Stream5" description="DMA1 Stream5 global interrupt" position="16" address="0x00000080"/>
+    <NVIC name="DMA1_Stream6" description="DMA1 Stream6 global interrupt" position="17" address="0x00000084"/>
+    <NVIC name="ADC" description="ADC1, ADC2 and ADC3 global interrupts" position="18" address="0x00000088"/>
+    <NVIC name="CAN1_TX" description="CAN1 TX interrupts" position="19" address="0x0000008C"/>
+    <NVIC name="CAN1_RX0" description="CAN1 RX0 interrupts" position="20" address="0x00000090"/>
+    <NVIC name="CAN1_RX1" description="CAN1 RX1 interrupt" position="21" address="0x00000094"/>
+    <NVIC name="CAN1_SCE" description="CAN1 SCE interrupt" position="22" address="0x00000098"/>
+    <NVIC name="EXTI9_5" description="EXTI Line[9:5] interrupts" position="23" address="0x0000009C"/>
+    <NVIC name="TIM1_BRK_TIM9" description="TIM1 Break interrupt and TIM9 global interrupt" position="24" address="0x000000A0"/>
+    <NVIC name="TIM1_UP_TIM10" description="TIM1 Update interrupt and TIM10 global interrupt" position="25" address="0x000000A4"/>
+    <NVIC name="TIM1_TRG_COM_TIM11" description="TIM1 Trigger and Commutation interrupts and TIM11 global interrupt" position="26" address="0x000000A8"/>
+    <NVIC name="TIM1_CC" description="TIM1 Capture Compare interrupt" position="27" address="0x000000AC"/>
+    <NVIC name="TIM2" description="TIM2 global interrupt" position="28" address="0x000000B0"/>
+    <NVIC name="TIM3" description="TIM3 global interrupt" position="29" address="0x000000B4"/>
+    <NVIC name="TIM4" description="TIM4 global interrupt" position="30" address="0x000000B8"/>
+    <NVIC name="I2C1_EV" description="I2C1 event interrupt" position="31" address="0x000000BC"/>
+    <NVIC name="I2C1_ER" description="I2C1 error interrupt" position="32" address="0x000000C0"/>
+    <NVIC name="I2C2_EV" description="I2C2 event interrupt" position="33" address="0x000000C4"/>
+    <NVIC name="I2C2_ER" description="I2C2 error interrupt" position="34" address="0x000000C8"/>
+    <NVIC name="SPI1" description="SPI1 global interrupt" position="35" address="0x000000CC"/>
+    <NVIC name="SPI2" description="SPI2 global interrupt" position="36" address="0x000000D0"/>
+    <NVIC name="USART1" description="USART1 global interrupt" position="37" address="0x000000D4"/>
+    <NVIC name="USART2" description="USART2 global interrupt" position="38" address="0x000000D8"/>
+    <NVIC name="USART3" description="USART3 global interrupt" position="39" address="0x000000DC"/>
+    <NVIC name="EXTI15_10" description="EXTI Line[15:10] interrupts" position="40" address="0x000000E0"/>
+    <NVIC name="RTC_Alarm" description="RTC Alarms (A and B) through EXTI line interrupt" position="41" address="0x000000E4"/>
+    <NVIC name="OTG_FS_WKUP" description="USB On-The-Go FS Wakeup through EXTI line interrupt" position="42" address="0x000000E8"/>
+    <NVIC name="TIM8_BRK_TIM12" description="TIM8 Break interrupt and TIM12 global interrupt" position="43" address="0x000000EC"/>
+    <NVIC name="TIM8_UP_TIM13" description="TIM8 Update interrupt and TIM13 global interrupt" position="44" address="0x000000F0"/>
+    <NVIC name="TIM8_TRG_COM_TIM14" description="TIM8 Trigger and Commutation interrupts and TIM14 global interrupt" position="45" address="0x000000F4"/>
+    <NVIC name="TIM8_CC" description="TIM8 Capture Compare interrupt" position="46" address="0x000000F8"/>
+    <NVIC name="DMA1_Stream7" description="DMA1 Stream7 global interrupt" position="47" address="0x000000FC"/>
+    <NVIC name="FSMC" description="FSMC global interrupt" position="48" address="0x00000100"/>
+    <NVIC name="SDIO" description="SDIO global interrupt" position="49" address="0x00000104"/>
+    <NVIC name="TIM5" description="TIM5 global interrupt" position="50" address="0x00000108"/>
+    <NVIC name="SPI3" description="SPI3 global interrupt" position="51" address="0x0000010C"/>
+    <NVIC name="UART4" description="UART4 global interrupt" position="52" address="0x00000110"/>
+    <NVIC name="UART5" description="UART5 global interrupt" position="53" address="0x00000114"/>
+    <NVIC name="TIM6_DAC" description="TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts" position="54" address="0x00000118"/>
+    <NVIC name="TIM7" description="TIM7 global interrupt" position="55" address="0x0000011C"/>
+    <NVIC name="DMA2_Stream0" description="DMA2 Stream0 global interrupt" position="56" address="0x00000120"/>
+    <NVIC name="DMA2_Stream1" description="DMA2 Stream1 global interrupt" position="57" address="0x00000124"/>
+    <NVIC name="DMA2_Stream2" description="DMA2 Stream2 global interrupt" position="58" address="0x00000128"/>
+    <NVIC name="DMA2_Stream3" description="DMA2 Stream3 global interrupt" position="59" address="0x0000012C"/>
+    <NVIC name="DMA2_Stream4" description="DMA2 Stream4 global interrupt" position="60" address="0x00000130"/>
+    <NVIC name="ETH" description="Ethernet global interrupt" position="61" address="0x00000134"/>
+    <NVIC name="ETH_WKUP" description="Ethernet Wakeup through EXTI line interrupt" position="62" address="0x00000138"/>
+    <NVIC name="CAN2_TX" description="CAN2 TX interrupts" position="63" address="0x0000013C"/>
+    <NVIC name="CAN2_RX0" description="CAN2 RX0 interrupts" position="64" address="0x00000140"/>
+    <NVIC name="CAN2_RX1" description="CAN2 RX1 interrupt" position="65" address="0x00000144"/>
+    <NVIC name="CAN2_SCE" description="CAN2 SCE interrupt" position="66" address="0x00000148"/>
+    <NVIC name="OTG_FS" description="USB On The Go FS global interrupt" position="67" address="0x0000014C"/>
+    <NVIC name="DMA2_Stream5" description="DMA2 Stream5 global interrupt" position="68" address="0x00000150"/>
+    <NVIC name="DMA2_Stream6" description="DMA2 Stream6 global interrupt" position="69" address="0x00000154"/>
+    <NVIC name="DMA2_Stream7" description="DMA2 Stream7 global interrupt" position="70" address="0x00000158"/>
+    <NVIC name="USART6" description="USART6 global interrupt" position="71" address="0x0000015C"/>
+    <NVIC name="I2C3_EV" description="I2C3 event interrupt" position="72" address="0x00000160"/>
+    <NVIC name="I2C3_ER" description="I2C3 error interrupt" position="73" address="0x00000164"/>
+    <NVIC name="OTG_HS_EP1_OUT" description="USB On The Go HS End Point 1 Out global interrupt" position="74" address="0x00000168"/>
+    <NVIC name="OTG_HS_EP1_IN" description="USB On The Go HS End Point 1 In global interrupt" position="75" address="0x0000016C"/>
+    <NVIC name="OTG_HS_WKUP" description="USB On The Go HS Wakeup through EXTI interrupt" position="76" address="0x00000170"/>
+    <NVIC name="OTG_HS" description="USB On The Go HS global interrupt" position="77" address="0x00000174"/>
+    <NVIC name="DCMI" description="DCMI global interrupt" position="78" address="0x00000178"/>
+    <NVIC name="CRYP" description="CRYP crypto global interrupt" position="79" address="0x0000017C"/>
+    <NVIC name="HASH_RNG" description="Hash and Rng global interrupt" position="80" address="0x00000180"/>
+    <NVIC name="FPU" description="FPU global interrupt" position="81" address="0x00000184"/>
   </device>
   <device name="STM32F429xx">
     <AFM pinName="PA0" number="1" value="TIM2_CH1"/>

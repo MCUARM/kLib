@@ -173,6 +173,24 @@ def xls2xml():
 						periph = etree.SubElement(device, 'PERIPHERAL',name=getCellValue(sheet,row,0))
 						periph.set('address',getCellValue(sheet,row,1))
 						periph.set('rccEnableBit',str(int(float(getCellValue(sheet,row,2)))))
+						
+				if sheet.name == "Vector table":
+					
+					if number_of_columns < 6:
+						continue
+					if number_of_rows < 2:
+						continue
+						
+					if device == None:	
+						device = etree.SubElement(root, "device", name=getCellValue(sheet,0,1))
+						
+					
+					for row in range(2, number_of_rows):
+
+						nvic = etree.SubElement(device, 'NVIC',name=getCellValue(sheet,row,3))
+						nvic.set('description',(str(sheet.cell(row,4).value)))
+						nvic.set('position',str(int(float(getCellValue(sheet,row,0)))))
+						nvic.set('address',getCellValue(sheet,row,5))
 				
 				
 	tree = etree.ElementTree(root)
@@ -393,6 +411,8 @@ def grabAllDMA(device_tag):
 	return grabPeriphTags(device_tag,'DMA')
 def grabAllGPIOs(device_tag):
 	return grabPeriphTags(device_tag,'GPIO')
+def grabAllNVICtags(device_tag):
+	return grabTags(device_tag,'NVIC')
 def getGPIOnumber(gpio_tag):
 	return str(re.findall("GPIO(.+?)",getName(gpio_tag))[0])
 def grabAllSPIs(device_tag):
@@ -710,6 +730,31 @@ def createPORTdefs():
 		res += getPlatformCondition(dev)
 		for gpio in grabAllGPIOs(dev):
 			res += "\t#define kPort_config_USE_"+getName(gpio).replace("GPIO","PORT")+"_OBJECT\n"
+		res += "\n#endif\n"	
+	
+	return res
+	
+	
+def createNVICstructDefs():
+
+	res = ""
+	
+	for dev in grabDevices():
+		res += getPlatformCondition(dev)
+		res += getStructEnumOpener()
+		is_last = False
+		nvic_tags = grabAllNVICtags(dev)
+		last = len(nvic_tags)-1
+		for idx,irq in enumerate(grabAllNVICtags(dev)):
+			if idx == last:
+				is_last = True
+		
+			res += "\n\t\t\t_"+getName(irq) + " = " + getAttribute(irq,'position') 
+			if not is_last:
+				res += ","
+			res += " // " + getAttribute(irq,'description')
+			
+		res += getStructEnumCloser("kSystem_IRQ_channel_enum","kSystem_IRQ_channel")
 		res += "\n#endif\n"	
 	
 	return res
@@ -1548,7 +1593,6 @@ def getDMAsetupCode(dma_number,stream,channel,priority,DataSize,MemoryIncrementM
 	return code
 
 
-
 	
 xls2xml()
 replaceCodeRegion("../inc/kStandard/kPWM.h",'PLATFORM_DEPENDED_STRUCTS',createPWMdefs())
@@ -1559,15 +1603,18 @@ replaceCodeRegion("../inc/kStandard/kEXTI.h",'EXTI_DECLARATIONS',createEXTIdefs(
 replaceCodeRegion("../inc/kStandard/kSerial.h",'PLATFORM_DEPENDED_STRUCTS',createUSARTstructDefs())
 replaceCodeRegion("../inc/kStandard/kSerial.h",'USARTS_DECLARATIONS',createUSARTdefs())
 
-replaceCodeRegion("../inc/kStandard/kI2CDevice.h",'PLATFORM_DEPENDED_STRUCTS',createI2CstructDefs())
-replaceCodeRegion("../inc/kStandard/kI2CDevice.h",'I2C_DECLARATIONS',createI2Cdefs())
+replaceCodeRegion("../inc/kStandard/kI2C.h",'PLATFORM_DEPENDED_STRUCTS',createI2CstructDefs())
+replaceCodeRegion("../inc/kStandard/kI2C.h",'I2C_DECLARATIONS',createI2Cdefs())
 
 
-replaceCodeRegion("../inc/kStandard/kSPIDevice.h",'PLATFORM_DEPENDED_STRUCTS',createSPIstructDefs())
-replaceCodeRegion("../inc/kStandard/kSPIDevice.h",'SPI_DECLARATIONS',createSPIdefs())
+replaceCodeRegion("../inc/kStandard/kSPI.h",'PLATFORM_DEPENDED_STRUCTS',createSPIstructDefs())
+replaceCodeRegion("../inc/kStandard/kSPI.h",'SPI_DECLARATIONS',createSPIdefs())
 
 replaceCodeRegion("../inc/kStandard/kDMA.h",'PLATFORM_DEPENDED_STRUCTS',createDMAstructDefs())
 replaceCodeRegion("../inc/kStandard/kDMA.h",'DMA_DECLARATIONS',createDMAdefs())
 
 replaceCodeRegion("../inc/kStandard/kPORT.h",'PLATFORM_DEPENDED_STRUCTS',createPORTdefs())
+
+replaceCodeRegion("../inc/kStandard/kSystem.h",'PLATFORM_DEPENDED_STRUCTS',createNVICstructDefs())
+
 updateLicenseText()

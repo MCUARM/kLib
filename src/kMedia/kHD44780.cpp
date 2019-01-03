@@ -35,3 +35,86 @@
 
 
 #include "kHD44780.h"
+
+
+void kHD44780::init(mode running_mode)
+{
+	// wait about 30ms to make sure power is on and LCD is ready to operate
+	kRTOS::taskDelay(30);
+
+	if(running_mode == kHD44780::Mode4Bit)
+	{
+		// 4 bit mode initialisation
+
+
+	}else
+	{
+
+		// 8 bit mode initialisation
+		sendCMD(0x30);
+		kRTOS::taskDelay(4);
+		// send double again
+		sendCMD(0x30);
+		sendCMD(0x30);
+
+		// set interface length to 8 bit, 2 displayed lines, character font 5x7 (typical)
+		sendCMD(0x38);
+		// turn off display
+		sendCMD(kHD44780::CMD->turnOff);
+		// clear display
+		sendCMD(0x01);
+		// set cursor move direction
+		sendCMD(0x06);
+		// turn on display
+		sendCMD(kHD44780::CMD->turnOn);
+
+	}
+}
+void kHD44780::sendCMD(uint8_t cmd)
+{
+	uint8_t delay = 1;
+	// if it's clear display command or return cursor to home wait at least 4.1ms for instruction complete
+	if(cmd < 4) delay +=4;
+
+	// send command
+	RS = 0;
+	RW = 0;
+	E = 1;
+	for(uint8_t i;i<8;i++) DB[i] = cmd & (1<<i);
+	E = 0;
+
+	kRTOS::taskDelay(delay);
+}
+void kHD44780::write(uint8_t chr)
+{
+	// send data
+	RS = 1;
+	RW = 0;
+	E = 1;
+	for(uint8_t i;i<8;i++) DB[i] = chr & (1<<i);
+	E = 0;
+
+	kRTOS::taskDelay(1);
+}
+void kHD44780::write(char * str)
+{
+	while(*str) write(*str++);
+}
+void kHD44780::setCursor(uint8_t row, uint8_t col)
+{
+	uint8_t address = lineLength*row + col;
+	address |= 0x80;
+	sendCMD(address);
+}
+void kHD44780::turnOff(void)
+{
+	// turn off display
+	sendCMD(kHD44780::CMD->turnOff);
+}
+void kHD44780::turnOn(void)
+{
+	// turn on display
+	sendCMD(kHD44780::CMD->turnOn);
+}
+
+

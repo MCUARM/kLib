@@ -39,19 +39,47 @@
 
 	#include "kPort.h"
 
+	typedef struct
+	{
+		typedef enum
+		{
+			turnOff = 0x08,
+			turnOn = 0x0C,
+			clearDisplay = 0x01
+		}kHD44780_CMD_enum;
+	}kHD44780_CMD_struct;
+
+
 	class kHD44780
 	{
+		private:
+
+			uint8_t lineLength = 16;
 
 		public:
 
-			kPin EN;
-			kPin RS;
-			kPin RW;
-			kPin DB[8];
+			typedef enum
+			{
+				Mode4Bit,
+				Mode8Bit
+			}mode;
+
+			static kHD44780_CMD_struct * CMD;
 
 
-			void init8bitMode(void);
-			void init4bitMode(void);
+			kPin E;  	// clock
+			kPin RS; 	// Instruction/Register Select
+			kPin RW; 	// Read/Write
+			kPin DB[8]; // Data bits
+
+
+			void init(mode running_mode);
+			void sendCMD(uint8_t cmd);
+			void write(uint8_t chr);
+			void write(char * str);
+			void setCursor(uint8_t row, uint8_t col);
+			void turnOff(void);
+			void turnOn(void);
 
 	};
 
