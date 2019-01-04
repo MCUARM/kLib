@@ -438,6 +438,15 @@
 		}kSerial_Interrupt_enum;
 	}kSerial_Interrupt_struct;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			Reception = 64,
+			Transmission = 128
+		}kSerial_DMA_enum;
+	}kSerial_DMA_struct;
+
 	class kSerialHardware
 	{
 		private:
@@ -459,8 +468,9 @@
 
  			kSerialHardware hardware;
  			static const char* endl;
- 			static kSerial_BaudRate_struct * BautRate;
+ 			static kSerial_BaudRate_struct * BaudRate;
  			static kSerial_Interrupt_struct * USART_Interrupt;
+ 			static kSerial_DMA_struct * DMA_mode;
 
 // region USARTS_DECLARATIONS
 
@@ -505,6 +515,10 @@
 
  			void enableInterrupt(uint16_t interrupt_flags);
  			void disableInterrupt(uint16_t interrupt_flags);
+
+ 			void useDMA(uint16_t dma_flags);
+
+
 
 			void run(uint32_t BaudRate);
 			void write(uint8_t byte);

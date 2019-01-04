@@ -35608,6 +35608,7 @@
 #endif
 
 
+
 // endregion PLATFORM_DEPENDED_STRUCTS
 
 	class kDMAHardware

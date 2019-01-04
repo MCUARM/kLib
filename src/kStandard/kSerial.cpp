@@ -159,4 +159,7 @@ void kSerial::write(const void * data, uint32_t bytes)
 	}
 }
 
-
+void kSerial::useDMA(uint16_t dma_flags)
+{
+	this->hardware.usart->CR3 |= (dma_flags & 0x00C0);
+}
