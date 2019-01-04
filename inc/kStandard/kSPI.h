@@ -2715,6 +2715,17 @@
 		}kSPI_Speed_enum;
 	}kSPI_Speed_struct;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			TX_Empty = 128,
+			RX_NotEmpty = 64,
+			ErrorInterrupt = 32
+		}kSPI_Interrupt_enum;
+	}kSPI_Interrupt_struct;
+
+
 	class kSPIHardware
 	{
 		private:
@@ -2741,6 +2752,8 @@
 		public:
 
 			static kSPI_Speed_struct * SPI_Speed;
+			static kSPI_Interrupt_struct * SPI_Interrupt;
+
 
 			kSPIHardware hardware;
 			void run(unsigned int sck_freq);
@@ -2760,7 +2773,8 @@
 			unsigned char read(void);
 
 
-
+ 			void enableInterrupt(uint16_t interrupt_flags);
+ 			void disableInterrupt(uint16_t interrupt_flags);
 
 
 // region SPI_DECLARATIONS

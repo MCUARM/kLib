@@ -282,3 +282,13 @@ unsigned char kI2C::read(uint8_t RegisterAddress)
 	this->read(RegisterAddress,&data,1);
 	return data;
 }
+
+void kI2C::enableInterrupt(uint16_t interrupt_flags)
+{
+	this->hardware.i2c->CR2 |= (interrupt_flags & 0x0700);
+}
+void kI2C::disableInterrupt(uint16_t interrupt_flags)
+{
+	interrupt_flags &= 0x0700;
+	this->hardware.i2c->CR2 &= ~(interrupt_flags);
+}

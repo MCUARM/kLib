@@ -429,6 +429,15 @@
 		}kSerial_BaudRate_enum;
 	}kSerial_BaudRate_struct;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			RX_NotEmpty = 32,
+			TX_Empty = 128
+		}kSerial_Interrupt_enum;
+	}kSerial_Interrupt_struct;
+
 	class kSerialHardware
 	{
 		private:
@@ -451,6 +460,7 @@
  			kSerialHardware hardware;
  			static const char* endl;
  			static kSerial_BaudRate_struct * BautRate;
+ 			static kSerial_Interrupt_struct * USART_Interrupt;
 
 // region USARTS_DECLARATIONS
 
@@ -493,10 +503,14 @@
  			//constructors
  			kSerial(void);
 
+ 			void enableInterrupt(uint16_t interrupt_flags);
+ 			void disableInterrupt(uint16_t interrupt_flags);
+
 			void run(uint32_t BaudRate);
 			void write(uint8_t byte);
 			void write(const void * data);
 			void write(const void * data, uint32_t bytes);
+
 			uint8_t readByte(void);
 			bool newByteAvailable(void);
 

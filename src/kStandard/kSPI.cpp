@@ -37,6 +37,9 @@
 #include "kSPI.h"
 
 
+
+
+
 kSPIHardware::kSPIHardware(void)
 {
 
@@ -183,4 +186,14 @@ void kSPI::select(void)
 void kSPI::deselect(void)
 {
 	this->hardware.NSS = 1;
+}
+
+void kSPI::enableInterrupt(uint16_t interrupt_flags)
+{
+	this->hardware.spi->CR2 |= (interrupt_flags & 0x00E0);
+}
+void kSPI::disableInterrupt(uint16_t interrupt_flags)
+{
+	interrupt_flags &= 0x00E0;
+	this->hardware.spi->CR2 &= ~(interrupt_flags);
 }

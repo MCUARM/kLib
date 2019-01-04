@@ -40,6 +40,15 @@
 const char* kSerial::endl = "\r\n";
 
 
+void kSerial::enableInterrupt(uint16_t interrupt_flags)
+{
+	this->hardware.usart->CR1 |= (interrupt_flags & 0x01F0);
+}
+void kSerial::disableInterrupt(uint16_t interrupt_flags)
+{
+	interrupt_flags &= 0x01F0;
+	this->hardware.usart->CR1 &= ~(interrupt_flags);
+}
 
 kSerialHardware& kSerialHardware::operator = (uint32_t hard_code)
 {

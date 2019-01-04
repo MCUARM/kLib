@@ -467,8 +467,13 @@ void k_System::enableInterrupt(unsigned char channel,unsigned char preemptionPri
 
 	/* Enable the Selected IRQ Channels --------------------------------------*/
 	NVIC->ISER[channel >> 0x05] = (uint32_t)0x01 << (channel & (uint8_t)0x1F);
-}
 
+}
+void k_System::disableInterrupt(unsigned char channel)
+{
+	/* Disable the Selected IRQ Channels --------------------------------------*/
+	NVIC->ICER[channel >> 0x05] = (uint32_t)0x01 << (channel & (uint8_t)0x1F);
+}
 unsigned int k_System::millis(void)
 {
 	return kSystem_ms_downcounter;

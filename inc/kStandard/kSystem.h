@@ -277,7 +277,7 @@
 
 			void setIRQHandler(unsigned char channel,void (*IRQHandler_function_pointer)(void));
 			void enableInterrupt(unsigned char channel,unsigned char preemptionPriority, unsigned char subPriority);
-
+			void disableInterrupt(unsigned char channel);
 
 			#if(kLib_config_USE_RTOS == 1)
 

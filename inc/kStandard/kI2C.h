@@ -265,6 +265,17 @@
 		}kI2C_Speed_enum;
 	}kI2C_Speed_struct;
 
+
+	typedef struct
+	{
+		typedef enum
+		{
+			BufferInterrupt = 1024,
+			EventInterrupt = 512,
+			ErrorInterrupt = 256
+		}kI2C_Interrupt_enum;
+	}kI2C_Interrupt_struct;
+
 	class kI2CHardware
 	{
 		private:
@@ -299,6 +310,8 @@
 		public:
 
 			static kI2C_Speed_struct * I2C_Speed;
+			static kI2C_Interrupt_struct * I2C_Interrupt;
+
 
 			kI2CHardware hardware;
 			uint8_t address;
@@ -307,6 +320,9 @@
 			void run(unsigned int clock_speed);
 
 			void reset(void);
+
+ 			void enableInterrupt(uint16_t interrupt_flags);
+ 			void disableInterrupt(uint16_t interrupt_flags);
 
 
 			void write(uint8_t StartingRegisterAddress, void * transmit_buffer,uint8_t BytesToWrite);
