@@ -113,59 +113,67 @@ bool kSPI::byteTransmitted(void)
 {
 	return (this->hardware.spi->SR & (~(1<<1)));
 }
-void kSPI::write(unsigned short int BytesToWrite,unsigned char * DataBuffer)
-{
-	unsigned short int i;
 
-	for(i=0;i<BytesToWrite;i++)
-	{
-		// wait while TXE flag not set (transmit buffer empty flag)
-		while(!byteTransmitted());
-		// write data to data register
-		this->hardware.spi->DR = *DataBuffer;
-		// increment data pointer
-		DataBuffer++;
-	}
-	// wait while SPI is operating (Busy flag set)
-	while(isBusy());
-}
+
+
+
+
 bool kSPI::isBusy(void)
 {
 	return (this->hardware.spi->SR & (~(1<<7)));
 }
-void kSPI::write(unsigned char Byte)
+
+void kSPI::write(uint8_t byte)
 {
 	// wait while TXE flag not set (transmit buffer empty flag)
 	while(!(this->hardware.spi->SR & (~(1<<1))));
 	// write data to data register
-	this->hardware.spi->DR = Byte;
-	// wait while SPI is operating (Busy flag set)
-	while(isBusy());
+	this->hardware.spi->DR = byte;
 }
+void kSPI::write(const void * data)
+{
+	uint8_t * p = (uint8_t*)data;
+	while(*p)
+	{
+		write(*p);
+		p++;
+	}
+}
+void kSPI::write(const void * data, uint32_t bytes)
+{
+	unsigned short int i;
+	uint8_t * p = (uint8_t*)data;
+
+	for(i=0;i<bytes;i++)
+	{
+		// write next data
+		write(*p);
+		p++;
+	}
+}
+
+
+
 void kSPI::read(unsigned short int BytesToRead,unsigned char * ReadDataBuffer)
 {
 	unsigned short int i;
 
 	for(i=0;i<BytesToRead;i++)
 	{
-		// send 0xFF
-		this->write(0xFF);
-		// wait until RXNE is set (Receiving buffer not empty
-		while (!byteReceived());
 		// receive one byte
-		*ReadDataBuffer = this->hardware.spi->DR;
+		*ReadDataBuffer = read();
 		// increment read buffer pointer
 		ReadDataBuffer++;
 	}
 }
 unsigned char kSPI::read(void)
 {
-	// Wyslanie 0xFF
-	while(!byteTransmitted());
-	this->hardware.spi->DR = 0xFF;
+	// send 0xFF
+	write(0xFF);
 
-	// Odebranie bajtu
-	while (!byteReceived());
+	//wait for rx buffer reception
+	while (!(this->hardware.spi->SR & (~(1<<0))));
+	// read value
 	return this->hardware.spi->DR;
 }
 void kSPI::select(void)

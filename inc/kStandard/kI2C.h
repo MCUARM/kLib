@@ -256,6 +256,15 @@
 // endregion PLATFORM_DEPENDED_STRUCTS
 
 
+	typedef struct
+	{
+		typedef enum
+		{
+			_100kHz = 100000,
+			_400kHz = 400000
+		}kI2C_Speed_enum;
+	}kI2C_Speed_struct;
+
 	class kI2CHardware
 	{
 		private:
@@ -266,8 +275,8 @@
 
 		public:
 
-			kI2CHardware & operator = (unsigned int hard_code);
-			kI2CHardware & operator , (unsigned int hard_code);
+			kI2CHardware & operator = (uint32_t hard_code);
+			kI2CHardware & operator , (uint32_t hard_code);
 
 	};
 
@@ -289,6 +298,7 @@
 
 		public:
 
+			static kI2C_Speed_struct * I2C_Speed;
 
 			kI2CHardware hardware;
 			uint8_t address;

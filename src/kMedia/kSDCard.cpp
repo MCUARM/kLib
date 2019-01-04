@@ -208,7 +208,7 @@ bool kSDCard::xmit_datablock (unsigned char * buff, unsigned char token)
     this->write(token);                    /* Xmit data token */
     if (token != 0xFD)
 	{    /* Is data token */
-    	this->write(512,buff);
+    	this->write(buff,512);
     	this->read();
     	this->read();
 

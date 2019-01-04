@@ -41,7 +41,7 @@ const char* kSerial::endl = "\r\n";
 
 
 
-kSerialHardware& kSerialHardware::operator = (unsigned int hard_code)
+kSerialHardware& kSerialHardware::operator = (uint32_t hard_code)
 {
 	this->usart = (USART_TypeDef*)kPrivate::setupPeripheralOutput(hard_code);
 
@@ -54,7 +54,7 @@ kSerialHardware& kSerialHardware::operator = (unsigned int hard_code)
 
 	return (*this);
 }
-kSerialHardware& kSerialHardware::operator , (unsigned int hard_code)
+kSerialHardware& kSerialHardware::operator , (uint32_t hard_code)
 {
 	return ((*this) = hard_code);
 }
@@ -120,7 +120,7 @@ uint8_t kSerial::readByte(void)
 {
 	return ((uint8_t)this->hardware.usart->DR);
 }
-void kSerial::writeByte(uint8_t byte)
+void kSerial::write(uint8_t byte)
 {
 	// wait while Tx buffer not empty
 	while(!(this->hardware.usart->SR & ~(1<<7)));
@@ -132,7 +132,7 @@ void kSerial::write(const void * data)
 	uint8_t * p = (uint8_t*)data;
 	while(*p)
 	{
-		writeByte(*p);
+		write(*p);
 		p++;
 	}
 
@@ -144,7 +144,7 @@ void kSerial::write(const void * data, uint32_t bytes)
 	for(unsigned int i=0;i<bytes;i++)
 	{
 		// write one byte
-		this->writeByte(*p);
+		this->write(*p);
 		// increment pointer
 		p++;
 	}

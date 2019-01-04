@@ -41,14 +41,14 @@ kI2C::kI2C(void)
 {
 
 }
-kI2CHardware& kI2CHardware::operator = (unsigned int hard_code)
+kI2CHardware& kI2CHardware::operator = (uint32_t hard_code)
 {
 	// setup output pin
 	this->i2c = (I2C_TypeDef*)kPrivate::setupPeripheralOutput(hard_code);
 	return (*this);
 }
 
-kI2CHardware& kI2CHardware::operator , (unsigned int hard_code)
+kI2CHardware& kI2CHardware::operator , (uint32_t hard_code)
 {
 	return ((*this) = hard_code);
 }

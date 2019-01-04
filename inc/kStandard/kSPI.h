@@ -2696,6 +2696,25 @@
 // endregion PLATFORM_DEPENDED_STRUCTS
 
 
+	typedef struct
+	{
+		typedef enum
+		{
+			_1MHz = 1000000,
+			_2MHz = 2000000,
+			_3MHZ = 3000000,
+			_4MHz = 4000000,
+			_5MHz = 5000000,
+			_6MHz = 6000000,
+			_7MHz = 7000000,
+			_8MHz = 8000000,
+			_9MHz = 9000000,
+			_10MHz = 10000000,
+			_11MHz = 11000000,
+			_12MHz = 12000000
+		}kSPI_Speed_enum;
+	}kSPI_Speed_struct;
+
 	class kSPIHardware
 	{
 		private:
@@ -2721,17 +2740,26 @@
 	{
 		public:
 
+			static kSPI_Speed_struct * SPI_Speed;
+
 			kSPIHardware hardware;
 			void run(unsigned int sck_freq);
+
 			bool isBusy(void);
 			bool byteReceived(void);
 			bool byteTransmitted(void);
-			void write(unsigned short int BytesToWrite,unsigned char * DataBuffer);
-			void write(unsigned char Byte);
-			void read(unsigned short int BytesToRead,unsigned char * ReadDataBuffer);
-			unsigned char read(void);
+
 			void select(void);
 			void deselect(void);
+
+			void write(uint8_t byte);
+			void write(const void * data);
+			void write(const void * data, uint32_t bytes);
+
+			void read(unsigned short int BytesToRead,unsigned char * ReadDataBuffer);
+			unsigned char read(void);
+
+
 
 
 

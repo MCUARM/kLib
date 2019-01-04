@@ -420,6 +420,15 @@
 // endregion PLATFORM_DEPENDED_STRUCTS
 
 
+	typedef struct
+	{
+		typedef enum
+		{
+			_9600 = 9600,
+			_115200 = 115200
+		}kSerial_BaudRate_enum;
+	}kSerial_BaudRate_struct;
+
 	class kSerialHardware
 	{
 		private:
@@ -429,8 +438,8 @@
 
 		public:
 
-			kSerialHardware& operator = (unsigned int hard_code);
-			kSerialHardware& operator , (unsigned int hard_code);
+			kSerialHardware& operator = (uint32_t hard_code);
+			kSerialHardware& operator , (uint32_t hard_code);
 
 	};
 
@@ -441,6 +450,7 @@
 
  			kSerialHardware hardware;
  			static const char* endl;
+ 			static kSerial_BaudRate_struct * BautRate;
 
 // region USARTS_DECLARATIONS
 
@@ -484,7 +494,7 @@
  			kSerial(void);
 
 			void run(uint32_t BaudRate);
-			void writeByte(uint8_t byte);
+			void write(uint8_t byte);
 			void write(const void * data);
 			void write(const void * data, uint32_t bytes);
 			uint8_t readByte(void);
