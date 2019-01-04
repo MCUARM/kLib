@@ -49,10 +49,7 @@
 	#include "kMath.h"
 	#include "kPort.h"
 
-	#include "stm32f4xx_usart.h"
-	#include "stm32f4xx_rcc.h"
 
-	#define kSerial_rxBuffer_size 512
 
 // region PLATFORM_DEPENDED_STRUCTS
 
@@ -422,45 +419,27 @@
 
 // endregion PLATFORM_DEPENDED_STRUCTS
 
-	class kSerial;
+
+	class kSerialHardware
+	{
+		private:
+
+			friend class kSerial;
+			USART_TypeDef * usart;
+
+		public:
+
+			kSerialHardware& operator = (unsigned int hard_code);
+			kSerialHardware& operator , (unsigned int hard_code);
+
+	};
 
  	class kSerial {
 
 
- 		protected:
-
-			unsigned int k_timeout;
-			char k_terminator;
-			unsigned char dataCounter;
-			bool useTerminator;
-
-
-			unsigned long long k_precision;
-
-			char rxBuffer[kSerial_rxBuffer_size];
-			unsigned short int rx_buffer_size;
-			unsigned short int rx_buffer_read_pointer;
-			unsigned short int rx_buffer_write_pointer;
-
-			void attachUSART(void);
-
 		public:
 
-
-			class kSerialHardware
-			{
-				friend class kSerial;
-
-				public:
-
-					USART_TypeDef * usart;
-					kSerialHardware& operator = (unsigned int hard_code);
-					kSerialHardware& operator , (unsigned int hard_code);
-
-			};
-
  			kSerialHardware hardware;
-
  			static const char* endl;
 
 // region USARTS_DECLARATIONS
@@ -504,36 +483,14 @@
  			//constructors
  			kSerial(void);
 
+			void run(uint32_t BaudRate);
+			void writeByte(uint8_t byte);
+			void write(const void * data);
+			void write(const void * data, uint32_t bytes);
+			uint8_t readByte(void);
+			bool newByteAvailable(void);
 
-			void run(unsigned int BaudRate);
-			void write(void * data, unsigned int bytes) const;
-
-
-			void timeout(unsigned int ticks);
-			void precision(unsigned char precision_points);
-			void terminator(unsigned char character);
-
- 			unsigned short int newBytesAvailable(void);
-			char getChar(void);
-			char readByte(void);
-			unsigned short int readAll(char * buffer);
-
-			unsigned char newDataAvailable(void);
-			unsigned short int readData(char * buffer);
-			unsigned short int readAllData(char * buffer);
-
-			friend const kSerial& operator <<(const kSerial &serial,const char * String);
-			friend const kSerial& operator <<(const kSerial &serial,char chr);
-			friend const kSerial& operator <<(const kSerial &serial,int number);
-			friend const kSerial& operator <<(const kSerial &serial,unsigned int number);
-			friend const kSerial& operator <<(const kSerial &serial,float number);
-			friend const kSerial& operator <<(const kSerial &serial,const kString & str);
-			friend const kSerial& operator <<(const kSerial &serial,const kVector3 & v);
-			friend const kSerial& operator <<(const kSerial &serial,const kQuaternion & q);
-			friend const kSerial& operator <<(const kSerial &serial,const kAxisAngle & axis_angle);
-
-
-	};
+ };
 
 
 

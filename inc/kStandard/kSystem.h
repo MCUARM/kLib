@@ -201,7 +201,7 @@
 
 			friend class kPort;
 			friend class kPWM;
-			friend class kSerial;
+			friend class kSerialHardware;
 			friend class kI2CHardware;
 			friend class kSPIHardware;
 			friend class kEXTIHardware;

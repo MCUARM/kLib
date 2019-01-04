@@ -38,10 +38,12 @@
 
 void kHC06::setName(char * new_name)
 {
-	*this << "AT+NAME" << new_name;
+	this->write("AT+NAME");
+	this->write(new_name);
 
 }
 void kHC06::setPin(char * new_pin)
 {
-	*this << "AT+PIN" << new_pin;
+	this->write("AT+PIN");
+	this->write(new_pin);
 }
