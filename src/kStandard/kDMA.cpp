@@ -86,6 +86,9 @@ kDMAHardware& kDMAHardware::operator = (unsigned int hard_code)
 	hard_code &= ~(0xF << 28);
 	DMA_Stream->CR = hard_code;
 
+	// check if source address is memory address
+	if(hard_code & 0x000000C0) this->sourceIsMemory = true; // yes
+	else this->sourceIsMemory = false; // no
 
 	return (*this);
 }
@@ -104,19 +107,32 @@ void kDMA::write(const void*source,const void*destination,uint16_t dataItems_to_
 	// this is done by writing 1 into LIFCR or LIFCR register
 	this->hardware.clearStatusFlags();
 
-	// set source address
-	DMA2_Stream0->PAR = (uint32_t)source;
+	if(hardware.sourceIsMemory)
+	{
+		// set source address
+		this->hardware.DMA_Stream->M0AR = (uint32_t)source;
 
-	// set destination address
-	DMA2_Stream0->M0AR = (uint32_t)destination;
+		// set destination address
+		this->hardware.DMA_Stream->PAR = (uint32_t)destination;
+	}else
+	{
+		// set source address
+		this->hardware.DMA_Stream->PAR = (uint32_t)source;
+
+		// set destination address
+		this->hardware.DMA_Stream->M0AR = (uint32_t)destination;
+	}
+
 
 	// set number of data items to be transfered
-	DMA2_Stream0->NDTR = dataItems_to_transfer;
+	this->hardware.DMA_Stream->NDTR = dataItems_to_transfer;
 
 
 	// start operation
 	// set EN bit
-	DMA2_Stream0->CR |= 1;
+
+
+	this->hardware.DMA_Stream->CR |= 1;
 
 }
 bool kDMA::isOperating(void)

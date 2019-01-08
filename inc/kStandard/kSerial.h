@@ -69,9 +69,9 @@
 	{
 		typedef enum
 		{
-			PORTA9  = 0x0C222709,
-			PORTA15 = 0x0C22270F,
-			PORTB6  = 0x0C222716
+			PORTA9  = 0x14222709,
+			PORTA15 = 0x1422270F,
+			PORTB6  = 0x14222716
 		}kSerial_USART1_TX_Pin;
 	}kSerial_USART1_TX;
 
@@ -88,8 +88,8 @@
 	{
 		typedef enum
 		{
-			PORTA2  = 0x0988A702,
-			PORTD5  = 0x0988A735
+			PORTA2  = 0x1188A702,
+			PORTD5  = 0x1188A735
 		}kSerial_USART2_TX_Pin;
 	}kSerial_USART2_TX;
 
@@ -106,8 +106,8 @@
 	{
 		typedef enum
 		{
-			PORTA11 = 0x0D22A80B,
-			PORTC6  = 0x0D22A826
+			PORTA11 = 0x1522A80B,
+			PORTC6  = 0x1522A826
 		}kSerial_USART6_TX_Pin;
 	}kSerial_USART6_TX;
 
@@ -146,8 +146,8 @@
 	{
 		typedef enum
 		{
-			PORTA0  = 0x0B89A800,
-			PORTC10 = 0x0B89A82A
+			PORTA0  = 0x1389A800,
+			PORTC10 = 0x1389A82A
 		}kSerial_UART4_TX_Pin;
 	}kSerial_UART4_TX;
 
@@ -163,7 +163,7 @@
 	{
 		typedef enum
 		{
-			PORTC12 = 0x0C8A282C
+			PORTC12 = 0x148A282C
 		}kSerial_UART5_TX_Pin;
 	}kSerial_UART5_TX;
 
@@ -180,8 +180,8 @@
 	{
 		typedef enum
 		{
-			PORTE8  = 0x0ECF2848,
-			PORTF7  = 0x0ECF2857
+			PORTE8  = 0x16CF2848,
+			PORTF7  = 0x16CF2857
 		}kSerial_UART7_TX_Pin;
 	}kSerial_UART7_TX;
 
@@ -197,7 +197,7 @@
 	{
 		typedef enum
 		{
-			PORTE1  = 0x0FCFA841
+			PORTE1  = 0x17CFA841
 		}kSerial_UART8_TX_Pin;
 	}kSerial_UART8_TX;
 
@@ -214,8 +214,8 @@
 	{
 		typedef enum
 		{
-			PORTA9  = 0x0C222709,
-			PORTB6  = 0x0C222716
+			PORTA9  = 0x14222709,
+			PORTB6  = 0x14222716
 		}kSerial_USART1_TX_Pin;
 	}kSerial_USART1_TX;
 
@@ -232,8 +232,8 @@
 	{
 		typedef enum
 		{
-			PORTA2  = 0x0988A702,
-			PORTD5  = 0x0988A735
+			PORTA2  = 0x1188A702,
+			PORTD5  = 0x1188A735
 		}kSerial_USART2_TX_Pin;
 	}kSerial_USART2_TX;
 
@@ -251,9 +251,9 @@
 	{
 		typedef enum
 		{
-			PORTB10 = 0x0A89271A,
-			PORTC10 = 0x0A89272A,
-			PORTD8  = 0x0A892738
+			PORTB10 = 0x1289271A,
+			PORTC10 = 0x1289272A,
+			PORTD8  = 0x12892738
 		}kSerial_USART3_TX_Pin;
 	}kSerial_USART3_TX;
 
@@ -270,8 +270,8 @@
 	{
 		typedef enum
 		{
-			PORTC6  = 0x0D22A826,
-			PORTG14 = 0x0D22A86E
+			PORTC6  = 0x1522A826,
+			PORTG14 = 0x1522A86E
 		}kSerial_USART6_TX_Pin;
 	}kSerial_USART6_TX;
 
@@ -341,9 +341,9 @@
 	{
 		typedef enum
 		{
-			PORTB10 = 0x0A89241A,
-			PORTC4  = 0x0A892224,
-			PORTC10 = 0x0A89202A
+			PORTB10 = 0x1289241A,
+			PORTC4  = 0x12892224,
+			PORTC10 = 0x1289202A
 		}kSerial_LPUART1_TX_Pin;
 	}kSerial_LPUART1_TX;
 
@@ -360,8 +360,8 @@
 	{
 		typedef enum
 		{
-			PORTA9  = 0x0E672409,
-			PORTB6  = 0x0E672016
+			PORTA9  = 0x16672409,
+			PORTB6  = 0x16672016
 		}kSerial_USART1_TX_Pin;
 	}kSerial_USART1_TX;
 
@@ -378,8 +378,8 @@
 	{
 		typedef enum
 		{
-			PORTA2  = 0x0988A402,
-			PORTA14 = 0x0988A40E
+			PORTA2  = 0x1188A402,
+			PORTA14 = 0x1188A40E
 		}kSerial_USART2_TX_Pin;
 	}kSerial_USART2_TX;
 
@@ -472,6 +472,8 @@
  			static kSerial_Interrupt_struct * USART_Interrupt;
  			static kSerial_DMA_struct * DMA_mode;
 
+
+
 // region USARTS_DECLARATIONS
 
 		#if (kLib_config_PLATFORM == kLib_STM32F411xx)
@@ -515,6 +517,8 @@
 
  			void enableInterrupt(uint16_t interrupt_flags);
  			void disableInterrupt(uint16_t interrupt_flags);
+
+
 
  			void useDMA(uint16_t dma_flags);
 

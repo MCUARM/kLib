@@ -652,7 +652,7 @@ def createUSARTstructDefs():
 								getAttribute(af,'number'),
 								getPortFromAFtag(af)),16)
 				
-				code |= int(getUsartSetupCode(True,False),16)
+				code |= int(getUsartSetupCode(False,True),16)
 				res += getStructEnumItemString(af,code)
 				
 			if tx_exist:
@@ -1216,8 +1216,7 @@ def createDMAstructDefs():
 											
 										
 											PeripheralFlowControler = 0
-											if DataTransferDirection < 2:
-												PeripheralFlowControler = 1
+
 											if DataTransferDirection > 1:
 												channel_num = 0
 										
@@ -1579,7 +1578,7 @@ def getDMAsetupCode(dma_number,stream,channel,priority,DataSize,MemoryIncrementM
 	code |= (DataTransferDirection << 6)
 	if CircularMode != 0:
 		code |= (1 << 8)
-	if MemoryIncrementMode != 1:
+	if MemoryIncrementMode != 0:
 		code |= (1 << 10)
 	code |= (DataSize << 11)
 	code |= (DataSize << 13)
