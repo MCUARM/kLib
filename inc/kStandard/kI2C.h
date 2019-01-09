@@ -304,7 +304,6 @@
 			void sendAddress(transfer_direction dir);
 			void sendData(uint8_t data);
 			void sendStop(void);
-			void enableAcknowledge(bool state);
 			uint8_t readData(void);
 
 		public:
@@ -320,6 +319,8 @@
 			void run(unsigned int clock_speed);
 
 			void reset(void);
+
+			void enableAcknowledge(bool state);
 
  			void enableInterrupt(uint16_t interrupt_flags);
  			void disableInterrupt(uint16_t interrupt_flags);

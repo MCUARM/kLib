@@ -37,9 +37,27 @@
 #ifndef __kADC_H
 #define __kADC_H
 
+	#include "kSystem.h"
+
+	typedef struct
+	{
+		typedef enum
+		{
+			EndOfConversion = 0x20,
+			Overrun = 0x04000000
+		}kADC_Interrupt_enum;
+	}kADC_Interrupt_struct;
+
 	class kADCHardware
 	{
-		friend class kADC;
+		private:
+
+			friend class kADC;
+
+			ADC_TypeDef * adc;
+
+		public:
+
 
 
 	};
@@ -47,7 +65,12 @@
 
 	class kADC
 	{
+		public:
 
+			kADCHardware hardware;
+
+			void enableInterrupt(uint32_t interrupt_flags);
+			void disableInterrupt(uint32_t interrupt_flags);
 	};
 
 

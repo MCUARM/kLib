@@ -35,3 +35,17 @@
 
 
 #include "kADC.h"
+
+
+
+void kADC::enableInterrupt(uint32_t interrupt_flags)
+{
+	hardware.adc->CR1 |= (interrupt_flags & (	kADC_Interrupt_struct::kADC_Interrupt_enum::EndOfConversion |
+												kADC_Interrupt_struct::kADC_Interrupt_enum::Overrun));
+}
+void kADC::disableInterrupt(uint32_t interrupt_flags)
+{
+	interrupt_flags &= (kADC_Interrupt_struct::kADC_Interrupt_enum::EndOfConversion |
+						kADC_Interrupt_struct::kADC_Interrupt_enum::Overrun);
+	this->hardware.adc->CR1 &= ~(interrupt_flags);
+}

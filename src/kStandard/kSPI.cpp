@@ -101,7 +101,7 @@ void kSPI::run(unsigned int sck_freq)
 		spi_clock = spi_clock << 1;
 	}
 	// set SSI SSM high and enable bit
-	i+=104;
+	//i+=104;
 
 	// setup baud divider and enable spi
 	this->hardware.spi->CR1 &= ~(7<<3);
@@ -129,7 +129,7 @@ bool kSPI::isBusy(void)
 void kSPI::write(uint8_t byte)
 {
 	// wait while TXE flag not set (transmit buffer empty flag)
-	while(!(this->hardware.spi->SR & (~(1<<1))));
+	while(!(this->hardware.spi->SR & (1<<1)));
 	// write data to data register
 	this->hardware.spi->DR = byte;
 }

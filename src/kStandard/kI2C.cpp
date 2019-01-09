@@ -60,6 +60,11 @@ void kI2C::run(unsigned int clock_speed)
 	uint16_t result = 0x04;
 	uint32_t pclk1 = 8000000;
 
+	  // reset
+	  this->hardware.i2c->CR1 |= (1<<15);
+	  this->hardware.i2c->CR1 = 0;
+
+
 	/*---------------------------- I2Cx CR2 Configuration ------------------------*/
 	  /* Get the I2Cx CR2 value */
 	  tmpreg = this->hardware.i2c->CR2;
@@ -123,15 +128,14 @@ void kI2C::run(unsigned int clock_speed)
 
 	/*---------------------------- I2Cx OAR1 Configuration -----------------------*/
 	  /* Set I2Cx Own Address1 and acknowledged address */
-	  this->hardware.i2c->OAR1 = this->address;
+	  //this->hardware.i2c->OAR1 = this->address;
 
 
 	/*---------------------------- I2Cx CR1 Configuration ------------------------*/
 
 	  /* Enable the selected I2C peripheral */
 	  // I2C mode, disable ACK
-	  this->hardware.i2c->CR1 = ((uint16_t)0x0001);
-
+	  this->hardware.i2c->CR1 = (1<<0);
 
 
 }
@@ -141,10 +145,15 @@ void kI2C::reset(void)
 }
 void kI2C::sendStart(void)
 {
+	this->enableAcknowledge(true);
+
+
 	// send start condition
 	this->hardware.i2c->CR1 |= (1<<8);
 	// wait while start condition not send (check SB bit in SR1 - start bit sent)
-	while(this->hardware.i2c->SR1 &= (1<<0));
+	while(!(this->hardware.i2c->SR1 &= (1<<0)));
+
+
 }
 void kI2C::sendAddress(transfer_direction dir)
 {
@@ -158,9 +167,20 @@ void kI2C::sendAddress(transfer_direction dir)
 		this->hardware.i2c->DR = (this->address | 0x01);
 	}
 	// wait for addressing match (read sequence of SR1 and SR2 register and check if ADDR bit in SR1 is set)
-	while(!(this->hardware.i2c->SR1 & (1<<1)));
+
+
+	// wait until address match
+	uint16_t SR1;
+	uint16_t SR2;
+
+	do
+	{
+		SR1 = this->hardware.i2c->SR1;
+		SR2 = this->hardware.i2c->SR2;
+	}while(!(SR1 & (1<<1)));
+
 	// check if peripheral is in Master mode
-	while(!(this->hardware.i2c->SR2 & (1<<0)));
+	while(!(SR2 & (1<<0)));
 
 }
 void kI2C::sendData(uint8_t data)
