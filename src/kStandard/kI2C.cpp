@@ -37,6 +37,62 @@
 #include "kI2C.h"
 
 
+
+void kI2C_DefaultHandler_addressMatchedEvent()
+{
+
+}
+void kI2C_DefaultHandler_byteReceivedEvent(uint8_t byte)
+{
+	K_UNUSED(byte);
+}
+void kI2C_DefaultHandler_stopBitEvent()
+{
+
+}
+uint8_t kI2C_DefaultHandler_writeRequestEvent()
+{
+	return 0x00;
+}
+
+
+kI2C_IQR_data_t I2C1_irq_data = {	kI2C_DefaultHandler_addressMatchedEvent,
+									kI2C_DefaultHandler_byteReceivedEvent,
+									kI2C_DefaultHandler_writeRequestEvent,
+									kI2C_DefaultHandler_stopBitEvent,
+									0};
+void I2C1_irq()
+{
+	I2C1_irq_data.i2c->hardware.SR1 = I2C1->SR1;
+	I2C1_irq_data.i2c->hardware.SR2 = I2C1->SR2;
+
+	if(I2C1_irq_data.i2c->hardware.SR1 & (1<<4))
+	{
+		// Stop bit detected
+		I2C1_irq_data.i2c->hardware.i2c->CR1 |= (1<<0);
+		I2C1_irq_data.stopBitEventHandler();
+	}
+	if(I2C1_irq_data.i2c->hardware.SR1 & (1<<1))
+	{
+		// Address matched event
+		I2C1_irq_data.addressMatchedEventHandler();
+	}
+	if(I2C1_irq_data.i2c->hardware.SR1 & (1<<6))
+	{
+		// RxNE event
+		I2C1_irq_data.byteReceivedEventHandler(I2C1->DR);
+	}
+	if(I2C1_irq_data.i2c->hardware.SR1 & (1<<7))
+	{
+		// TxE event
+		I2C1->DR = I2C1_irq_data.writeRequestEventHandler();
+	}
+
+}
+
+
+
+
 kI2C::kI2C(void)
 {
 
@@ -53,6 +109,25 @@ kI2CHardware& kI2CHardware::operator , (uint32_t hard_code)
 	return ((*this) = hard_code);
 }
 
+void kI2C::reset(void)
+{
+	uint16_t CR1 = this->hardware.i2c->CR1;
+	uint16_t CR2 = this->hardware.i2c->CR2;
+	// disable PE bit
+	CR1 &= ~(1<<0);
+
+	// reset
+	this->hardware.i2c->CR1 |= (1<<15);
+	// release reset
+	this->hardware.i2c->CR2 &= ~(1<<15);
+
+	// restore CR1 and CR2 settings. Please note that I2C will be stopped after calling reset function
+	// Also I2C clock configuration must be calculated again and all other registers than CR1 and CR2
+	this->hardware.i2c->CR1 = CR1;
+	this->hardware.i2c->CR2 = CR2;
+}
+
+
 void kI2C::run(unsigned int clock_speed)
 {
 
@@ -61,8 +136,7 @@ void kI2C::run(unsigned int clock_speed)
 	uint32_t pclk1 = 8000000;
 
 	  // reset
-	  this->hardware.i2c->CR1 |= (1<<15);
-	  this->hardware.i2c->CR1 = 0;
+	this->reset();
 
 
 	/*---------------------------- I2Cx CR2 Configuration ------------------------*/
@@ -128,7 +202,7 @@ void kI2C::run(unsigned int clock_speed)
 
 	/*---------------------------- I2Cx OAR1 Configuration -----------------------*/
 	  /* Set I2Cx Own Address1 and acknowledged address */
-	  //this->hardware.i2c->OAR1 = this->address;
+	  this->hardware.i2c->OAR1 = this->address;
 
 
 	/*---------------------------- I2Cx CR1 Configuration ------------------------*/
@@ -138,10 +212,6 @@ void kI2C::run(unsigned int clock_speed)
 	  this->hardware.i2c->CR1 = (1<<0);
 
 
-}
-void kI2C::reset(void)
-{
-	this->hardware.i2c->CR1 |= (1<<15);
 }
 void kI2C::sendStart(void)
 {
@@ -216,6 +286,42 @@ void kI2C::write(uint8_t StartingRegisterAddress,void * transmit_buffer,uint8_t 
 	// send stop condition
 	sendStop();
 }
+
+void kI2C::write(const void * data)
+{
+	uint8_t * tx_buffer = (uint8_t *)data;
+	// send start condition
+	sendStart();
+	// send device write address
+	sendAddress(kI2C::Transmitting);
+
+	while(*tx_buffer)
+	{
+		sendData(*tx_buffer);
+		tx_buffer++;
+	}
+
+	// send stop condition
+	sendStop();
+}
+void kI2C::write(const void * data, uint32_t bytes)
+{
+	uint8_t * tx_buffer = (uint8_t *)data;
+	// send start condition
+	sendStart();
+	// send device write address
+	sendAddress(kI2C::Transmitting);
+
+	for(uint32_t i=0;i<bytes;i++)
+	{
+		sendData(*tx_buffer);
+		tx_buffer++;
+	}
+
+	// send stop condition
+	sendStop();
+}
+
 void kI2C::write(uint8_t RegisterAddress,uint8_t value)
 {
 	write(RegisterAddress,&value,1);
@@ -282,11 +388,8 @@ void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t B
 		// send device read address
 		sendAddress(kI2C::Receiving);
 
-		for(i=0,loop_end = BytesToRead-2;i<loop_end;i++)
-		{
-			*rx_buffer = readData();
-			rx_buffer++;
-		}
+		*rx_buffer = readData();
+		rx_buffer++;
 
 		// send stop condition
 		sendStop();
@@ -303,12 +406,40 @@ unsigned char kI2C::read(uint8_t RegisterAddress)
 	return data;
 }
 
-void kI2C::enableInterrupt(uint16_t interrupt_flags)
+void kI2C::enableInterrupt(unsigned char preemptionPriority, unsigned char subPriority)
 {
-	this->hardware.i2c->CR2 |= (interrupt_flags & 0x0700);
+	// enable event and buffer interrupt
+	this->hardware.i2c->CR2 |= ((1024 | 512) & 0x0700);
+
+
+	I2C1_irq_data.i2c = this;
+
+	// enable interrupt handling in NVIC
+	kSystem.setIRQHandler(kSystem.IRQ->_I2C1_EV,I2C1_irq);
+	kSystem.enableInterrupt(kSystem.IRQ->_I2C1_EV,preemptionPriority,subPriority);
 }
-void kI2C::disableInterrupt(uint16_t interrupt_flags)
+void kI2C::setAddressMatchedEventHandler(void (*addressMatchedEventHandler)(void))
 {
-	interrupt_flags &= 0x0700;
-	this->hardware.i2c->CR2 &= ~(interrupt_flags);
+	I2C1_irq_data.addressMatchedEventHandler = addressMatchedEventHandler;
+}
+void kI2C::setByteReceivedEventHandler(void (*byteReceivedEventHandler)(uint8_t))
+{
+	I2C1_irq_data.byteReceivedEventHandler = byteReceivedEventHandler;
+}
+void kI2C::setStopBitEventHandler(void (*stopBitEventHandler)(void))
+{
+	I2C1_irq_data.stopBitEventHandler = stopBitEventHandler;
+}
+void kI2C::setWriteRequestEventHandler(uint8_t (*writeRequestEventHandler)(void))
+{
+	I2C1_irq_data.writeRequestEventHandler = writeRequestEventHandler;
+}
+
+bool kI2C::isReceiver(void)
+{
+	return (this->hardware.i2c->SR2 & (1<<2)) ? false : true;
+}
+bool kI2C::isTransmitter(void)
+{
+	return (this->hardware.i2c->SR2 & (1<<2)) ? true : false;
 }

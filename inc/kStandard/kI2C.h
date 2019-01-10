@@ -39,6 +39,8 @@
 
 #include "kPort.h"
 
+	class kI2C;
+
 // region PLATFORM_DEPENDED_STRUCTS
 
 #if (kLib_config_PLATFORM == kLib_STM32F411xx)
@@ -266,6 +268,7 @@
 	}kI2C_Speed_struct;
 
 
+
 	typedef struct
 	{
 		typedef enum
@@ -276,13 +279,28 @@
 		}kI2C_Interrupt_enum;
 	}kI2C_Interrupt_struct;
 
+
+	struct kI2C_IQR_data_t
+	{
+		void (* addressMatchedEventHandler)(void);
+		void (* byteReceivedEventHandler)(uint8_t);
+		uint8_t (* writeRequestEventHandler)(void);
+		void (* stopBitEventHandler)(void);
+		kI2C * i2c;
+	};
+
 	class kI2CHardware
 	{
 		private:
 
 			friend class kI2C;
+			friend void I2C1_irq();
+
 
 			I2C_TypeDef * i2c;
+
+			uint16_t SR1;
+			uint16_t SR2;
 
 		public:
 
@@ -299,6 +317,13 @@
 				Transmitting
 			}transfer_direction;
 
+
+			friend void I2C1_irq(void);
+
+			uint16_t SR1;
+			uint16_t SR2;
+
+			void reset(void);
 
 			void sendStart(void);
 			void sendAddress(transfer_direction dir);
@@ -318,19 +343,30 @@
 			kI2C(void);
 			void run(unsigned int clock_speed);
 
-			void reset(void);
-
+			// this function has effect only if I2C is running
 			void enableAcknowledge(bool state);
 
- 			void enableInterrupt(uint16_t interrupt_flags);
- 			void disableInterrupt(uint16_t interrupt_flags);
 
+			void setAddressMatchedEventHandler(void (*addressMatchedEventHandler)(void));
+			void setByteReceivedEventHandler(void (*byteReceivedEventHandler)(uint8_t));
+			void setStopBitEventHandler(void (*stopBitEventHandler)(void));
+			void setWriteRequestEventHandler(uint8_t (*writeRequestEventHandler)(void));
+
+ 			void enableInterrupt(unsigned char preemptionPriority, unsigned char subPriority);
+
+ 			bool isReceiver(void);
+ 			bool isTransmitter(void);
+
+			void write(const void * data);
+			void write(const void * data, uint32_t bytes);
 
 			void write(uint8_t StartingRegisterAddress, void * transmit_buffer,uint8_t BytesToWrite);
 			void write(uint8_t RegisterAddress,uint8_t value);
 
 			void read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead);
 			unsigned char read(uint8_t RegisterAddress);
+
+
 
 
 // region I2C_DECLARATIONS
