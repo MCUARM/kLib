@@ -240,17 +240,15 @@ void kI2C::sendAddress(transfer_direction dir)
 
 
 	// wait until address match
-	uint16_t SR1;
-	uint16_t SR2;
-
 	do
 	{
-		SR1 = this->hardware.i2c->SR1;
-		SR2 = this->hardware.i2c->SR2;
-	}while(!(SR1 & (1<<1)));
+		// read SR1 register followed by SR2
+		this->hardware.SR1 = this->hardware.i2c->SR1;
+		this->hardware.SR2 = this->hardware.i2c->SR2;
+	}while(!(this->hardware.SR1 & (1<<1)));
 
 	// check if peripheral is in Master mode
-	while(!(SR2 & (1<<0)));
+	while(!(this->hardware.SR2 & (1<<0)));
 
 }
 void kI2C::sendData(uint8_t data)
@@ -276,7 +274,7 @@ void kI2C::write(uint8_t StartingRegisterAddress,void * transmit_buffer,uint8_t 
 	sendAddress(kI2C::Transmitting);
 	// send internal device register address
 	sendData(StartingRegisterAddress);
-
+	// send data
 	for(i=0;i<BytesToWrite;i++)
 	{
 		sendData(*tx_buffer);
@@ -335,6 +333,7 @@ uint8_t kI2C::readData(void)
 {
 	// wait for byte reception
 	while(!(this->hardware.i2c->SR1 & (1<<6)));
+	// return byte
 	return ((uint8_t)this->hardware.i2c->DR);
 }
 void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead)
@@ -351,13 +350,17 @@ void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t B
 
 	if(BytesToRead > 1)
 	{
-		enableAcknowledge(true);
+		// there are more than 1 byte to receive
+
+		// ACK is already set in sendStart() function
+		//enableAcknowledge(true);
 
 		// send repeated start
 		sendStart();
 		// send device read address
 		sendAddress(kI2C::Receiving);
 
+		// read bytes one by one
 		for(i=0,loop_end = BytesToRead-2;i<loop_end;i++)
 		{
 			*rx_buffer = readData();
@@ -372,35 +375,37 @@ void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t B
 		sendStop();
 
 		// receive last two bytes
+		// read second last byte
 		*rx_buffer = readData();
 		rx_buffer++;
 
+		// read last byte
 		*rx_buffer = readData();
-		rx_buffer++;
 
 	}else
 	{
+		// one byte reception
+		// acknowledge bit must be cleared before address send
+
 		// send repeated start
 		sendStart();
 
+		// set acknowledge false
 		enableAcknowledge(false);
 
 		// send device read address
 		sendAddress(kI2C::Receiving);
 
+		// read one byte
 		*rx_buffer = readData();
-		rx_buffer++;
 
 		// send stop condition
 		sendStop();
-
 	}
 
 }
 unsigned char kI2C::read(uint8_t RegisterAddress)
 {
-	// there is some problem with internal shift buffer
-	// that do not allow receiving single byte
 	uint8_t data;
 	this->read(RegisterAddress,&data,1);
 	return data;
@@ -437,9 +442,11 @@ void kI2C::setWriteRequestEventHandler(uint8_t (*writeRequestEventHandler)(void)
 
 bool kI2C::isReceiver(void)
 {
+	// Check if TRA bit (Transmitter) is set or cleared in SR2 register
 	return (this->hardware.i2c->SR2 & (1<<2)) ? false : true;
 }
 bool kI2C::isTransmitter(void)
 {
+	// Check if TRA bit (Transmitter) is set or cleared in SR2 register
 	return (this->hardware.i2c->SR2 & (1<<2)) ? true : false;
 }

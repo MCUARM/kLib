@@ -38,6 +38,7 @@
 #define __kSPI_H
 
 	#include "kSystem.h"
+	#include "kPort.h"
 
 	class kSPI;
 	class kSPIHardware;

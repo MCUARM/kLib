@@ -52,12 +52,6 @@
 	#include "stm32f4xx.h"
 	#include "core_cm4.h"
 
-	#include "kPort.h"
-	#include "kString.h"
-	#include "kSerial.h"
-	#include "kEXTI.h"
-
-
 
 	#if(kLib_config_USE_MODULE == 1)
 

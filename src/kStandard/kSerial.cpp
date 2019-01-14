@@ -163,3 +163,7 @@ void kSerial::useDMA(uint16_t dma_flags)
 {
 	this->hardware.usart->CR3 |= (dma_flags & 0x00C0);
 }
+const void* kSerial::getAddress(void)
+{
+	return (const void*)&hardware.usart->DR;
+}

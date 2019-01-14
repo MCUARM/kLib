@@ -262,7 +262,17 @@
 	{
 		typedef enum
 		{
+			_10kHz =   10000,
+			_20kHz =   20000,
+			_30kHz =   30000,
+			_40kHz =   40000,
+			_50kHz =   50000,
+			_60kHz =   60000,
+			_70kHz =   70000,
+			_80kHz =   80000,
+			_90kHz =   90000,
 			_100kHz = 100000,
+			_200kHz = 200000,
 			_400kHz = 400000
 		}kI2C_Speed_enum;
 	}kI2C_Speed_struct;

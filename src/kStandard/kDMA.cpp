@@ -92,49 +92,89 @@ kDMAHardware& kDMAHardware::operator = (unsigned int hard_code)
 
 	return (*this);
 }
-
-void kDMA::write(const void*source,const void*destination,uint16_t dataItems_to_transfer)
+void kDMA::waitForNewTransactionReady(void)
 {
-	// make sure there is no ongoing transactions on stream
-	// clear EN bit
-	this->hardware.DMA_Stream->CR &= ~(1 << 0);
-
-	// wait until this bit is cleared
+	// wait until EN bit is cleared
 	// this may take a while if stream is operating
 	while(this->isOperating());
 
 	// clear all status bits for this stream
 	// this is done by writing 1 into LIFCR or LIFCR register
 	this->hardware.clearStatusFlags();
-
+}
+void kDMA::startTransaction(void)
+{
+	// start operation
+	// set EN bit
+	this->hardware.DMA_Stream->CR |= 1;
+}
+void kDMA::setTransferSource(const void *source)
+{
 	if(hardware.sourceIsMemory)
 	{
 		// set source address
 		this->hardware.DMA_Stream->M0AR = (uint32_t)source;
-
-		// set destination address
-		this->hardware.DMA_Stream->PAR = (uint32_t)destination;
 	}else
 	{
 		// set source address
 		this->hardware.DMA_Stream->PAR = (uint32_t)source;
-
+	}
+}
+void kDMA::setTransferDestination(const void*destination)
+{
+	if(hardware.sourceIsMemory)
+	{
+		// set destination address
+		this->hardware.DMA_Stream->PAR = (uint32_t)destination;
+	}else
+	{
 		// set destination address
 		this->hardware.DMA_Stream->M0AR = (uint32_t)destination;
 	}
+}
+void kDMA::setPeripheralAddress(Endpoint & periph)
+{
+	// set peipheral address
+	this->hardware.DMA_Stream->PAR = (uint32_t)periph.getAddress();
+}
 
+void kDMA::write(const void*source,const void*destination,uint16_t dataItems_to_transfer)
+{
+	// make sure there is no ongoing transactions on stream
+	waitForNewTransactionReady();
+	// set transfer source
+	setTransferSource(source);
+	// set transfer destination
+	setTransferDestination(destination);
+	// set number of data items to be transfered
+	this->hardware.DMA_Stream->NDTR = dataItems_to_transfer;
+
+	// start operation
+	startTransaction();
+}
+void kDMA::write(const void*source,uint16_t dataItems_to_transfer)
+{
+	// make sure there is no ongoing transactions on stream
+	waitForNewTransactionReady();
+	// set transfer source
+	setTransferSource(source);
 
 	// set number of data items to be transfered
 	this->hardware.DMA_Stream->NDTR = dataItems_to_transfer;
 
-
 	// start operation
-	// set EN bit
-
-
-	this->hardware.DMA_Stream->CR |= 1;
-
+	startTransaction();
 }
+void kDMA::write(uint16_t dataItems_to_transfer)
+{
+	// make sure there is no ongoing transactions on stream
+	waitForNewTransactionReady();
+	// set number of data items to be transfered
+	this->hardware.DMA_Stream->NDTR = dataItems_to_transfer;
+	// start operation
+	startTransaction();
+}
+
 bool kDMA::isOperating(void)
 {
 	return (this->hardware.DMA_Stream->CR & (1 << 0));

@@ -35632,13 +35632,25 @@
 
 	};
 
+
+
+
 	class kDMA
 	{
 		private:
 
-
+			void waitForNewTransactionReady(void);
+			void startTransaction(void);
 
 		public:
+
+			class Endpoint
+			{
+				friend class kDMA;
+
+				protected:
+					virtual const void* getAddress(void) = 0;
+			};
 
 // region DMA_DECLARATIONS
 
@@ -35665,7 +35677,15 @@
 
 			kDMAHardware hardware;
 
+
+			void setTransferSource(const void *source);
+			void setTransferDestination(const void*destination);
+			void setPeripheralAddress(Endpoint & periph);
+
+
 			void write(const void*source,const void*destination,uint16_t dataItems_to_transfer);
+			void write(const void*source,uint16_t dataItems_to_transfer);
+			void write(uint16_t dataItems_to_transfer);
 			bool isOperating(void);
 
 	};

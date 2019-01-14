@@ -48,7 +48,7 @@
 	#include "kSystem.h"
 	#include "kMath.h"
 	#include "kPort.h"
-
+	#include "kDMA.h"
 
 
 // region PLATFORM_DEPENDED_STRUCTS
@@ -461,8 +461,12 @@
 
 	};
 
- 	class kSerial {
+ 	class kSerial : public kDMA::Endpoint
+ 	{
 
+ 		protected:
+
+ 			const void* getAddress(void);
 
 		public:
 

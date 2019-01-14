@@ -1,0 +1,108 @@
+Ts = 0.01;
+
+
+
+for i=1:n
+
+	%prediction
+
+	delta_theta2 = (gyro_x(i)*Ts)^2 + (gyro_y(i)*Ts)^2 + (gyro_z(i)*Ts)^2;
+
+	Omega = [	0 -gyro_x(i) -gyro_y(i) -gyro_z(i);
+				gyro_x(i) 0 gyro_z(i) -gyro_y(i);
+				gyro_y(i) -gyro_z(i) 0 gyro_x(i);
+				gyro_z(i) gyro_y(i) -gyro_x(i) 0];
+
+	A = eye(4)*(1-delta_theta2/8) + 1/2*Omega*Ts;
+
+				
+	E = [x(i,2) x(i,3) -x(i,4);
+		-x(i,1) x(i,4) -x(i,3);
+		-x(i,4) -x(i,1) x(i,2);
+		x(i,3) -x(i,2) -x(i,1)];
+		
+	Q = (Ts/2)^2*E*sigma_g^2*eye(4)*E';
+
+
+	x(i,:) = A*x(i,:);
+	P = A*P*A' + Q;
+
+	%correction (only theta and psi)
+
+	z_est = [	2*(x(i,3)*x(i,4) - x(i,1)*x(i,3);
+				2*(x(i,3)*x(i,4) + x(i,1)*x(i,2);
+				x(i,1)^2 - x(i,2)^2 - x(i,3)^2 + x(i,4)^2];
+
+	e = z - z_est;
+
+	H= [-x(i,3) x(i,4) -x(i,1) x(i,2);
+		x(i,2) x(i,1) x(i,4) x(i,3);
+		x(i,1) -x(i,2) -x(i,3) x(i,4)];
+
+	S=H*P*H' + R;
+	K=P*H'*S^-1;
+
+	x(i,:) = x(i,:) + K*e;
+	P = (eye(4) - K*H)*P;
+	
+end
+
+
+
+
+%MEKF
+
+
+for i=1:n
+
+	%prediction
+
+	omega_cross = [	0 -gyro_z(i) gyro_y(i);
+					gyro_z(i) 0 -gyro_x(i);
+					-gyro_y(i) gyro_x(i) 0];
+
+					
+	%alpha_prim = (alpha(i+1) - alpha(i))/Ts
+	%alpha_prim = -omega_cross*alpha
+	%(alpha(i+1) - alpha(i))/Ts = -omega_cross*alpha
+	%alpha(i+1) - alpha(i) = -Ts*omega_cross*alpha(i)
+	%alpha(i+1) = -Ts*omega_cross*alpha(i) + alpha(i)
+	%alpha(i+1) = (eye(3) - Ts*omega_cross)*alpha(i)
+
+	A = (eye(3) - Ts*omega_cross)
+	x = A*x;
+	
+	% this is constant through iterations
+	Q = Ts*eye(3)*sigma_g^2
+
+	P = A*P*A' + Q;
+	
+	
+	%correction
+	% mapping into Euler angles residuals
+	H = [	1 sin(phi_est(i))*tan(theta_est(i)) cos(phi_est(i))*tan(theta_est(i));
+			0 cos(phi_est(i)) -sin(phi_est(i));
+			0 sin(phi_est(i))/cos(theta_est(i)) cos(phi_est(i))/cos(theta_est(i))];
+			
+	z_est = H*x;
+	
+	z = [	phi_c(i) - phi_est(i);
+			theta_c(i) - theta_est(i);
+			psi_c(i) - psi_est(i)];
+	
+	e = z - z_est;	
+		
+	S=H*P*H' + R;
+	K=P*H'*S^-1;
+
+	x(i,:) = x(i,:) + K*e;
+	P = (eye(3) - K*H)*P;	
+	
+	%get quaternion
+	q = quaternionMultiplication(q,[1;x(i,:)]);
+	%get estimated Euler angles
+	Euler = quaternion2EulerAngles(q);
+	
+	
+	
+end

@@ -43,9 +43,8 @@
 	 * Includes
 	 */
 
-	#include "kConfig.h"
 	#include "kSystem.h"
-	#include "misc.h"
+	#include "kEXTI.h"
 
 	extern unsigned int kSystem_ms_downcounter;
 
