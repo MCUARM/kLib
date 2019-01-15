@@ -1,9 +1,5 @@
 %TODO implementations
 zeta filter
-quaternionMultiplication
-quaternion2EulerAngles
-EulerAngles2quaternion
-
 
 %constants
 Ts = 0.01;
