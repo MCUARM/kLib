@@ -1,0 +1,821 @@
+Calibration Current 0x4000 CC Gain F4 1.00E–01 9.00E+00 8.4381 —
+Calibration Current 0x4004 Capacity Gain F4 2.98262E+04 2.693046E+07 2516761.36 —
+Calibration Voltage 0x4008 Cell1 Offset I1 –128 127 0 mV
+Calibration Voltage 0x4009 Cell2 Offset I1 –128 127 0 mV
+Calibration Voltage 0x400A Cell3 Offset I1 –128 127 0 mV
+Calibration Voltage 0x400B Cell4 Offset I1 –128 127 0 mV
+Calibration Voltage 0x400C Cell5 Offset I1 –128 127 0 mV
+Calibration Voltage 0x400D Cell6 Offset I1 –128 127 0 mV
+Calibration Voltage 0x400E Cell7 Offset I1 –128 127 0 mV
+Calibration Voltage 0x400F Cell8 Offset I1 –128 127 0 mV
+Calibration Voltage 0x4010 Cell9 Offset I1 –128 127 0 mV
+Calibration Voltage 0x4011 Cell10 Offset I1 –128 127 0 mV
+Calibration Voltage 0x4012 Cell11 Offset I1 –128 127 0 mV
+Calibration Voltage 0x4013 Cell12 Offset I1 –128 127 0 mV
+Calibration Voltage 0x4014 Cell13 Offset I1 –128 127 0 mV
+Calibration Voltage 0x4015 Cell14 Offset I1 –128 127 0 mV
+Calibration Voltage 0x4016 Cell15 Offset I1 –128 127 0 mV
+Calibration Current Offset 0x4018 CC Offset I2 –32767 32767 0 —
+Calibration Current Offset 0x401A Coulomb Counter Offset
+Samples U2 0 65535 64 —
+Calibration Temperature 0x401E T1 Temp Offset I1 –128 127 0 0.1°C
+Calibration Temperature 0x401F T2 Temp Offset I1 –128 127 0 0.1°C
+Calibration Temperature 0x4020 T3 Temp Offset I1 –128 127 0 0.1°C
+Calibration Temperature 0x4021 Gauge Internal Temp
+Offset I1 –128 127 0 0.1°C
+Calibration Ext Cell
+Voltage 0x4022 Ext Cell Divider Gain I2 0 32767 5000 —
+Calibration VAux Voltage 0x4024 VAux Gain I4 0 100000 5000 —
+Calibration
+Cell
+Temperature
+Model
+0x454F Coeff a1 I2 –32768 32767 –11130 —
+Calibration
+Cell
+Temperature
+Model
+0x4551 Coeff a2 I2 –32768 32767 19142 —
+Calibration
+Cell
+Temperature
+Model
+0x4553 Coeff a3 I2 –32768 32767 –19262 —
+Calibration
+Cell
+Temperature
+Model
+0x4555 Coeff a4 I2 –32768 32767 28203 —
+Calibration
+Cell
+Temperature
+Model
+0x4557 Coeff a5 I2 –32768 32767 892 —
+Calibration
+Cell
+Temperature
+Model
+0x4559 Coeff b1 I2 –32768 32767 328 —
+Calibration
+Cell
+Temperature
+Model
+0x455B Coeff b2 I2 –32768 32767 –605 —
+Calibration
+Cell
+Temperature
+Model
+0x455D Coeff b3 I2 –32768 32767 –2443 —
+Calibration
+Cell
+Temperature
+Model
+0x455F Coeff b4 I2 –32768 32767 4696 —
+Calibration
+Cell
+Temperature
+Model
+0x4561 Rc0 I2 –32768 32767 11703 —
+Calibration
+Cell
+Temperature
+Model
+0x4563 Adc0 I2 –32768 32767 11703 —
+Calibration
+Fet
+Temperature
+Model
+0x4569 Coeff a1 I2 –32768 32767 –11130 —
+Calibration
+Fet
+Temperature
+Model
+0x456B Coeff a2 I2 –32768 32767 19142 —
+Calibration
+Fet
+Temperature
+Model
+0x456D Coeff a3 I2 –32768 32767 –19262 —
+Calibration
+Fet
+Temperature
+Model
+0x456F Coeff a4 I2 –32768 32767 28203 —
+Calibration
+Fet
+Temperature
+Model
+0x4571 Coeff a5 I2 –32768 32767 892 —
+Calibration
+Fet
+Temperature
+Model
+0x4573 Coeff b1 I2 –32768 32767 328 —
+Calibration
+Fet
+Temperature
+Model
+0x4575 Coeff b2 I2 –32768 32767 –605 —
+Calibration
+Fet
+Temperature
+Model
+0x4577 Coeff b3 I2 –32768 32767 –2443 —
+Calibration
+Fet
+Temperature
+Model
+0x4579 Coeff b4 I2 –32768 32767 4696 —
+Calibration
+Fet
+Temperature
+Model
+0x457B Rc0 I2 –32768 32767 11703 —
+Calibration
+Fet
+Temperature
+Model
+0x457D Adc0 I2 –32768 32767 11703 —
+Calibration
+Fet
+Temperature
+Model
+0x457F Rpad I2 –32768 32767 0 —
+Calibration
+Fet
+Temperature
+Model
+0x4581 Rint I2 –32768 32767 18000 —
+Calibration Current
+Deadband 0x4318 Deadband U1 0 255 3 mA
+Calibration Current
+Deadband 0x4319 Coulomb Counter
+Deadband U1 0 255 38 264 nV
+Settings Protection 0x44C5 Protection Configuration H1 0x0 0x3E 0x00 Hex
+Settings Protection 0x44C6 Enabled Protections A H1 0x0 0xFF 0xFF Hex
+Settings Protection 0x44C7 Enabled Protections B H1 0x0 0x7F 0x7F Hex
+Settings Protection 0x44C8 Enabled Protections C H1 0x0 0x1F 0x15 Hex
+Settings Protection 0x44CA Enabled Removal
+Recovery A
+H1 0x0 0xFC 0x0 Hex
+Settings Protection 0x44CB Enabled Removal
+Recovery B
+H1 0x0 0x40 0x0 Hex
+Settings Permanent
+Failure 0x451D Enabled PF A H1 0x0 0xFF 0x0 Hex
+Settings Permanent
+Failure 0x451E Enabled PF B H1 0x0 0xFF 0x0 Hex
+Settings Configuration 0x445F FET Options H2 0x0 0x03FF 0x0021 Hex
+Settings Configuration 0x4461 Sbs Gauging
+Configuration H1 0x0 0x83 0x0 Hex
+Settings Configuration 0x4462 Smb Configuration H1 0x0 0xB7 0xA0 Hex
+Settings Configuration 0x4472 Power Config H1 0x0 0x01 0x00 Hex
+Settings Configuration 0x448C LED Configuration H1 0x0 0xFF 0x00 Hex
+Settings Configuration 0x44A9 Temperature Enable H1 0x0 0x1F 0x09 Hex
+Settings Configuration 0x44AA Temperature Mode H1 0x0 0x07 0x0 Hex
+Settings Configuration 0x44AB DA Configuration H1 0x0 0xDF 0x11 Hex
+Settings Configuration 0x44AC AFE Cell Map H2 0x0 0x7FFF 0x0013 Hex
+Settings Configuration 0x458B CEDV Gauging
+Configuration H2 0x0 0x07FF 0x0002 Hex
+Settings Configuration 0x45D4 SOC Flag Config H2 0x0 0x13FF 0x02FB Hex
+Settings Configuration 0x460C Balancing Configuration H1 0x0 0xFF 0x01 Hex
+Settings Fuse 0x4458 PF SAFE A H1 0x0 0xFF 0x0 Hex
+Settings Fuse 0x4459 PF SAFE B H1 0x0 0xFF 0x0 Hex
+Settings Fuse 0x445A PF SAFE C H1 0x0 0x03 0x0 Hex
+Settings Fuse 0x445E Fuse Blow Timeout U1 0 255 30 s
+Settings Aux SMB
+Address 0x4463 Addr Reads U1 0 10 3 —
+Settings Aux SMB
+Address 0x4464 SMBTAR_ADDR0 H1 0x0 0xFF 0x20 Hex
+Settings Aux SMB
+Address 0x4465 SMBTAR_ADDR1 H1 0x0 0xFF 0x22 Hex
+Settings Aux SMB
+Address 0x4466 SMBTAR_ADDR2 H1 0x0 0xFF 0x24 Hex
+Settings Aux SMB
+Address 0x4467 SMBTAR_ADDR3 H1 0x0 0xFF 0x25 Hex
+Settings Aux SMB
+Address 0x4468 SMBTAR_ADDR4 H1 0x0 0xFF 0x26 Hex
+Settings Aux SMB
+Address 0x4469 SMBTAR_ADDR5 H1 0x0 0xFF 0x28 Hex
+Settings Aux SMB
+Address 0x446A SMBTAR_ADDR6 H1 0x0 0xFF 0x2A Hex
+Settings Aux SMB
+Address 0x446B SMBTAR_ADDR7 H1 0x0 0xFF 0x2C Hex
+Settings SMB Master
+Mode 0x446E Host Address H1 0x0 0xFF 0x10 Hex
+Settings SMB Master
+Mode 0x446F Charger Address H1 0x0 0xFF 0x12 Hex
+Settings SMB Master
+Mode 0x4470 Alarm Timer U1 10 255 10 s
+Settings SMB Master
+Mode 0x4471 Charger Request Timer U1 10 255 50 s
+Settings Manufacturing 0x42C8 Mfg Status init H2 0x0 0xFFFF 0x0000 Hex
+Protections CUV 0x44CC Threshold I2 0 32767 2500 mV
+Protections CUV 0x44CE Delay U1 0 255 2 s
+Protections CUV 0x44CF Recovery I2 0 32767 3000 mV
+Protections COV 0x44D1 Threshold I2 0 32767 4300 mV
+Protections COV 0x44D3 Delay U1 0 255 2 s
+Protections COV 0x44D4 Recovery I2 0 32767 4100 mV
+Protections OCC 0x44D6 Threshold I2 –32768 32767 6000 mA
+Protections OCC 0x44D8 Delay U1 0 255 6 s
+Protections OCC 0x44D9 Recovery Threshold I2 –32768 32767 –200 mA
+Protections OCC 0x44DB Recovery Delay U1 0 255 5 s
+Protections OCD 0x44DC Threshold I2 –32768 32767 –6000 mA
+Protections OCD 0x44DE Delay U1 0 255 6 s
+Protections OCD 0x44DF Recovery Threshold I2 –32768 32767 200 mA
+Protections OCD 0x44E1 Recovery Delay U1 0 255 5 s
+Protections OCDL 0x44E2 Latch Limit U1 0 255 5 —
+Protections OCDL 0x44E3 Counter Dec Delay U1 0 255 10 s
+Protections OCDL 0x44E4 Reset U1 0 255 15 s
+Protections AOLD 0x44B1 Threshold and Delay H1 0x0 0xFF 0x00 Hex
+Protections AOLD 0x44E5 Latch Limit U1 0 255 0 —
+Protections AOLD 0x44E6 Counter Dec Delay U1 0 255 10 s
+Protections AOLD 0x44E7 Recovery U1 0 255 5 s
+Protections AOLD 0x44E8 Reset U1 0 255 15 s
+Protections ASCD 0x44B0 Threshold and Delay H1 0x0 0xFF 0x00 Hex
+Protections ASCD 0x44E9 Latch Limit U1 0 255 0 —
+Protections ASCD 0x44EA Counter Dec Delay U1 0 255 10 s
+Protections ASCD 0x44EB Recovery U1 0 255 5 s
+Protections ASCD 0x44EC Reset U1 0 255 15 s
+Protections OTC 0x44ED Threshold I2 –400 1500 550 0.1°C
+Protections OTC 0x44EF Delay U1 0 255 2 s
+Protections OTC 0x44F0 Recovery I2 –400 1500 500 0.1°C
+Protections OTD 0x44F2 Threshold I2 –400 1500 600 0.1°C
+Protections OTD 0x44F4 Delay U1 0 255 2 s
+Protections OTD 0x44F5 Recovery I2 –400 1500 550 0.1°C
+Protections OTF 0x44F7 Threshold I2 –400 1500 800 0.1°C
+Protections OTF 0x44F9 Delay U1 0 255 2 s
+Protections OTF 0x44FA Recovery I2 –400 1500 650 0.1°C
+Protections UTC 0x44FC Threshold I2 –400 1500 0 0.1°C
+Protections UTC 0x44FE Delay U1 0 255 2 s
+Protections UTC 0x44FF Recovery I2 –400 1500 50 0.1°C
+Protections UTD 0x4501 Threshold I2 –400 1500 0 0.1°C
+Protections UTD 0x4503 Delay U1 0 255 2 s
+Protections UTD 0x4504 Recovery I2 –400 1500 50 0.1°C
+Protections AFE External
+Override 0x4506 Delay U1 0 255 5 s
+Protections AFE External
+Override 0x4507 Recovery U1 0 255 2 s
+Protections PTO 0x4508 Charge Threshold I2 –32768 32767 2000 mA
+Protections PTO 0x450A Suspend Threshold I2 –32768 32767 1800 mA
+Protections PTO 0x450C Delay U2 0 65535 1800 s
+Protections PTO 0x450E Reset I2 0 32767 2 mAh
+Protections CTO 0x4510 Charge Threshold I2 –32768 32767 2500 mA
+Protections CTO 0x4512 Suspend Threshold I2 –32768 32767 2000 mA
+Protections CTO 0x4514 Delay U2 0 65535 54000 s
+Protections CTO 0x4516 Reset I2 0 32767 2 mAh
+Protections OC 0x4518 Threshold I2 –32768 32767 300 mAh
+Protections OC 0x451A Recovery I2 –32768 32767 2 mAh
+Protections OC 0x451C RSOC Recovery U1 0 100 90 %
+Permanent
+Fail SOCC 0x4521 Threshold I2 –32768 32767 10000 mA
+Permanent
+Fail SOCC 0x4523 Delay U1 0 255 5 s
+Permanent
+Fail SOCD 0x4524 Threshold I2 –32768 32767 –10000 mA
+Permanent
+Fail SOCD 0x4526 Delay U1 0 255 5 s
+Permanent
+Fail SOT 0x4527 Threshold I2 –400 1500 650 0.1°C
+Permanent
+Fail SOT 0x4529 Delay U1 0 255 5 s
+Permanent
+Fail SOTF 0x452A Threshold I2 –400 1500 1000 0.1°C
+Permanent
+Fail SOTF 0x452C Delay U1 0 255 5 s
+Permanent
+Fail
+Open
+Thermistor 0x452D Threshold I2 0 32767 2232 0.1°K
+Permanent
+Fail
+Open
+Thermistor 0x452F Delay U1 0 255 5 s
+Permanent
+Fail VIMR 0x4530 Check Voltage I2 0 5000 3500 mV
+Permanent
+Fail VIMR 0x4532 Check Current I2 0 32767 10 mA
+Permanent
+Fail VIMR 0x4534 Delta Threshold I2 0 5000 500 mV
+Permanent
+Fail VIMR 0x4536 Delta Delay U1 0 255 5 s
+Permanent
+Fail VIMR 0x4537 Duration U2 0 65535 100 s
+Permanent
+Fail CFET 0x4539 OFF Threshold I2 0 500 5 mA
+Permanent
+Fail CFET 0x453B OFF Delay U1 0 255 5 s
+Permanent
+Fail DFET 0x453C OFF Threshold I2 –500 0 –5 mA
+Permanent
+Fail DFET 0x453E OFF Delay U1 0 255 5 s
+Permanent
+Fail AFER 0x453F Threshold U1 0 255 100 —
+Permanent
+Fail AFER 0x4540 Delay Period U1 0 255 2 s
+Permanent
+Fail AFER 0x4541 Compare Period U1 0 255 5 s
+Permanent
+Fail AFEC 0x4542 Threshold U1 0 255 100 —
+Permanent
+Fail AFEC 0x4543 Delay Period U1 0 255 5 s
+Permanent
+Fail AFE XREADY 0x4544 Threshold U1 0 255 100 —
+Permanent
+Fail AFE XREADY 0x4545 Delay Period U1 0 255 5 s
+Permanent
+Fail
+AFE External
+Override 0x4546 Delay U1 0 255 20 s
+Permanent
+Fail
+AFE SOV/AFE
+SUV 0x44B2 SOV and SUV Delay H1 0x0 0xFF 0x50 Hex
+Permanent
+Fail AFE SOV 0x44B7 Threshold I2 3150 4700 4350 mV
+Permanent
+Fail AFE SUV 0x44B9 Threshold I2 1580 3100 1750 mV
+Charge
+Algorithm
+Temperature
+Ranges 0x45DF Charge Inhibit/Suspend
+Low Temp I1 –128 127 0 °C
+Charge
+Algorithm
+Temperature
+Ranges 0x45E0 Precharge Temp I1 –128 127 12 °C
+Charge
+Algorithm
+Temperature
+Ranges 0x45E1 Charge Inhibit High Temp I1 –128 127 45 °C
+Charge
+Algorithm
+Temperature
+Ranges 0x45E2 Charge Suspend High
+Temp I1 –128 127 55 °C
+Charge
+Algorithm
+Temperature
+Ranges 0x45E3 Hysteresis Temp I1 –128 127 3 °C
+Charge
+Algorithm Fast Charging 0x45E4 Voltage I2 0 32767 4200 mV
+Charge
+Algorithm Fast Charging 0x45E6 Current I2 0 32767 3000 mA
+Charge
+Algorithm Pre-Charging 0x45E8 Current I2 0 32767 100 mA
+Charge
+Algorithm Pre-Charging 0x45EA Start Voltage I2 0 32767 2500 mV
+Charge
+Algorithm Pre-Charging 0x45EC Recovery Voltage I2 0 32767 2900 mV
+Charge
+Algorithm
+Termination
+Config 0x45EE Charge Term Taper
+Current I2 0 32767 250 mA
+Charge
+Algorithm
+Termination
+Config 0x45F2 Charge Term Voltage I2 0 32767 75 mV
+Charge
+Algorithm
+Cell Balancing
+Config 0x460D Cell Balance Threshold I2 0 5000 3900 mV
+Charge
+Algorithm
+Cell Balancing
+Config 0x460F Cell Balance Window I2 0 5000 100 mV
+Charge
+Algorithm
+Cell Balancing
+Config 0x4611 Cell Balance Min U1 0 255 40 mV
+Charge
+Algorithm
+Cell Balancing
+Config 0x4612 Cell Balance Interval U1 0 255 20 s
+Fuel Gauging Current
+Thresholds 0x44BD Dsg Current Threshold I2 –32768 32767 100 mA
+Fuel Gauging Current
+Thresholds 0x44BF Chg Current Threshold I2 –32768 32767 50 mA
+Fuel Gauging Current
+Thresholds 0x44C1 Quit Current I2 0 32767 10 mA
+Fuel Gauging Current
+Thresholds 0x44C3 Dsg Relax Time U1 0 255 1 s
+Fuel Gauging Current
+Thresholds 0x44C4 Chg Relax Time U1 0 255 60 s
+Fuel Gauging Design 0x45CC Design Capacity mAh I2 0 32767 4400 mAh
+Fuel Gauging Design 0x45CE Design Capacity cWh I2 0 32767 6336 cWh
+Fuel Gauging Design 0x45D0 Design Voltage I2 0 5000 3600 mV
+Fuel Gauging Cycle 0x45D2 Cycle Count Percentage U1 0 100 90 %
+Fuel Gauging FD 0x45D6 Set % RSOC Threshold U1 0 100 0 %
+Fuel Gauging FD 0x45D7 Clear % RSOC Threshold U1 0 100 5 %
+Fuel Gauging FC 0x45D8 Set % RSOC Threshold U1 0 100 100 %
+Fuel Gauging FC 0x45D9 Clear % RSOC Threshold U1 0 100 95 %
+Fuel Gauging TD 0x45DA Set % RSOC Threshold U1 0 100 6 %
+Fuel Gauging TD 0x45DB Clear % RSOC Threshold U1 0 100 8 %
+Fuel Gauging TC 0x45DC Set % RSOC Threshold U1 0 100 100 %
+Fuel Gauging TC 0x45DD Clear % RSOC Threshold U1 0 100 95 %
+Fuel Gauging State 0x42C2 Learned Full Charge
+Capacity I2 0 32767 4400 mAh
+Fuel Gauging State 0x42C4 Dod at EDV2 I2 0 16384 15232 —
+Fuel Gauging State 0x42C6 Cycle Count U2 0 65535 0 —
+Fuel Gauging CEDV cfg 0x458D EMF U2 0 65535 3743 —
+Fuel Gauging CEDV cfg 0x458F C0 U2 0 65535 149 —
+Fuel Gauging CEDV cfg 0x4591 R0 U2 0 65535 867 —
+Fuel Gauging CEDV cfg 0x4593 T0 U2 0 65535 4030 —
+Fuel Gauging CEDV cfg 0x4595 R1 U2 0 65535 316 —
+Fuel Gauging CEDV cfg 0x4597 TC U1 0 255 9 —
+Fuel Gauging CEDV cfg 0x4598 C1 U1 0 255 0 —
+Fuel Gauging CEDV cfg 0x4599 Age Factor U1 0 255 0 —
+Fuel Gauging CEDV cfg 0x459A Fixed EDV 0 I2 0 32767 3031 —
+Fuel Gauging CEDV cfg 0x459C EDV 0 Hold Time U1 1 255 1 s
+Fuel Gauging CEDV cfg 0x459D Fixed EDV 1 I2 0 32767 3385 —
+Fuel Gauging CEDV cfg 0x459F EDV 1 Hold Time U1 1 255 1 s
+Fuel Gauging CEDV cfg 0x45A0 Fixed EDV 2 I2 0 32767 3501 —
+Fuel Gauging CEDV cfg 0x45A2 EDV 2 Hold Time U1 1 255 1 s
+Fuel Gauging CEDV cfg 0x45A7 Battery Low % U2 0 65535 700 .01%
+Fuel Gauging CEDV cfg 0x45AB Min Delta V Filter I2 0 32767 10 mV
+Fuel Gauging CEDV cfg 0x45AD FCC Learn Up I2 0 32767 512 mAh
+Fuel Gauging CEDV cfg 0x45AF FCC Learn Down I2 0 32767 256 mAh
+Fuel Gauging CEDV cfg 0x45B4 Learning Low Temp I2 –100 32767 119 0.1°C
+Fuel Gauging CEDV cfg 0x45BD Requested Learning
+cycle count U1 0 255 20 Num
+Fuel Gauging CEDV cfg 0x45BE OverLoad Current I2 0 32767 5000 mA
+Fuel Gauging CEDV cfg 0x45C2 Self Discharge Rate U1 0 255 20 0.01%/day
+Fuel Gauging CEDV cfg 0x45C3 Electronics Load I2 0 255 0 3 μA
+Fuel Gauging CEDV cfg 0x45C5 Near Full I2 0 32767 200 mAh
+Fuel Gauging CEDV cfg 0x45C7 Reserve Capacity I2 0 32767 0 mAh
+Fuel Gauging CEDV cfg 0x45CB RemCap Init Percent U1 0 110 100 %
+Power Power 0x4473 Valid Update Voltage I2 0 32767 3500 mV
+Power Shutdown 0x4475 Shutdown Voltage I2 0 32767 1750 mV
+Power Shutdown 0x4477 Shutdown Time U1 0 255 10 s
+Power Shutdown 0x4478 PF Shutdown Voltage I2 0 32767 1750 mV
+Power Shutdown 0x447A PF Shutdown Time U1 0 255 10 s
+Power Shutdown 0x447B Charger Present
+Threshold I2 0 32767 3000 mV
+Power Sleep 0x447D Sleep Current I2 0 32767 10 mA
+Power Sleep 0x447F Bus Timeout U1 0 255 5 s
+Power Sleep 0x4484 Voltage Time U1 0 255 5 s
+Power Sleep 0x4485 Current Time U1 0 255 20 s
+Power Ship 0x4487 FET Off Time U1 0 127 10 s
+Power Ship 0x4488 Delay U1 0 254 20 s
+Power Ship 0x4489 Auto Ship Time U2 0 65535 1440 min
+Power KEYIN 0x448B Time U1 0 10 2 s
+PF Status Device Status
+Data 0x41C0 Safety Alert A H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41C1 Safety Status A H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41C2 Safety Alert B H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41C3 Safety Status B H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41C4 Safety Alert C H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41C5 Safety Status C H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41C8 PF Alert A H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41C9 PF Status A H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41CA PF Alert B H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41CB PF Status B H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41CC PF Alert C H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41CD PF Status C H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41D0 Fuse Flag H2 0x0 0xFFFF 0x0 Hex
+PF Status Device Status
+Data 0x41D2 Operation Status A H2 0x0 0xFFFF 0x0 Hex
+PF Status Device Status
+Data 0x41D4 Operation Status B H2 0x0 0xFFFF 0x0 Hex
+PF Status Device Status
+Data 0x41D6 Temp Range H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41D7 Charging Status H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41D8 Gauging Status H1 0x0 0xFF 0x0 Hex
+PF Status Device Status
+Data 0x41D9 CEDV Status H1 0x0 0xFF 0x0 Hex
+PF Status Device
+Voltage Data 0x41DA Cell 1 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41DC Cell 2 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41DE Cell 3 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41E0 Cell 4 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41E2 Cell 5 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41E4 Cell 6 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41E6 Cell 7 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41E8 Cell 8 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41EA Cell 9 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41EC Cell 10 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41EE Cell 11 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41F0 Cell 12 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41F2 Cell 13 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41F4 Cell 14 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41F6 Cell 15 Voltage I2 –32768 32767 0 mV
+PF Status Device
+Voltage Data 0x41FA Battery Direct Voltage I2 –32768 32767 0 mV
+PF Status Device Current
+Data 0x41FE Current I2 –32768 32767 0 mA
+PF Status
+Device
+Temperature
+Data
+0x4200 TS1 Temperature I2 –32768 32767 0 0.1°K
+PF Status
+Device
+Temperature
+Data
+0x4202 TS2 Temperature I2 –32768 32767 0 0.1°K
+PF Status
+Device
+Temperature
+Data
+0x4204 TS3 Temperature I2 –32768 32767 0 0.1°K
+PF Status
+Device
+Temperature
+Data
+0x4206 Gauge Internal
+Temperature I2 –32768 32767 0 0.1°K
+PF Status AFE Regs 0x4208 AFE SYS Stat H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x4209 AFE Cell Balance1 H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x420A AFE Cell Balance2 H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x420B AFE Cell Balance3 H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x420C AFE Sys Control1 H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x420D AFE Sys Control2 H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x420E AFE Protection1 H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x420F AFE Protection2 H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x4210 AFE Protection3 H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x4211 AFE OV Trip H1 0x0 0xFF 0x0 Hex
+PF Status AFE Regs 0x4212 AFE UV Trip H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x4180 1st Status Status A H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x4181 1st Status Status B H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x4182 1st Safety Status C H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x4184 1st Time to Next Event U1 0 255 0 s
+Black Box Safety Status 0x4185 2nd Status Status A H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x4186 2nd Status Status B H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x4187 2nd Safety Status C H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x4189 2nd Time to Next Event U1 0 255 0 s
+Black Box Safety Status 0x418A 3rd Status Status A H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x418B 3rd Status Status B H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x418C 3rd Safety Status C H1 0x0 0xFF 0x0 Hex
+Black Box Safety Status 0x418E 3rd Time to Next Event U1 0 255 0 s
+Black Box PF Status 0x418F 1st PF Status A H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x4190 1st PF Status B H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x4191 1st PF Status C H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x4193 1st Time to Next Event U1 0 255 0 s
+Black Box PF Status 0x4194 2nd PF Status A H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x4195 2nd PF Status B H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x4196 2nd PF Status C H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x4198 2nd Time to Next Event U1 0 255 0 s
+Black Box PF Status 0x4199 3rd PF Status A H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x419A 3rd PF Status B H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x419B 3rd PF Status C H1 0x0 0xFF 0x0 Hex
+Black Box PF Status 0x419D 3rd Time to Next Event U1 0 255 0 s
+System Data Manufacturer
+Data 0x4040 Manufacturer Info A
+Length U1 1 32 32 —
+System Data Manufacturer
+Data 0x4041 Manufacturer Info Block
+A01 H1 0x0 0xFF 0x61 Hex
+System Data Manufacturer
+Data 0x4042 Manufacturer Info Block
+A02 H1 0x0 0xFF 0x62 Hex
+System Data Manufacturer
+Data 0x4043 Manufacturer Info Block
+A03 H1 0x0 0xFF 0x63 Hex
+System Data Manufacturer
+Data 0x4044 Manufacturer Info Block
+A04 H1 0x0 0xFF 0x64 Hex
+System Data Manufacturer
+Data 0x4045 Manufacturer Info Block
+A05 H1 0x0 0xFF 0x65 Hex
+System Data Manufacturer
+Data 0x4046 Manufacturer Info Block
+A06 H1 0x0 0xFF 0x66 Hex
+System Data Manufacturer
+Data 0x4047 Manufacturer Info Block
+A07 H1 0x0 0xFF 0x67 Hex
+System Data Manufacturer
+Data 0x4048 Manufacturer Info Block
+A08 H1 0x0 0xFF 0x68 Hex
+System Data Manufacturer
+Data 0x4049 Manufacturer Info Block
+A09 H1 0x0 0xFF 0x69 Hex
+System Data Manufacturer
+Data 0x404A Manufacturer Info Block
+A10 H1 0x0 0xFF 0x6A Hex
+System Data Manufacturer
+Data 0x404B Manufacturer Info Block
+A11 H1 0x0 0xFF 0x6B Hex
+System Data Manufacturer
+Data 0x404C Manufacturer Info Block
+A12 H1 0x0 0xFF 0x6C Hex
+System Data Manufacturer
+Data 0x404D Manufacturer Info Block
+A13 H1 0x0 0xFF 0x6D Hex
+System Data Manufacturer
+Data 0x404E Manufacturer Info Block
+A14 H1 0x0 0xFF 0x6E Hex
+System Data Manufacturer
+Data 0x404F Manufacturer Info Block
+A15 H1 0x0 0xFF 0x6F Hex
+System Data Manufacturer
+Data 0x4050 Manufacturer Info Block
+A16 H1 0x0 0xFF 0x70 Hex
+System Data Manufacturer
+Data 0x4051 Manufacturer Info Block
+A17 H1 0x0 0xFF 0x71 Hex
+System Data Manufacturer
+Data 0x4052 Manufacturer Info Block
+A18 H1 0x0 0xFF 0x72 Hex
+System Data Manufacturer
+Data 0x4053 Manufacturer Info Block
+A19 H1 0x0 0xFF 0x73 Hex
+System Data Manufacturer
+Data 0x4054 Manufacturer Info Block
+A20 H1 0x0 0xFF 0x74 Hex
+System Data Manufacturer
+Data 0x4055 Manufacturer Info Block
+A21 H1 0x0 0xFF 0x75 Hex
+System Data Manufacturer
+Data 0x4056 Manufacturer Info Block
+A22 H1 0x0 0xFF 0x76 Hex
+System Data Manufacturer
+Data 0x4057 Manufacturer Info Block
+A23 H1 0x0 0xFF 0x77 Hex
+System Data Manufacturer
+Data 0x4058 Manufacturer Info Block
+A24 H1 0x0 0xFF 0x7A Hex
+System Data Manufacturer
+Data 0x4059 Manufacturer Info Block
+A25 H1 0x0 0xFF 0x78 Hex
+System Data Manufacturer
+Data 0x405A Manufacturer Info Block
+A26 H1 0x0 0xFF 0x79 Hex
+System Data Manufacturer
+Data 0x405B Manufacturer Info Block
+A27 H1 0x0 0xFF 0x30 Hex
+System Data Manufacturer
+Data 0x405C Manufacturer Info Block
+A28 H1 0x0 0xFF 0x31 Hex
+System Data Manufacturer
+Data 0x405D Manufacturer Info Block
+A29 H1 0x0 0xFF 0x32 Hex
+System Data Manufacturer
+Data 0x405E Manufacturer Info Block
+A30 H1 0x0 0xFF 0x33 Hex
+System Data Manufacturer
+Data 0x405F Manufacturer Info Block
+A31 H1 0x0 0xFF 0x34 Hex
+System Data Manufacturer
+Data 0x4060 Manufacturer Info Block
+A32 H1 0x0 0xFF 0x35 Hex
+SBS
+Configuration Data 0x406B Manufacture Date U2 0 65535 0 date
+SBS
+Configuration Data 0x406D Serial Number H2 0x0 0xFFFF 0x0001 Hex
+SBS
+Configuration Data 0x406F Manufacturer Name S21 x x
+Texas
+Instruments —
+SBS
+Configuration Data 0x4084 Device Name S21 x x bq78350 —
+SBS
+Configuration Data 0x4099 Device Chemistry S5 x x LION —
+SBS
+Configuration Data 0x449F Remaining AH Cap.
+Alarm I2 0 32767 300 mAh
+SBS
+Configuration Data 0x44A1 Remaining WH Cap.
+Alarm I2 0 32767 432 cWh
+SBS
+Configuration Data 0x44A3 Remaining Time Alarm U2 0 65535 10 min
+SBS
+Configuration Data 0x44A5 Initial Battery Mode H2 0x0 0xFFFF 0x0081 Hex
+SBS
+Configuration Data 0x44A7 Specification Information H2 0x0 0xFFFF 0x0031 Hex
+LED Support LED Config 0x448D LED Flash Period U2 32 65535 512 488 μs
+LED Support LED Config 0x448F LED Blink Period U2 32 65535 1024 488 μs
+LED Support LED Config 0x4491 LED Delay U2 16 65535 100 488 μs
+LED Support LED Config 0x4493 LED Hold Time U1 1 63 16 0.25 s
+LED Support LED Config 0x4494 LED Flash Alarm I1 0 100 10 %
+LED Support LED Config 0x4495 LED Thresh 1 I1 0 100 0 %
+LED Support LED Config 0x4496 LED Thresh 2 I1 0 100 20 %
+LED Support LED Config 0x4497 LED Thresh 3 I1 0 100 40 %
+LED Support LED Config 0x4498 LED Thresh 4 I1 0 100 60 %
+LED Support LED Config 0x4499 LED Thresh 5 I1 0 100 80 %
+LED Support LED Config 0x449A LCD Refresh Rate U1 20 100 35 Hz
+Lifetimes Voltage 0x40C0 Cell 1 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40C2 Cell 2 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40C4 Cell 3 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40C6 Cell 4 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40C8 Cell 5 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40CA Cell 6 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40CC Cell 7 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40CE Cell 8 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40D0 Cell 9 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40D2 Cell 10 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40D4 Cell 11 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40D6 Cell 12 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40D8 Cell 13 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40DA Cell 14 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40DC Cell 15 Max Voltage I2 0 32767 0 mV
+Lifetimes Voltage 0x40E0 Cell 1 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40E2 Cell 2 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40E4 Cell 3 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40E6 Cell 4 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40E8 Cell 5 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40EA Cell 6 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40EC Cell 7 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40EE Cell 8 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40F0 Cell 9 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40F2 Cell 10 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40F4 Cell 11 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40F6 Cell 12 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40F8 Cell 13 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40FA Cell 14 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x40FC Cell 15 Min Voltage I2 0 32767 32767 mV
+Lifetimes Voltage 0x4100 Max Delta Cell Voltage I2 0 32767 0 mV
+Lifetimes Current 0x4102 Max Charge Current I2 0 32767 0 mA
+Lifetimes Current 0x4104 Max Discharge Current I2 –32768 0 0 mA
+Lifetimes Current 0x4106 Max Avg Dsg Current I2 –32768 0 0 mA
+Lifetimes Current 0x4108 Max Avg Dsg Power I2 –32768 0 0 cW
+Lifetimes Temperature 0x410A Max Temp Cell I1 –128 127 –128 °C
+Lifetimes Temperature 0x410B Min Temp Cell I1 –128 127 127 °C
+Lifetimes Temperature 0x410C Max Delta Cell Temp I1 –128 127 0 °C
+Lifetimes Temperature 0x410D Max Temp Fet I1 –128 127 –128 °C
+Lifetimes Gauge
+Temperature 0x410E Max Temp Int Sensor I1 –128 127 –128 °C
+Lifetimes Gauge
+Temperature 0x410F Min Temp Int Sensor I1 –128 127 127 °C
+Lifetimes Safety Events 0x4110 No Of COV Events U2 0 32767 0 events
+Lifetimes Safety Events 0x4112 Last COV Event U2 0 32767 0 cycles
+Lifetimes Safety Events 0x4114 No Of CUV Events U2 0 32767 0 events
+Lifetimes Safety Events 0x4116 Last CUV Event U2 0 32767 0 cycles
+Lifetimes Safety Events 0x4118 No Of OCD Events U2 0 32767 0 events
+Lifetimes Safety Events 0x411A Last OCD Event U2 0 32767 0 cycles
+Lifetimes Safety Events 0x411C No Of OCC Events U2 0 32767 0 events
+Lifetimes Safety Events 0x411E Last OCC Event U2 0 32767 0 cycles
+Lifetimes Safety Events 0x4120 No Of AOLD Events U2 0 32767 0 events
+Lifetimes Safety Events 0x4122 Last AOLD Event U2 0 32767 0 cycles
+Lifetimes Safety Events 0x4124 No Of ASCD Events U2 0 32767 0 events
+Lifetimes Safety Events 0x4126 Last ASCD Event U2 0 32767 0 cycles
+Lifetimes Safety Events 0x4128 No Of OTC Events U2 0 32767 0 events
+Lifetimes Safety Events 0x412A Last OTC Event U2 0 32767 0 cycles
+Lifetimes Safety Events 0x412C No Of OTD Events U2 0 32767 0 events
+Lifetimes Safety Events 0x412E Last OTD Event U2 0 32767 0 cycles
+Lifetimes Safety Events 0x4130 No Of OTF Events U2 0 32767 0 events
+Lifetimes Safety Events 0x4132 Last OTF Event U2 0 32767 0 cycles
+Lifetimes Charging
+Events 0x4134 No Valid Charge Term U2 0 32767 0 events
+Lifetimes Charging
+Events 0x4136 Last Valid Charge Term U2 0 32767 0 cycles
+Lifetimes Gauging
+Events 0x4138 No of FCC Updates U2 0 32767 0 events
+Lifetimes Gauging
+Events 0x413A Last FCC Update U2 0 32767 0 cycles
+Lifetimes Power Events 0x413C No Of Shutdowns U1 0 255 0 events
+Lifetimes Cell Balancing 0x4140 Cb Time Cell 1 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4141 Cb Time Cell 2 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4142 Cb Time Cell 3 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4143 Cb Time Cell 4 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4144 Cb Time Cell 5 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4145 Cb Time Cell 6 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4146 Cb Time Cell 7 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4147 Cb Time Cell 8 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4148 Cb Time Cell 9 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x4149 Cb Time Cell 10 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x414A Cb Time Cell 11 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x414B Cb Time Cell 12 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x414C Cb Time Cell 13 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x414D Cb Time Cell 14 U1 0 255 0 2 h
+Lifetimes Cell Balancing 0x414E Cb Time Cell 15 U1 0 255 0 2 h
+Lifetimes Time 0x4150 Total Fw Runtime U2 0 65535 0 2 h
+Lifetimes Time 0x4152 Time Spent In UT U2 0 65535 0 2 h
+Lifetimes Time 0x4154 Time Spent In LT U2 0 65535 0 2 h
+Lifetimes Time 0x4156 Time Spent In ST U2 0 65535 0 2 h
+Lifetimes Time 0x4158 Time Spent In HT U2 0 65535 0 2 h
+Lifetimes Time 0x415A Time Spent In OT U2 0 65535 0 2 h
+Lifetimes Time 0x415C Time Since Last Charge U2 0 65535 0 2 h
+GPIO GPIO Config 0x449B GPIO Configuration H1 0x0 0xFF 0x00 Hex
+GPIO GPIO Config 0x449C GPIO Output Enable H1 0x0 0xFF 0x00 Hex
+GPIO GPIO Config 0x449D GPIO Default Output
+Enable H1 0x0 0xFF 0x00 Hex
+GPIO GPIO Config 0x449E GPIO Type H1 0x0 0xFF 0xC0 Hex
