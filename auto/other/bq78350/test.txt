@@ -1,83 +1,46 @@
-SBS Cmd	Mode	Name	Format	Size in bytes	Min	Max	Default	Unit
-0x00	R/W	ManufacturerAccess	hex	2	0x0000	0xFFFF	—	
-0x01	R/W	RemainingCapacityAlarm	 unsigned int	2	0	65535	300	 mAh or 10 mWh
-0x02	R/W	RemainingTimeAlarm	 unsigned int	2	0	65535	10	 min
-0x03	R/W	BatteryMode	hex	2	0x0000	0xFFFF	—	
-0x04	R/W	AtRate	 integer	2	–32768	32767	—	 mAh or 10 mWh
-0x05	R	AtRateTimeToFull	 unsigned int	2	0	65534	—	 min
-0x06	R	AtRateTimeToEmpty	 unsigned int	2	0	65534	—	 min
-0x07	R	AtRateOK	 unsigned int	2	0	65535	—	
-0x08	R	Temperature	 unsigned int	2	0	65535	—	 0.1°K
-0x09	R	Voltage	 unsigned int	2	0	65535	—	 mV
-0x0A	R	Current	 integer	2	–32768	32767	—	 mA
-0x0B	R	AverageCurrent	 integer	2	–32768	32767	—	 mA
-0x0C	R	MaxError	 unsigned int	1	0%	100%	—	
-0x0D	R	RelativeStateOfCharge	 unsigned int	1	0%	100%	—	
-0x0E	R	AbsoluteStateOfCharge	 unsigned int	1	0%	100+%	—	
-0x0F	R/W	RemainingCapacity	 unsigned int	2	0	65535	—	 mAh or 10 mWh
-0x10	R	FullChargeCapacity	 unsigned int	2	0	65535	—	 mAh or 10 mWh
-0x11	R	RunTimeToEmpty	 unsigned int	2	0	65534	—	 min
-0x12	R	AverageTimeToEmpty	 unsigned int	2	0	65534	—	 min
-0x13	R	AverageTimeToFull	 unsigned int	2	0	65534	—	 min
-0x14	R	ChargingCurrent	 unsigned int	2	0	65534	—	 mA
-0x15	R	ChargingVoltage	 unsigned int	2	0	65534	—	 mV
-0x16	R	BatteryStatus	 unsigned int	2	0x0000	0xdbff	—	
-0x17	R	CycleCount	 unsigned int	2	0	65535	—	
-0x18	R	DesignCapacity	 unsigned int	2	0	65535	—	 mAh or 10 mWh
-0x19	R	DesignVoltage	 unsigned int	2	0	65535	—	 mV
-0x1A	R	SpecificationInfo	hex	2	0x0000	0xFFFF	0x0031	
-0x1B	R	ManufacturerDate	 unsigned int	2	0	65535	—	
-0x1C	R	SerialNumber	hex	2	0x0000	0xFFFF	0x0001	
-0x20	R	ManufacturerName	string	11+1	—	—	Texas Instruments	ASCII
-0x21	R	DeviceName	string	7+1	—	—	bq78350	 ASCII
-0x22	R	DeviceChemistry	string	4+1	—	—	LION	 ASCII
-0x23	R	ManufacturerData	 String 14+1	—	—	—	ASCII
-0x2B	R/W	HostFETControl	hex	2	0	65535	—	-	
-0x2C	R	GPIOStatus	hex	2	0	65535	—	
-0x2D	R/W	GPIOControl	hex	2	0	65535	—	
-0x2E	R	VAUXVoltage	 unsigned int	2	0	65535	1	
-0x2F	R/W	Authenticate	hex	20+1	—	—	—	
-0x30	R	Reserved	—	—	—	—	—	—
-0x31 	R	CellVoltage15	unsigned int	2	0	65535	—	 mV
-0x32	R	CellVoltage14	 unsigned int	2	0	65535	—	 mV
-0x33	R	CellVoltage13	 unsigned int	2	0	65535	—	 mV
-0x34	R	CellVoltage12	 unsigned int	2	0	65535	—	 mV
-0x35	R	CellVoltage11	 unsigned int	2	0	65535	—	 mV
-0x36	R	CellVoltage10	 unsigned int	2	0	65535	—	 mV
-0x37	R	CellVoltage9	 unsigned int	2	0	65535	—	 mV
-0x38	R	CellVoltage8	 unsigned int	2	0	65535	—	 mV
-0x39	R	CellVoltage7	 unsigned int	2	0	65535	—	 mV
-0x3A	R	CellVoltage6	 unsigned int	2	0	65535	—	 mV
-0x3B	R	CellVoltage5	 unsigned int	2	0	65535	—	 mV
-0x3C	R	CellVoltage4	 unsigned int	2	0	65535	—	 mV
-0x3D	R	CellVoltage3	 unsigned int	2	0	65535	—	 mV
-0x3E	R	CellVoltage2	 unsigned int	2	0	65535	—	 mV
-0x3F	R	CellVoltage1	 unsigned int	2	0	65535	—	 mV
-0x4C	R	DynamicPower	 signed int	2	–32768	32767	—	 10 mW
-0x4D	R	ExtAveCellVoltage	 unsigned int	2	0	65535	—	 mV
-0x4E	R	PendingEDV	 unsigned int	2	0	65535	—	 mV
-0x4F	R	StateOfHealth	 unsigned int	1	0%	100%	—	
-0x50	R	SafetyAlert	hex	4+1	—	—	—	 —
-0x51	R	SafetyStatus	hex	4+1	—	—	—	 —
-0x52	R	PFAlert	hex	2+1	—	—	—	 —
-0x53	R	PFStatus	hex	4+1	—	—	—	 —
-0x54	R	OperationStatus	hex	4+1	—	—	—	 —
-0x55	R	ChargingStatus	hex	2+1	—	—	—	 —
-0x56	R	GaugingStatus	hex	2+1	—	—	—	 —
-0x57	R	ManufacturingStatus	hex	2+1	—	—	—	 —
-0x58	R	AFEStatus	hex	2+1	—	—	—	 —
-0x59	R	AFEConfig	 String 10+1	—	—	—	ASCII
-0x5A	R	AFEVCx	String	32+1	—	—	—	ASCII
-0x5B	R	AFEData	String	13+1	—	—	—	ASCII
-0x60	R	LifetimeDataBlock1	String	32+1	—	 —	—
-0x61	R	LifetimeDataBlock2	String	32+1	—	 —	—
-0x62	R	LifetimeDataBlock3	String	14+1	—	 —	—
-0x63	R	LifetimeDataBlock4	String	20+1	—	 —	—
-0x64	R	LifetimeDataBlock5	String	14+1	—	 —	—
-0x65	R	LifetimeDataBlock6	String	32+1	—	 —	—
-0x66	R	LifetimeDataBlock7	String	32+1	—	 —	—
-0x70	R	ManufacturerInfo	 String	32+1	—	—	—
-0x71	R	DAStatus1	String	32+1	—	—	—
-0x72	R	DAStatus2	String	32+1	—	 —	—
-0x80	R	CUV_Snapshot	String	32+1	—	—	—
-0x81	R	COV_Snapshot	String	32+1	—	—	—
+0x0022	FETControl	W
+0x0023	LifetimeDataCollection	W
+0x0024	PermanentFailure	W
+0x0025	BlackBoxRecorder	W
+0x0026	SAFE	W
+0x0027	LEDDisplayEnable	W
+0x0028	LifetimeDataReset	W
+0x0029	PermanentFailureDataReset	W
+0x002A	BlackBoxRecorderReset	W
+0x002B	LED	Toggle
+0x002C	LEDDisplayPress	W
+0x002D	CalibrationMode	W
+0x0030	SealDevice	W
+0x0035	SecurityKeys	R_W
+0x0037	AuthenticationKey	R_W
+0x0041	DeviceReset	W
+0x004F	StateOfHealth	R
+0x0050	SafetyAlert	R
+0x0051	SafetyStatus	R
+0x0052	PFAlert	R
+0x0053	PFStatus	R
+0x0054	OperationStatus	R
+0x0055	ChargingStatus	R
+0x0056	GaugingStatus	R
+0x0057	ManufacturingStatus	R
+0x0058	AFEStatus	R
+0x0059	AFEConfig	R
+0x005A	AFEVCx	R
+0x005B	AFEData	R_W
+0x0060	LifetimeDataBlock1	R
+0x0061	LifetimeDataBlock2	R
+0x0062	LifetimeDataBlock3	R
+0x0063	LifetimeDataBlock4	R
+0x0064	LifetimeDataBlock5	R
+0x0065	LifetimeDataBlock6	R
+0x0066	LifetimeDataBlock7	R
+0x0070	ManufacturerInfo	R
+0x0071	DAStatus1	R
+0x0072	DAStatus2	R
+0x0080	CUVSnapshot	R
+0x0081	COVSnapshot	R
+0x01yy	DFAccessRowAddress	R_W
+0x0F00	ROMMode	W
+0xF080	ExitCalibrationOutput	R_W
+0xF081	OutputCellVoltageforCalibration	R_W
+0xF082	OutputCellVoltageCCandTempforCalibration	R_w

@@ -1,0 +1,46 @@
+0x0022 FETControl W — — — √ Hex —
+0x0023 LifetimeDataCollection W — — — √ Hex —
+0x0024 PermanentFailure W — — — √ Hex —
+0x0025 BlackBoxRecorder W — — — √ Hex —
+0x0026 SAFE W — — — √ Hex —
+0x0027 LEDDisplayEnable W — — — √ Hex —
+0x0028 LifetimeDataReset W — — — √ Hex —
+0x0029 PermanentFailureDataReset W — — — √ Hex —
+0x002A BlackBoxRecorderReset W — — — √ Hex —
+0x002B LED Toggle W — — — √ Hex —
+0x002C LEDDisplayPress W — — — √ Hex —
+0x002D CalibrationMode W — — — √ Hex —
+0x0030 SealDevice W — — — — Hex —
+0x0035 SecurityKeys R/W Block √ — — Hex —
+0x0037 AuthenticationKey R/W Block — √ — Hex —
+0x0041 DeviceReset W — — — √ Hex —
+0x004F StateOfHealth R Block √ — — Hex —
+0x0050 SafetyAlert R Block √ — — Hex —
+0x0051 SafetyStatus R Block √ — — Hex —
+0x0052 PFAlert R Block √ — — Hex —
+0x0053 PFStatus R Block √ — — Hex —
+0x0054 OperationStatus R Block √ — — Hex —
+0x0055 ChargingStatus R Block √ — — Hex —
+0x0056 GaugingStatus R Block √ — — Hex —
+0x0057 ManufacturingStatus R Block √ — — Hex —
+0x0058 AFEStatus R Block √ — — Hex —
+0x0059 AFEConfig R String √ — — —
+0x005A AFEVCx R String √ — — —
+0x005B AFEData R/W String √ — — —
+0x0060 LifetimeDataBlock1 R Block √ — — Mixed Mixed
+0x0061 LifetimeDataBlock2 R Block √ — — Mixed Mixed
+0x0062 LifetimeDataBlock3 R Block √ — — Mixed Mixed
+0x0063 LifetimeDataBlock4 R Block √ — — Mixed Mixed
+0x0064 LifetimeDataBlock5 R Block √ — — Mixed Mixed
+0x0065 LifetimeDataBlock6 R Block √ — — Mixed Mixed
+0x0066 LifetimeDataBlock7 R Block √ — — Mixed Mixed
+0x0070 ManufacturerInfo R Block √ — — Hex —
+0x0071 DAStatus1 R Block √ — — Mixed Mixed
+0x0072 DAStatus2 R Block √ — — Mixed Mixed
+0x0080 CUVSnapshot R Block √ — — Hex —
+0x0081 COVSnapshot R Block √ — — Hex —
+0x01yy DFAccessRowAddress R/W Block — √ √ Hex —
+0x0F00 ROMMode W — — — √ Hex —
+0xF080 ExitCalibrationOutput R/W Block √ — √ Hex —
+0xF081 OutputCellVoltageforCalibration R/W Block √ — √ Hex —
+0xF082 OutputCellVoltageCCandTempforCalibration R/w Block √ — √ Hex —

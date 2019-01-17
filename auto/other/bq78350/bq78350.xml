@@ -548,4 +548,49 @@
   <SBS value="0x72" access="R" name="DAStatus2" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
   <SBS value="0x80" access="R" name="CUV_Snapshot" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
   <SBS value="0x81" access="R" name="COV_Snapshot" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <MA value="0x0023" name="LifetimeDataCollection" access="W"/>
+  <MA value="0x0024" name="PermanentFailure" access="W"/>
+  <MA value="0x0025" name="BlackBoxRecorder" access="W"/>
+  <MA value="0x0026" name="SAFE" access="W"/>
+  <MA value="0x0027" name="LEDDisplayEnable" access="W"/>
+  <MA value="0x0028" name="LifetimeDataReset" access="W"/>
+  <MA value="0x0029" name="PermanentFailureDataReset" access="W"/>
+  <MA value="0x002A" name="BlackBoxRecorderReset" access="W"/>
+  <MA value="0x002B" name="LED_Toggle" access="W"/>
+  <MA value="0x002C" name="LEDDisplayPress" access="W"/>
+  <MA value="0x002D" name="CalibrationMode" access="W"/>
+  <MA value="0x0030" name="SealDevice" access="W"/>
+  <MA value="0x0035" name="SecurityKeys" access="R_W"/>
+  <MA value="0x0037" name="AuthenticationKey" access="R_W"/>
+  <MA value="0x0041" name="DeviceReset" access="W"/>
+  <MA value="0x004F" name="StateOfHealth" access="R"/>
+  <MA value="0x0050" name="SafetyAlert" access="R"/>
+  <MA value="0x0051" name="SafetyStatus" access="R"/>
+  <MA value="0x0052" name="PFAlert" access="R"/>
+  <MA value="0x0053" name="PFStatus" access="R"/>
+  <MA value="0x0054" name="OperationStatus" access="R"/>
+  <MA value="0x0055" name="ChargingStatus" access="R"/>
+  <MA value="0x0056" name="GaugingStatus" access="R"/>
+  <MA value="0x0057" name="ManufacturingStatus" access="R"/>
+  <MA value="0x0058" name="AFEStatus" access="R"/>
+  <MA value="0x0059" name="AFEConfig" access="R"/>
+  <MA value="0x005A" name="AFEVCx" access="R"/>
+  <MA value="0x005B" name="AFEData" access="R_W"/>
+  <MA value="0x0060" name="LifetimeDataBlock1" access="R"/>
+  <MA value="0x0061" name="LifetimeDataBlock2" access="R"/>
+  <MA value="0x0062" name="LifetimeDataBlock3" access="R"/>
+  <MA value="0x0063" name="LifetimeDataBlock4" access="R"/>
+  <MA value="0x0064" name="LifetimeDataBlock5" access="R"/>
+  <MA value="0x0065" name="LifetimeDataBlock6" access="R"/>
+  <MA value="0x0066" name="LifetimeDataBlock7" access="R"/>
+  <MA value="0x0070" name="ManufacturerInfo" access="R"/>
+  <MA value="0x0071" name="DAStatus1" access="R"/>
+  <MA value="0x0072" name="DAStatus2" access="R"/>
+  <MA value="0x0080" name="CUVSnapshot" access="R"/>
+  <MA value="0x0081" name="COVSnapshot" access="R"/>
+  <MA value="0x01yy" name="DFAccessRowAddress" access="R_W"/>
+  <MA value="0x0F00" name="ROMMode" access="W"/>
+  <MA value="0xF080" name="ExitCalibrationOutput" access="R_W"/>
+  <MA value="0xF081" name="OutputCellVoltageforCalibration" access="R_W"/>
+  <MA value="0xF082" name="OutputCellVoltageCCandTempforCalibration" access="R_w"/>
 </flash>

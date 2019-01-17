@@ -101,6 +101,19 @@ def xls2xml():
 			af.set('max',getCellValue2(sheet,row,6));
 			af.set('default',getCellValue2(sheet,row,7));
 			af.set('units',getCellValue2(sheet,row,8));
+	
+	wb = open_workbook('MA.xlsx')
+
+	for sheet in wb.sheets():
+		number_of_rows = sheet.nrows
+		number_of_columns = sheet.ncols
+		
+		for row in range(2, number_of_rows):
+	
+			af = etree.SubElement(root, "MA")
+			af.set('value',getCellValue(sheet,row,0))
+			af.set('name',getCellValue(sheet,row,1))
+			af.set('access',getCellValue(sheet,row,2))
 				
 	tree = etree.ElementTree(root)
 	tree.write('bq78350.xml',pretty_print=True)
@@ -287,6 +300,30 @@ def createDataFlashRegisterStructs():
 	temp_str = "kBQ78350_SBS_COMMANDS_"
 	res += getStructEnumCloser(temp_str + "ENUM",temp_str + "STRUCT")		
 	
+
+	ma = defs.getElementsByTagName('MA')
+	res += getStructEnumOpener()
+	isLastTag = True
+	n = len(ma)
+	i=0
+	
+	max_str = "OutputCellVoltageCCandTempforCalibration = 0xF082 "
+	
+	for tag in ma:
+		i+= 1
+
+		temp = "\n\t\t\t" + getAttribute(tag,'name') + " = " + getAttribute(tag,'value')
+		if i != n:
+			temp += ","
+		m = len(max_str) - len(temp) + 2
+		for j in range(0,m):
+			temp += " "
+		temp += "\t// ACCESS: " + getAttribute(tag,'access')
+		
+		res += temp
+		
+	temp_str = "kBQ78350_MANUFACTURER_ACCESS_COMMANDS_"
+	res += getStructEnumCloser(temp_str + "ENUM",temp_str + "STRUCT")		
 
 	return res
 

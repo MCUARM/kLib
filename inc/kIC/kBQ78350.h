@@ -1365,6 +1365,58 @@
 		}kBQ78350_SBS_COMMANDS_ENUM;
 	}kBQ78350_SBS_COMMANDS_STRUCT;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			LifetimeDataCollection = 0x0023,                	// ACCESS: W
+			PermanentFailure = 0x0024,                      	// ACCESS: W
+			BlackBoxRecorder = 0x0025,                      	// ACCESS: W
+			SAFE = 0x0026,                                  	// ACCESS: W
+			LEDDisplayEnable = 0x0027,                      	// ACCESS: W
+			LifetimeDataReset = 0x0028,                     	// ACCESS: W
+			PermanentFailureDataReset = 0x0029,             	// ACCESS: W
+			BlackBoxRecorderReset = 0x002A,                 	// ACCESS: W
+			LED_Toggle = 0x002B,                            	// ACCESS: W
+			LEDDisplayPress = 0x002C,                       	// ACCESS: W
+			CalibrationMode = 0x002D,                       	// ACCESS: W
+			SealDevice = 0x0030,                            	// ACCESS: W
+			SecurityKeys = 0x0035,                          	// ACCESS: R_W
+			AuthenticationKey = 0x0037,                     	// ACCESS: R_W
+			DeviceReset = 0x0041,                           	// ACCESS: W
+			StateOfHealth = 0x004F,                         	// ACCESS: R
+			SafetyAlert = 0x0050,                           	// ACCESS: R
+			SafetyStatus = 0x0051,                          	// ACCESS: R
+			PFAlert = 0x0052,                               	// ACCESS: R
+			PFStatus = 0x0053,                              	// ACCESS: R
+			OperationStatus = 0x0054,                       	// ACCESS: R
+			ChargingStatus = 0x0055,                        	// ACCESS: R
+			GaugingStatus = 0x0056,                         	// ACCESS: R
+			ManufacturingStatus = 0x0057,                   	// ACCESS: R
+			AFEStatus = 0x0058,                             	// ACCESS: R
+			AFEConfig = 0x0059,                             	// ACCESS: R
+			AFEVCx = 0x005A,                                	// ACCESS: R
+			AFEData = 0x005B,                               	// ACCESS: R_W
+			LifetimeDataBlock1 = 0x0060,                    	// ACCESS: R
+			LifetimeDataBlock2 = 0x0061,                    	// ACCESS: R
+			LifetimeDataBlock3 = 0x0062,                    	// ACCESS: R
+			LifetimeDataBlock4 = 0x0063,                    	// ACCESS: R
+			LifetimeDataBlock5 = 0x0064,                    	// ACCESS: R
+			LifetimeDataBlock6 = 0x0065,                    	// ACCESS: R
+			LifetimeDataBlock7 = 0x0066,                    	// ACCESS: R
+			ManufacturerInfo = 0x0070,                      	// ACCESS: R
+			DAStatus1 = 0x0071,                             	// ACCESS: R
+			DAStatus2 = 0x0072,                             	// ACCESS: R
+			CUVSnapshot = 0x0080,                           	// ACCESS: R
+			COVSnapshot = 0x0081,                           	// ACCESS: R
+			DFAccessRowAddress = 0x0100,                    	// ACCESS: R_W
+			ROMMode = 0x0F00,                               	// ACCESS: W
+			ExitCalibrationOutput = 0xF080,                 	// ACCESS: R_W
+			OutputCellVoltageforCalibration = 0xF081,       	// ACCESS: R_W
+			OutputCellVoltageCCandTempforCalibration = 0xF082	// ACCESS: R_w
+		}kBQ78350_MANUFACTURER_ACCESS_COMMANDS_ENUM;
+	}kBQ78350_MANUFACTURER_ACCESS_COMMANDS_STRUCT;
+
 
 
 // endregion PLATFORM_DEPENDED_STRUCTS
@@ -1375,6 +1427,7 @@
 
 			static const kBQ78350_DATA_FLASH_REGISTER_SELECT_SELECT_SELECT_STRUCT * Register;
 			static const kBQ78350_SBS_COMMANDS_STRUCT * SBS_Command;
+			static const kBQ78350_MANUFACTURER_ACCESS_COMMANDS_STRUCT * MA_Command;
 
 	};
 
