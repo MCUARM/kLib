@@ -1,469 +1,83 @@
-Calibration	Current	0x4000	CC_Gain	F4
-Calibration	Current	0x4004	Capacity_Gain	F4
-Calibration	Voltage	0x4008	Cell1_Offset	I1
-Calibration	Voltage	0x4009	Cell2_Offset	I1
-Calibration	Voltage	0x400A	Cell3_Offset	I1
-Calibration	Voltage	0x400B	Cell4_Offset	I1
-Calibration	Voltage	0x400C	Cell5_Offset	I1
-Calibration	Voltage	0x400D	Cell6_Offset	I1
-Calibration	Voltage	0x400E	Cell7_Offset	I1
-Calibration	Voltage	0x400F	Cell8_Offset	I1
-Calibration	Voltage	0x4010	Cell9_Offset	I1
-Calibration	Voltage	0x4011	Cell10_Offset	I1
-Calibration	Voltage	0x4012	Cell11_Offset	I1
-Calibration	Voltage	0x4013	Cell12_Offset	I1
-Calibration	Voltage	0x4014	Cell13_Offset	I1
-Calibration	Voltage	0x4015	Cell14_Offset	I1
-Calibration	Voltage	0x4016	Cell15_Offset	I1
-Calibration	Current_Offset	0x4018	CC_Offset	I2
-Calibration	Current_Offset	0x401A	Coulomb_Counter_Offset_Samples	U2
-Calibration	Temperature	0x401E	T1_Temp_Offset	I1
-Calibration	Temperature	0x401F	T2_Temp_Offset	I1
-Calibration	Temperature	0x4020	T3_Temp_Offset	I1
-Calibration	Temperature	0x4021	Gauge_Internal_Temp_Offset	I1
-Calibration	Ext_Cell_Voltage	0x4022	Ext_Cell_Divider_Gain	I2
-Calibration	VAux_Voltage	0x4024	VAux_Gain	I4
-Calibration	Cell_Temperature_Model	0x454F	Coeff_a1	I2
-Calibration	Cell_Temperature_Model	0x4551	Coeff_a2	I2
-Calibration	Cell_Temperature_Model	0x4553	Coeff_a3	I2
-Calibration	Cell_Temperature_Model	0x4555	Coeff_a4	I2
-Calibration	Cell_Temperature_Model	0x4557	Coeff_a5	I2
-Calibration	Cell_Temperature_Model	0x4559	Coeff_b1	I2
-Calibration	Cell_Temperature_Model	0x455B	Coeff_b2	I2
-Calibration	Cell_Temperature_Model	0x455D	Coeff_b3	I2
-Calibration	Cell_Temperature_Model	0x455F	Coeff_b4	I2
-Calibration	Cell_Temperature_Model	0x4561	Rc0	I2
-Calibration	Cell_Temperature_Model	0x4563	Adc0	I2
-Calibration	Fet_Temperature_Model	0x4569	Coeff_a1	I2
-Calibration	Fet_Temperature_Model	0x456B	Coeff_a2	I2
-Calibration	Fet_Temperature_Model	0x456D	Coeff_a3	I2
-Calibration	Fet_Temperature_Model	0x456F	Coeff_a4	I2
-Calibration	Fet_Temperature_Model	0x4571	Coeff_a5	I2
-Calibration	Fet_Temperature_Model	0x4573	Coeff_b1	I2
-Calibration	Fet_Temperature_Model	0x4575	Coeff_b2	I2
-Calibration	Fet_Temperature_Model	0x4577	Coeff_b3	I2
-Calibration	Fet_Temperature_Model	0x4579	Coeff_b4	I2
-Calibration	Fet_Temperature_Model	0x457B	Rc0	I2
-Calibration	Fet_Temperature_Model	0x457D	Adc0	I2
-Calibration	Fet_Temperature_Model	0x457F	Rpad	I2
-Calibration	Fet_Temperature_Model	0x4581	Rint	I2
-Calibration	Current_Deadband	0x4318	Deadband	U1
-Calibration	Current_Deadband	0x4319	Coulomb_Counter_Deadband	U1
-Settings	Protection	0x44C5	Protection_Configuration	H1
-Settings	Protection	0x44C6	Enabled_Protections_A	H1
-Settings	Protection	0x44C7	Enabled_Protections_B	H1
-Settings	Protection	0x44C8	Enabled_Protections_C	H1
-Settings	Protection	0x44CA	Enabled_Removal_Recovery_A	H1
-Settings	Protection	0x44CB	Enabled_Removal_Recovery_B	H1
-Settings	Permanent_Failure	0x451D	Enabled_PF_A	H1
-Settings	Permanent_Failure	0x451E	Enabled_PF_B	H1
-Settings	Configuration	0x445F	FET_Options	H2
-Settings	Configuration	0x4461	Sbs_Gauging_Configuration	H1
-Settings	Configuration	0x4462	Smb_Configuration	H1
-Settings	Configuration	0x4472	Power_Config	H1
-Settings	Configuration	0x448C	LED_Configuration	H1
-Settings	Configuration	0x44A9	Temperature_Enable	H1
-Settings	Configuration	0x44AA	Temperature_Mode	H1
-Settings	Configuration	0x44AB	DA_Configuration	H1
-Settings	Configuration	0x44AC	AFE_Cell_Map	H2
-Settings	Configuration	0x458B	CEDV_Gauging_Configuration	H2
-Settings	Configuration	0x45D4	SOC_Flag_Config	H2
-Settings	Configuration	0x460C	Balancing_Configuration	H1
-Settings	Fuse	0x4458	PF_SAFE_A	H1
-Settings	Fuse	0x4459	PF_SAFE_B	H1
-Settings	Fuse	0x445A	PF_SAFE_C	H1
-Settings	Fuse	0x445E	Fuse_Blow_Timeout	U1
-Settings	Aux_SMB_Address	0x4463	Addr_Reads	U1
-Settings	Aux_SMB_Address	0x4464	SMBTAR_ADDR0	H1
-Settings	Aux_SMB_Address	0x4465	SMBTAR_ADDR1	H1
-Settings	Aux_SMB_Address	0x4466	SMBTAR_ADDR2	H1
-Settings	Aux_SMB_Address	0x4467	SMBTAR_ADDR3	H1
-Settings	Aux_SMB_Address	0x4468	SMBTAR_ADDR4	H1
-Settings	Aux_SMB_Address	0x4469	SMBTAR_ADDR5	H1
-Settings	Aux_SMB_Address	0x446A	SMBTAR_ADDR6	H1
-Settings	Aux_SMB_Address	0x446B	SMBTAR_ADDR7	H1
-Settings	SMB_Master_Mode	0x446E	Host_Address	H1
-Settings	SMB_Master_Mode	0x446F	Charger_Address	H1
-Settings	SMB_Master_Mode	0x4470	Alarm_Timer	U1
-Settings	SMB_Master_Mode	0x4471	Charger_Request_Timer	U1
-Settings	Manufacturing	0x42C8	Mfg_Status_init	H2
-Protections	CUV	0x44CC	Threshold	I2
-Protections	CUV	0x44CE	Delay	U1
-Protections	CUV	0x44CF	Recovery	I2
-Protections	COV	0x44D1	Threshold	I2
-Protections	COV	0x44D3	Delay	U1
-Protections	COV	0x44D4	Recovery	I2
-Protections	OCC	0x44D6	Threshold	I2
-Protections	OCC	0x44D8	Delay	U1
-Protections	OCC	0x44D9	Recovery_Threshold	I2
-Protections	OCC	0x44DB	Recovery_Delay	U1
-Protections	OCD	0x44DC	Threshold	I2
-Protections	OCD	0x44DE	Delay	U1
-Protections	OCD	0x44DF	Recovery_Threshold	I2
-Protections	OCD	0x44E1	Recovery_Delay	U1
-Protections	OCDL	0x44E2	Latch_Limit	U1
-Protections	OCDL	0x44E3	Counter_Dec_Delay	U1
-Protections	OCDL	0x44E4	Reset	U1
-Protections	AOLD	0x44B1	Threshold_and_Delay	H1
-Protections	AOLD	0x44E5	Latch_Limit	U1
-Protections	AOLD	0x44E6	Counter_Dec_Delay	U1
-Protections	AOLD	0x44E7	Recovery	U1
-Protections	AOLD	0x44E8	Reset	U1
-Protections	ASCD	0x44B0	Threshold_and_Delay	H1
-Protections	ASCD	0x44E9	Latch_Limit	U1
-Protections	ASCD	0x44EA	Counter_Dec_Delay	U1
-Protections	ASCD	0x44EB	Recovery	U1
-Protections	ASCD	0x44EC	Reset	U1
-Protections	OTC	0x44ED	Threshold	I2
-Protections	OTC	0x44EF	Delay	U1
-Protections	OTC	0x44F0	Recovery	I2
-Protections	OTD	0x44F2	Threshold	I2
-Protections	OTD	0x44F4	Delay	U1
-Protections	OTD	0x44F5	Recovery	I2
-Protections	OTF	0x44F7	Threshold	I2
-Protections	OTF	0x44F9	Delay	U1
-Protections	OTF	0x44FA	Recovery	I2
-Protections	UTC	0x44FC	Threshold	I2
-Protections	UTC	0x44FE	Delay	U1
-Protections	UTC	0x44FF	Recovery	I2
-Protections	UTD	0x4501	Threshold	I2
-Protections	UTD	0x4503	Delay	U1
-Protections	UTD	0x4504	Recovery	I2
-Protections	AFE_External_Override	0x4506	Delay	U1
-Protections	AFE_External_Override	0x4507	Recovery	U1
-Protections	PTO	0x4508	Charge_Threshold	I2
-Protections	PTO	0x450A	Suspend_Threshold	I2
-Protections	PTO	0x450C	Delay	U2
-Protections	PTO	0x450E	Reset	I2
-Protections	CTO	0x4510	Charge_Threshold	I2
-Protections	CTO	0x4512	Suspend_Threshold	I2
-Protections	CTO	0x4514	Delay	U2
-Protections	CTO	0x4516	Reset	I2
-Protections	OC	0x4518	Threshold	I2
-Protections	OC	0x451A	Recovery	I2
-Protections	OC	0x451C	RSOC_Recovery	U1
-Permanent_Fail	SOCC	0x4521	Threshold	I2
-Permanent_Fail	SOCC	0x4523	Delay	U1
-Permanent_Fail	SOCD	0x4524	Threshold	I2
-Permanent_Fail	SOCD	0x4526	Delay	U1
-Permanent_Fail	SOT	0x4527	Threshold	I2
-Permanent_Fail	SOT	0x4529	Delay	U1
-Permanent_Fail	SOTF	0x452A	Threshold	I2
-Permanent_Fail	SOTF	0x452C	Delay	U1
-Permanent_Fail	Open_Thermistor	0x452D	Threshold	I2
-Permanent_Fail	Open_Thermistor	0x452F	Delay	U1
-Permanent_Fail	VIMR	0x4530	Check_Voltage	I2
-Permanent_Fail	VIMR	0x4532	Check_Current	I2
-Permanent_Fail	VIMR	0x4534	Delta_Threshold	I2
-Permanent_Fail	VIMR	0x4536	Delta_Delay	U1
-Permanent_Fail	VIMR	0x4537	Duration	U2
-Permanent_Fail	CFET	0x4539	OFF_Threshold	I2
-Permanent_Fail	CFET	0x453B	OFF_Delay	U1
-Permanent_Fail	DFET	0x453C	OFF_Threshold	I2
-Permanent_Fail	DFET	0x453E	OFF_Delay	U1
-Permanent_Fail	AFER	0x453F	Threshold	U1
-Permanent_Fail	AFER	0x4540	Delay_Period	U1
-Permanent_Fail	AFER	0x4541	Compare_Period	U1
-Permanent_Fail	AFEC	0x4542	Threshold	U1
-Permanent_Fail	AFEC	0x4543	Delay_Period	U1
-Permanent_Fail	AFE_XREADY	0x4544	Threshold	U1
-Permanent_Fail	AFE_XREADY	0x4545	Delay_Period	U1
-Permanent_Fail	AFE_External_Override	0x4546	Delay	U1
-Permanent_Fail	AFE_SOV_AFE_SUV	0x44B2	SOV_and_SUV_Delay	H1
-Permanent_Fail	AFE_SOV	0x44B7	Threshold	I2
-Permanent_Fail	AFE_SUV	0x44B9	Threshold	I2
-Charge_Algorithm	Temperature_Ranges	0x45DF	Charge_Inhibit_Suspend_Low_Temp	I1
-Charge_Algorithm	Temperature_Ranges	0x45E0	Precharge_Temp	I1
-Charge_Algorithm	Temperature_Ranges	0x45E1	Charge_Inhibit_High_Temp	I1
-Charge_Algorithm	Temperature_Ranges	0x45E2	Charge_Suspend_High_Temp	I1
-Charge_Algorithm	Temperature_Ranges	0x45E3	Hysteresis_Temp	I1
-Charge_Algorithm	Fast_Charging	0x45E4	Voltage	I2
-Charge_Algorithm	Fast_Charging	0x45E6	Current	I2
-Charge_Algorithm	Pre-Charging	0x45E8	Current	I2
-Charge_Algorithm	Pre-Charging	0x45EA	Start_Voltage	I2
-Charge_Algorithm	Pre-Charging	0x45EC	Recovery_Voltage	I2
-Charge_Algorithm	Termination_Config	0x45EE	Charge_Term_Taper_Current	I2
-Charge_Algorithm	Termination_Config	0x45F2	Charge_Term_Voltage	I2
-Charge_Algorithm	Cell_Balancing_Config	0x460D	Cell_Balance_Threshold	I2
-Charge_Algorithm	Cell_Balancing_Config	0x460F	Cell_Balance_Window	I2
-Charge_Algorithm	Cell_Balancing_Config	0x4611	Cell_Balance_Min	U1
-Charge_Algorithm	Cell_Balancing_Config	0x4612	Cell_Balance_Interval	U1
-Fuel_Gauging	Current_Thresholds	0x44BD	Dsg_Current_Threshold	I2
-Fuel_Gauging	Current_Thresholds	0x44BF	Chg_Current_Threshold	I2
-Fuel_Gauging	Current_Thresholds	0x44C1	Quit_Current	I2
-Fuel_Gauging	Current_Thresholds	0x44C3	Dsg_Relax_Time	U1
-Fuel_Gauging	Current_Thresholds	0x44C4	Chg_Relax_Time	U1
-Fuel_Gauging	Design	0x45CC	Design_Capacity_mAh	I2
-Fuel_Gauging	Design	0x45CE	Design_Capacity_cWh	I2
-Fuel_Gauging	Design	0x45D0	Design_Voltage	I2
-Fuel_Gauging	Cycle	0x45D2	Cycle_Count_Percentage	U1
-Fuel_Gauging	FD	0x45D6	Set_Percent_RSOC_Threshold	U1
-Fuel_Gauging	FD	0x45D7	Clear_Percent_RSOC_Threshold	U1
-Fuel_Gauging	FC	0x45D8	Set_Percent_RSOC_Threshold	U1
-Fuel_Gauging	FC	0x45D9	Clear_Percent_RSOC_Threshold	U1
-Fuel_Gauging	TD	0x45DA	Set_Percent_RSOC_Threshold	U1
-Fuel_Gauging	TD	0x45DB	Clear_Percent_RSOC_Threshold	U1
-Fuel_Gauging	TC	0x45DC	Set_Percent_RSOC_Threshold	U1
-Fuel_Gauging	TC	0x45DD	Clear_Percent_RSOC_Threshold	U1
-Fuel_Gauging	State	0x42C2	Learned_Full_Charge_Capacity	I2
-Fuel_Gauging	State	0x42C4	Dod_at_EDV2	I2
-Fuel_Gauging	State	0x42C6	Cycle_Count	U2
-Fuel_Gauging	CEDV_cfg	0x458D	EMF	U2
-Fuel_Gauging	CEDV_cfg	0x458F	C0	U2
-Fuel_Gauging	CEDV_cfg	0x4591	R0	U2
-Fuel_Gauging	CEDV_cfg	0x4593	T0	U2
-Fuel_Gauging	CEDV_cfg	0x4595	R1	U2
-Fuel_Gauging	CEDV_cfg	0x4597	TC	U1
-Fuel_Gauging	CEDV_cfg	0x4598	C1	U1
-Fuel_Gauging	CEDV_cfg	0x4599	Age_Factor	U1
-Fuel_Gauging	CEDV_cfg	0x459A	Fixed_EDV_0	I2
-Fuel_Gauging	CEDV_cfg	0x459C	EDV_0_Hold_Time	U1
-Fuel_Gauging	CEDV_cfg	0x459D	Fixed_EDV_1	I2
-Fuel_Gauging	CEDV_cfg	0x459F	EDV_1_Hold_Time	U1
-Fuel_Gauging	CEDV_cfg	0x45A0	Fixed_EDV_2	I2
-Fuel_Gauging	CEDV_cfg	0x45A2	EDV_2_Hold_Time	U1
-Fuel_Gauging	CEDV_cfg	0x45A7	Battery_Low_Percent	U2
-Fuel_Gauging	CEDV_cfg	0x45AB	Min_Delta_V_Filter	I2
-Fuel_Gauging	CEDV_cfg	0x45AD	FCC_Learn_Up	I2
-Fuel_Gauging	CEDV_cfg	0x45AF	FCC_Learn_Down	I2
-Fuel_Gauging	CEDV_cfg	0x45B4	Learning_Low_Temp	I2
-Fuel_Gauging	CEDV_cfg	0x45BD	Requested_Learning_cycle_count	U1
-Fuel_Gauging	CEDV_cfg	0x45BE	OverLoad_Current	I2
-Fuel_Gauging	CEDV_cfg	0x45C2	Self_Discharge_Rate	U1
-Fuel_Gauging	CEDV_cfg	0x45C3	Electronics_Load	I2
-Fuel_Gauging	CEDV_cfg	0x45C5	Near_Full	I2
-Fuel_Gauging	CEDV_cfg	0x45C7	Reserve_Capacity	I2
-Fuel_Gauging	CEDV_cfg	0x45CB	RemCap_Init_Percent	U1
-Power	Power	0x4473	Valid_Update_Voltage	I2
-Power	Shutdown	0x4475	Shutdown_Voltage	I2
-Power	Shutdown	0x4477	Shutdown_Time	U1
-Power	Shutdown	0x4478	PF_Shutdown_Voltage	I2
-Power	Shutdown	0x447A	PF_Shutdown_Time	U1
-Power	Shutdown	0x447B	Charger_Present_Threshold	I2
-Power	Sleep	0x447D	Sleep_Current	I2
-Power	Sleep	0x447F	Bus_Timeout	U1
-Power	Sleep	0x4484	Voltage_Time	U1
-Power	Sleep	0x4485	Current_Time	U1
-Power	Ship	0x4487	FET_Off_Time	U1
-Power	Ship	0x4488	Delay	U1
-Power	Ship	0x4489	Auto_Ship_Time	U2
-Power	KEYIN	0x448B	Time	U1
-PF_Status	Device_Status_Data	0x41C0	Safety_Alert_A	H1
-PF_Status	Device_Status_Data	0x41C1	Safety_Status_A	H1
-PF_Status	Device_Status_Data	0x41C2	Safety_Alert_B	H1
-PF_Status	Device_Status_Data	0x41C3	Safety_Status_B	H1
-PF_Status	Device_Status_Data	0x41C4	Safety_Alert_C	H1
-PF_Status	Device_Status_Data	0x41C5	Safety_Status_C	H1
-PF_Status	Device_Status_Data	0x41C8	PF_Alert_A	H1
-PF_Status	Device_Status_Data	0x41C9	PF_Status_A	H1
-PF_Status	Device_Status_Data	0x41CA	PF_Alert_B	H1
-PF_Status	Device_Status_Data	0x41CB	PF_Status_B	H1
-PF_Status	Device_Status_Data	0x41CC	PF_Alert_C	H1
-PF_Status	Device_Status_Data	0x41CD	PF_Status_C	H1
-PF_Status	Device_Status_Data	0x41D0	Fuse_Flag	H2
-PF_Status	Device_Status_Data	0x41D2	Operation_Status_A	H2
-PF_Status	Device_Status_Data	0x41D4	Operation_Status_B	H2
-PF_Status	Device_Status_Data	0x41D6	Temp_Range	H1
-PF_Status	Device_Status_Data	0x41D7	Charging_Status	H1
-PF_Status	Device_Status_Data	0x41D8	Gauging_Status	H1
-PF_Status	Device_Status_Data	0x41D9	CEDV_Status	H1
-PF_Status	Device_Voltage_Data	0x41DA	Cell_1_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41DC	Cell_2_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41DE	Cell_3_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41E0	Cell_4_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41E2	Cell_5_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41E4	Cell_6_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41E6	Cell_7_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41E8	Cell_8_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41EA	Cell_9_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41EC	Cell_10_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41EE	Cell_11_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41F0	Cell_12_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41F2	Cell_13_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41F4	Cell_14_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41F6	Cell_15_Voltage	I2
-PF_Status	Device_Voltage_Data	0x41FA	Battery_Direct_Voltage	I2
-PF_Status	Device_Current_Data	0x41FE	Current	I2
-PF_Status	Device_Temperature_Data	0x4200	TS1_Temperature	I2
-PF_Status	Device_Temperature_Data	0x4202	TS2_Temperature	I2
-PF_Status	Device_Temperature_Data	0x4204	TS3_Temperature	I2
-PF_Status	Device_Temperature_Data	0x4206	Gauge_Internal_Temperature	I2
-PF_Status	AFE_Regs	0x4208	AFE_SYS_Stat	H1
-PF_Status	AFE_Regs	0x4209	AFE_Cell_Balance1	H1
-PF_Status	AFE_Regs	0x420A	AFE_Cell_Balance2	H1
-PF_Status	AFE_Regs	0x420B	AFE_Cell_Balance3	H1
-PF_Status	AFE_Regs	0x420C	AFE_Sys_Control1	H1
-PF_Status	AFE_Regs	0x420D	AFE_Sys_Control2	H1
-PF_Status	AFE_Regs	0x420E	AFE_Protection1	H1
-PF_Status	AFE_Regs	0x420F	AFE_Protection2	H1
-PF_Status	AFE_Regs	0x4210	AFE_Protection3	H1
-PF_Status	AFE_Regs	0x4211	AFE_OV_Trip	H1
-PF_Status	AFE_Regs	0x4212	AFE_UV_Trip	H1
-Black_Box	Safety_Status	0x4180	1st_Status_Status_A	H1
-Black_Box	Safety_Status	0x4181	1st_Status_Status_B	H1
-Black_Box	Safety_Status	0x4182	1st_Safety_Status_C	H1
-Black_Box	Safety_Status	0x4184	1st_Time_to_Next_Event	U1
-Black_Box	Safety_Status	0x4185	2nd_Status_Status_A	H1
-Black_Box	Safety_Status	0x4186	2nd_Status_Status_B	H1
-Black_Box	Safety_Status	0x4187	2nd_Safety_Status_C	H1
-Black_Box	Safety_Status	0x4189	2nd_Time_to_Next_Event	U1
-Black_Box	Safety_Status	0x418A	3rd_Status_Status_A	H1
-Black_Box	Safety_Status	0x418B	3rd_Status_Status_B	H1
-Black_Box	Safety_Status	0x418C	3rd_Safety_Status_C	H1
-Black_Box	Safety_Status	0x418E	3rd_Time_to_Next_Event	U1
-Black_Box	PF_Status	0x418F	1st_PF_Status_A	H1
-Black_Box	PF_Status	0x4190	1st_PF_Status_B	H1
-Black_Box	PF_Status	0x4191	1st_PF_Status_C	H1
-Black_Box	PF_Status	0x4193	1st_Time_to_Next_Event	U1
-Black_Box	PF_Status	0x4194	2nd_PF_Status_A	H1
-Black_Box	PF_Status	0x4195	2nd_PF_Status_B	H1
-Black_Box	PF_Status	0x4196	2nd_PF_Status_C	H1
-Black_Box	PF_Status	0x4198	2nd_Time_to_Next_Event	U1
-Black_Box	PF_Status	0x4199	3rd_PF_Status_A	H1
-Black_Box	PF_Status	0x419A	3rd_PF_Status_B	H1
-Black_Box	PF_Status	0x419B	3rd_PF_Status_C	H1
-Black_Box	PF_Status	0x419D	3rd_Time_to_Next_Event	U1
-System_Data	Manufacturer_Data	0x4040	Manufacturer_Info_A_Length	U1
-System_Data	Manufacturer_Data	0x4041	Manufacturer_Info_Block_A01	H1
-System_Data	Manufacturer_Data	0x4042	Manufacturer_Info_Block_A02	H1
-System_Data	Manufacturer_Data	0x4043	Manufacturer_Info_Block_A03	H1
-System_Data	Manufacturer_Data	0x4044	Manufacturer_Info_Block_A04	H1
-System_Data	Manufacturer_Data	0x4045	Manufacturer_Info_Block_A05	H1
-System_Data	Manufacturer_Data	0x4046	Manufacturer_Info_Block_A06	H1
-System_Data	Manufacturer_Data	0x4047	Manufacturer_Info_Block_A07	H1
-System_Data	Manufacturer_Data	0x4048	Manufacturer_Info_Block_A08	H1
-System_Data	Manufacturer_Data	0x4049	Manufacturer_Info_Block_A09	H1
-System_Data	Manufacturer_Data	0x404A	Manufacturer_Info_Block_A10	H1
-System_Data	Manufacturer_Data	0x404B	Manufacturer_Info_Block_A11	H1
-System_Data	Manufacturer_Data	0x404C	Manufacturer_Info_Block_A12	H1
-System_Data	Manufacturer_Data	0x404D	Manufacturer_Info_Block_A13	H1
-System_Data	Manufacturer_Data	0x404E	Manufacturer_Info_Block_A14	H1
-System_Data	Manufacturer_Data	0x404F	Manufacturer_Info_Block_A15	H1
-System_Data	Manufacturer_Data	0x4050	Manufacturer_Info_Block_A16	H1
-System_Data	Manufacturer_Data	0x4051	Manufacturer_Info_Block_A17	H1
-System_Data	Manufacturer_Data	0x4052	Manufacturer_Info_Block_A18	H1
-System_Data	Manufacturer_Data	0x4053	Manufacturer_Info_Block_A19	H1
-System_Data	Manufacturer_Data	0x4054	Manufacturer_Info_Block_A20	H1
-System_Data	Manufacturer_Data	0x4055	Manufacturer_Info_Block_A21	H1
-System_Data	Manufacturer_Data	0x4056	Manufacturer_Info_Block_A22	H1
-System_Data	Manufacturer_Data	0x4057	Manufacturer_Info_Block_A23	H1
-System_Data	Manufacturer_Data	0x4058	Manufacturer_Info_Block_A24	H1
-System_Data	Manufacturer_Data	0x4059	Manufacturer_Info_Block_A25	H1
-System_Data	Manufacturer_Data	0x405A	Manufacturer_Info_Block_A26	H1
-System_Data	Manufacturer_Data	0x405B	Manufacturer_Info_Block_A27	H1
-System_Data	Manufacturer_Data	0x405C	Manufacturer_Info_Block_A28	H1
-System_Data	Manufacturer_Data	0x405D	Manufacturer_Info_Block_A29	H1
-System_Data	Manufacturer_Data	0x405E	Manufacturer_Info_Block_A30	H1
-System_Data	Manufacturer_Data	0x405F	Manufacturer_Info_Block_A31	H1
-System_Data	Manufacturer_Data	0x4060	Manufacturer_Info_Block_A32	H1
-SBS_Configuration	Data	0x406B	Manufacture_Date	U2
-SBS_Configuration	Data	0x406D	Serial_Number	H2
-SBS_Configuration	Data	0x406F	Manufacturer_Name	S21
-SBS_Configuration	Data	0x4084	Device_Name	S21
-SBS_Configuration	Data	0x4099	Device_Chemistry	S5
-SBS_Configuration	Data	0x449F	Remaining_AH_Cap._Alarm	I2
-SBS_Configuration	Data	0x44A1	Remaining_WH_Cap._Alarm	I2
-SBS_Configuration	Data	0x44A3	Remaining_Time_Alarm	U2
-SBS_Configuration	Data	0x44A5	Initial_Battery_Mode	H2
-SBS_Configuration	Data	0x44A7	Specification_Information	H2
-LED_Support	LED_Config	0x448D	LED_Flash_Period	U2
-LED_Support	LED_Config	0x448F	LED_Blink_Period	U2
-LED_Support	LED_Config	0x4491	LED_Delay	U2
-LED_Support	LED_Config	0x4493	LED_Hold_Time	U1
-LED_Support	LED_Config	0x4494	LED_Flash_Alarm	I1
-LED_Support	LED_Config	0x4495	LED_Thresh_1	I1
-LED_Support	LED_Config	0x4496	LED_Thresh_2	I1
-LED_Support	LED_Config	0x4497	LED_Thresh_3	I1
-LED_Support	LED_Config	0x4498	LED_Thresh_4	I1
-LED_Support	LED_Config	0x4499	LED_Thresh_5	I1
-LED_Support	LED_Config	0x449A	LCD_Refresh_Rate	U1
-Lifetimes	Voltage	0x40C0	Cell_1_Max_Voltage	I2
-Lifetimes	Voltage	0x40C2	Cell_2_Max_Voltage	I2
-Lifetimes	Voltage	0x40C4	Cell_3_Max_Voltage	I2
-Lifetimes	Voltage	0x40C6	Cell_4_Max_Voltage	I2
-Lifetimes	Voltage	0x40C8	Cell_5_Max_Voltage	I2
-Lifetimes	Voltage	0x40CA	Cell_6_Max_Voltage	I2
-Lifetimes	Voltage	0x40CC	Cell_7_Max_Voltage	I2
-Lifetimes	Voltage	0x40CE	Cell_8_Max_Voltage	I2
-Lifetimes	Voltage	0x40D0	Cell_9_Max_Voltage	I2
-Lifetimes	Voltage	0x40D2	Cell_10_Max_Voltage	I2
-Lifetimes	Voltage	0x40D4	Cell_11_Max_Voltage	I2
-Lifetimes	Voltage	0x40D6	Cell_12_Max_Voltage	I2
-Lifetimes	Voltage	0x40D8	Cell_13_Max_Voltage	I2
-Lifetimes	Voltage	0x40DA	Cell_14_Max_Voltage	I2
-Lifetimes	Voltage	0x40DC	Cell_15_Max_Voltage	I2
-Lifetimes	Voltage	0x40E0	Cell_1_Min_Voltage	I2
-Lifetimes	Voltage	0x40E2	Cell_2_Min_Voltage	I2
-Lifetimes	Voltage	0x40E4	Cell_3_Min_Voltage	I2
-Lifetimes	Voltage	0x40E6	Cell_4_Min_Voltage	I2
-Lifetimes	Voltage	0x40E8	Cell_5_Min_Voltage	I2
-Lifetimes	Voltage	0x40EA	Cell_6_Min_Voltage	I2
-Lifetimes	Voltage	0x40EC	Cell_7_Min_Voltage	I2
-Lifetimes	Voltage	0x40EE	Cell_8_Min_Voltage	I2
-Lifetimes	Voltage	0x40F0	Cell_9_Min_Voltage	I2
-Lifetimes	Voltage	0x40F2	Cell_10_Min_Voltage	I2
-Lifetimes	Voltage	0x40F4	Cell_11_Min_Voltage	I2
-Lifetimes	Voltage	0x40F6	Cell_12_Min_Voltage	I2
-Lifetimes	Voltage	0x40F8	Cell_13_Min_Voltage	I2
-Lifetimes	Voltage	0x40FA	Cell_14_Min_Voltage	I2
-Lifetimes	Voltage	0x40FC	Cell_15_Min_Voltage	I2
-Lifetimes	Voltage	0x4100	Max_Delta_Cell_Voltage	I2
-Lifetimes	Current	0x4102	Max_Charge_Current	I2
-Lifetimes	Current	0x4104	Max_Discharge_Current	I2
-Lifetimes	Current	0x4106	Max_Avg_Dsg_Current	I2
-Lifetimes	Current	0x4108	Max_Avg_Dsg_Power	I2
-Lifetimes	Temperature	0x410A	Max_Temp_Cell	I1
-Lifetimes	Temperature	0x410B	Min_Temp_Cell	I1
-Lifetimes	Temperature	0x410C	Max_Delta_Cell_Temp	I1
-Lifetimes	Temperature	0x410D	Max_Temp_Fet	I1
-Lifetimes	Gauge_Temperature	0x410E	Max_Temp_Int_Sensor	I1
-Lifetimes	Gauge_Temperature	0x410F	Min_Temp_Int_Sensor	I1
-Lifetimes	Safety_Events	0x4110	No_Of_COV_Events	U2
-Lifetimes	Safety_Events	0x4112	Last_COV_Event	U2
-Lifetimes	Safety_Events	0x4114	No_Of_CUV_Events	U2
-Lifetimes	Safety_Events	0x4116	Last_CUV_Event	U2
-Lifetimes	Safety_Events	0x4118	No_Of_OCD_Events	U2
-Lifetimes	Safety_Events	0x411A	Last_OCD_Event	U2
-Lifetimes	Safety_Events	0x411C	No_Of_OCC_Events	U2
-Lifetimes	Safety_Events	0x411E	Last_OCC_Event	U2
-Lifetimes	Safety_Events	0x4120	No_Of_AOLD_Events	U2
-Lifetimes	Safety_Events	0x4122	Last_AOLD_Event	U2
-Lifetimes	Safety_Events	0x4124	No_Of_ASCD_Events	U2
-Lifetimes	Safety_Events	0x4126	Last_ASCD_Event	U2
-Lifetimes	Safety_Events	0x4128	No_Of_OTC_Events	U2
-Lifetimes	Safety_Events	0x412A	Last_OTC_Event	U2
-Lifetimes	Safety_Events	0x412C	No_Of_OTD_Events	U2
-Lifetimes	Safety_Events	0x412E	Last_OTD_Event	U2
-Lifetimes	Safety_Events	0x4130	No_Of_OTF_Events	U2
-Lifetimes	Safety_Events	0x4132	Last_OTF_Event	U2
-Lifetimes	Charging_Events	0x4134	No_Valid_Charge_Term	U2
-Lifetimes	Charging_Events	0x4136	Last_Valid_Charge_Term	U2
-Lifetimes	Gauging_Events	0x4138	No_of_FCC_Updates	U2
-Lifetimes	Gauging_Events	0x413A	Last_FCC_Update	U2
-Lifetimes	Power_Events	0x413C	No_Of_Shutdowns	U1
-Lifetimes	Cell_Balancing	0x4140	Cb_Time_Cell_1	U1
-Lifetimes	Cell_Balancing	0x4141	Cb_Time_Cell_2	U1
-Lifetimes	Cell_Balancing	0x4142	Cb_Time_Cell_3	U1
-Lifetimes	Cell_Balancing	0x4143	Cb_Time_Cell_4	U1
-Lifetimes	Cell_Balancing	0x4144	Cb_Time_Cell_5	U1
-Lifetimes	Cell_Balancing	0x4145	Cb_Time_Cell_6	U1
-Lifetimes	Cell_Balancing	0x4146	Cb_Time_Cell_7	U1
-Lifetimes	Cell_Balancing	0x4147	Cb_Time_Cell_8	U1
-Lifetimes	Cell_Balancing	0x4148	Cb_Time_Cell_9	U1
-Lifetimes	Cell_Balancing	0x4149	Cb_Time_Cell_10	U1
-Lifetimes	Cell_Balancing	0x414A	Cb_Time_Cell_11	U1
-Lifetimes	Cell_Balancing	0x414B	Cb_Time_Cell_12	U1
-Lifetimes	Cell_Balancing	0x414C	Cb_Time_Cell_13	U1
-Lifetimes	Cell_Balancing	0x414D	Cb_Time_Cell_14	U1
-Lifetimes	Cell_Balancing	0x414E	Cb_Time_Cell_15	U1
-Lifetimes	Time	0x4150	Total_Fw_Runtime	U2
-Lifetimes	Time	0x4152	Time_Spent_In_UT	U2
-Lifetimes	Time	0x4154	Time_Spent_In_LT	U2
-Lifetimes	Time	0x4156	Time_Spent_In_ST	U2
-Lifetimes	Time	0x4158	Time_Spent_In_HT	U2
-Lifetimes	Time	0x415A	Time_Spent_In_OT	U2
-Lifetimes	Time	0x415C	Time_Since_Last_Charge	U2
-GPIO	GPIO_Config	0x449B	GPIO_Configuration	H1
-GPIO	GPIO_Config	0x449C	GPIO_Output_Enable	H1
-GPIO	GPIO_Config	0x449D	GPIO_Default_Output_Enable	H1
-GPIO	GPIO_Config	0x449E	GPIO_Type	H1
+SBS Cmd	Mode	Name	Format	Size in bytes	Min	Max	Default	Unit
+0x00	R/W	ManufacturerAccess	hex	2	0x0000	0xFFFF	—	
+0x01	R/W	RemainingCapacityAlarm	 unsigned int	2	0	65535	300	 mAh or 10 mWh
+0x02	R/W	RemainingTimeAlarm	 unsigned int	2	0	65535	10	 min
+0x03	R/W	BatteryMode	hex	2	0x0000	0xFFFF	—	
+0x04	R/W	AtRate	 integer	2	–32768	32767	—	 mAh or 10 mWh
+0x05	R	AtRateTimeToFull	 unsigned int	2	0	65534	—	 min
+0x06	R	AtRateTimeToEmpty	 unsigned int	2	0	65534	—	 min
+0x07	R	AtRateOK	 unsigned int	2	0	65535	—	
+0x08	R	Temperature	 unsigned int	2	0	65535	—	 0.1°K
+0x09	R	Voltage	 unsigned int	2	0	65535	—	 mV
+0x0A	R	Current	 integer	2	–32768	32767	—	 mA
+0x0B	R	AverageCurrent	 integer	2	–32768	32767	—	 mA
+0x0C	R	MaxError	 unsigned int	1	0%	100%	—	
+0x0D	R	RelativeStateOfCharge	 unsigned int	1	0%	100%	—	
+0x0E	R	AbsoluteStateOfCharge	 unsigned int	1	0%	100+%	—	
+0x0F	R/W	RemainingCapacity	 unsigned int	2	0	65535	—	 mAh or 10 mWh
+0x10	R	FullChargeCapacity	 unsigned int	2	0	65535	—	 mAh or 10 mWh
+0x11	R	RunTimeToEmpty	 unsigned int	2	0	65534	—	 min
+0x12	R	AverageTimeToEmpty	 unsigned int	2	0	65534	—	 min
+0x13	R	AverageTimeToFull	 unsigned int	2	0	65534	—	 min
+0x14	R	ChargingCurrent	 unsigned int	2	0	65534	—	 mA
+0x15	R	ChargingVoltage	 unsigned int	2	0	65534	—	 mV
+0x16	R	BatteryStatus	 unsigned int	2	0x0000	0xdbff	—	
+0x17	R	CycleCount	 unsigned int	2	0	65535	—	
+0x18	R	DesignCapacity	 unsigned int	2	0	65535	—	 mAh or 10 mWh
+0x19	R	DesignVoltage	 unsigned int	2	0	65535	—	 mV
+0x1A	R	SpecificationInfo	hex	2	0x0000	0xFFFF	0x0031	
+0x1B	R	ManufacturerDate	 unsigned int	2	0	65535	—	
+0x1C	R	SerialNumber	hex	2	0x0000	0xFFFF	0x0001	
+0x20	R	ManufacturerName	string	11+1	—	—	Texas Instruments	ASCII
+0x21	R	DeviceName	string	7+1	—	—	bq78350	 ASCII
+0x22	R	DeviceChemistry	string	4+1	—	—	LION	 ASCII
+0x23	R	ManufacturerData	 String 14+1	—	—	—	ASCII
+0x2B	R/W	HostFETControl	hex	2	0	65535	—	-	
+0x2C	R	GPIOStatus	hex	2	0	65535	—	
+0x2D	R/W	GPIOControl	hex	2	0	65535	—	
+0x2E	R	VAUXVoltage	 unsigned int	2	0	65535	1	
+0x2F	R/W	Authenticate	hex	20+1	—	—	—	
+0x30	R	Reserved	—	—	—	—	—	—
+0x31 	R	CellVoltage15	unsigned int	2	0	65535	—	 mV
+0x32	R	CellVoltage14	 unsigned int	2	0	65535	—	 mV
+0x33	R	CellVoltage13	 unsigned int	2	0	65535	—	 mV
+0x34	R	CellVoltage12	 unsigned int	2	0	65535	—	 mV
+0x35	R	CellVoltage11	 unsigned int	2	0	65535	—	 mV
+0x36	R	CellVoltage10	 unsigned int	2	0	65535	—	 mV
+0x37	R	CellVoltage9	 unsigned int	2	0	65535	—	 mV
+0x38	R	CellVoltage8	 unsigned int	2	0	65535	—	 mV
+0x39	R	CellVoltage7	 unsigned int	2	0	65535	—	 mV
+0x3A	R	CellVoltage6	 unsigned int	2	0	65535	—	 mV
+0x3B	R	CellVoltage5	 unsigned int	2	0	65535	—	 mV
+0x3C	R	CellVoltage4	 unsigned int	2	0	65535	—	 mV
+0x3D	R	CellVoltage3	 unsigned int	2	0	65535	—	 mV
+0x3E	R	CellVoltage2	 unsigned int	2	0	65535	—	 mV
+0x3F	R	CellVoltage1	 unsigned int	2	0	65535	—	 mV
+0x4C	R	DynamicPower	 signed int	2	–32768	32767	—	 10 mW
+0x4D	R	ExtAveCellVoltage	 unsigned int	2	0	65535	—	 mV
+0x4E	R	PendingEDV	 unsigned int	2	0	65535	—	 mV
+0x4F	R	StateOfHealth	 unsigned int	1	0%	100%	—	
+0x50	R	SafetyAlert	hex	4+1	—	—	—	 —
+0x51	R	SafetyStatus	hex	4+1	—	—	—	 —
+0x52	R	PFAlert	hex	2+1	—	—	—	 —
+0x53	R	PFStatus	hex	4+1	—	—	—	 —
+0x54	R	OperationStatus	hex	4+1	—	—	—	 —
+0x55	R	ChargingStatus	hex	2+1	—	—	—	 —
+0x56	R	GaugingStatus	hex	2+1	—	—	—	 —
+0x57	R	ManufacturingStatus	hex	2+1	—	—	—	 —
+0x58	R	AFEStatus	hex	2+1	—	—	—	 —
+0x59	R	AFEConfig	 String 10+1	—	—	—	ASCII
+0x5A	R	AFEVCx	String	32+1	—	—	—	ASCII
+0x5B	R	AFEData	String	13+1	—	—	—	ASCII
+0x60	R	LifetimeDataBlock1	String	32+1	—	 —	—
+0x61	R	LifetimeDataBlock2	String	32+1	—	 —	—
+0x62	R	LifetimeDataBlock3	String	14+1	—	 —	—
+0x63	R	LifetimeDataBlock4	String	20+1	—	 —	—
+0x64	R	LifetimeDataBlock5	String	14+1	—	 —	—
+0x65	R	LifetimeDataBlock6	String	32+1	—	 —	—
+0x66	R	LifetimeDataBlock7	String	32+1	—	 —	—
+0x70	R	ManufacturerInfo	 String	32+1	—	—	—
+0x71	R	DAStatus1	String	32+1	—	—	—
+0x72	R	DAStatus2	String	32+1	—	 —	—
+0x80	R	CUV_Snapshot	String	32+1	—	—	—
+0x81	R	COV_Snapshot	String	32+1	—	—	—

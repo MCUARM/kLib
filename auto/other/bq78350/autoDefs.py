@@ -55,8 +55,10 @@ def getCellValuesList(sheet,row,col):
 	return str(sheet.cell(row,col).value).split()	
 def getCellValue(sheet,row,col):
 	return removeWhiteSigns(str(sheet.cell(row,col).value))
-
-
+def getCellValue2(sheet,row,col):
+	res = str(sheet.cell(row,col).value)
+	res = res.replace("—", "-")
+	return res
 
 
 def xls2xml():
@@ -80,6 +82,25 @@ def xls2xml():
 			af.set('name',getCellValue(sheet,row,3));
 			af.set('type',getCellValue(sheet,row,4));
 
+
+	wb = open_workbook('SBS.xlsx')
+
+	for sheet in wb.sheets():
+		number_of_rows = sheet.nrows
+		number_of_columns = sheet.ncols
+		
+		for row in range(2, number_of_rows):
+	
+			af = etree.SubElement(root, "SBS")
+			af.set('value',getCellValue(sheet,row,0))
+			af.set('access',getCellValue(sheet,row,1))
+			af.set('name',getCellValue(sheet,row,2));
+			af.set('dataDescription',getCellValue2(sheet,row,3));
+			af.set('dataSize',getCellValue2(sheet,row,4));
+			af.set('min',getCellValue2(sheet,row,5));
+			af.set('max',getCellValue2(sheet,row,6));
+			af.set('default',getCellValue2(sheet,row,7));
+			af.set('units',getCellValue2(sheet,row,8));
 				
 	tree = etree.ElementTree(root)
 	tree.write('bq78350.xml',pretty_print=True)
@@ -160,6 +181,9 @@ def assertString(str):
 	
 	return str
 	
+def removeDecimalPoints(str):
+	str = str.replace(".0", "")
+	return str
 
 def createDataFlashRegisterStructs():
 
@@ -231,6 +255,38 @@ def createDataFlashRegisterStructs():
 	temp_str = "kBQ78350_DATA_FLASH_REGISTER_SELECT_SELECT_SELECT_STRUCT"
 	res += getStructCloser(temp_str)
 		
+	
+	sbs = defs.getElementsByTagName('SBS')
+	res += getStructEnumOpener()
+	isLastTag = True
+	n = len(sbs)
+	i=0
+	
+	max_str = "RemainingCapacityAlarm = 0x01,"
+	
+	for tag in sbs:
+		i+= 1
+
+		temp = "\n\t\t\t" + getAttribute(tag,'name') + " = " + getAttribute(tag,'value')
+		if i != n:
+			temp += ","
+		m = len(max_str) - len(temp) + 2
+		for j in range(0,m):
+			temp += " "
+		temp += "\t// ACCESS: " + getAttribute(tag,'access')
+		temp += ",\tDATA TYPE: " + getAttribute(tag,'dataDescription')
+		temp += ",\tDATA SIZE: " + removeDecimalPoints(getAttribute(tag,'dataSize'))
+		temp += ",\tMIN: " + removeDecimalPoints(getAttribute(tag,'min'))
+		temp += ",\tMAX: " + removeDecimalPoints(getAttribute(tag,'max'))
+		temp += ",\tDEFAULT: " + removeDecimalPoints(getAttribute(tag,'default'))
+		temp += ",\tUNIT: " + getAttribute(tag,'units')
+		
+		
+		res += temp
+		
+	temp_str = "kBQ78350_SBS_COMMANDS_"
+	res += getStructEnumCloser(temp_str + "ENUM",temp_str + "STRUCT")		
+	
 
 	return res
 

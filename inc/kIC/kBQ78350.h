@@ -1277,6 +1277,94 @@
 		kBQ78350_DATA_FLASH_REGISTER_GPIO_SELECT_SELECT_STRUCT _GPIO;
 	}kBQ78350_DATA_FLASH_REGISTER_SELECT_SELECT_SELECT_STRUCT;
 
+	typedef struct
+	{
+		typedef enum
+		{
+			RemainingCapacityAlarm = 0x01,	// ACCESS: R/W,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: ,	UNIT: 300 mAh or 10 mWh
+			RemainingTimeAlarm = 0x02,  	// ACCESS: R/W,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: ,	UNIT: 10 min
+			BatteryMode = 0x03,         	// ACCESS: R/W,	DATA TYPE: hex,	DATA SIZE: 2,	MIN: 0x0000,	MAX: 0xFFFF,	DEFAULT: -,	UNIT: 
+			AtRate = 0x04,              	// ACCESS: R/W,	DATA TYPE: integer,	DATA SIZE: 2,	MIN: –32768,	MAX: 32767,	DEFAULT: -,	UNIT: mAh or 10 mWh
+			AtRateTimeToFull = 0x05,    	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65534,	DEFAULT: -,	UNIT: min
+			AtRateTimeToEmpty = 0x06,   	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65534,	DEFAULT: -,	UNIT: min
+			AtRateOK = 0x07,            	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: 
+			Temperature = 0x08,         	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: 0.1°K
+			Voltage = 0x09,             	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			Current = 0x0A,             	// ACCESS: R,	DATA TYPE: integer,	DATA SIZE: 2,	MIN: –32768,	MAX: 32767,	DEFAULT: -,	UNIT: mA
+			AverageCurrent = 0x0B,      	// ACCESS: R,	DATA TYPE: integer,	DATA SIZE: 2,	MIN: –32768,	MAX: 32767,	DEFAULT: -,	UNIT: mA
+			MaxError = 0x0C,            	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 1,	MIN: 0,	MAX: 1,	DEFAULT: -,	UNIT: 
+			RelativeStateOfCharge = 0x0D,	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 1,	MIN: 0,	MAX: 1,	DEFAULT: -,	UNIT: 
+			AbsoluteStateOfCharge = 0x0E,	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 1,	MIN: 0,	MAX: 1,	DEFAULT: -,	UNIT: 
+			RemainingCapacity = 0x0F,   	// ACCESS: R/W,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mAh or 10 mWh
+			FullChargeCapacity = 0x10,  	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mAh or 10 mWh
+			RunTimeToEmpty = 0x11,      	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65534,	DEFAULT: -,	UNIT: min
+			AverageTimeToEmpty = 0x12,  	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65534,	DEFAULT: -,	UNIT: min
+			AverageTimeToFull = 0x13,   	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65534,	DEFAULT: -,	UNIT: min
+			ChargingCurrent = 0x14,     	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65534,	DEFAULT: -,	UNIT: mA
+			ChargingVoltage = 0x15,     	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65534,	DEFAULT: -,	UNIT: mV
+			BatteryStatus = 0x16,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0x0000,	MAX: 0xdbff,	DEFAULT: -,	UNIT: 
+			CycleCount = 0x17,          	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: 
+			DesignCapacity = 0x18,      	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mAh or 10 mWh
+			DesignVoltage = 0x19,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			SpecificationInfo = 0x1A,   	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 2,	MIN: 0x0000,	MAX: 0xFFFF,	DEFAULT: 0x0031,	UNIT: 
+			ManufacturerDate = 0x1B,    	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: 
+			SerialNumber = 0x1C,        	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 2,	MIN: 0x0000,	MAX: 0xFFFF,	DEFAULT: 0x0001,	UNIT: 
+			ManufacturerName = 0x20,    	// ACCESS: R,	DATA TYPE: string,	DATA SIZE: 11+1,	MIN: -,	MAX: -,	DEFAULT: Texas Instruments,	UNIT: ASCII
+			DeviceName = 0x21,          	// ACCESS: R,	DATA TYPE: string,	DATA SIZE: 7+1,	MIN: -,	MAX: -,	DEFAULT: bq78350,	UNIT: ASCII
+			DeviceChemistry = 0x22,     	// ACCESS: R,	DATA TYPE: string,	DATA SIZE: 4+1,	MIN: -,	MAX: -,	DEFAULT: LION,	UNIT: ASCII
+			ManufacturerData = 0x23,    	// ACCESS: R,	DATA TYPE: String 14+1,	DATA SIZE: -,	MIN: -,	MAX: -,	DEFAULT: ASCII,	UNIT: 
+			HostFETControl = 0x2B,      	// ACCESS: R/W,	DATA TYPE: hex,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: -
+			GPIOStatus = 0x2C,          	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: 
+			GPIOControl = 0x2D,         	// ACCESS: R/W,	DATA TYPE: hex,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: 
+			VAUXVoltage = 0x2E,         	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: 1,	UNIT: 
+			Authenticate = 0x2F,        	// ACCESS: R/W,	DATA TYPE: hex,	DATA SIZE: 20+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			Reserved = 0x30,            	// ACCESS: R,	DATA TYPE: -,	DATA SIZE: -,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			CellVoltage15 = 0x31,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage14 = 0x32,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage13 = 0x33,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage12 = 0x34,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage11 = 0x35,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage10 = 0x36,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage9 = 0x37,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage8 = 0x38,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage7 = 0x39,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage6 = 0x3A,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage5 = 0x3B,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage4 = 0x3C,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage3 = 0x3D,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage2 = 0x3E,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			CellVoltage1 = 0x3F,        	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			DynamicPower = 0x4C,        	// ACCESS: R,	DATA TYPE: signed int,	DATA SIZE: 2,	MIN: –32768,	MAX: 32767,	DEFAULT: -,	UNIT: 10 mW
+			ExtAveCellVoltage = 0x4D,   	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			PendingEDV = 0x4E,          	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 2,	MIN: 0,	MAX: 65535,	DEFAULT: -,	UNIT: mV
+			StateOfHealth = 0x4F,       	// ACCESS: R,	DATA TYPE: unsigned int,	DATA SIZE: 1,	MIN: 0,	MAX: 1,	DEFAULT: -,	UNIT: 
+			SafetyAlert = 0x50,         	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 4+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			SafetyStatus = 0x51,        	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 4+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			PFAlert = 0x52,             	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 2+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			PFStatus = 0x53,            	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 4+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			OperationStatus = 0x54,     	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 4+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			ChargingStatus = 0x55,      	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 2+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			GaugingStatus = 0x56,       	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 2+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			ManufacturingStatus = 0x57, 	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 2+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			AFEStatus = 0x58,           	// ACCESS: R,	DATA TYPE: hex,	DATA SIZE: 2+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: -
+			AFEConfig = 0x59,           	// ACCESS: R,	DATA TYPE: String 10+1,	DATA SIZE: -,	MIN: -,	MAX: -,	DEFAULT: ,	UNIT: ASCII
+			AFEVCx = 0x5A,              	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: ASCII
+			AFEData = 0x5B,             	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 13+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: ASCII
+			LifetimeDataBlock1 = 0x60,  	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			LifetimeDataBlock2 = 0x61,  	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			LifetimeDataBlock3 = 0x62,  	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 14+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			LifetimeDataBlock4 = 0x63,  	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 20+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			LifetimeDataBlock5 = 0x64,  	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 14+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			LifetimeDataBlock6 = 0x65,  	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			LifetimeDataBlock7 = 0x66,  	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			ManufacturerInfo = 0x70,    	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			DAStatus1 = 0x71,           	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			DAStatus2 = 0x72,           	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			CUV_Snapshot = 0x80,        	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+			COV_Snapshot = 0x81         	// ACCESS: R,	DATA TYPE: String,	DATA SIZE: 32+1,	MIN: -,	MAX: -,	DEFAULT: -,	UNIT: 
+		}kBQ78350_SBS_COMMANDS_ENUM;
+	}kBQ78350_SBS_COMMANDS_STRUCT;
+
 
 
 // endregion PLATFORM_DEPENDED_STRUCTS
@@ -1286,6 +1374,7 @@
 		public:
 
 			static const kBQ78350_DATA_FLASH_REGISTER_SELECT_SELECT_SELECT_STRUCT * Register;
+			static const kBQ78350_SBS_COMMANDS_STRUCT * SBS_Command;
 
 	};
 

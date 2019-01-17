@@ -467,4 +467,85 @@
   <REG class="GPIO" subclass="GPIO_Config" address="0x449C" name="GPIO_Output_Enable" type="H1"/>
   <REG class="GPIO" subclass="GPIO_Config" address="0x449D" name="GPIO_Default_Output_Enable" type="H1"/>
   <REG class="GPIO" subclass="GPIO_Config" address="0x449E" name="GPIO_Type" type="H1"/>
+  <SBS value="0x01" access="R/W" name="RemainingCapacityAlarm" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="" units="300 mAh or 10 mWh"/>
+  <SBS value="0x02" access="R/W" name="RemainingTimeAlarm" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="" units="10 min"/>
+  <SBS value="0x03" access="R/W" name="BatteryMode" dataDescription="hex" dataSize="2.0" min="0x0000" max="0xFFFF" default="-" units=""/>
+  <SBS value="0x04" access="R/W" name="AtRate" dataDescription="integer" dataSize="2.0" min="&#8211;32768" max="32767.0" default="-" units="mAh or 10 mWh"/>
+  <SBS value="0x05" access="R" name="AtRateTimeToFull" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65534.0" default="-" units="min"/>
+  <SBS value="0x06" access="R" name="AtRateTimeToEmpty" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65534.0" default="-" units="min"/>
+  <SBS value="0x07" access="R" name="AtRateOK" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units=""/>
+  <SBS value="0x08" access="R" name="Temperature" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="0.1&#176;K"/>
+  <SBS value="0x09" access="R" name="Voltage" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x0A" access="R" name="Current" dataDescription="integer" dataSize="2.0" min="&#8211;32768" max="32767.0" default="-" units="mA"/>
+  <SBS value="0x0B" access="R" name="AverageCurrent" dataDescription="integer" dataSize="2.0" min="&#8211;32768" max="32767.0" default="-" units="mA"/>
+  <SBS value="0x0C" access="R" name="MaxError" dataDescription="unsigned int" dataSize="1.0" min="0.0" max="1.0" default="-" units=""/>
+  <SBS value="0x0D" access="R" name="RelativeStateOfCharge" dataDescription="unsigned int" dataSize="1.0" min="0.0" max="1.0" default="-" units=""/>
+  <SBS value="0x0E" access="R" name="AbsoluteStateOfCharge" dataDescription="unsigned int" dataSize="1.0" min="0.0" max="1.0" default="-" units=""/>
+  <SBS value="0x0F" access="R/W" name="RemainingCapacity" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mAh or 10 mWh"/>
+  <SBS value="0x10" access="R" name="FullChargeCapacity" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mAh or 10 mWh"/>
+  <SBS value="0x11" access="R" name="RunTimeToEmpty" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65534.0" default="-" units="min"/>
+  <SBS value="0x12" access="R" name="AverageTimeToEmpty" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65534.0" default="-" units="min"/>
+  <SBS value="0x13" access="R" name="AverageTimeToFull" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65534.0" default="-" units="min"/>
+  <SBS value="0x14" access="R" name="ChargingCurrent" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65534.0" default="-" units="mA"/>
+  <SBS value="0x15" access="R" name="ChargingVoltage" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65534.0" default="-" units="mV"/>
+  <SBS value="0x16" access="R" name="BatteryStatus" dataDescription="unsigned int" dataSize="2.0" min="0x0000" max="0xdbff" default="-" units=""/>
+  <SBS value="0x17" access="R" name="CycleCount" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units=""/>
+  <SBS value="0x18" access="R" name="DesignCapacity" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mAh or 10 mWh"/>
+  <SBS value="0x19" access="R" name="DesignVoltage" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x1A" access="R" name="SpecificationInfo" dataDescription="hex" dataSize="2.0" min="0x0000" max="0xFFFF" default="0x0031" units=""/>
+  <SBS value="0x1B" access="R" name="ManufacturerDate" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units=""/>
+  <SBS value="0x1C" access="R" name="SerialNumber" dataDescription="hex" dataSize="2.0" min="0x0000" max="0xFFFF" default="0x0001" units=""/>
+  <SBS value="0x20" access="R" name="ManufacturerName" dataDescription="string" dataSize="11+1" min="-" max="-" default="Texas Instruments" units="ASCII"/>
+  <SBS value="0x21" access="R" name="DeviceName" dataDescription="string" dataSize="7+1" min="-" max="-" default="bq78350" units="ASCII"/>
+  <SBS value="0x22" access="R" name="DeviceChemistry" dataDescription="string" dataSize="4+1" min="-" max="-" default="LION" units="ASCII"/>
+  <SBS value="0x23" access="R" name="ManufacturerData" dataDescription="String 14+1" dataSize="-" min="-" max="-" default="ASCII" units=""/>
+  <SBS value="0x2B" access="R/W" name="HostFETControl" dataDescription="hex" dataSize="2.0" min="0.0" max="65535.0" default="-" units="-"/>
+  <SBS value="0x2C" access="R" name="GPIOStatus" dataDescription="hex" dataSize="2.0" min="0.0" max="65535.0" default="-" units=""/>
+  <SBS value="0x2D" access="R/W" name="GPIOControl" dataDescription="hex" dataSize="2.0" min="0.0" max="65535.0" default="-" units=""/>
+  <SBS value="0x2E" access="R" name="VAUXVoltage" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="1.0" units=""/>
+  <SBS value="0x2F" access="R/W" name="Authenticate" dataDescription="hex" dataSize="20+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x30" access="R" name="Reserved" dataDescription="-" dataSize="-" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x31" access="R" name="CellVoltage15" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x32" access="R" name="CellVoltage14" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x33" access="R" name="CellVoltage13" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x34" access="R" name="CellVoltage12" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x35" access="R" name="CellVoltage11" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x36" access="R" name="CellVoltage10" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x37" access="R" name="CellVoltage9" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x38" access="R" name="CellVoltage8" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x39" access="R" name="CellVoltage7" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x3A" access="R" name="CellVoltage6" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x3B" access="R" name="CellVoltage5" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x3C" access="R" name="CellVoltage4" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x3D" access="R" name="CellVoltage3" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x3E" access="R" name="CellVoltage2" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x3F" access="R" name="CellVoltage1" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x4C" access="R" name="DynamicPower" dataDescription="signed int" dataSize="2.0" min="&#8211;32768" max="32767.0" default="-" units="10 mW"/>
+  <SBS value="0x4D" access="R" name="ExtAveCellVoltage" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x4E" access="R" name="PendingEDV" dataDescription="unsigned int" dataSize="2.0" min="0.0" max="65535.0" default="-" units="mV"/>
+  <SBS value="0x4F" access="R" name="StateOfHealth" dataDescription="unsigned int" dataSize="1.0" min="0.0" max="1.0" default="-" units=""/>
+  <SBS value="0x50" access="R" name="SafetyAlert" dataDescription="hex" dataSize="4+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x51" access="R" name="SafetyStatus" dataDescription="hex" dataSize="4+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x52" access="R" name="PFAlert" dataDescription="hex" dataSize="2+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x53" access="R" name="PFStatus" dataDescription="hex" dataSize="4+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x54" access="R" name="OperationStatus" dataDescription="hex" dataSize="4+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x55" access="R" name="ChargingStatus" dataDescription="hex" dataSize="2+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x56" access="R" name="GaugingStatus" dataDescription="hex" dataSize="2+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x57" access="R" name="ManufacturingStatus" dataDescription="hex" dataSize="2+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x58" access="R" name="AFEStatus" dataDescription="hex" dataSize="2+1" min="-" max="-" default="-" units="-"/>
+  <SBS value="0x59" access="R" name="AFEConfig" dataDescription="String 10+1" dataSize="-" min="-" max="-" default="" units="ASCII"/>
+  <SBS value="0x5A" access="R" name="AFEVCx" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units="ASCII"/>
+  <SBS value="0x5B" access="R" name="AFEData" dataDescription="String" dataSize="13+1" min="-" max="-" default="-" units="ASCII"/>
+  <SBS value="0x60" access="R" name="LifetimeDataBlock1" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x61" access="R" name="LifetimeDataBlock2" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x62" access="R" name="LifetimeDataBlock3" dataDescription="String" dataSize="14+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x63" access="R" name="LifetimeDataBlock4" dataDescription="String" dataSize="20+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x64" access="R" name="LifetimeDataBlock5" dataDescription="String" dataSize="14+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x65" access="R" name="LifetimeDataBlock6" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x66" access="R" name="LifetimeDataBlock7" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x70" access="R" name="ManufacturerInfo" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x71" access="R" name="DAStatus1" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x72" access="R" name="DAStatus2" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x80" access="R" name="CUV_Snapshot" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
+  <SBS value="0x81" access="R" name="COV_Snapshot" dataDescription="String" dataSize="32+1" min="-" max="-" default="-" units=""/>
 </flash>
