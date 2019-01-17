@@ -34,23 +34,19 @@
 
 
 
-#ifndef __kLINEAR_H
-#define __kLINEAR_H
+#include "kLinear.h"
 
-
-	class kLinear
-	{
-		public:
-
-			float a;
-			float b;
-
-			float getValueAt(float x);
-			void set(float a,float b);
-			void set(float x1, float y1, float x2, float y2);
-
-
-	};
-
-
-#endif
+float kLinear::getValueAt(float x)
+{
+	return (a*x +b);
+}
+void kLinear::set(float a,float b)
+{
+	this->a = a;
+	this->b = b;
+}
+void kLinear::set(float x1, float y1, float x2, float y2)
+{
+	this->a = (y2-y1)/(x2-x1);
+	this->b = y1 - this->a*x1;
+}

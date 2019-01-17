@@ -34,23 +34,43 @@
 
 
 
-#ifndef __kLINEAR_H
-#define __kLINEAR_H
+#ifndef __kMath_H
+#define __kMath_H
 
 
-	class kLinear
+	#include "kUnits.h"
+	#include "kQuaternion.h"
+	#include "kVector.h"
+	#include "kAxisAngle.h"
+	#include "kMatrix.h"
+
+
+	#define DEG_2_RAD_SCALE_FACTOR 0.017453292
+	#define RAD_2_DEG_SCALE_FACTOR 57.29577951
+
+
+
+	class kMath
 	{
 		public:
 
-			float a;
-			float b;
+			static const float _pi;
+			static const float _2pi;
 
-			float getValueAt(float x);
-			void set(float a,float b);
-			void set(float x1, float y1, float x2, float y2);
+			static float rad2deg(float input);
+			static __inline__ kVector3 rad2deg(const kVector3 & v)__attribute__((always_inline));
+			static float deg2rad(float input);
 
+			static float abs(float input);
+			static float sign(float input);
 
+			static float getMax(float in_1, float in_2);
+			static float getMin(float in_1, float in_2);
 	};
 
+	__attribute__((always_inline)) kVector3 kMath::rad2deg(const kVector3 & v)
+	{
+		return v*RAD_2_DEG_SCALE_FACTOR;
+	}
 
 #endif

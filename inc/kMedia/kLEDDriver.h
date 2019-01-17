@@ -34,20 +34,57 @@
 
 
 
-#ifndef __kLINEAR_H
-#define __kLINEAR_H
+#ifndef __kLEDDRIVER_H
+#define __kLEDDRIVER_H
 
+	#include "kSystem.h"
+	#include "kLED.h"
+	#include "kLinear.h"
 
-	class kLinear
+	class kLEDDriver
 	{
+
+
 		public:
 
-			float a;
-			float b;
+			 typedef struct __attribute__ ((packed))
+			{
+				uint16_t programLines;
+				uint16_t loops;
+			}ProgramHeader;
 
-			float getValueAt(float x);
-			void set(float a,float b);
-			void set(float x1, float y1, float x2, float y2);
+			typedef struct __attribute__ ((packed))
+			{
+				uint16_t time_ms;
+				uint16_t brightness;
+			}ProgramLine;
+
+			typedef struct
+			{
+				ProgramHeader header;
+				ProgramLine line1;
+				ProgramLine line2;
+			}HeartBeatProgram_struct;
+
+
+		public:
+
+
+			void setProgram(const void * program);
+			void run();
+
+			static const HeartBeatProgram_struct HeartBeat;
+
+		protected:
+
+			kLED * LED;
+			kLinear lin;
+
+			ProgramHeader * header;
+			ProgramLine * line;
+			uint16_t cmd_index;
+			uint16_t loop_counter;
+
 
 
 	};

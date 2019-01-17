@@ -34,23 +34,68 @@
 
 
 
-#ifndef __kLINEAR_H
-#define __kLINEAR_H
+#include "kLEDDriver.h"
+
+const kLEDDriver::HeartBeatProgram_struct HeartBeat =
+{
+		{0xFFFF,4},
+		{500,	0xFFFF},
+		{1000,	0x0000}
+};
 
 
-	class kLinear
+
+void kLEDDriver::setProgram(const void * program)
+{
+	header = (kLEDDriver::ProgramHeader *)program;
+	cmd_index = 0;
+	loop_counter = 0;
+	LED->set(0);
+
+
+}
+
+void kLEDDriver::run()
+{
+	kRTOS::tick_t current_time = kRTOS::taskGetTickCount();
+	kRTOS::tick_t zulu_time;
+	kRTOS::tick_t end_time;
+
+	ProgramLine * currentLine;
+	ProgramLine * nextLine;
+
+	while(1)
 	{
-		public:
+		currentLine = &line[cmd_index++];
+		if(cmd_index >= header->programLines)
+		{
+			loop_counter++;
+			if(loop_counter < header->loops)
+			{
+				// repeat program
+				// set cmd_index to 0
+				cmd_index = 0;
+			}else
+			{
+				// exit program
+				break;
+			}
 
-			float a;
-			float b;
+		}
+		nextLine = &line[cmd_index];
 
-			float getValueAt(float x);
-			void set(float a,float b);
-			void set(float x1, float y1, float x2, float y2);
+		lin.set(0,currentLine->brightness,currentLine->time_ms,nextLine->brightness);
 
 
-	};
+		zulu_time = current_time;
+		end_time = zulu_time + currentLine->time_ms;
+		while(current_time < end_time)
+		{
+			LED->set(lin.getValueAt(current_time-zulu_time));
+			kRTOS::taskDelayUntil(&current_time,20);
+		}
 
+	}
 
-#endif
+}
+
