@@ -2514,6 +2514,8 @@
 				TIM_TypeDef * tim;
 				kEXTI exti;
 
+				bool isInput;
+
 			public:
 
 
@@ -2534,7 +2536,7 @@
 
 			//extract input pwm duty
 			operator unsigned int();
-
+			uint32_t getValue();
 
 			kPWMHardware hardware;
 

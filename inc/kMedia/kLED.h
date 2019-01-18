@@ -46,6 +46,7 @@
 			kLED(void);
 			__inline__ void run(void) __attribute__((always_inline));
 			__inline__ void set(uint16_t bright) __attribute__((always_inline));
+			__inline__ uint16_t getBrightness(void) __attribute__((always_inline));
 	};
 
 	class kLEDRGB
@@ -74,14 +75,11 @@
 		kPWM::operator = (bright);
 	}
 
-	/*class kLEDDriver : public kDiscrete, public kLED
+	__attribute__((always_inline)) uint16_t kLED::getBrightness(void)
 	{
-		public:
+		return ((uint16_t)kPWM::getValue());
+	}
 
-			kLEDDriver(void);
 
-
-	};
-	*/
 
 #endif

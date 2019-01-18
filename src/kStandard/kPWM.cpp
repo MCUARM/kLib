@@ -203,6 +203,8 @@ kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (unsigned int pwmHard)
 	if(pwmHard & 0x80000000)
 	{
 		// PWM input mode (based on EXTI and system timer)
+		isInput = true;
+
 		exti.hardware = pwmHard;
 
 		uint8_t EXTI_channel = pwmHard & 0x0F;
@@ -229,6 +231,8 @@ kPWM::kPWMHardware& kPWM::kPWMHardware::operator = (unsigned int pwmHard)
 	}else
 	{
 		// PWM output mode (based on Timer OC channel)
+		isInput = false;
+
 
 		unsigned int temp;
 		unsigned int * pReg;
@@ -316,4 +320,9 @@ void kPWM::run(unsigned short int resolution, unsigned int tick_freq)
 kPWM::operator unsigned int()
 {
 	return (unsigned int)this->hardware.EXTI_data->pwm_input_register;
+}
+uint32_t kPWM::getValue()
+{
+	if(hardware.isInput) return this->operator unsigned int();
+	return *hardware.output;
 }

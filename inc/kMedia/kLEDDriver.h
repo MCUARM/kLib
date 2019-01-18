@@ -40,6 +40,7 @@
 	#include "kSystem.h"
 	#include "kLED.h"
 	#include "kLinear.h"
+	#include "kRTOS.h"
 
 	class kLEDDriver
 	{
@@ -69,21 +70,35 @@
 
 		public:
 
+			typedef enum
+			{
+				stop = 0,
+				start = 1,
+				pause = 2
+			}state_t;
+
 
 			void setProgram(const void * program);
+			void setState(state_t state);
+
 			void run();
 
 			static const HeartBeatProgram_struct HeartBeat;
 
 		protected:
 
+
+			QueueHandle_t stateRequestQueue;
+
 			kLED * LED;
 			kLinear lin;
+
 
 			ProgramHeader * header;
 			ProgramLine * line;
 			uint16_t cmd_index;
 			uint16_t loop_counter;
+			uint8_t state;
 
 
 
