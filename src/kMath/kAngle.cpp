@@ -35,7 +35,7 @@
 
 
 #include "kAngle.h"
-
+#include "kMath.h"
 
 float kAngle::setInBounds_0_to_2pi(float angle_in_radians)
 {

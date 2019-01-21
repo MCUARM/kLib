@@ -81,24 +81,28 @@
 			void setProgram(const void * program);
 			void setState(state_t state);
 
-			void run();
+			void run(const char * task_name,unsigned long priority,const void * led_program);
 
 			static const HeartBeatProgram_struct HeartBeat;
 
 		protected:
 
+			friend void kLEDDriver_task(void* args);
+
+			kRTOS::task_t taskHandle=0;
 
 			QueueHandle_t stateRequestQueue;
 
 			kLED * LED;
 			kLinear lin;
 
+			bool taskCreated=false;
 
 			ProgramHeader * header;
 			ProgramLine * line;
 			uint16_t cmd_index;
 			uint16_t loop_counter;
-			uint8_t state;
+			uint8_t state=stop;
 
 
 

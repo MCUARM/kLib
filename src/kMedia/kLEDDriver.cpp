@@ -47,6 +47,11 @@ const kLEDDriver::HeartBeatProgram_struct HeartBeat =
 
 void kLEDDriver::setProgram(const void * program)
 {
+	// do not allow program changes if its already started
+	// you need to stop current program first
+	if(state != stop) return;
+
+
 	header = (kLEDDriver::ProgramHeader *)program;
 	cmd_index = 0;
 	loop_counter = 0;
@@ -55,28 +60,33 @@ void kLEDDriver::setProgram(const void * program)
 
 }
 
-void kLEDDriver::run()
+void kLEDDriver_task(void* args)
 {
+	kLEDDriver * driver = static_cast<kLEDDriver*>(args);
+
+
+
 	kRTOS::tick_t current_time;
 	kRTOS::tick_t zulu_time;
 	kRTOS::tick_t end_time;
 	bool isStarting;
-	ProgramLine startingLine;
+	kLEDDriver::ProgramLine startingLine;
 
-	ProgramLine * currentLine;
-	ProgramLine * nextLine;
+	kLEDDriver::ProgramLine * currentLine;
+	kLEDDriver::ProgramLine * nextLine;
 
-	stateRequestQueue = NULL;
-	stateRequestQueue = kRTOS::queueCreate(1,sizeof(uint8_t));
+	driver->stateRequestQueue = NULL;
+	driver->stateRequestQueue = kRTOS::queueCreate(1,sizeof(uint8_t));
 
 
+	// LED task main loop
 	while(1)
 	{
 		// suspend task if state is not equal start until next state change is received
-		if(state != start) kRTOS::queueReceive(stateRequestQueue,&this->state,portMAX_DELAY);
+		if(driver->state != kLEDDriver::start) kRTOS::queueReceive(driver->stateRequestQueue,&driver->state,portMAX_DELAY);
 
 		// LED program main loop
-		while(state == start)
+		while(driver->state == kLEDDriver::start)
 		{
 
 			// prepare to execute program
@@ -87,14 +97,14 @@ void kLEDDriver::run()
 			// this is the starting point in linear function model to interpolate brightness value
 			// between current LED brightness and brightness encoded in first program line
 			startingLine.time_ms = 0;
-			startingLine.brightness = LED->getBrightness();
+			startingLine.brightness = driver->LED->getBrightness();
 			// set isStarting flag to indicate that program has just started
 			isStarting = true;
 			// set command intex to 0
-			cmd_index = 0;
-			loop_counter = 0;
+			driver->cmd_index = 0;
+			driver->loop_counter = 0;
 
-			while(loop_counter < header->loops && state != stop)
+			while(driver->loop_counter < driver->header->loops && driver->state != kLEDDriver::stop)
 			{
 
 				// set current executing line of code as starting point
@@ -106,26 +116,26 @@ void kLEDDriver::run()
 				}else
 				{
 					// program is executing next line (not first)
-					currentLine = &line[cmd_index++];
+					currentLine = &driver->line[driver->cmd_index++];
 				}
 
 				// assert cmd_index value
-				if(cmd_index >= header->programLines)
+				if(driver->cmd_index >= driver->header->programLines)
 				{
 					// cmd_index exceeds number of lines in program
 					// this is end of sequence
 
 					// update loop counter
-					loop_counter++;
+					driver->loop_counter++;
 
 					// check if loop counter reached number of loops to be executed
-					if(loop_counter < header->loops)
+					if(driver->loop_counter < driver->header->loops)
 					{
 						// no - loop counter didn't reach programmed loops
 
 						// repeat program
 						// set cmd_index to 0
-						cmd_index = 0;
+						driver->cmd_index = 0;
 					}else
 					{
 						// yes - loop counter have reached programmed loops
@@ -138,14 +148,14 @@ void kLEDDriver::run()
 
 
 				// set next executing line of code as end point
-				nextLine = &line[cmd_index];
+				nextLine = &driver->line[driver->cmd_index];
 
 				// assert time in next line
 				if(!nextLine->time_ms)
 				{
 					// time equals 0. It means value must be set immediately
 					// set new brightness value
-					LED->set(nextLine->brightness);
+					driver->LED->set(nextLine->brightness);
 					// go to the next stage of while loop (skip the code below)
 					continue;
 				}
@@ -153,7 +163,7 @@ void kLEDDriver::run()
 				// set new parameters for linear function model
 				// this model is used to interpolate current value of brightness between
 				// two points (command lines) in program
-				lin.set(0,currentLine->brightness,nextLine->time_ms,nextLine->brightness);
+				driver->lin.set(0,currentLine->brightness,nextLine->time_ms,nextLine->brightness);
 
 				// zulu time is the RTOS time value (absolute time) captured at beginning of current line execution
 				zulu_time = current_time;
@@ -162,33 +172,33 @@ void kLEDDriver::run()
 
 				// interpolating while loop
 				// in this loop LED brightness value is being interpolated between 2 lines of program - currentLine and nextLine
-				while(current_time < end_time && state != stop)
+				while(current_time < end_time && driver->state != driver->stop)
 				{
-					kRTOS::queueReceive(stateRequestQueue,&this->state,0);
+					kRTOS::queueReceive(driver->stateRequestQueue,&driver->state,0);
 
-					switch(state)
+					switch(driver->state)
 					{
-						case start:
+						case kLEDDriver::start:
 
 							// set new LED brightness according to linear interpolation
-							LED->set(lin.getValueAt(current_time-zulu_time));
+							driver->LED->set(driver->lin.getValueAt(current_time-zulu_time));
 
 							break;
-						case pause:
+						case kLEDDriver::pause:
 
 							// pause signal has been send
 							// do nothing except shifting zulu_time
 							zulu_time += 20;
 
 							break;
-						case stop:
+						case kLEDDriver::stop:
 
 							break;
 						default:
 
 							// unknown state received
 							// set state to stop
-							state = stop;
+							driver->state = kLEDDriver::stop;
 
 							break;
 					}
@@ -205,12 +215,30 @@ void kLEDDriver::run()
 			}
 			// end of LED program
 			// set state to stopped
-			state = stop;
+			driver->state = kLEDDriver::stop;
 		}
 	}
 
 
 
+
+}
+
+
+void kLEDDriver::run(const char * task_name,unsigned long priority,const void * led_program)
+{
+	// prohibit calling this function more than one time
+	if(taskHandle) return;
+
+	// if led_program is not null set new led program and force start to easy startup
+	if(led_program)
+	{
+		setProgram(led_program);
+		state = start;
+	}
+
+	// create led driver task
+	kRTOS::taskCreate(kLEDDriver_task,task_name,1024,this,priority,&this->taskHandle);
 
 }
 void kLEDDriver::setState(state_t state)

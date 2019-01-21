@@ -37,7 +37,6 @@
 #ifndef __kAngle_H
 #define __kAngle_H
 
-	#include "kMath.h"
 
 	class kAngle;
 	class kAngle_minus_pi_to_pi;

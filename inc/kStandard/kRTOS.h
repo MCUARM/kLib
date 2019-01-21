@@ -64,7 +64,7 @@
 			static __inline__ void taskYield(void);
 
 			static __inline__ QueueHandle_t queueCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize)__attribute__((always_inline));
-			static __inline__ BaseType_t queueSend(QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait)__attribute__((always_inline));;
+			static __inline__ BaseType_t queueSend(QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait)__attribute__((always_inline));
 			static __inline__ BaseType_t queueReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait)__attribute__((always_inline));
 
 
@@ -106,6 +106,15 @@
 		{
 			return xQueueCreate(uxQueueLength,uxItemSize);
 		}
+		__attribute__((always_inline)) BaseType_t kRTOS::queueSend(QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait)
+		{
+			return xQueueGenericSend(xQueue,pvItemToQueue,xTicksToWait,queueSEND_TO_BACK);
+		}
+		__attribute__((always_inline)) BaseType_t kRTOS::queueReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait)
+		{
+			return xQueueGenericReceive(xQueue,pvBuffer,xTicksToWait,pdFALSE);
+		}
+
 		__attribute__((always_inline)) SemaphoreHandle_t kRTOS::semaphoreCreateBinary(void)
 		{
 			return xSemaphoreCreateBinary();
@@ -123,14 +132,8 @@
 			return xQueueGenericReceive((QueueHandle_t)xSemaphore, NULL, 0, pdTRUE );
 		}
 
-		__attribute__((always_inline)) BaseType_t kRTOS::queueSend(QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait)
-		{
-			return xQueueGenericSend(xQueue,pvItemToQueue,xTicksToWait,queueSEND_TO_BACK);
-		}
-		__attribute__((always_inline)) BaseType_t queueReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait)
-		{
-			return xQueueGenericReceive(xQueue,pvBuffer,xTicksToWait,pdFALSE);
-		}
+
+
 
 	#endif
 
