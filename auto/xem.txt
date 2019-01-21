@@ -1,0 +1,26 @@
+Ekspert w dziedzinie elektroniki oraz programowania niskopoziomowego. 
+Projektuje oraz wykonuje urzadzenia elektroniczne od rysunków po kompletne złożenie, zaprogramowanie, testy oraz dokumentację. Budowa Smart Battery - urządzenia monitorującego parametry oraz stan akumulatorów pokładowych. Budowa urządzenia monitorującego oraz ładującego akumulatory stacji naziemnej. 
+Tworzenie skryptów autamtyzujących czynności projektowe. Tworzenie modeli matematycznych pozwalających przewidzieć parametry oraz zachowanie projektowanego statku powietrznego.
+Modelowanie elementów 3D.
+Oblatywanie (wykonywanie pierwszych lotów) nowych prototypów. Ocena jakości stabilności, sterowności, położenia środka ciężkości oraz innych parametrów wpływających na efektywność lotu oraz łatwość pilotażu.
+Zarządzanie dokumentacją projektową oraz monitorowaniem kluczowych parametrów projektowanego statku powietrznego wyrożniających Airdurance wśród innych marek.
+Projektowanie układów automatycznej regulacji.
+
+Doświadczenie zawodowe
+
+12.2017 - obecnie – SAMSUNG Inkubator - startup Airdurance
+12.2018 - obecnie - Mobica Ltd - praca na stanowisku Junior Software Developer. Projektowanie oprogramowania dla branży automotive
+
+
+10.2017 - obecnie - Politechnika Rzeszowska im. Ignacego Łukasiewicza. Studia uzupełniające II stopnia, kierunek lotnictwo i kosmonautyka
+10.2012 - 02.2017 - Politechnika Rzeszowska im. Ignacego Łukasiewicza. Studia I stopnia, kierunek lotnictwo i kosmonautyka
+
+
+06.2018 - konkurs Droniada 2018 - programista
+Udział w konkursie. Implementacja algorytmu detekcji oraz wyznaczania pozycji kodów QR w trakcie lotu wielowirnikowca.. Algorytm estymacji położonia zbudowany na bazie Rozszerzonego Filtru Kalmana. 
+
+06.2017 - konkurs Droniada 2018 - programista oraz projektant hardware'u
+Udział w konkursie. Projekt algorytmu estymującego pozycję bikona Bluetooth 4.0 wykorzystując różnicowy sygnał RSSI z kilku anten kierunkowych. Dwu stopniowy algorytm - wyznaczenie wektora kierunku w przestrzeni 3D oraz określenie położenia za pomocą EKF.
+
+10.2016 - konkurs dronowy IMAV w Pekinie - programista oraz projektant hardware'u
+Udział w konkursie. Odpowiedzialny za projekt oraz konstrukcję autopilota dla wielowirnikowca. Implementacja praw sterowania: pętlę sprzężenia zwrotnego dla sterowania prędkościami kątowymi oraz kątami orientacji przestrzennej.
