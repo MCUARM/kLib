@@ -34,72 +34,17 @@
 
 
 
-#ifndef __kQuaternion_H
-#define __kQuaternion_H
+#ifndef __kArming_H
+#define __kArming_H
 
-	class kQuaternion;
+	#include "kSystem.h"
 
-    #include "math.h"
-	#include "kVector.h"
-	#include "kAxisAngle.h"
-	#include "kMath.h"
-
-	class kQuaternion
+	class kArming
 	{
+
 		public:
-		
-			float r;
-			float i;
-			float j;
-			float k;
-			
 
-			kQuaternion(void);
-			kQuaternion(float r,float i, float j, float k);
-			kQuaternion(const kVector3 & v);
+			void run(void);
 
-			void operator += (const kQuaternion & q);
-            kQuaternion operator +(const kQuaternion & q);
-
-			void operator -= (const kQuaternion & q);
-            kQuaternion operator -(const kQuaternion & q);
-
-			void operator *= (const kQuaternion & q);
-			void operator *= (const float &scalar);
-			void operator *= (const kVector3 & v);
-			kQuaternion operator *(const kQuaternion & q);
-			kQuaternion operator *(const kVector3 & v);
-			kQuaternion operator *(float & scalar);
-
-			void operator /= (float scalar);
-            kQuaternion operator /(float scalar);
-
-            void operator = (const kQuaternion & q);
-            bool operator == (const kQuaternion & q);
-			
-			float norm(void);
-			kQuaternion inv(void);
-			kQuaternion versor(void);
-			kQuaternion conjugate(void);
-			kQuaternion reciprocal(void);
-			
-			static float dotProduct(const kQuaternion & q1,const kQuaternion & q2);
-
-			kVector3 toEulerAngles(void);
-			kAxisAngle toAxisAngle(void);
-
-			static kQuaternion fromAxisAngle(const kAxisAngle & axis_angle);
-			static kQuaternion fromAngularRates(kVector3 & angular_rates,float dt);
-			static kQuaternion fromEulerAngles(kVector3 Euler_angles);
-
-			static kQuaternion create(float r,float i, float j, float k);
-			static kQuaternion create(const kVector3 & v);
-
-			static kQuaternion slerp(const kQuaternion & begin, const kQuaternion & end, float normalized_time);
-
-    };
-	
-
-
-
+	};
 #endif

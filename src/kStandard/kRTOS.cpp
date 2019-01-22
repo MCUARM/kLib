@@ -69,4 +69,17 @@ void kRTOS::taskCreateScheduled(void (*function_handler)(void*),const char * tas
 	kRTOS::taskCreate(kRTOS_scheduledTask,task_name,stack_size,scheduledTaskData,priority,created_task);
 
 }
+void kRTOS::Notifier::addNotificationReceiver(task_t rx_task)
+{
+	if(receivers_length >= 8) return;
+	receiver[receivers_length++] = rx_task;
+}
+void kRTOS::Notifier::notifyAllReceivers(void)
+{
+	for(uint8_t i=0;i<receivers_length;i++)
+	{
+		// notify
+		kRTOS::taskNotifyGive(receiver[i]);
 
+	}
+}

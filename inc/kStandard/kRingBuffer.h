@@ -42,63 +42,97 @@
 	{
 		private:
 
+			// holds physical buffer pointer
 			obj_t * mBuffer;
+			// holds buffer length (this is not sizeof(mBuffer[]) array)
 			unsigned int mSize;
+			// reading index
 			unsigned int mReadIndex;
+			// writing index
 			unsigned int mWriteIndex;
 
+			// increments chosen ring buffer pointer and assert it always within bounds
 			void prvIncrementRingIndex(unsigned int * index){
-				*index++;
-				if(*index >= this->mSize) *index = 0;
+				// increment pointer
+				(*index)++;
+				// assert index maximum value
+				if(*index >= mSize) *index = 0;
 			}
 
 		public:
 
-			kRingBuffer(obj_t * buffer, unsigned int buffer_size){
-
-				this->mBuffer = buffer;
-				this->mSize = buffer_size;
-				this->mReadIndex = 0;
-				this->mWriteIndex = 0;
-
-			}
-			void write(obj_t * data, unsigned int size){
-
-				while(size)
-				{
-					this->mBuffer[this->mWriteIndex] = *data;
-					this->prvIncrementRingIndex(&this->mWriteIndex);
-
-					if(this->mReadIndex == this->mWriteIndex)
-					{
-						this->prvIncrementRingIndex(&this->mReadIndex);
-					}
-
-					size--;
-				}
-
-			}
-			unsigned int read(obj_t * destination, unsigned int max_items_to_read)
+			kRingBuffer(obj_t * buffer, unsigned int buffer_size)
 			{
 
+				mBuffer = buffer;
+				mSize = buffer_size;
+				mReadIndex = 0;
+				mWriteIndex = 0;
+
+			}
+			// writes data to buffer
+			void write(obj_t * data, unsigned int size)
+			{
+				while(size--)
+				{
+					// copy new data item to buffer
+					mBuffer[mWriteIndex] = *data;
+					// increment write index
+					prvIncrementRingIndex(&mWriteIndex);
+
+					// check for buffer overflow
+					if(mReadIndex == mWriteIndex)
+					{
+						// buffer is overflowed
+						// read index must be pushed forward item step after write index
+						// one data item is lost (overwritten)
+						prvIncrementRingIndex(&mReadIndex);
+					}
+					// increment data pointer
+					data++;
+				}
+			}
+
+			// reads data from buffer
+			unsigned int read(obj_t * destination, unsigned int max_items_to_read)
+			{
+				// set read items counter to maximum items allowed to read
 				unsigned int obj_read = max_items_to_read;
+
+				// read all items one by one
 				while(max_items_to_read)
 				{
-					if(this->mReadIndex != this->mWriteIndex)
+					// is there any data to read?
+					if(mReadIndex != mWriteIndex)
 					{
-						*destination = this->mBuffer[this->mReadIndex];
-						this->prvIncrementRingIndex(&this->mReadIndex);
+						// yes
+						// copy data item from ring buffer to destination
+						*destination = this->mBuffer[mReadIndex];
+						// increment read index
+						prvIncrementRingIndex(&mReadIndex);
+						// increment destination pointer
 						destination++;
-					} else break;
+
+					} else break; // there is no data left to read (break loop)
+
+					// decrease max_items_to_read
 					max_items_to_read--;
 				}
+				// actually obj_read = (max items to read) - (data items read)
 				obj_read -= max_items_to_read;
 
+				// return number of read items
 				return obj_read;
 			}
-			unsigned int countAvailableData(void){
-				if(this->mWriteIndex > this->mReadIndex) return (this->mWriteIndex - this->mReadIndex);
-				else return (this->mSize + this->mWriteIndex - this->mReadIndex);
+
+			unsigned int countAvailableData(void)
+			{
+				// standard for all buffers - writing index is greater than read index
+				if(mWriteIndex > mReadIndex) return (mWriteIndex - this->mReadIndex);
+
+				// else statement (mWriteIndex <= mReadIndex)
+				// index inversion - write index is before read index
+				return (mSize + this->mWriteIndex - mReadIndex);
 			}
 
 	};

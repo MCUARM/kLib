@@ -36,150 +36,169 @@
 
 #include "kAHRS.h"
 
-float default_sens_input;
 
-kAHRS::kAHRS(void)
+void kAHRS_task(void*args)
 {
-	this->attachAccData(&default_sens_input,&default_sens_input,&default_sens_input);
-	this->attachGyroData(&default_sens_input,&default_sens_input,&default_sens_input);
-	this->attachMagData(&default_sens_input,&default_sens_input,&default_sens_input);
+	kAHRS * AHRS = static_cast<kAHRS*>(args);
+	AHRS->isStartingUp = 2;
 
-	this->phi = 0;
-	this->theta = 0;
-	this->psi = 0;
+
+	while(1)
+	{
+		// wait for new data coming from IMU
+		if(AHRS->inputDataSemaphore.take(portMAX_DELAY))
+		{
+			// new data from IMU is available
+
+			// check if this is filter start up
+			if(AHRS->isStartingUp)
+			{
+				// yes
+				if(AHRS->isStartingUp == 2)
+				{
+					//this is first step data are passed from IMU
+					//run correction weight LPF dt calculation
+					AHRS->correctionWeight.run();
+				}
+				if(AHRS->isStartingUp == 1)
+				{
+					// AHRS should be initialised with these data
+					AHRS->init();
+					// run AHRS dt calculation
+					AHRS->kDiscrete::run();
+					// setup correctionWeight LPF with time constant and initial value
+					// these settings must be set when proper dt value is maintained
+					AHRS->correctionWeight.init(5,1.0);
+				}
+				// decrement starting up counter
+				AHRS->isStartingUp--;
+			}else
+			{
+				// filter stage
+
+				// process new data
+				AHRS->calculateAngles();
+
+				// notify new data
+				AHRS->notifyAllReceivers();
+			}
+
+
+		}
+
+	}
+
 }
 
 
-void kAHRS::attachGyroData(float * p, float * q, float * r)
+
+void kAHRS::run(const char * task_name,unsigned long priority)
 {
-	this->sens_p = p;
-	this->sens_q = q;
-	this->sens_r = r;
-}
-void kAHRS::attachAccData(float * x, float * y, float * z)
-{
-	this->sens_x_acc = x;
-	this->sens_y_acc = y;
-	this->sens_z_acc = z;
-}
-void kAHRS::attachMagData(float * x, float * y, float * z)
-{
-	this->sens_x_mag = x;
-	this->sens_y_mag = y;
-	this->sens_z_mag = z;
-}
-void kAHRS::attachGyroData(kVector3 * angular_rates)
-{
-	this->attachGyroData(&angular_rates->x,&angular_rates->y,&angular_rates->z);
+	// prohibit calling this function more than one time
+	if(taskHandle) return;
+
+	// create input data semaphore
+	if(!inputDataSemaphore.createBinary()) return;
+	inputDataSemaphore.take(portMAX_DELAY);
+
+
+	// create AHRS task
+	kRTOS::taskCreate(kAHRS_task,task_name,1024,this,priority,&taskHandle);
 }
 
-void kAHRS::attachAccData(kVector3 * acceleration)
+void kAHRS::notifyNewInputData(void)
 {
-	this->attachAccData(&acceleration->x,&acceleration->y,&acceleration->z);
+	inputDataSemaphore.give();
 }
 
-void kAHRS::attachMagData(kVector3 * magnetic_induction)
+void kAHRS::setGyroData(kVector3 * angular_rates)
 {
-	this->attachMagData(&magnetic_induction->x,&magnetic_induction->y,&magnetic_induction->z);
-}
-void kAHRS::attachGyroData(kGyroscope * gyro)
-{
-	this->attachGyroData(&gyro->gyro.x,&gyro->gyro.y,&gyro->gyro.z);
-}
-void kAHRS::attachAccData(kAccelerometer * acc)
-{
-	this->attachAccData(&acc->acc.x,&acc->acc.y,&acc->acc.z);
+	gyro = angular_rates;
 }
 
-kVector3 kAHRS::angularRates2EulerDot(void)
+void kAHRS::setAccData(kVector3 * acceleration)
 {
-	float sin_phi,cos_phi,sin_theta,cos_theta,tan_theta;
-
-	sin_phi = sinf(this->phi);
-	cos_phi = cosf(this->phi);
-
-	sin_theta = sinf(this->theta);
-	cos_theta = cosf(this->theta);
-	tan_theta = sin_theta/cos_theta;
-
-
-	kVector3 res;
-
-	res.x = + (*this->sens_p)
-			+ sin_phi*tan_theta*(*this->sens_q)
-			+ cos_phi*tan_theta*(*this->sens_r);
-
-	res.y = + cos_phi*(*this->sens_q)
-			- sin_phi*(*this->sens_r);
-
-	res.z = + sin_phi/cos_theta*(*this->sens_q)
-			+ cos_phi/cos_theta*(*this->sens_r);
-
-	return res;
+	acc = acceleration;
 }
+
+void kAHRS::setMagData(kVector3 * magnetic_induction)
+{
+	mag = magnetic_induction;
+}
+
 void kAHRS::init(void)
 {
 	// calculate magnitude of acceleration
-	float acc_magnitude = sqrtf( (*this->sens_x_acc)*(*this->sens_x_acc)+
-								(*this->sens_y_acc)*(*this->sens_y_acc)+
-								(*this->sens_z_acc)*(*this->sens_z_acc));
+	float acc_magnitude = acc->length();
+
+	// initial phi angle (using accelerometer)
+	EulerEst.x = atan2f(acc->y,acc->z);
 
 	// initial theta angle (using accelerometer)
-	this->theta = asinf(-(*this->sens_x_acc)/acc_magnitude);
-	// initial phi angle (using accelerometer)
-	this->phi = atan2f((*this->sens_y_acc),(*this->sens_z_acc));
+	EulerEst.y = asinf(-acc->x/acc_magnitude);
 
 	// initial psi angle from magnetometer
-	kVector3 mag(*this->sens_x_mag,*this->sens_y_mag,*this->sens_z_mag);
-	mag.rotateX(this->phi);
-	mag.rotateY(this->theta);
+	kVector3 rotated_mag = *mag;
+	rotated_mag.rotateX(EulerEst.x);
+	rotated_mag.rotateY(EulerEst.y);
 
-	this->psi = atan2f(-mag.y,mag.x);
+	EulerEst.z = atan2f(-rotated_mag.y,rotated_mag.x);
+
+	// run dt calculation
+	kDiscrete::run();
+	correctionWeight.run();
+
 }
-kVector3 kAHRS::getCorrection(void)
+kVector3 kAHRS::calculateCorrectionAngles(void)
 {
 	kVector3 res;
+
+
 	// calculate magnitude of acceleration
-	float acc_magnitude = sqrtf( (*this->sens_x_acc)*(*this->sens_x_acc)+
-								(*this->sens_y_acc)*(*this->sens_y_acc)+
-								(*this->sens_z_acc)*(*this->sens_z_acc));
+	float acc_magnitude = acc->length();
 
-	// phi angle (using accelerometer)
-	res.x = atan2f((*this->sens_y_acc),(*this->sens_z_acc));
+	// initial phi angle (using accelerometer)
+	res.x = atan2f(acc->y,acc->z);
 
-	// theta angle (using accelerometer)
-	res.y = asinf(-(*this->sens_x_acc)/acc_magnitude);
+	// initial theta angle (using accelerometer)
+	res.y = asinf(-acc->x/acc_magnitude);
 
-	// psi angle from magnetometer
-	kVector3 mag(*this->sens_x_mag,*this->sens_y_mag,*this->sens_z_mag);
-	mag.rotateX(this->phi);
-	mag.rotateY(this->theta);
-	res.z = atan2f(-mag.y,mag.x);
+	// initial psi angle from magnetometer
+	kVector3 rotated_mag = *mag;
+	rotated_mag.rotateX(EulerEst.x);
+	rotated_mag.rotateY(EulerEst.y);
+
+	res.z = atan2f(-rotated_mag.y,rotated_mag.x);
 
 	return res;
 }
 void kAHRS::calculateAngles(void)
 {
-	kVector3 gyro(*this->sens_p,*this->sens_q,*this->sens_r);
+	// process
+	q *= kQuaternion::fromAngularRates(*gyro,dt());
 
-	this->temp_AxisAngle = kAxisAngle::create(gyro,gyro.length()*dt());
-	this->qg = kQuaternion::fromAxisAngle(this->temp_AxisAngle);
+	// correction
+	EulerC = calculateCorrectionAngles();
+	qc = kQuaternion::fromEulerAngles(EulerC);
+	q = kQuaternion::slerp(q,qc,correctionWeight.feed(0.01));
 
-	this->q *= this->qg;
+	//quaternion normalisation
+	q = q.versor();
 
+	// outputting angles
+	EulerEst = q.toEulerAngles();
 
-	this->EulerC = this->getCorrection();
-	qc = kQuaternion::fromEulerAngles(this->EulerC);
+}
 
-	this->q = kQuaternion::slerp(this->q,this->qc,0.01);
-
-	//quaternion *= quaternion_error;
-	this->q = this->q.versor();
-
-	this->EulerG = this->q.toEulerAngles();
-
-	this->phi   = this->EulerG.x;
-	this->theta = this->EulerG.y;
-	this->psi   = this->EulerG.z;
-
+float kAHRS::phi()
+{
+	return EulerEst.x;
+}
+float kAHRS::theta()
+{
+	return EulerEst.y;
+}
+float kAHRS::psi()
+{
+	return EulerEst.z;
 }

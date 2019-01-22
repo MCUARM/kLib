@@ -315,6 +315,22 @@ kQuaternion  kQuaternion::fromAxisAngle(const kAxisAngle & axis_angle)
 
 	return res;
 }
+kQuaternion kQuaternion::fromAngularRates(kVector3 & angular_rates,float dt)
+{
+	kQuaternion res;
+	float angle_rad = angular_rates.length()*dt*0.5;
+
+	res.r = cosf(angle_rad);
+	// use angle_rad as temporary storage
+	angle_rad = sinf(angle_rad)/angular_rates.length();
+
+	res.i = angle_rad*angular_rates.x;
+	res.j = angle_rad*angular_rates.y;
+	res.k = angle_rad*angular_rates.z;
+
+	return res;
+
+}
 kQuaternion  kQuaternion::fromEulerAngles(kVector3 Euler_angles)
 {
 	kQuaternion res;

@@ -54,6 +54,52 @@
 			typedef void * task_t;
 			typedef uint32_t tick_t;
 
+			class Notifier
+			{
+				private:
+
+					uint8_t receivers_length = 0;
+					task_t receiver[8];
+
+				protected:
+
+					void notifyAllReceivers(void);
+
+				public:
+
+					void addNotificationReceiver(task_t rx_task);
+
+
+			};
+
+			class Semaphore
+			{
+				private:
+					SemaphoreHandle_t semaphore_handler;
+
+				public:
+
+					__inline__ bool createBinary(void)__attribute__((always_inline));
+					__inline__ BaseType_t take(TickType_t xBlockTime)__attribute__((always_inline));
+					__inline__ BaseType_t peek(void)__attribute__((always_inline));
+					__inline__ BaseType_t give(void)__attribute__((always_inline));
+
+			};
+
+			class Queue
+			{
+				private:
+					QueueHandle_t queue_handler;
+
+				public:
+
+					__inline__ bool create( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize)__attribute__((always_inline));
+					__inline__ BaseType_t send(const void * const pvItemToQueue, TickType_t xTicksToWait)__attribute__((always_inline));
+					__inline__ BaseType_t receive(void * const pvBuffer, TickType_t xTicksToWait)__attribute__((always_inline));
+
+
+			};
+
 
 			static __inline__ void taskCreate(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,task_t * const created_task) __attribute__((always_inline));
 			static void taskCreateScheduled(void (*function_handler)(void*),const char * task_name,unsigned int stack_size,void * const params,unsigned long priority,task_t * const created_task,tick_t scheduleInterval);
@@ -61,19 +107,14 @@
 			static __inline__ void taskDelayUntil(tick_t * previous_wake_time_ms, const tick_t time_increment_ms)__attribute__((always_inline));
 			static __inline__ void taskDelay(const tick_t time_increment_ms)__attribute__((always_inline));
 			static __inline__ tick_t taskGetTickCount(void) __attribute__((always_inline));
-			static __inline__ void taskYield(void);
+			static __inline__ void taskYield(void)__attribute__((always_inline));
 
-			static __inline__ QueueHandle_t queueCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize)__attribute__((always_inline));
-			static __inline__ BaseType_t queueSend(QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait)__attribute__((always_inline));
-			static __inline__ BaseType_t queueReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait)__attribute__((always_inline));
+			static __inline__ BaseType_t taskNotifyWait( uint32_t ulBitsToClearOnEntry, uint32_t ulBitsToClearOnExit, uint32_t *pulNotificationValue, TickType_t xTicksToWait )__attribute__((always_inline));
+			static __inline__ BaseType_t taskNotifyGive( TaskHandle_t xTaskToNotify)__attribute__((always_inline));
+			static __inline__ uint32_t taskNotifyTake( BaseType_t xClearCountOnExit, TickType_t xTicksToWait)__attribute__((always_inline));
+			static __inline__ BaseType_t taskNotifyStateClear( TaskHandle_t xTask )__attribute__((always_inline));
 
 
-
-
-			static __inline__ SemaphoreHandle_t semaphoreCreateBinary(void) __attribute__((always_inline));
-			static __inline__ BaseType_t semaphoreTake(SemaphoreHandle_t xSemaphore,TickType_t xBlockTime) __attribute__((always_inline));
-			static __inline__ BaseType_t semaphorePeek(SemaphoreHandle_t xSemaphore) __attribute__((always_inline));
-			static __inline__ BaseType_t semaphoreGive(SemaphoreHandle_t xSemaphore) __attribute__((always_inline));
 
 		};
 
@@ -102,36 +143,56 @@
 		{
 			taskYIELD();
 		}
-		__attribute__((always_inline)) QueueHandle_t kRTOS::queueCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize)
+		__attribute__((always_inline)) bool kRTOS::Queue::create( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize)
 		{
-			return xQueueCreate(uxQueueLength,uxItemSize);
+			queue_handler = xQueueCreate(uxQueueLength,uxItemSize);
+			return (bool)queue_handler;
 		}
-		__attribute__((always_inline)) BaseType_t kRTOS::queueSend(QueueHandle_t xQueue, const void * const pvItemToQueue, TickType_t xTicksToWait)
+		__attribute__((always_inline)) BaseType_t kRTOS::Queue::send(const void * const pvItemToQueue, TickType_t xTicksToWait)
 		{
-			return xQueueGenericSend(xQueue,pvItemToQueue,xTicksToWait,queueSEND_TO_BACK);
+			return xQueueGenericSend(queue_handler,pvItemToQueue,xTicksToWait,queueSEND_TO_BACK);
 		}
-		__attribute__((always_inline)) BaseType_t kRTOS::queueReceive( QueueHandle_t xQueue, void * const pvBuffer, TickType_t xTicksToWait)
+		__attribute__((always_inline)) BaseType_t kRTOS::Queue::receive(void * const pvBuffer, TickType_t xTicksToWait)
 		{
-			return xQueueGenericReceive(xQueue,pvBuffer,xTicksToWait,pdFALSE);
-		}
-
-		__attribute__((always_inline)) SemaphoreHandle_t kRTOS::semaphoreCreateBinary(void)
-		{
-			return xSemaphoreCreateBinary();
-		}
-		__attribute__((always_inline)) BaseType_t kRTOS::semaphoreTake(SemaphoreHandle_t xSemaphore,TickType_t xBlockTime)
-		{
-			return xSemaphoreTake(xSemaphore,xBlockTime);
-		}
-		__attribute__((always_inline)) BaseType_t kRTOS::semaphoreGive(SemaphoreHandle_t xSemaphore)
-		{
-			return xSemaphoreGive(xSemaphore);
-		}
-		__attribute__((always_inline)) BaseType_t kRTOS::semaphorePeek(SemaphoreHandle_t xSemaphore)
-		{
-			return xQueueGenericReceive((QueueHandle_t)xSemaphore, NULL, 0, pdTRUE );
+			return xQueueGenericReceive(queue_handler,pvBuffer,xTicksToWait,pdFALSE);
 		}
 
+		__attribute__((always_inline)) bool kRTOS::Semaphore::createBinary(void)
+		{
+			semaphore_handler = xSemaphoreCreateBinary();
+			return (bool)semaphore_handler;
+		}
+		__attribute__((always_inline)) BaseType_t kRTOS::Semaphore::take(TickType_t xBlockTime)
+		{
+			return xSemaphoreTake(semaphore_handler,xBlockTime);
+		}
+		__attribute__((always_inline)) BaseType_t kRTOS::Semaphore::give(void)
+		{
+			return xSemaphoreGive(semaphore_handler);
+		}
+		__attribute__((always_inline)) BaseType_t kRTOS::Semaphore::peek(void)
+		{
+			return xQueueGenericReceive((QueueHandle_t)semaphore_handler, NULL, 0, pdTRUE );
+		}
+
+
+
+		__attribute__((always_inline)) BaseType_t kRTOS::taskNotifyWait( uint32_t ulBitsToClearOnEntry, uint32_t ulBitsToClearOnExit, uint32_t *pulNotificationValue, TickType_t xTicksToWait )
+		{
+			return xTaskNotifyWait(ulBitsToClearOnEntry,ulBitsToClearOnExit,pulNotificationValue,xTicksToWait);
+		}
+		__attribute__((always_inline)) BaseType_t kRTOS::taskNotifyGive( TaskHandle_t xTaskToNotify)
+		{
+			return xTaskNotifyGive(xTaskToNotify);
+		}
+		__attribute__((always_inline)) uint32_t kRTOS::taskNotifyTake( BaseType_t xClearCountOnExit, TickType_t xTicksToWait)
+		{
+			return ulTaskNotifyTake(xClearCountOnExit,xTicksToWait);
+		}
+		__attribute__((always_inline)) BaseType_t kRTOS::taskNotifyStateClear( TaskHandle_t xTask )
+		{
+			return xTaskNotifyStateClear(xTask);
+		}
 
 
 

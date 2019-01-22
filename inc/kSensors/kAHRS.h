@@ -45,64 +45,54 @@
 
 	#include "kGyroscope.h"
 	#include "kAccelerometer.h"
+	#include "kRTOS.h"
+	#include "kLPF.h"
 
-	class kAHRS : public kDiscrete
+	class kAHRS : public kDiscrete, public kRTOS::Notifier
 	{
 		private:
 
-			float * sens_p;
-			float * sens_q;
-			float * sens_r;
+			friend void kAHRS_task(void*args);
 
-			float * sens_x_acc;
-			float * sens_y_acc;
-			float * sens_z_acc;
+			kRTOS::task_t taskHandle=0;
+			kRTOS::Semaphore inputDataSemaphore;
 
-			float * sens_x_mag;
-			float * sens_y_mag;
-			float * sens_z_mag;
+			uint8_t isStartingUp;
 
-			float sin_phi_c;
-			float cos_phi_c;
-			float sin_theta_c;
-			float cos_theta_c;
-			float sin_psi_c;
-			float cos_psi_c;
 
+			kVector3 * gyro;
+			kVector3 * acc;
+			kVector3 * mag;
+
+			// attitude angles
 			kVector3 EulerC;
-			kVector3 EulerG;
+			kVector3 EulerEst;
+
+			kLPF correctionWeight;
 
 			kQuaternion q;
 			kQuaternion qc;
-			kQuaternion qg;
 
-			kAxisAngle temp_AxisAngle;
-		public:
-
-			kVector3 angularRates2EulerDot(void);
-			kVector3 getCorrection(void);
-
-			// attitude angles
-			float phi;
-			float theta;
-			float psi;
-
-			//default constructor
-			kAHRS(void);
-
-			void attachGyroData(float * p, float * q, float * r);
-			void attachGyroData(kVector3 * angular_rates);
-			void attachGyroData(kGyroscope * gyro);
-
-			void attachAccData(float * x, float * y, float * z);
-			void attachAccData(kVector3 * acceleration);
-			void attachAccData(kAccelerometer * acc);
-
-			void attachMagData(float * x, float * y, float * z);
-			void attachMagData(kVector3 * magnetic_induction);
-
+			kVector3 calculateCorrectionAngles(void);
 			void calculateAngles(void);
 			void init(void);
+
+		public:
+
+			void run(const char * task_name,unsigned long priority);
+
+			float phi();
+			float theta();
+			float psi();
+
+
+			void setGyroData(kVector3 * angular_rates);
+			void setAccData(kVector3 * acceleration);
+			void setMagData(kVector3 * magnetic_induction);
+
+			void notifyNewInputData(void);
+
+
 
 
 	};

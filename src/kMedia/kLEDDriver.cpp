@@ -75,15 +75,14 @@ void kLEDDriver_task(void* args)
 	kLEDDriver::ProgramLine * currentLine;
 	kLEDDriver::ProgramLine * nextLine;
 
-	driver->stateRequestQueue = NULL;
-	driver->stateRequestQueue = kRTOS::queueCreate(1,sizeof(uint8_t));
+
 
 
 	// LED task main loop
 	while(1)
 	{
 		// suspend task if state is not equal start until next state change is received
-		if(driver->state != kLEDDriver::start) kRTOS::queueReceive(driver->stateRequestQueue,&driver->state,portMAX_DELAY);
+		if(driver->state != kLEDDriver::start) driver->stateRequestQueue.receive(&driver->state,portMAX_DELAY);
 
 		// LED program main loop
 		while(driver->state == kLEDDriver::start)
@@ -174,7 +173,7 @@ void kLEDDriver_task(void* args)
 				// in this loop LED brightness value is being interpolated between 2 lines of program - currentLine and nextLine
 				while(current_time < end_time && driver->state != driver->stop)
 				{
-					kRTOS::queueReceive(driver->stateRequestQueue,&driver->state,0);
+					driver->stateRequestQueue.receive(&driver->state,0);
 
 					switch(driver->state)
 					{
@@ -230,6 +229,9 @@ void kLEDDriver::run(const char * task_name,unsigned long priority,const void * 
 	// prohibit calling this function more than one time
 	if(taskHandle) return;
 
+
+	if(!stateRequestQueue.create(1,sizeof(uint8_t))) return;
+
 	// if led_program is not null set new led program and force start to easy startup
 	if(led_program)
 	{
@@ -243,5 +245,5 @@ void kLEDDriver::run(const char * task_name,unsigned long priority,const void * 
 }
 void kLEDDriver::setState(state_t state)
 {
-	kRTOS::queueSend(stateRequestQueue,&state,0);
+	stateRequestQueue.send(&state,0);
 }

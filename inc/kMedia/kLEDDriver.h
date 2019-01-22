@@ -91,7 +91,7 @@
 
 			kRTOS::task_t taskHandle=0;
 
-			QueueHandle_t stateRequestQueue;
+			kRTOS::Queue stateRequestQueue;
 
 			kLED * LED;
 			kLinear lin;

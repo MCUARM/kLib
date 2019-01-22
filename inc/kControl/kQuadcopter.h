@@ -38,33 +38,37 @@
 #define __kQuadcopter_H
 
 
-	#include "kSBus.h"
-	#include "kAHRS.h"
-	#include "kPWM.h"
-	#include "kPID.h"
-	#include "kSystem.h"
+	#include <kAHRS.h>
+	#include <kPID.h>
+	#include <kPWM.h>
+	#include <kSBus.h>
 
-	class kQuadcopter{
+	class kQuadcopter
+	{
 
 		public:
 
+			typedef struct
+			{
+				kPWM motor[4];
+			}ESC_t;
+
+			typedef struct
+			{
+				kPID roll;
+				kPID pitch;
+				kPID yaw;
+
+				kPID phi;
+				kPID theta;
+				kPID psi;
+			}PID_t;
+
+			ESC_t ESC;
+			PID_t PID;
+			kAHRS AHRS;
+
 			kSBus rc;
-			kAHRS ahrs;
-
-			kPWM motor1;
-			kPWM motor2;
-			kPWM motor3;
-			kPWM motor4;
-
-			kPID pid_roll;
-			kPID pid_pitch;
-			kPID pid_yaw;
-
-			kPID pid_phi;
-			kPID pid_theta;
-			kPID pid_psi;
-
-
 
 			void run();
 

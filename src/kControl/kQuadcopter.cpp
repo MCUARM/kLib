@@ -33,3 +33,8 @@
  */
 
 #include "kQuadcopter.h"
+
+void kQuadcopter::run()
+{
+
+}
