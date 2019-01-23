@@ -195,6 +195,7 @@
 
 			friend class kPort;
 			friend class kPWM;
+			friend class kADCHardware;
 			friend class kSerialHardware;
 			friend class kI2CHardware;
 			friend class kSPIHardware;
@@ -235,6 +236,7 @@
 			 */
 			static unsigned int* setupPeripheralOutput(unsigned int hardware_code);
 			static unsigned int* getPeriheralAndEnableClock(unsigned int hardware_code);
+			static uint8_t getUserCode(uint32_t hardware_code);
 
 			static unsigned int* getSRAMbitBand(unsigned int * reg, unsigned char bit);
 			static unsigned int* getPeriphBitBand(unsigned int * reg, unsigned char bit);

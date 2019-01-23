@@ -627,6 +627,10 @@ unsigned int* kPrivate::getPeriheralAndEnableClock(unsigned int hardware_code)
 
 	return (unsigned int*)hardware_code;
 }
+uint8_t kPrivate::getUserCode(uint32_t hardware_code)
+{
+	return (uint8_t)(hardware_code >> 27);
+}
 unsigned int* kPrivate::getSRAMbitBand(unsigned int * reg, unsigned char bit)
 {
 	return ((unsigned int*)(((unsigned int)0x22000000)+((0x000FFFFF&((unsigned int)reg))*32)+(((unsigned int)bit)*4)));

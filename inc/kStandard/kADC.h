@@ -39,6 +39,50 @@
 
 	#include "kSystem.h"
 
+// region PLATFORM_DEPENDED_STRUCTS
+
+#if (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+	typedef struct
+	{
+		typedef enum
+		{
+			PORTA0  = 0x00643000,
+			PORTA1  = 0x08643001,
+			PORTA2  = 0x10643002,
+			PORTA3  = 0x18643003,
+			PORTA4  = 0x20643004,
+			PORTA5  = 0x28643005,
+			PORTA6  = 0x30643006,
+			PORTA7  = 0x38643007,
+			PORTB0  = 0x40643010,
+			PORTB1  = 0x48643011,
+			PORTC0  = 0x50643020,
+			PORTC1  = 0x58643021,
+			PORTC2  = 0x60643022,
+			PORTC3  = 0x68643023,
+			PORTC4  = 0x70643024,
+			PORTC5  = 0x78643025
+		}kADC_ADC1_CHANNEL_ENUM;
+	}kADC_ADC1_CHANNEL_STRUCT;
+
+
+#endif
+#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+
+
+#endif
+#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+
+
+#endif
+
+
+// endregion PLATFORM_DEPENDED_STRUCTS
+
+
+
+
 	typedef struct
 	{
 		typedef enum
@@ -48,6 +92,19 @@
 		}kADC_Interrupt_enum;
 	}kADC_Interrupt_struct;
 
+
+
+	typedef struct
+	{
+		typedef enum
+		{
+			APB2_div_2 = 0,
+			APB2_div_4 = 1,
+			APB2_div_6 = 2,
+			APB2_div_8 = 3
+		}kADC_Clock_enum;
+	}kADC_Clock_struct;
+
 	class kADCHardware
 	{
 		private:
@@ -55,10 +112,11 @@
 			friend class kADC;
 
 			ADC_TypeDef * adc;
+			uint8_t channel_number;
 
 		public:
 
-
+			void operator = (uint32_t hard_code);
 
 	};
 
@@ -67,7 +125,35 @@
 	{
 		public:
 
+// region ADC_DECLARATIONS
+
+		#if (kLib_config_PLATFORM == kLib_STM32F411xx)
+
+			static const kADC_ADC1_CHANNEL_STRUCT * _ADC1;
+
+		#endif
+
+		#if (kLib_config_PLATFORM == kLib_STM32F429xx)
+
+
+		#endif
+
+		#if (kLib_config_PLATFORM == kLib_STM32L053xx)
+
+
+		#endif
+
+
+
+// endregion ADC_DECLARATIONS
+
 			kADCHardware hardware;
+			static const kADC_Interrupt_struct * Interrupt;
+			static const kADC_Clock_struct * Clock;
+
+
+			void run(kADC_Clock_struct::kADC_Clock_enum clock_divider);
+			uint16_t read();
 
 			void enableInterrupt(uint32_t interrupt_flags);
 			void disableInterrupt(uint32_t interrupt_flags);

@@ -124,6 +124,22 @@
     <AFM pinName="PE14" number="1" value="TIM1_CH4"/>
     <AFM pinName="PE14" number="5" value="SPI4_MOSI"/>
     <AFM pinName="PE14" number="6" value="SPI5_MOSI"/>
+    <ADC name="ADC1" channel="0" pinName="PA0"/>
+    <ADC name="ADC1" channel="1" pinName="PA1"/>
+    <ADC name="ADC1" channel="2" pinName="PA2"/>
+    <ADC name="ADC1" channel="3" pinName="PA3"/>
+    <ADC name="ADC1" channel="4" pinName="PA4"/>
+    <ADC name="ADC1" channel="5" pinName="PA5"/>
+    <ADC name="ADC1" channel="6" pinName="PA6"/>
+    <ADC name="ADC1" channel="7" pinName="PA7"/>
+    <ADC name="ADC1" channel="8" pinName="PB0"/>
+    <ADC name="ADC1" channel="9" pinName="PB1"/>
+    <ADC name="ADC1" channel="10" pinName="PC0"/>
+    <ADC name="ADC1" channel="11" pinName="PC1"/>
+    <ADC name="ADC1" channel="12" pinName="PC2"/>
+    <ADC name="ADC1" channel="13" pinName="PC3"/>
+    <ADC name="ADC1" channel="14" pinName="PC4"/>
+    <ADC name="ADC1" channel="15" pinName="PC5"/>
     <PERIPHERAL name="GPIOA" address="0x40020000" rccEnableBit="0"/>
     <PERIPHERAL name="GPIOB" address="0x40020400" rccEnableBit="1"/>
     <PERIPHERAL name="GPIOC" address="0x40020800" rccEnableBit="2"/>
@@ -151,6 +167,7 @@
     <PERIPHERAL name="DMA1" address="0x40026000" rccEnableBit="21"/>
     <PERIPHERAL name="DMA2" address="0x40026400" rccEnableBit="22"/>
     <PERIPHERAL name="SYSCFG" address="0x40013800" rccEnableBit="14"/>
+    <PERIPHERAL name="ADC1" address="0x40012000" rccEnableBit="8"/>
     <DMA name="DMA1" channel="0" stream="0" value="SPI3_RX"/>
     <DMA name="DMA1" channel="0" stream="2" value="SPI3_RX"/>
     <DMA name="DMA1" channel="0" stream="3" value="SPI2_RX"/>

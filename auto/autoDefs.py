@@ -191,7 +191,20 @@ def xls2xml():
 						nvic.set('description',(str(sheet.cell(row,4).value)))
 						nvic.set('position',str(int(float(getCellValue(sheet,row,0)))))
 						nvic.set('address',getCellValue(sheet,row,5))
-				
+
+				if "ADC" in str(sheet.name):
+					
+					if number_of_columns < 2:
+						continue
+					if number_of_rows < 2:
+						continue
+											
+					
+					for row in range(1, number_of_rows):
+
+						adc = etree.SubElement(device, 'ADC',name=str(sheet.name))
+						adc.set('channel',str(row-1))
+						adc.set('pinName',getCellValue(sheet,row,1))				
 				
 	tree = etree.ElementTree(root)
 	tree.write('devices.xml',pretty_print=True)
@@ -307,6 +320,13 @@ def grabPeriphAFtags(device_tag,peripheral_tag):
 		if pattern in getValue(afm):
 			res.append(afm)
 	return res
+def grabAllADCChannelTags(device_tag,adc_tag):
+	pattern = getName(adc_tag)
+	res = []
+	for adc_ch in grabTags(device_tag,'ADC'):
+		if pattern in getName(adc_ch):
+			res.append(adc_ch)
+	return res	
 
 def grabTimerOCx_AFtags(device_tag,timer_tag, oc_number):
 	res = []
@@ -407,6 +427,8 @@ def grabAllTimers(device_tag):
 	return grabPeriphTags(device_tag,'Timer')
 def grabAllI2Cs(device_tag):
 	return grabPeriphTags(device_tag,'I2C')
+def grabAllADCs(device_tag):
+	return grabPeriphTags(device_tag,'ADC')
 def grabAllDMA(device_tag):
 	return grabPeriphTags(device_tag,'DMA')
 def grabAllGPIOs(device_tag):
@@ -703,7 +725,21 @@ def createSPIdefs():
 
 
 	return res
+	
+def createADCdefs():
+	
+	res = ""
+	
+	for dev in grabDevices():
+		res += "\t\t" + getPlatformCondition(dev)
+		for adc in grabAllADCs(dev):
+			struct_name = "kADC_"+getName(adc)+"_CHANNEL_STRUCT"
+			res += "\t\t\tstatic const "+struct_name+" * _"+getName(adc)+";\n"
+				
+		res += "\n\t\t#endif\n\n"
 
+
+	return res
 def createDMAdefs():
 	
 	res = ""
@@ -1591,6 +1627,40 @@ def getDMAsetupCode(dma_number,stream,channel,priority,DataSize,MemoryIncrementM
 
 	return code
 
+def createADCstructDefs():
+
+	res = ""
+	
+	for dev in grabDevices():
+		res += getPlatformCondition(dev)
+		for adc in grabAllADCs(dev):
+
+			res += getStructEnumOpener()
+			
+			is_first = True
+
+			for adc_ch in grabAllADCChannelTags(dev,adc):
+				if not is_first:
+					res += ','
+				is_first = False	
+
+				code = int(getHardwareSetupCode(int(getAttribute(adc_ch,'channel')),
+								getAttribute(adc,'rccEnableBit'),
+								getAttribute(adc,'address'),
+								0,
+								3,
+								0,
+								getPortFromAFtag(adc_ch)),16)
+				
+				res += getStructEnumItemString(adc_ch,code)
+				
+			temp = "kADC_"+getName(adc)+"_CHANNEL_";
+			res += getStructEnumCloser(temp+"ENUM",temp+"STRUCT")	
+
+		res += "\n#endif\n"
+
+	return res
+
 
 	
 xls2xml()
@@ -1615,5 +1685,8 @@ replaceCodeRegion("../inc/kStandard/kDMA.h",'DMA_DECLARATIONS',createDMAdefs())
 replaceCodeRegion("../inc/kStandard/kPORT.h",'PLATFORM_DEPENDED_STRUCTS',createPORTdefs())
 
 replaceCodeRegion("../inc/kStandard/kSystem.h",'PLATFORM_DEPENDED_STRUCTS',createNVICstructDefs())
+
+replaceCodeRegion("../inc/kStandard/kADC.h",'PLATFORM_DEPENDED_STRUCTS',createADCstructDefs())
+replaceCodeRegion("../inc/kStandard/kADC.h",'ADC_DECLARATIONS',createADCdefs())
 
 updateLicenseText()
