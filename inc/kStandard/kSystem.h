@@ -238,6 +238,7 @@
 			static unsigned int* getPeriheralAndEnableClock(unsigned int hardware_code);
 			static uint8_t getUserCode(uint32_t hardware_code);
 
+			// bitband related functions
 			static unsigned int* getSRAMbitBand(unsigned int * reg, unsigned char bit);
 			static unsigned int* getPeriphBitBand(unsigned int * reg, unsigned char bit);
 			static intBitBand* getSRAMbitBand(unsigned int * reg);
@@ -281,20 +282,21 @@
 
 			#endif
 
+			// this function terminates user application
+			// and runs internal bootloader
+			void boot(void);
 
-
-
+			// clocks related functions
+			void deInitClocks(void);
 			unsigned int coreCLK(void);
 			unsigned int APB1_CLK(void);
 			unsigned int APB2_CLK(void);
 			unsigned int getPeripheralClock(unsigned int * peripheral_address);
-
-
 			unsigned int APB1_Timer_CLK(void);
 			unsigned int APB2_Timer_CLK(void);
-
 			__inline__ unsigned int systemTimerCLK(void) __attribute__((always_inline));
 
+			// timing related functions
 			void waitus(unsigned short int microseconds);
 			void waitms(unsigned short int miliseconds);
 			void wait(unsigned short int seconds);

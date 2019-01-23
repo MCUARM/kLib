@@ -474,6 +474,68 @@ void k_System::disableInterrupt(unsigned char channel)
 	/* Disable the Selected IRQ Channels --------------------------------------*/
 	NVIC->ICER[channel >> 0x05] = (uint32_t)0x01 << (channel & (uint8_t)0x1F);
 }
+void k_System::deInitClocks(void)
+{
+	/* Set HSION bit */
+	RCC->CR |= (uint32_t)0x00000001;
+
+	/* Reset CFGR register */
+	RCC->CFGR = 0x00000000;
+
+	/* Reset HSEON, CSSON, PLLON, PLLI2S and PLLSAI(STM32F42/43xxx devices) bits */
+	RCC->CR &= (uint32_t)0xEAF6FFFF;
+
+	/* Reset PLLCFGR register */
+	RCC->PLLCFGR = 0x24003010;
+
+	/* Reset PLLI2SCFGR register */
+	RCC->PLLI2SCFGR = 0x20003000;
+
+#if defined (STM32F427_437xx) || defined (STM32F429_439xx)
+	/* Reset PLLSAICFGR register, only available for STM32F42/43xxx devices */
+	RCC->PLLSAICFGR = 0x24003000;
+#endif
+
+	/* Reset HSEBYP bit */
+	RCC->CR &= (uint32_t)0xFFFBFFFF;
+
+	/* Disable all interrupts */
+	RCC->CIR = 0x00000000;
+
+#if defined (STM32F427_437xx) || defined (STM32F429_439xx)
+	/* Disable Timers clock prescalers selection, only available for STM32F42/43xxx devices */
+	RCC->DCKCFGR = 0x00000000;
+#endif
+	}
+void k_System::boot(void)
+{
+    void (*JumpToApplication)(void);
+
+    deInitClocks();
+
+    SysTick->CTRL = 0;
+    SysTick->LOAD = 0;
+    SysTick->VAL = 0;
+
+    /**
+     * Step: Disable all interrupts
+     */
+    __disable_irq();
+
+    /* ARM Cortex-M Programming Guide to Memory Barrier Instructions.*/
+    __DSB();
+
+    // TODO: Make sure that bootloader jump address is set properly for desired device
+    // set bootloader jump address
+    JumpToApplication = (void (*)(void)) (*((uint32_t *) ((0x1FFFD800 + 4))));
+
+    /* Initialise user application's Stack Pointer */
+    __set_MSP(*(__IO uint32_t*) 0x1FFFD800);
+
+    JumpToApplication();
+}
+
+
 unsigned int k_System::millis(void)
 {
 	return kSystem_ms_downcounter;
