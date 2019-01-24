@@ -1,5 +1,3 @@
-#include "kConfig.h"
-#if (kLib_config_USE_RTOS == 1)
 /*
     FreeRTOS V9.0.0 - Copyright (C) 2016 Real Time Engineers Ltd.
     All rights reserved
@@ -239,4 +237,4 @@ List_t * const pxList = ( List_t * ) pxItemToRemove->pvContainer;
 	return pxList->uxNumberOfItems;
 }
 /*-----------------------------------------------------------*/
-#endif
+

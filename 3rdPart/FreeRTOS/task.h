@@ -358,11 +358,11 @@ is used in assert() statements. */
  */
 #if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 	BaseType_t xTaskCreate(	TaskFunction_t pxTaskCode,
-							const char * const pcName,
+							const char * const pcName,	/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
 							const uint16_t usStackDepth,
 							void * const pvParameters,
 							UBaseType_t uxPriority,
-							TaskHandle_t * const pxCreatedTask ) PRIVILEGED_FUNCTION; /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+							TaskHandle_t * const pxCreatedTask ) PRIVILEGED_FUNCTION;
 #endif
 
 /**
@@ -474,12 +474,12 @@ is used in assert() statements. */
  */
 #if( configSUPPORT_STATIC_ALLOCATION == 1 )
 	TaskHandle_t xTaskCreateStatic(	TaskFunction_t pxTaskCode,
-									const char * const pcName,
+									const char * const pcName, /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
 									const uint32_t ulStackDepth,
 									void * const pvParameters,
 									UBaseType_t uxPriority,
 									StackType_t * const puxStackBuffer,
-									StaticTask_t * const pxTaskBuffer ) PRIVILEGED_FUNCTION; /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+									StaticTask_t * const pxTaskBuffer ) PRIVILEGED_FUNCTION;
 #endif /* configSUPPORT_STATIC_ALLOCATION */
 
 /**
@@ -2141,14 +2141,14 @@ void vTaskPlaceOnEventListRestricted( List_t * const pxEventList, TickType_t xTi
  * Removes a task from both the specified event list and the list of blocked
  * tasks, and places it on a ready queue.
  *
- * xTaskRemoveFromEventList()/xTaskRemoveFromUnorderedEventList() will be called
+ * xTaskRemoveFromEventList()/vTaskRemoveFromUnorderedEventList() will be called
  * if either an event occurs to unblock a task, or the block timeout period
  * expires.
  *
  * xTaskRemoveFromEventList() is used when the event list is in task priority
  * order.  It removes the list item from the head of the event list as that will
  * have the highest priority owning task of all the tasks on the event list.
- * xTaskRemoveFromUnorderedEventList() is used when the event list is not
+ * vTaskRemoveFromUnorderedEventList() is used when the event list is not
  * ordered and the event list items hold something other than the owning tasks
  * priority.  In this case the event list item value is updated to the value
  * passed in the xItemValue parameter.
@@ -2157,7 +2157,7 @@ void vTaskPlaceOnEventListRestricted( List_t * const pxEventList, TickType_t xTi
  * making the call, otherwise pdFALSE.
  */
 BaseType_t xTaskRemoveFromEventList( const List_t * const pxEventList ) PRIVILEGED_FUNCTION;
-BaseType_t xTaskRemoveFromUnorderedEventList( ListItem_t * pxEventListItem, const TickType_t xItemValue ) PRIVILEGED_FUNCTION;
+void vTaskRemoveFromUnorderedEventList( ListItem_t * pxEventListItem, const TickType_t xItemValue ) PRIVILEGED_FUNCTION;
 
 /*
  * THIS FUNCTION MUST NOT BE USED FROM APPLICATION CODE.  IT IS ONLY

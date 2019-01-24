@@ -235,7 +235,10 @@
 			 *   - bits [27:31]-> not used. Can be used for user purposes.
 			 */
 			static unsigned int* setupPeripheralOutput(unsigned int hardware_code);
+
+			// this function extract peripheral address from hardware_code and enables its clock in RCC registers
 			static unsigned int* getPeriheralAndEnableClock(unsigned int hardware_code);
+			// this function extract user code (5 most significant bits) from hardware_code
 			static uint8_t getUserCode(uint32_t hardware_code);
 
 			// bitband related functions
@@ -285,6 +288,9 @@
 			// this function terminates user application
 			// and runs internal bootloader
 			void boot(void);
+			// this function reset system so that it starts
+			// like in case of power on
+			void reset(void);
 
 			// clocks related functions
 			void deInitClocks(void);

@@ -61,7 +61,10 @@
 		// FreeRTOS idle task
 		void vApplicationIdleHook()
 		{
-
+			// go idle state to reduce power consumption
+			// and wait for next interrupt
+			// Wait For Interrupt instruction
+			__WFI();
 		}
 
 	#endif
@@ -534,7 +537,10 @@ void k_System::boot(void)
 
     JumpToApplication();
 }
-
+void k_System::reset(void)
+{
+	NVIC_SystemReset();
+}
 
 unsigned int k_System::millis(void)
 {
