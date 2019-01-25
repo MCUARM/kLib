@@ -66,7 +66,6 @@ accesses the file system, allowing relative paths to be used.
 Set to 0 not to use a CWD, in which case full paths must be used for each
 file access. */
 #define ffconfigHAS_CWD 1
-
 /* Set to an index within FreeRTOS's thread local storage array that is free for
 use by FreeRTOS+FAT.  FreeRTOS+FAT will use two consecutive indexes from this
 that set by ffconfigCWD_THREAD_LOCAL_INDEX.  The number of thread local storage
@@ -211,7 +210,7 @@ Use of HASH values can improve performance when working with large
 directories, or with files that have a similar name.
 
 Set to 0 not to calculate a HASH value. */
-#define	ffconfigHASH_CACHE	1
+#define	ffconfigHASH_CACHE	0
 
 /* Only used if ffconfigHASH_CACHE is set to 1
 

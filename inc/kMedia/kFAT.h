@@ -180,9 +180,101 @@
 	{
 		protected:
 
-
+			FF_FILE *pxStream;
 
 		public:
+
+
+		/*-----------------------------------------------------------
+		 * Open and close a file
+		 * The most up to date API documentation is currently provided on the following URL:
+		 * http://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_FAT/Standard_File_System_API.html
+		 *-----------------------------------------------------------*/
+		__inline__ bool open( const char *pcFile, const char *pcMode )__attribute__((always_inline));
+
+		__inline__ int close(void) __attribute__((always_inline));
+
+
+
+
+		/*-----------------------------------------------------------
+		 * Seek and tell
+		 * The most up to date API documentation is currently provided on the following URL:
+		 * http://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_FAT/Standard_File_System_API.html
+		 *-----------------------------------------------------------*/
+		__inline__ int seek(long lOffset, int iWhence ) __attribute__((always_inline));
+
+
+		__inline__ void rewind(void) __attribute__((always_inline));
+
+
+		__inline__ long tell(void) __attribute__((always_inline));
+
+
+
+		__inline__ int eof(void) __attribute__((always_inline));
+
+
+
+
+
+		/*-----------------------------------------------------------
+		 * Read and write
+		 * The most up to date API documentation is currently provided on the following URL:
+		 * http://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_FAT/Standard_File_System_API.html
+		 *-----------------------------------------------------------*/
+		__inline__ size_t read( void *pvBuffer, size_t xSize, size_t xItems) __attribute__((always_inline));
+
+
+		__inline__ size_t write( const void *pvBuffer, size_t xSize, size_t xItems) __attribute__((always_inline));
+
+	#if( ffconfigFPRINTF_SUPPORT == 1 )
+		int printf(const char *pcFormat, ... );
+	#endif
+
+
+		__inline__ int getc(void) __attribute__((always_inline));
+
+
+
+
+		__inline__ int putc( int iChar) __attribute__((always_inline));
+
+
+
+		__inline__ char * gets( char *pcBuffer, size_t xCount) __attribute__((always_inline));
+
+
+
+
+		/*-----------------------------------------------------------
+		 * Change length of file (truncate)
+		 * File should have been opened in "w" or "a" mode
+		 * The actual length of the file will be made equal to the current writing
+		 * position
+		 * The most up to date API documentation is currently provided on the following URL:
+		 * http://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_FAT/Standard_File_System_API.html
+		 *-----------------------------------------------------------*/
+		__inline__ int seteof(void) __attribute__((always_inline));
+
+
+
+
+		/*-----------------------------------------------------------
+		 * Open a file in append/update mode, truncate its length to a given value,
+		 * or write zero's up until the required length, and return a handle to the open
+		 * file.  If NULL is returned, ff_errno contains an error code.
+		 * The most up to date API documentation is currently provided on the following URL:
+		 * http://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_FAT/Standard_File_System_API.html
+		 *-----------------------------------------------------------*/
+		kFile truncate( const char * pcFileName, long lTruncateSize );
+		/*-----------------------------------------------------------
+		 * Flush to disk
+		 * The most up to date API documentation is currently provided on the following URL:
+		 * http://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_FAT/Standard_File_System_API.html
+		 *-----------------------------------------------------------*/
+		__inline__ int flush( void) __attribute__((always_inline));
+
 
 
 
@@ -261,4 +353,66 @@
 	{
 		return ff_isdirempty(pcPath );
 	}
+
+
+
+
+
+	__attribute__((always_inline)) bool kFile::open( const char *pcFile, const char *pcMode )
+	{
+		pxStream = ff_fopen(pcFile,pcMode );
+		return (bool)pxStream;
+	}
+
+	__attribute__((always_inline)) int kFile::close(void)
+	{
+		return ff_fclose(pxStream);
+	}
+	__attribute__((always_inline)) int kFile::seek(long lOffset, int iWhence )
+	{
+		return ff_fseek(pxStream,lOffset,iWhence );
+	}
+
+	__attribute__((always_inline)) void kFile::rewind(void)
+	{
+		ff_rewind(pxStream);
+	}
+	__attribute__((always_inline)) long kFile::tell(void)
+	{
+		return ff_ftell(pxStream );
+	}
+	__attribute__((always_inline)) int kFile::eof(void)
+	{
+		return ff_feof(pxStream );
+	}
+	__attribute__((always_inline)) size_t kFile::read( void *pvBuffer, size_t xSize, size_t xItems)
+	{
+		return ff_fread(pvBuffer,xSize,xItems,pxStream );
+	}
+	__attribute__((always_inline)) int kFile::getc(void)
+	{
+		return ff_fgetc(pxStream);
+	}
+	__attribute__((always_inline)) int kFile::putc( int iChar )
+	{
+		return ff_fputc(iChar,pxStream );
+	}
+	__attribute__((always_inline)) int kFile::seteof(void)
+	{
+		return ff_seteof(pxStream );
+	}
+	__attribute__((always_inline)) int kFile::flush(void)
+	{
+		return ff_fflush(pxStream );
+	}
+
+	__attribute__((always_inline)) size_t kFile::write( const void *pvBuffer, size_t xSize, size_t xItems )
+	{
+		return ff_fwrite(pvBuffer,xSize,xItems,pxStream );
+	}
+	__attribute__((always_inline)) char * kFile::gets( char *pcBuffer, size_t xCount)
+	{
+		return ff_fgets( pcBuffer,xCount,pxStream );
+	}
+
 #endif

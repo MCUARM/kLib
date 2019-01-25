@@ -45,8 +45,52 @@ uint8_t kFAT::getNewPartitionId(void)
 	return partition_counter++;
 }
 
+kFile kFile::truncate( const char * pcFileName, long lTruncateSize )
+{
+	kFile fil;
+	fil.pxStream = ff_truncate(pcFileName,lTruncateSize );
+	return fil;
+}
 
+#if( ffconfigFPRINTF_SUPPORT == 1 )
 
+	int kFile::printf(const char *pcFormat, ... )
+	{
+		int iCount;
+		size_t xResult;
+		char *pcBuffer;
+		va_list xArgs;
+
+		pcBuffer = ( char * ) ffconfigMALLOC( ffconfigFPRINTF_BUFFER_LENGTH );
+		if( pcBuffer == NULL )
+		{
+			/* Store the errno to thread local storage. */
+			stdioSET_ERRNO( pdFREERTOS_ERRNO_ENOMEM );
+			iCount = -1;
+		}
+		else
+		{
+			va_start( xArgs, pcFormat );
+			iCount = vsnprintf( pcBuffer, ffconfigFPRINTF_BUFFER_LENGTH, pcFormat, xArgs );
+			va_end( xArgs );
+
+			/* ff_fwrite() will set ff_errno. */
+			if( iCount > 0 )
+			{
+				xResult = ff_fwrite( pcBuffer, ( size_t ) 1, ( size_t ) iCount, pxStream );
+				if( xResult < ( size_t ) iCount )
+				{
+					iCount = -1;
+				}
+			}
+
+			ffconfigFREE( pcBuffer );
+		}
+
+		return iCount;
+	}
+
+#endif
 
 
 

@@ -174,11 +174,22 @@ bool kRAMDisk::init(const char *pcName, uint8_t *pucDataBuffer, uint32_t ulSecto
 			this step because the media will have already been partitioned. */
 			xError = prvPartitionAndFormatDisk( pxDisk );
 
+			if( FF_isERR( xError ) == pdTRUE )
+			{
+				FF_PRINTF( "FF_RAMDiskInit: prvPartitionAndFormatDisk: %s\n", ( const char * ) FF_GetErrMessage( xError ) );
+
+				/* The disk structure was allocated, but the disk's IO manager could
+				not be allocated, so free the disk again. */
+				FF_RAMDiskDelete( pxDisk );
+				pxDisk = NULL;
+			}
+
+
 			if( FF_isERR( xError ) == pdFALSE )
 			{
 				/* Record the partition number the FF_Disk_t structure is, then
 				mount the partition. */
-				pxDisk->xStatus.bPartitionNumber = kFAT::getNewPartitionId();;
+				pxDisk->xStatus.bPartitionNumber = kFAT::getNewPartitionId();
 
 				/* Mount the partition. */
 				xError = FF_Mount( pxDisk, pxDisk->xStatus.bPartitionNumber );
@@ -192,6 +203,8 @@ bool kRAMDisk::init(const char *pcName, uint8_t *pucDataBuffer, uint32_t ulSecto
 				system's root directory. */
 				FF_FS_Add( pcName, pxDisk );
 			}
+
+
 		}
 		else
 		{
