@@ -37,37 +37,23 @@
 #ifndef __kSDCardDrive_H
 #define __kSDCardDrive_H
 
-	#include "kSDCard.h"
+	#include "ff_headers.h"
 	#include "kFAT.h"
+	#include "kSDCard.h"
 
-	class kSDCardDrive : public kSDCard, public kFATVolume
+
+	class kSDCardDrive : protected kFATVolume
 	{
+
+			static int32_t read(uint8_t *pucDestination, uint32_t ulSectorNumber, uint32_t ulSectorCount, FF_Disk_t *pxDisk );
+			static int32_t write(uint8_t *pucSource, uint32_t ulSectorNumber, uint32_t ulSectorCount, FF_Disk_t *pxDisk );
+
 
 		public:
 
-			kFAT::DSTATUS __inline__ init(void) __attribute__((always_inline));
-			kFAT::DSTATUS __inline__ getStatus(void) __attribute__((always_inline));
-			kFAT::DRESULT __inline__ readSector(unsigned char * buff, unsigned long sector, unsigned int count)__attribute__((always_inline));
-			kFAT::DRESULT __inline__ writeSector(const unsigned char* buff, unsigned long sector, unsigned int count)__attribute__((always_inline));
-			kFAT::DRESULT ioctl(unsigned char cmd, void* buff);
-
+			kSDCard SD;
+			bool init(const char *pcName, size_t xIOManagerCacheSize);
 
 	};
 
-	__attribute__((always_inline)) kFAT::DSTATUS kSDCardDrive::init(void)
-	{
-		return (kFAT::DSTATUS)this->kSDCard::init();
-	}
-	__attribute__((always_inline)) kFAT::DSTATUS kSDCardDrive::getStatus(void)
-	{
-		return (kFAT::DSTATUS)this->kSDCard::getStatus();
-	}
-	__attribute__((always_inline)) kFAT::DRESULT kSDCardDrive::readSector(unsigned char * buff, unsigned long sector, unsigned int count)
-	{
-		return (kFAT::DRESULT)this->kSDCard::readSector(buff,sector,count);
-	}
-	__attribute__((always_inline)) kFAT::DRESULT kSDCardDrive::writeSector(const unsigned char* buff, unsigned long sector, unsigned int count)
-	{
-		return (kFAT::DRESULT)this->kSDCard::writeSector(buff,sector,count);
-	}
 #endif

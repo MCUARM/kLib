@@ -37,27 +37,22 @@
 #ifndef __kRAMDisk_H
 #define __kRAMDisk_H
 
-	#include "kFAT.h"
+	#include "ff_headers.h"
 
-	class kRAMDisk : public kFATVolume
+	class kRAMDisk
 	{
 		private:
 
-			char * prvBuff;
-			unsigned long prvSectors;
+			FF_Disk_t *pxDisk;
+
+			static int32_t read(uint8_t *pucDestination, uint32_t ulSectorNumber, uint32_t ulSectorCount, FF_Disk_t *pxDisk );
+			static int32_t write(uint8_t *pucSource, uint32_t ulSectorNumber, uint32_t ulSectorCount, FF_Disk_t *pxDisk );
 
 		public:
 		
-			kRAMDisk(void);
-
-			void setRAMbuffer(char * ram_buffer,unsigned long sectors);
-
-			kFAT::DSTATUS init(void);
-			kFAT::DSTATUS getStatus(void);
-			kFAT::DRESULT readSector(unsigned char * buff, unsigned long sector, unsigned int count);
-			kFAT::DRESULT writeSector(const unsigned char* buff, unsigned long sector, unsigned int count);
-			kFAT::DRESULT ioctl(unsigned char cmd, void* buff);
-
+			bool init(const char *pcName, uint8_t *pucDataBuffer, uint32_t ulSectorCount, size_t xIOManagerCacheSize);
+			/* Show some partition information */
+			BaseType_t showPartitionInfo(void);
 
 	};
 

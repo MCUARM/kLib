@@ -86,6 +86,17 @@
 				PARERR = 0x04		/* 4: Invalid Parameter */
 			}result_t;
 
+			typedef enum : unsigned char
+			{
+				GET_SECTOR_COUNT,
+				GET_SECTOR_SIZE,
+				GET_BLOCK_SIZE,
+				CTRL_SYNC,
+				CTRL_TRIM
+			}IOCTL_t;
+
+
+
 	};
 
 
@@ -112,6 +123,9 @@
 			unsigned char init(void);
 			unsigned char getStatus(void);
 			unsigned char writeCMD(unsigned char cmd,unsigned int arg);
+
+			kSD::result_t ioctl(unsigned char cmd, void* buff);
+
 			unsigned char readSector(unsigned char * buff, unsigned long sector, unsigned int count);
 			unsigned char writeSector(const unsigned char* buff, unsigned long sector, unsigned int count);
 	};

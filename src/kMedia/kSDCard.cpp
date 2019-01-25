@@ -241,3 +241,57 @@ bool kSDCard::rcvr_datablock (unsigned char * buff, unsigned int btr)
 
     return true;                    /* Return with success */
 }
+
+kSD::result_t kSDCard::ioctl(unsigned char cmd, void* buff)
+{
+	kSD::result_t res;
+    uint8_t n, csd[16];
+    uint16_t csize;
+
+    if (this->prvStatus & kSD::NoInit) return kSD::NOTRDY;
+
+	res = kSD::ERROR;
+
+	this->select();        /* CS = L */
+
+
+
+	switch (cmd) {
+        case kSD::GET_SECTOR_COUNT:    /* Get number of sectors on the disk (DWORD) */
+            if ((this->writeCMD(kSD::CMD9, 0) == 0) && this->rcvr_datablock(csd, 16)) {
+                if ((csd[0] >> 6) == 1) {    /* SDC ver 2.00 */
+                    csize = csd[9] + ((uint16_t)csd[8] << 8) + 1;
+                    *(uint32_t*)buff = (uint32_t)csize << 10;
+                } else {                    /* MMC or SDC ver 1.XX */
+                    n = (csd[5] & 15) + ((csd[10] & 128) >> 7) + ((csd[9] & 3) << 1) + 2;
+                    csize = (csd[8] >> 6) + ((uint16_t)csd[7] << 2) + ((uint16_t)(csd[6] & 3) << 10) + 1;
+                    *(uint32_t*)buff = (uint32_t)csize << (n - 9);
+                }
+                res = kSD::OK;
+            }
+            break;
+
+        case kSD::GET_SECTOR_SIZE :    /* Get sectors on the disk (WORD) */
+            *(uint16_t*)buff = 512;
+            res = kSD::OK;
+            break;
+
+        case kSD::CTRL_SYNC :    /* Make sure that data has been written */
+            if (this->waitReady() == 0xFF)
+                res = kSD::OK;
+            break;
+        case kSD::GET_BLOCK_SIZE:
+        	*(uint16_t*)buff = 1;
+			return kSD::OK;
+		case kSD::CTRL_TRIM:
+			return kSD::OK;
+		break;
+        default:
+            res = kSD::ERROR;
+	}
+
+	this->deselect();            /* CS = H */
+	this->kSPI::read();    /* Idle (Release DO) */
+
+    return res;
+}
