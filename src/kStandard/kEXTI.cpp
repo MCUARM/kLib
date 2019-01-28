@@ -234,12 +234,16 @@ uint8_t kEXTI_irq_channel_num[7] =
 
 kEXTIHardware& kEXTIHardware::operator = (unsigned int hard_code)
 {
+	// setup gpio and alternate function mapping according to hard_code
 	kPrivate::setupPeripheralOutput(hard_code);
+	// decode exti_channel number (This is equal to pin number of gpio)
 	exti_channel = hard_code & 0x0F;
 
 	// get proper EXTI_CRx register
 	uint32_t* reg = (uint32_t*)&SYSCFG->EXTICR[exti_channel >> 2];
 
+	// get shift value to obtain proper bits position
+	// for chosen channel
 	uint8_t shift = (exti_channel & 0x03)*4;
 
 	// setup SYSCFG->EXTICR (setup which port to use)
@@ -266,30 +270,44 @@ kEXTIHardware& kEXTIHardware::operator , (unsigned int hard_code)
 
 void kEXTI::setIRQHandler(void (*IRQ_Handler)(void),uint8_t preemptionPriority, uint8_t subPriority)
 {
+	// set IRQ handler pointer for exti channel
 	user_irq_handler[hardware.exti_channel] = IRQ_Handler;
 
+	// index has lower range than channel number because higher
+	// channels shares same interrupt call
 	uint8_t index = hardware.exti_channel;
-	if(index > 9) index = 6;
-	else if(index > 4) index = 5;
 
+	// if channel is greater than 9 interrupt is driven by calling IRQ_10_15
+	// this interrupt handler is mapped on position 6 in kEXTI_irq_handler array
+	if(hardware.exti_channel > 9) index = 6;
+	// if channel is less in range from 5 to 9 call IRQ_5_9. This corresponds to index 5
+	else if(hardware.exti_channel > 4) index = 5;
+	// set IRQ handler in NVIC registers
 	kSystem.setIRQHandler(kEXTI_irq_channel_num[index],kEXTI_irq_handler[index]);
+	// set priority, subpriority and enable interrupt
 	kSystem.enableInterrupt(kEXTI_irq_channel_num[index],preemptionPriority,subPriority);
 
 }
 void kEXTI::forceInterrupt(void){
+	// set proper bit in software interrupt event register
 	EXTI->SWIER |= (1 << hardware.exti_channel);
 }
 void kEXTI::triggerRisingEdge(bool state)
 {
+	// if true set detection on rising edge
 	if(state) EXTI->RTSR |= (1<<hardware.exti_channel);
+	// false -> clear detection on rising edge
 	else EXTI->RTSR &= ~ (1<<hardware.exti_channel);
 }
 void kEXTI::triggerFallingEdge(bool state)
 {
+	// if true set detection on rising edge
 	if(state) EXTI->FTSR |= (1<<hardware.exti_channel);
+	// false -> clear detection on rising edge
 	else EXTI->FTSR &= ~ (1<<hardware.exti_channel);
 }
 uint8_t kEXTI::getChannel(void)
 {
+	// return channel number
 	return hardware.exti_channel;
 }

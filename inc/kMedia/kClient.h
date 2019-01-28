@@ -41,26 +41,38 @@
 	#define kClinet_TX_BUFFER_SIZE 256
 
 	#include "kSystem.h"
+	#include "FreeRTOS_CLI.h"
 
-	#if (kLib_config_USE_MODULE == 1)
 
-		class kClient : public kSerial
+		class kClient
 		{
-			private:
-
-				char cli_rxBuffer[kClient_RX_BUFFER_SIZE];
-				char cli_txBuffer[kClinet_TX_BUFFER_SIZE];
-
-				void sendResponse(char * buffer);
-
 			public:
 
-				kClient(void);
-				void check(void);
-				void run(unsigned int BaudRate);
+				static __inline__ BaseType_t registerCommand( const CLI_Command_Definition_t * const pxCommandToRegister ) __attribute__((always_inline));
+
+				static __inline__ char *getOutputBuffer( void ) __attribute__((always_inline));
+
+				/*
+				 * Return a pointer to the xParameterNumber'th word in pcCommandString.
+				 */
+				static __inline__ const char *getParameter( const char *pcCommandString, UBaseType_t uxWantedParameter, BaseType_t *pxParameterStringLength )__attribute__((always_inline));
+
 
 		};
 
-	#endif
+
+		__attribute__((always_inline)) BaseType_t kClient::registerCommand( const CLI_Command_Definition_t * const pxCommandToRegister )
+		{
+			return FreeRTOS_CLIRegisterCommand(pxCommandToRegister);
+		}
+
+		__attribute__((always_inline)) char* kClient::getOutputBuffer(void)
+		{
+			return FreeRTOS_CLIGetOutputBuffer();
+		}
+		__attribute__((always_inline)) const char *kClient::getParameter( const char *pcCommandString, UBaseType_t uxWantedParameter, BaseType_t *pxParameterStringLength )
+		{
+			return FreeRTOS_CLIGetParameter(pcCommandString,uxWantedParameter,pxParameterStringLength);
+		}
 
 #endif

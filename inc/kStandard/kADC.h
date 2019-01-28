@@ -39,6 +39,9 @@
 
 	#include "kSystem.h"
 
+	// This library provides analog signal conversions API in synchronious mode
+
+
 // region PLATFORM_DEPENDED_STRUCTS
 
 #if (kLib_config_PLATFORM == kLib_STM32F411xx)
@@ -82,7 +85,7 @@
 
 
 
-
+	// Interrupt flags for enabling or disabling specific interrupt
 	typedef struct
 	{
 		typedef enum
@@ -94,6 +97,7 @@
 
 
 
+	// Clock setttings struct ADC clock is APB2 bus clock divieded by prescaler
 	typedef struct
 	{
 		typedef enum
@@ -105,6 +109,8 @@
 		}kADC_Clock_enum;
 	}kADC_Clock_struct;
 
+
+	// ADC hardware class definition for hardware setup
 	class kADCHardware
 	{
 		private:
@@ -147,15 +153,27 @@
 
 // endregion ADC_DECLARATIONS
 
+			// hardware object implementation for
+			// setting up hardware. Settings must be called before
+			// run() method is invoked
 			kADCHardware hardware;
+
+			// struct pointer to access Interrput flags
 			static const kADC_Interrupt_struct * Interrupt;
+			// struct pointer to access clock enumerateted values
 			static const kADC_Clock_struct * Clock;
 
-
+			// this function set up clocks and runs ADC chosen earlier
+			// in hardware settings
 			void run(kADC_Clock_struct::kADC_Clock_enum clock_divider);
+			// this function provides ADC conversion in synchroniuos mode
+			// it setup ADC channel, perform conversion, wait till end and
+			// return back result of the conversion
 			uint16_t read();
 
+			// this function is used to enable chosen interrupt
 			void enableInterrupt(uint32_t interrupt_flags);
+			// this function is used to disable chosen interrupt
 			void disableInterrupt(uint32_t interrupt_flags);
 	};
 

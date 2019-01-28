@@ -2319,6 +2319,7 @@
 		private:
 
 			friend class kEXTI;
+			// identifies EXTI channel
 			uint8_t exti_channel=0;
 
 		public:
@@ -2345,22 +2346,22 @@
 
 // region EXTI_DECLARATIONS
 
-			static const kEXTI_EXTI0  _EXTI0;
-			static const kEXTI_EXTI1  _EXTI1;
-			static const kEXTI_EXTI2  _EXTI2;
-			static const kEXTI_EXTI3  _EXTI3;
-			static const kEXTI_EXTI4  _EXTI4;
-			static const kEXTI_EXTI5  _EXTI5;
-			static const kEXTI_EXTI6  _EXTI6;
-			static const kEXTI_EXTI7  _EXTI7;
-			static const kEXTI_EXTI8  _EXTI8;
-			static const kEXTI_EXTI9  _EXTI9;
-			static const kEXTI_EXTI10 _EXTI10;
-			static const kEXTI_EXTI11 _EXTI11;
-			static const kEXTI_EXTI12 _EXTI12;
-			static const kEXTI_EXTI13 _EXTI13;
-			static const kEXTI_EXTI14 _EXTI14;
-			static const kEXTI_EXTI15 _EXTI15;
+			static const kEXTI_EXTI0 * _EXTI0;
+			static const kEXTI_EXTI1 * _EXTI1;
+			static const kEXTI_EXTI2 *  _EXTI2;
+			static const kEXTI_EXTI3 *  _EXTI3;
+			static const kEXTI_EXTI4 *  _EXTI4;
+			static const kEXTI_EXTI5 *  _EXTI5;
+			static const kEXTI_EXTI6 *  _EXTI6;
+			static const kEXTI_EXTI7 *  _EXTI7;
+			static const kEXTI_EXTI8 *  _EXTI8;
+			static const kEXTI_EXTI9 *  _EXTI9;
+			static const kEXTI_EXTI10 * _EXTI10;
+			static const kEXTI_EXTI11 * _EXTI11;
+			static const kEXTI_EXTI12 * _EXTI12;
+			static const kEXTI_EXTI13 * _EXTI13;
+			static const kEXTI_EXTI14 * _EXTI14;
+			static const kEXTI_EXTI15 * _EXTI15;
 
 
 // endregion EXTI_DECLARATIONS

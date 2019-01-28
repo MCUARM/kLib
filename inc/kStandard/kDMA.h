@@ -35616,18 +35616,30 @@
 
 			friend class kDMA;
 
+			// this flag is used to keep track of communication direction
+			// becouse peripheral address is always set in peripheral address register
+			// That means there must be some distinction when memory address register
+			// contains source address or destination address
 			bool sourceIsMemory = false;
 
+			// DMA handle (common registers for all streams)
 			DMA_TypeDef * DMA;
+			// DMA stream handle (Stream registers)
 			DMA_Stream_TypeDef * DMA_Stream;
+
 			uint32_t interruptClearVal;
+
+			// specified stream number used to read status register of the stream
 			char streamNumber;
 
+			// clear all status flags of chosen eariler stream
 			void clearStatusFlags(void);
 
 		public:
 
 			kDMAHardware(void);
+
+			// hardware configuration function using predefined hardware code
 			kDMAHardware& operator = (unsigned int hard_code);
 
 	};
@@ -35639,16 +35651,29 @@
 	{
 		private:
 
+			// this function hangs up operation untill DMA is transfering data
+			// its called when user want to perform new transaction and current
+			// transer has not been finished yet
 			void waitForNewTransactionReady(void);
+
+			// this function starts earlier set transaction
 			void startTransaction(void);
 
 		public:
 
+			// Endpoint intrface is used to simplify stream configuration
+			// Any peripheral can derive from this class if DMA transfers are
+			// accepted. virtual method getAddress() must be implemented
+			// which returns back address of peripheral data register used to
+			// perform DMA transfers
 			class Endpoint
 			{
 				friend class kDMA;
 
 				protected:
+
+					// provides address of the peripheral data register from/to
+					// data will be transferred using DMA stream
 					virtual const void* getAddress(void) = 0;
 			};
 
@@ -35675,17 +35700,28 @@
 
 // endregion DMA_DECLARATIONS
 
+			// hardware object implementation for
+			// setting up hardware. Settings must be called
+			// before any write() method is invoked
 			kDMAHardware hardware;
 
-
+			// call this function to setup DMA transfer source address
 			void setTransferSource(const void *source);
+			// call this function to setup DMA transfer destination address
 			void setTransferDestination(const void*destination);
+			// call this function to setup DMA transfer peripheral address
+			// regardless if its source or destination
 			void setPeripheralAddress(Endpoint & periph);
 
-
+			// DMA transfer request functions. These functions work in asynchronious mode
+			// for checking transfer complete event, user can wait while isOperating() method
+			// returns true. Please note that data items to be transfered is not number of bytes
+			// to transfer. Data item size is chosen in hardware configuration setup
 			void write(const void*source,const void*destination,uint16_t dataItems_to_transfer);
 			void write(const void*source,uint16_t dataItems_to_transfer);
 			void write(uint16_t dataItems_to_transfer);
+
+			// returns true if DMA stream is busy (last transfer still in progress)
 			bool isOperating(void);
 
 	};

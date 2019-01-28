@@ -37,19 +37,22 @@
 #ifndef __kConfig_H
 #define __kConfig_H
 
-	// kLib configuration file
+	// this is kLib configuration file. This file configuration should be checked
+	// before starting to programme user application
 
-	// F4 series
+	// supported devices list definitions (do not change specified values)
+
+	// F4 series family
 	#define kLib_STM32F407xx 1
 	#define kLib_STM32F411xx 2
 	#define kLib_STM32F429xx 3
 	
-	// L0 series
+	// L0 series family
 	#define kLib_STM32L053xx 4
 	
 
-	// PLATFORM SELECTION
-	// Uncomment one line below
+	// Setting->PLATFORM SELECTION
+	// Uncomment only one line below to select device
 
 		#define kLib_config_PLATFORM kLib_STM32F411xx
 		//#define kLib_config_PLATFORM kLib_STM32F407xx
@@ -63,16 +66,17 @@
 
 
 	// GENERAL SETTINGS
+	// currently all application are under FreeRTOS management
+	// and many kLib functions utilise FreeRTOS functionalities
+	// Leave this setting unchanged
+	// TODO remove this setting so that FreeRTOS is always compiled
 	#define kLib_config_USE_RTOS 1
-	#define kLib_config_USE_MODULE 0
 
 
 #endif
 
 
-
-
-
+// manufacturer vendor dependent includes
 #if (kLib_config_PLATFORM == kLib_STM32F411xx) || \
 	(kLib_config_PLATFORM == kLib_STM32F407xx) || \
 	(kLib_config_PLATFORM == kLib_STM32F429xx)
