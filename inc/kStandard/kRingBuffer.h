@@ -58,6 +58,16 @@
 				// assert index maximum value
 				if(*index >= mSize) *index = 0;
 			}
+			void prvCheckBufferOverflow(void)
+			{
+				if(mReadIndex == mWriteIndex)
+				{
+					// buffer is overflowed
+					// read index must be pushed forward item step after write index
+					// one data item is lost (overwritten)
+					prvIncrementRingIndex(&mReadIndex);
+				}
+			}
 
 		public:
 
@@ -76,21 +86,20 @@
 				while(size--)
 				{
 					// copy new data item to buffer
-					mBuffer[mWriteIndex] = *data;
-					// increment write index
-					prvIncrementRingIndex(&mWriteIndex);
-
-					// check for buffer overflow
-					if(mReadIndex == mWriteIndex)
-					{
-						// buffer is overflowed
-						// read index must be pushed forward item step after write index
-						// one data item is lost (overwritten)
-						prvIncrementRingIndex(&mReadIndex);
-					}
+					write(*data);
 					// increment data pointer
 					data++;
 				}
+			}
+			// writes one data item to buffer
+			void write(obj_t & data)
+			{
+					// copy new data item to buffer
+					mBuffer[mWriteIndex] = data;
+					// increment write index
+					prvIncrementRingIndex(&mWriteIndex);
+					// check for buffer overflow
+					prvCheckBufferOverflow();
 			}
 
 			// reads data from buffer

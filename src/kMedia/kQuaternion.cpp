@@ -259,18 +259,18 @@ kVector3 kQuaternion::toEulerAngles(void)
 	// get phi
 	nom = 2*(this->r*this->i + this->j*this->k);
 	denom = this->r*this->r - this->i*this->i - this->j*this->j + this->k*this->k;
-	res.x = atan2f(nom,denom);
+	res.x = kMath::atan2(nom,denom);
 
 	// get theta
 	nom = 2*(this->r*this->j - this->k*this->i);
 	denom = this->norm();
 	denom *= denom;
-	res.y = asinf(nom/denom);
+	res.y = kMath::asin(nom/denom);
 
 	// get psi
 	nom = 2*(this->r*this->k + this->i*this->j);
 	denom = this->r*this->r + this->i*this->i - this->j*this->j - this->k*this->k;
-	res.z = atan2f(nom,denom);
+	res.z = kMath::atan2(nom,denom);
 
 
 	return res;
@@ -279,7 +279,7 @@ kAxisAngle kQuaternion::toAxisAngle(void)
 {
 	kAxisAngle res;
 
-	res.angle = acosf(this->r)*2;
+	res.angle = kMath::acos(r)*2;
 	if(res.angle == 0)
 	{
 		res.axis.x = 1;
@@ -289,11 +289,11 @@ kAxisAngle kQuaternion::toAxisAngle(void)
 		return res;
 	}
 
-	float scale = 1/sqrt(1-this->r*this->r);
+	float scale = 1/sqrtf(1-r*r);
 
-	res.axis.x = this->i*scale;
-	res.axis.y = this->j*scale;
-	res.axis.z = this->k*scale;
+	res.axis.x = i*scale;
+	res.axis.y = j*scale;
+	res.axis.z = k*scale;
 
 	return res;
 }
@@ -304,10 +304,10 @@ kQuaternion  kQuaternion::fromAxisAngle(const kAxisAngle & axis_angle)
 	kQuaternion res;
 	float angle_rad = axis_angle.angle*0.5;
 
-	res.r = cosf(angle_rad);
+	res.r = kMath::cos(angle_rad);
 
 	// use angle_rad as temporary storage
-	angle_rad = sinf(angle_rad)/axis_angle.axis.length();
+	angle_rad = kMath::sin(angle_rad)/axis_angle.axis.length();
 
 	res.i = angle_rad*axis_angle.axis.x;
 	res.j = angle_rad*axis_angle.axis.y;
@@ -320,9 +320,9 @@ kQuaternion kQuaternion::fromAngularRates(kVector3 & angular_rates,float dt)
 	kQuaternion res;
 	float angle_rad = angular_rates.length()*dt*0.5;
 
-	res.r = cosf(angle_rad);
+	res.r = kMath::cos(angle_rad);
 	// use angle_rad as temporary storage
-	angle_rad = sinf(angle_rad)/angular_rates.length();
+	angle_rad = kMath::sin(angle_rad)/angular_rates.length();
 
 	res.i = angle_rad*angular_rates.x;
 	res.j = angle_rad*angular_rates.y;
@@ -339,14 +339,14 @@ kQuaternion  kQuaternion::fromEulerAngles(kVector3 Euler_angles)
 
 	Euler_angles *= 0.5;
 
-	cos_phi = cosf(Euler_angles.x);
-	sin_phi = sinf(Euler_angles.x);
+	cos_phi = kMath::cos(Euler_angles.x);
+	sin_phi = kMath::sin(Euler_angles.x);
 
-	cos_theta = cosf(Euler_angles.y);
-	sin_theta = sinf(Euler_angles.y);
+	cos_theta = kMath::cos(Euler_angles.y);
+	sin_theta = kMath::sin(Euler_angles.y);
 
-	cos_psi = cosf(Euler_angles.z);
-	sin_psi = sinf(Euler_angles.z);
+	cos_psi = kMath::cos(Euler_angles.z);
+	sin_psi = kMath::sin(Euler_angles.z);
 
 
 	res.r =  cos_psi*cos_theta*cos_phi + sin_psi*sin_theta*sin_phi;
@@ -384,6 +384,7 @@ kQuaternion kQuaternion::slerp(const kQuaternion & begin, const kQuaternion & en
 	}
 
 	// check if begin == end
+	// greater than is only used here for special insurance
 	if (kMath::abs(cosHalfTheta) >= 1.0)
 	{
 		res.r = begin.r;
@@ -394,7 +395,7 @@ kQuaternion kQuaternion::slerp(const kQuaternion & begin, const kQuaternion & en
 		return res;
 	}
 
-	float halfTheta = acosf(cosHalfTheta);
+	float halfTheta = kMath::acos(cosHalfTheta);
 	float sinHalfTheta = sqrtf(1.0 - cosHalfTheta*cosHalfTheta);
 
 	// if theta = 180 degrees then result is not fully defined
@@ -408,8 +409,8 @@ kQuaternion kQuaternion::slerp(const kQuaternion & begin, const kQuaternion & en
 		return res;
 	}
 
-	float ratioA = sinf((1 - normalized_time) * halfTheta) / sinHalfTheta;
-	float ratioB = sinf(normalized_time * halfTheta) / sinHalfTheta;
+	float ratioA = kMath::sin((1 - normalized_time) * halfTheta) / sinHalfTheta;
+	float ratioB = kMath::sin(normalized_time * halfTheta) / sinHalfTheta;
 
 	//calculate quaternion.
 	res.r = (begin.r * ratioA + end.r * ratioB);

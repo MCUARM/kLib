@@ -183,8 +183,8 @@ bool kVector2::operator == (kVector2 & v)
 
 void kVector2::rotate(float angle)
 {
-	float cos_angle = cosf(angle);
-	float sin_angle = sinf(angle);
+	float cos_angle = kMath::cos(angle);
+	float sin_angle = kMath::sin(angle);
 
 	float res_x;
 
@@ -308,8 +308,8 @@ void kVector3::dotProduct(kVector3 & vector_1, kVector3 & vector_2)
 }
 void kVector3::rotateX(float angle)
 {
-	float cos_angle=cosf(angle);
-	float sin_angle=sinf(angle);
+	float cos_angle=kMath::cos(angle);
+	float sin_angle=kMath::sin(angle);
 
 	float res_y = cos_angle*this->y - sin_angle*this->z;
 
@@ -318,8 +318,8 @@ void kVector3::rotateX(float angle)
 }
 void kVector3::rotateY(float angle)
 {
-	float cos_angle=cosf(angle);
-	float sin_angle=sinf(angle);
+	float cos_angle=kMath::cos(angle);
+	float sin_angle=kMath::sin(angle);
 
 	float res_x = cos_angle*this->x + sin_angle*this->z;
 
@@ -328,8 +328,8 @@ void kVector3::rotateY(float angle)
 }
 void kVector3::rotateZ(float angle)
 {
-	float cos_angle=cosf(angle);
-	float sin_angle=sinf(angle);
+	float cos_angle=kMath::cos(angle);
+	float sin_angle=kMath::sin(angle);
 
 	float res_x = cos_angle*this->x - sin_angle*this->y;
 
@@ -338,10 +338,10 @@ void kVector3::rotateZ(float angle)
 }
 void kVector3::rotateXY(kVector2 & angles)
 {
-	float cos_phi = cosf(angles.x);
-	float sin_phi = sinf(angles.x);
-	float cos_theta = cosf(angles.y);
-	float sin_theta = sinf(angles.y);
+	float cos_phi = kMath::cos(angles.x);
+	float sin_phi = kMath::sin(angles.x);
+	float cos_theta = kMath::cos(angles.y);
+	float sin_theta = kMath::sin(angles.y);
 
 	float res_x;
 	float res_y;
@@ -364,10 +364,10 @@ void kVector3::rotateXY(kVector2 & angles)
 }
 void kVector3::rotateXZ(kVector2 & angles)
 {
-	float cos_phi = cosf(angles.x);
-	float sin_phi = sinf(angles.x);
-	float cos_psi = cosf(angles.y);
-	float sin_psi = sinf(angles.y);
+	float cos_phi = kMath::cos(angles.x);
+	float sin_phi = kMath::sin(angles.x);
+	float cos_psi = kMath::cos(angles.y);
+	float sin_psi = kMath::sin(angles.y);
 
 	float res_x;
 	float res_y;
@@ -389,10 +389,10 @@ void kVector3::rotateXZ(kVector2 & angles)
 }
 void kVector3::rotateYX(kVector2 & angles)
 {
-	float cos_theta = cosf(angles.x);
-	float sin_theta = sinf(angles.x);
-	float cos_phi = cosf(angles.y);
-	float sin_phi = sinf(angles.y);
+	float cos_theta = kMath::cos(angles.x);
+	float sin_theta = kMath::sin(angles.x);
+	float cos_phi = kMath::cos(angles.y);
+	float sin_phi = kMath::sin(angles.y);
 
 	float res_x;
 	float res_y;
@@ -413,10 +413,10 @@ void kVector3::rotateYX(kVector2 & angles)
 }
 void kVector3::rotateYZ(kVector2 & angles)
 {
-	float cos_theta = cosf(angles.x);
-	float sin_theta = sinf(angles.x);
-	float cos_psi = cosf(angles.y);
-	float sin_psi = sinf(angles.y);
+	float cos_theta = kMath::cos(angles.x);
+	float sin_theta = kMath::sin(angles.x);
+	float cos_psi = kMath::cos(angles.y);
+	float sin_psi = kMath::sin(angles.y);
 
 	float res_x;
 	float res_y;
@@ -437,10 +437,10 @@ void kVector3::rotateYZ(kVector2 & angles)
 }
 void kVector3::rotateZX(kVector2 & angles)
 {
-	float cos_psi = cosf(angles.x);
-	float sin_psi = sinf(angles.x);
-	float cos_phi = cosf(angles.y);
-	float sin_phi = sinf(angles.y);
+	float cos_psi = kMath::cos(angles.x);
+	float sin_psi = kMath::sin(angles.x);
+	float cos_phi = kMath::cos(angles.y);
+	float sin_phi = kMath::sin(angles.y);
 
 
 	float res_x;
@@ -462,10 +462,10 @@ void kVector3::rotateZX(kVector2 & angles)
 }
 void kVector3::rotateZY(kVector2 & angles)
 {
-	float cos_psi = cosf(angles.x);
-	float sin_psi = sinf(angles.x);
-	float cos_theta = cosf(angles.y);
-	float sin_theta = sinf(angles.y);
+	float cos_psi = kMath::cos(angles.x);
+	float sin_psi = kMath::sin(angles.x);
+	float cos_theta = kMath::cos(angles.y);
+	float sin_theta = kMath::sin(angles.y);
 
 
 	float res_x;
@@ -607,7 +607,7 @@ float kVector4::length(void)
 }
 void kVector4::makeUnit(void)
 {
-	(*this)/= this->length();
+	(*this)/= length();
 }
 float kVector4::dotProduct(kVector4 & vector_1, kVector4 & vector_2)
 {

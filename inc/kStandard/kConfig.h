@@ -66,11 +66,19 @@
 
 
 	// GENERAL SETTINGS
+
 	// currently all application are under FreeRTOS management
 	// and many kLib functions utilise FreeRTOS functionalities
 	// Leave this setting unchanged
 	// TODO remove this setting so that FreeRTOS is always compiled
 	#define kLib_config_USE_RTOS 1
+
+
+	// Fast trigonometric functions
+	// uncomment line below for fast trigonometric functions
+	// calculations (This option consumes more flash footprint)
+	#define kLib_config_FAST_TRIGONOMETRIC
+
 
 
 #endif

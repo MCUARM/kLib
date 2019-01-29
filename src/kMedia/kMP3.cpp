@@ -34,41 +34,63 @@
 
 
 
-#include "kMath.h"
-
-const float kMath::_pi=3.14159265358f;
-const float kMath::_2pi=2*3.14159265358f;
+#include "kMP3.h"
 
 
 
-float kMath::rad2deg(float input)
+void kMP3::prvTrySynchronizeFrame(uint8_t byte)
 {
-	return (input*RAD_2_DEG_SCALE_FACTOR);
+	// Synchronisation sequence is 11 bits set to 1
+
+	switch(SynchronizationState)
+	{
+		case NotSynchronized:
+			// Try to match first synchronisation byte
+			// it should be 0xFF
+			if(byte == 0xFF) SynchronizationState = FirstByteMatched;
+
+			break;
+		case FirstByteMatched:
+			// Try to match second synchronisation byte
+			// it should have 3 most significant bits set
+			if(byte & 0xE0)
+			{
+				// yes byte contains synchronisation bits
+
+				// get MPEG version saved also in this byte
+				MPEG_version = ((byte & 0x18) >> 3);
+				// extract Layer description
+				MPEG_layer = ((byte & 0x06) >> 1);
+				// get CRC protection bit
+				MPEG_protection = (byte & 0x01);
+
+				SynchronizationState = SecondByteMatched;
+			}
+
+			break;
+		case SecondByteMatched:
+			// Try to match third synchronisation byte
+			// it should be 0xFF
+
+			break;
+		case FrameSynchronized:
+
+			break;
+		default:
+
+	}
+
 }
 
+uint32_t kMP3::feed(uint8_t byte)
+{
+	if(SynchronizationState != FrameSynchronized)
+	{
 
-float kMath::deg2rad(float input)
-{
-	return (input*DEG_2_RAD_SCALE_FACTOR);
-}
-float kMath::abs(float input)
-{
-	if(input<0) input *= (-1);
-	return input;
-}
-float kMath::sign(float input)
-{
-	if(input > 0) return 1;
-	if(input < 0) return -1;
+	}
+
+
+
+
 	return 0;
-}
-float kMath::max(float in_1, float in_2)
-{
-	if(in_1 > in_2) return in_1;
-	return in_2;
-}
-float kMath::min(float in_1, float in_2)
-{
-	if(in_1 < in_2) return in_1;
-	return in_2;
 }

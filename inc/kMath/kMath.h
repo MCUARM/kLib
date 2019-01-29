@@ -38,6 +38,7 @@
 #define __kMath_H
 
 
+	#include "kConfig.h"
 	#include "kUnits.h"
 	#include "kQuaternion.h"
 	#include "kVector.h"
@@ -45,9 +46,12 @@
 	#include "kMatrix.h"
 
 
-	#define DEG_2_RAD_SCALE_FACTOR 0.017453292
-	#define RAD_2_DEG_SCALE_FACTOR 57.29577951
+	#define DEG_2_RAD_SCALE_FACTOR (0.017453292)
+	#define RAD_2_DEG_SCALE_FACTOR (57.29577951)
 
+	#ifndef M_PI
+		#define M_PI ((float)3.14159265359)
+	#endif
 
 
 	class kMath
@@ -64,13 +68,71 @@
 			static float abs(float input);
 			static float sign(float input);
 
-			static float getMax(float in_1, float in_2);
-			static float getMin(float in_1, float in_2);
+			static float max(float in_1, float in_2);
+			static float min(float in_1, float in_2);
+
+			static __inline__ float sin(float x)__attribute__((always_inline));
+			static __inline__ float cos(float x)__attribute__((always_inline));
+
+			static __inline__ float asin(float x)__attribute__((always_inline));
+			static __inline__ float acos(float x)__attribute__((always_inline));
+			static __inline__ float atan2(float y,float x)__attribute__((always_inline));
 	};
 
 	__attribute__((always_inline)) kVector3 kMath::rad2deg(const kVector3 & v)
 	{
 		return v*RAD_2_DEG_SCALE_FACTOR;
+	}
+
+	__attribute__((always_inline)) float kMath::sin(float x)
+	{
+		#ifdef kLib_config_FAST_TRIGONOMETRIC
+			// TODO implementation for fast sin utilising pre-calculated values stored in Flash
+			return sinf(x);
+		#else
+
+			return sinf(x);
+		#endif
+	}
+	__attribute__((always_inline)) float kMath::cos(float x)
+	{
+		#ifdef kLib_config_FAST_TRIGONOMETRIC
+			// TODO implementation for fast cos utilising pre-calculated values stored in Flash
+			return cosf(x);
+		#else
+
+			return cosf(x);
+		#endif
+	}
+	__attribute__((always_inline)) float kMath::asin(float x)
+	{
+		#ifdef kLib_config_FAST_TRIGONOMETRIC
+			// TODO implementation for fast asin utilising pre-calculated values stored in Flash
+			return asinf(x);
+		#else
+
+			return asinf(x);
+		#endif
+	}
+	__attribute__((always_inline)) float kMath::acos(float x)
+	{
+		#ifdef kLib_config_FAST_TRIGONOMETRIC
+			// TODO implementation for fast acos utilising pre-calculated values stored in Flash
+			return acosf(x);
+		#else
+
+			return acosf(x);
+		#endif
+	}
+	__attribute__((always_inline)) float kMath::atan2(float y,float x)
+	{
+		#ifdef kLib_config_FAST_TRIGONOMETRIC
+			// TODO implementation for fast atan2 utilising pre-calculated values stored in Flash
+			return atan2f(y,x);
+		#else
+
+			return atan2f(y,x);
+		#endif
 	}
 
 #endif

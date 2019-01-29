@@ -34,41 +34,60 @@
 
 
 
-#include "kMath.h"
+#ifndef __kMP3_H
+#define __kMP3_H
 
-const float kMath::_pi=3.14159265358f;
-const float kMath::_2pi=2*3.14159265358f;
-
-
-
-float kMath::rad2deg(float input)
-{
-	return (input*RAD_2_DEG_SCALE_FACTOR);
-}
+	#include "kSystem.h"
 
 
-float kMath::deg2rad(float input)
-{
-	return (input*DEG_2_RAD_SCALE_FACTOR);
-}
-float kMath::abs(float input)
-{
-	if(input<0) input *= (-1);
-	return input;
-}
-float kMath::sign(float input)
-{
-	if(input > 0) return 1;
-	if(input < 0) return -1;
-	return 0;
-}
-float kMath::max(float in_1, float in_2)
-{
-	if(in_1 > in_2) return in_1;
-	return in_2;
-}
-float kMath::min(float in_1, float in_2)
-{
-	if(in_1 < in_2) return in_1;
-	return in_2;
-}
+
+
+	class kMP3
+	{
+		typedef enum
+		{
+			NotSynchronized,
+			FirstByteMatched,
+			SecondByteMatched,
+			FrameSynchronized
+		}SYNCHRO_STATE_T;
+
+		typedef enum
+		{
+			MPEG_Version_2_dot_5 = 0,
+			MPEG_Version_RESERVED = 1,
+			MPEG_Verison_2 = 2, // (ISO/IEC 13818-3)
+			MPEG_Version_1 = 3 // (ISO/IEC 11172-3)
+
+		}MPEG_Audio_version_ID_T;
+
+		typedef enum
+		{
+			Layer_RESERVED = 0,
+			Layer_III = 1,
+			Layer_II = 2,
+			Layer_I = 3
+		}MPEG_LAYER_T;
+
+		typedef enum
+		{
+			CRC_Protected = 0,
+			NotProtected = 1
+		}MPEG_PROTECTION_T;
+
+			MPEG_Audio_version_ID_T MPEG_version;
+			MPEG_LAYER_T MPEG_layer;
+			MPEG_PROTECTION_T MPEG_protection;
+
+			SYNCHRO_STATE_T SynchronizationState;
+
+			void prvTrySynchronizeFrame(uint8_t byte);
+
+		public:
+
+			uint32_t feed(uint8_t byte);
+
+	};
+
+
+#endif
