@@ -48,7 +48,7 @@ unsigned char kCRC::getCRC8(const char * buffer, unsigned short int bytes)
 
 	for(i=0;i<bytes;i++)
 	{
-		res = char(res ^ (*buffer));
+		res = (char)(res ^ (*buffer));
 		buffer++;
 	}
 

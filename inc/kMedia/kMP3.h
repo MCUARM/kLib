@@ -49,6 +49,9 @@
 			NotSynchronized,
 			FirstByteMatched,
 			SecondByteMatched,
+			ThirdByteMatched,
+			ReceivingFirstByteCRC,
+			ReceivingSecondByteCRC,
 			FrameSynchronized
 		}SYNCHRO_STATE_T;
 
@@ -64,10 +67,24 @@
 		typedef enum
 		{
 			Layer_RESERVED = 0,
-			Layer_III = 1,
+			Layer_I = 1,
 			Layer_II = 2,
-			Layer_I = 3
+			Layer_III = 3
 		}MPEG_LAYER_T;
+
+		typedef enum
+		{
+			Stereo = 0,
+			JointStereo = 1,
+			DualChannel = 2,
+			SingleChannel = 3
+		}MPEG_CHANNEL_MODE_T;
+
+		typedef enum
+		{
+			FrameNotPadded = 0,
+			FramePadded = 1
+		}MPEG_FRAME_PADDING_T;
 
 		typedef enum
 		{
@@ -75,13 +92,37 @@
 			NotProtected = 1
 		}MPEG_PROTECTION_T;
 
-			MPEG_Audio_version_ID_T MPEG_version;
-			MPEG_LAYER_T MPEG_layer;
-			MPEG_PROTECTION_T MPEG_protection;
+		typedef struct
+		{
+			MPEG_Audio_version_ID_T version;
+			MPEG_LAYER_T layer;
+			MPEG_PROTECTION_T protection;
+			uint16_t bitrate; // in kb/s
+			uint16_t sampling_frequency; // [Hz]
+			MPEG_FRAME_PADDING_T padding;
+			MPEG_CHANNEL_MODE_T channel_mode;
+			uint32_t frame_size_bytes;
+		}MPEG_FRAME_HEADER_T;
 
+			MPEG_FRAME_HEADER_T frameHeader;
+
+			uint16_t mainDataBegin;
+			uint8_t scfsi;
+
+			typedef enum
+			{
+				ReadingDataBeginFirstByte,
+				ReadingDataBeginSecondByte,
+				ReadingSCFSI
+			}READING_SIDE_INFO_STATE_T;
+
+			READING_SIDE_INFO_STATE_T ReadingSideInfoState;
 			SYNCHRO_STATE_T SynchronizationState;
 
+
+
 			void prvTrySynchronizeFrame(uint8_t byte);
+			void prvGetSideInformation(uint8_t byte);
 
 		public:
 
