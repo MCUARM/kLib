@@ -369,11 +369,17 @@
 
 			void write(const void * data);
 			void write(const void * data, uint32_t bytes);
+			void writeWord(uint16_t word);
+			void writeByte(uint8_t byte);
+
 
 			void write(uint8_t StartingRegisterAddress, void * transmit_buffer,uint8_t BytesToWrite);
 			void write(uint8_t RegisterAddress,uint8_t value);
 
 			void read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead);
+
+			void read(void * receive_buffer, uint32_t BytesToRead);
+			uint16_t readWord(void);
 			unsigned char read(uint8_t RegisterAddress);
 
 

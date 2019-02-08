@@ -53,13 +53,6 @@
 	#include "core_cm4.h"
 
 
-	#if(kLib_config_USE_MODULE == 1)
-
-		#include "kRegister.h"
-		#include "kModule.h"
-
-	#endif
-
 	#if(kLib_config_USE_RTOS == 1)
 
 		#include "kRTOS.h"
@@ -250,11 +243,8 @@
 
 
 
-#if (kLib_config_USE_MODULE == 1)
-	class k_System : public kModule
-#else
+
 	class k_System
-#endif
 	{
 
 		private:
@@ -263,9 +253,6 @@
 			unsigned int usInTimerTicks;
 
 
-			#if (kLib_config_USE_MODULE == 1)
-				kRegister * pSystemRegister;
-			#endif
 
 
 		public:
@@ -311,17 +298,11 @@
 			bool isTimePassed(unsigned int * system_milliseconds_time);
 
 
-			#if (kLib_config_USE_MODULE == 1)
-				kRegister * getSystemRegister(void);
-				void setSystemRegister(kRegister * reg);
-				char * processCommand(const char * cmd, char * response);
-			#endif
-
 	};
 
 	__attribute__((always_inline)) unsigned int k_System::systemTimerCLK()
 	{
-		return (this->coreCLK() >> 3);
+		return (coreCLK() >> 3);
 	}
 
 	#if(kLib_config_USE_RTOS == 1)

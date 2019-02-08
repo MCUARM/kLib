@@ -52,17 +52,21 @@
 
 	class kHD44780
 	{
-		private:
-
-			uint8_t lineLength = 16;
-
 		public:
 
 			typedef enum
 			{
 				Mode4Bit,
 				Mode8Bit
-			}mode;
+			}mode_t;
+
+		private:
+
+			uint8_t lineLength = 16;
+			mode_t  mode;
+
+		public:
+
 
 			static kHD44780_CMD_struct * CMD;
 
@@ -73,7 +77,7 @@
 			kPin DB[8]; // Data bits
 
 
-			void init(mode running_mode);
+			void init(mode_t running_mode);
 			void sendCMD(uint8_t cmd);
 			void write(uint8_t chr);
 			void write(char * str);

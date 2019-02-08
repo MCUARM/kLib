@@ -336,17 +336,11 @@ uint8_t kI2C::readData(void)
 	// return byte
 	return ((uint8_t)this->hardware.i2c->DR);
 }
-void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead)
-{
-	uint8_t i,loop_end;
-	uint8_t * rx_buffer = (uint8_t*)recieve_buffer;
 
-	// send start condition
-	sendStart();
-	// send device write address
-	sendAddress(kI2C::Transmitting);
-	// send internal device register address
-	sendData(StartingRegisterAddress);
+
+void kI2C::read(void * receive_buffer, uint32_t BytesToRead)
+{
+	uint8_t * rx_buffer = (uint8_t*)receive_buffer;
 
 	if(BytesToRead > 1)
 	{
@@ -361,7 +355,7 @@ void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t B
 		sendAddress(kI2C::Receiving);
 
 		// read bytes one by one
-		for(i=0,loop_end = BytesToRead-2;i<loop_end;i++)
+		for(uint32_t i=0,loop_end = BytesToRead-2;i<loop_end;i++)
 		{
 			*rx_buffer = readData();
 			rx_buffer++;
@@ -402,14 +396,42 @@ void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t B
 		// send stop condition
 		sendStop();
 	}
+}
+
+void kI2C::read(uint8_t StartingRegisterAddress, void * recieve_buffer,uint8_t BytesToRead)
+{
+
+	// send start condition
+	sendStart();
+	// send device write address
+	sendAddress(kI2C::Transmitting);
+	// send internal device register address
+	sendData(StartingRegisterAddress);
+	// read bytes and close communication
+	read(recieve_buffer,BytesToRead);
 
 }
 unsigned char kI2C::read(uint8_t RegisterAddress)
 {
 	uint8_t data;
-	this->read(RegisterAddress,&data,1);
+	read(RegisterAddress,&data,1);
 	return data;
 }
+void kI2C::writeWord(uint16_t word)
+{
+	write(&word,2);
+}
+void kI2C::writeByte(uint8_t byte)
+{
+	write(&byte,1);
+}
+uint16_t kI2C::readWord(void)
+{
+	uint16_t res;
+	read(&res,2);
+	return res;
+}
+
 
 void kI2C::enableInterrupt(unsigned char preemptionPriority, unsigned char subPriority)
 {

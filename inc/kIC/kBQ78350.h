@@ -37,6 +37,9 @@
 #ifndef __kBQ78350_H
 #define __kBQ78350_H
 
+
+	#include "kI2C.h"
+
 // region PLATFORM_DEPENDED_STRUCTS
 
 	typedef struct
@@ -1421,14 +1424,31 @@
 
 // endregion PLATFORM_DEPENDED_STRUCTS
 
-	class kBQ78350
+	class kBQ78350 : public kI2C
 	{
+		private:
+
+
+
 		public:
+
 
 			static const kBQ78350_DATA_FLASH_REGISTER_SELECT_SELECT_SELECT_STRUCT * Register;
 			static const kBQ78350_SBS_COMMANDS_STRUCT * SBS_Command;
 			static const kBQ78350_MANUFACTURER_ACCESS_COMMANDS_STRUCT * MA_Command;
 
+
+			void sendCommandSBS(uint8_t command_SBS, void * read_buffer, uint8_t bytesToRead);
+			void sendCommandMA(uint16_t command_MA, void * read_buffer, uint8_t bytesToRead);
+
+			uint16_t getCellVoltage(uint8_t cell_number);
+			uint16_t getPackVoltage(void);
+			uint16_t getCurrent(void);
+			uint16_t getRemainingCapacity(void);
+			uint8_t getStateOfHealth(void);
+
+			//void writeFlashRegister()
+			void run();
 	};
 
 

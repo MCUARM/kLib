@@ -37,12 +37,14 @@
 #include "kHD44780.h"
 
 
-void kHD44780::init(mode running_mode)
+void kHD44780::init(mode_t running_mode)
 {
 	// wait about 30ms to make sure power is on and LCD is ready to operate
 	kRTOS::taskDelay(30);
 
-	if(running_mode == kHD44780::Mode4Bit)
+	mode = running_mode;
+
+	if(mode == kHD44780::Mode4Bit)
 	{
 		// 4 bit mode initialisation
 
@@ -73,15 +75,17 @@ void kHD44780::init(mode running_mode)
 void kHD44780::sendCMD(uint8_t cmd)
 {
 	uint8_t delay = 1;
-	// if it's clear display command or return cursor to home wait at least 4.1ms for instruction complete
+	// if it's clear display command or return cursor to home command wait at least 4.1ms for instruction complete
 	if(cmd < 4) delay +=4;
+
 
 	// send command
 	RS = 0;
 	RW = 0;
 	E = 1;
-	for(uint8_t i;i<8;i++) DB[i] = cmd & (1<<i);
+	for(uint8_t i=0;i<8;i++) DB[i] = cmd & (1<<i);
 	E = 0;
+
 
 	kRTOS::taskDelay(delay);
 }
@@ -91,7 +95,7 @@ void kHD44780::write(uint8_t chr)
 	RS = 1;
 	RW = 0;
 	E = 1;
-	for(uint8_t i;i<8;i++) DB[i] = chr & (1<<i);
+	for(uint8_t i=0;i<8;i++) DB[i] = chr & (1<<i);
 	E = 0;
 
 	kRTOS::taskDelay(1);
